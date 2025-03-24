@@ -1,0 +1,156 @@
+{
+  "VERSION_APP": 0,
+  "ALM_VERSION": "V3.22.1",
+  "BETA": true,
+  "TITLE": "AlmexECM",
+  "HELP_URL": "https://almexoft.com",
+  "LANG": "en",
+  "INDEX_DATE": [
+    3,
+    1,
+    6,
+    12
+  ],
+  "START_YEAR": 2018,
+  "THRIFT": {
+    "URL": "https://total.almexecm.com:10443",
+    "CORE": "kaz-server-dev1",
+    "CHAT": "chat-server-dev1",
+    "AVATAR": "avatar-server-dev1",
+    "DASHBOARD": "module-dashboard",
+    "CUSTOM_OPTIONS": {
+      "customHeaders": {}
+    }
+  },
+  "UNIQUE_PDF_ID": true,
+  "ENABLE_PDF_DOWNLOAD": true,
+  "ATTACHMENT_EDIT_MODE": true,
+  "DOC_MAP_RELATIONS": true,
+  "STAGE_PERIOD_OF_EXECUTION": true,
+  "COPY_ATTACHMENT_TO_CHILD_DOC": false,
+  "COPY_CONTENT_ITEMS_VALUE_TO_CHILD": true,
+  "DOC_TYPE_CHILD": "CHILD",
+  "USE_BPM_ROLES": true,
+  "SHOW_REASSIGN_TYPE": false,
+  "IIT": {
+    "allowedKeyMediaTypes": [
+      "е.ключ BIFIT iToken",
+      "криптомод. ІІТ Гряда-61",
+      "е.ключ ІІТ Алмаз-1К",
+      "е.ключ ІІТ Кристал-1",
+      "ID-карта громадянина (БЕН)",
+      "е.ключ ІІТ Алмаз-1К (PKCS#11)",
+      "е.ключ ІІТ Кристал-1 (PKCS#11)",
+      "е.ключ чи смарт-карта Avest (PKCS#11)",
+      "е.ключ Ефіт Key (PKCS#11)",
+      "е.ключ чи смарт-карта Автор (PKCS#11)",
+      "е.ключ чи смарт-карта Автор 338 (PKCS#11)",
+      "смарт-карта Техноконс. TEllipse3 (PKCS#11)",
+      "смарт-карта Техноконс. TEllipse",
+      "смарт-карта Техноконс. TEllipse2/3",
+      "криптомод. ІІТ Гряда-301"
+    ]
+  },
+  "DEVICE_NAME_IIT": [
+    "криптомод. ІІТ Гряда-301"
+  ],
+  "SIGN_TYPE": [
+    "FILE",
+    "SERVER",
+    "TOKEN"
+  ],
+  "USER_EMAIL_REQUIRED": true,
+  "MOBILE_STORE": {
+    "APPLE": "https://apps.apple.com/us/app/almexecm/id1490394433",
+    "ANDROID": "https://play.google.com/store/apps/details?id=com.almex.ecm&hl=ru&gl=US"
+  },
+  "STAGE_LEAD_TIME": "1d",
+  "SET_DOCUMENT_VIEWED": 7000,
+  "LOGIN_LOGO_IMG_URL": "",
+  "LOGIN_TOP_RIGHT_IMG_URL": "",
+  "INFO_LOGIN": {
+    "ru": "",
+    "uk": "",
+    "en": ""
+  },
+  "DOWNLOAD_DOCUMENT_TEMPLATE": true,
+  "DEFAULT_TYPE_ATTACHMENT_SET_DECISION": "CARD",
+  "CUSTOM_JOB_TASK": [],
+  "HIDE_REMOVE_USER_IN_SHARE_DOC": false,
+  "HIDE_BLOCKED_USERS_IN_STAGE": true,
+  "DOCUMENT_HEADER_VIEW": "NUMBER",
+  "SELECT_PATTERN_ACCOUNT_POSITION": "CONTENT",
+  "SHOW_REMOVED_USERS_IN_SEARCH": true,
+  "COUNT_MESSAGES_DOCUMENTS_PAGE_UPDATE": 10000,
+  "TIME_BY_DEFAULT": "18:00",
+  "SHOW_RESET_PASSWORD": true,
+  "ONLY_OFFICE": {
+    "editorConfig": {
+      "plugins": {}
+    }
+  },
+  "DISCUSSION": {
+    "AUTO_ADD_USERS": true
+  },
+  "REPORT_VIEW": {
+    "HIDE_BUTTON_GENERATE": false,
+    "HIDE_BUTTON_DOWNLOAD": false
+  },
+  "BULK_SIGN": {
+    "AUTO_DECISION_SHOW": true
+  },
+  "KNLG": {
+    "SHOW_ATTS_PREVIEW": true
+  },
+  "DOC_VIEW": {
+    "DOC_ABOUT_FIELDS": [
+      "numberDocument",
+      "registrationDate",
+      "systemNumber",
+      "createDate",
+      "cardDeadlineDate",
+      "documentDeadlineDate",
+      "externalNumber",
+      "externalRegDate",
+      "filledDocumentPattern.account.accountName",
+      "filledDocumentPattern.documentPatternGroup.nameDocPatGroup",
+      "filledDocumentPattern.nameDocPattern",
+      "tags",
+      "stage.nameDocPatStage",
+      "stage.runPerriodicall",
+      "stage.execPriority",
+      "documentParticipantGroup",
+      "matchingUserGroup",
+      "docSubStasuses"
+    ],
+    "SHOW_DOC_ABOUT_ATTACHMENTS": true,
+    "DOC_ABOUT_DEFAULT_OPEN_TAB": [
+      "attachments",
+      "about",
+      "sc",
+      "executors",
+      "relations",
+      "tabs"
+    ]
+  },
+  "BPM": {
+    "SEARCH_IN_FIELD": false
+  },
+  "ADMIN": {
+    "LOGS": {
+      "PERIOD_FILTER_MONTH": 4
+    }
+  },
+  "TINYMCE": {
+    "init": {
+      "content_style": "p { font-size: 10pt; font-family: \"times new roman\", times, serif}"
+    }
+  },
+  "SET_DECISION": {
+    "SELECT_ATTACHMENT_SIGN": ["PRIMARY", "SECONDARY"]
+  },
+  "COPY_PERSONAL_ACCESS": {
+    "SHOW_ACCESS_DATE_TO": false
+  },
+  "SHOW_MODAL_LANGUAGE": false
+}
