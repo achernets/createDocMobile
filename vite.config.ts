@@ -11,4 +11,14 @@ export default defineConfig({
     vitePluginRequire.default(),
     nodePolyfills()
   ],
+  server: {
+    open: true,
+    host: '0.0.0.0',
+    port: 3000
+  },
+  preview: {
+    open: true,
+    host: '0.0.0.0',
+    port: 3000
+  },
 })

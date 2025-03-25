@@ -54,7 +54,7 @@ const ActionSheetSelect = ({ label, optionLabel = 'id', disabled = false,
     initialPageParam: 1,
     getNextPageParam: (lastPage, _, lastPageParam) => {
       //@ts-expect-error
-      if (lastPage && lastPage.length < filter?.countFilter) {
+      if (lastPage && lastPage.length < filter?.countFilter || 15) {
         return undefined
       }
       return lastPageParam + 1;
@@ -65,11 +65,7 @@ const ActionSheetSelect = ({ label, optionLabel = 'id', disabled = false,
         flatData: data.pages.flat()
       }
     },
-    initialData: {
-      pageParams: [1],
-      pages: [[]],
-      
-    },
+    staleTime: 60 * 1000, // 1 minute
     enabled: visible
   });
 
@@ -92,9 +88,8 @@ const ActionSheetSelect = ({ label, optionLabel = 'id', disabled = false,
   }, [localValue]);
 
   const filterdData = useMemo(() => {
-    if (fieldSearch !== undefined) return data?.flatData;
-    return searchFilter(data?.flatData, [optionLabel], strSearch)
-
+    if (fieldSearch !== undefined) return data?.flatData || [];
+    return searchFilter(data?.flatData, [optionLabel], strSearch);
   }, [fieldSearch, data?.flatData, strSearch]);
 
   return <>

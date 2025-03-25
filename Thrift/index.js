@@ -99,8 +99,8 @@ const generateThriftFiles = async () => {
 
   await (replace({
     files: [`src/api/data/core/*.ts`],
-    from: /import Int64 = require\("node-int64"\)/g,
-    to: 'import Int64 from "node-int64"'
+    from: /import Int64 = require\("node-int64"\);/g,
+    to: 'import Int64 from "node-int64";'
   }));
 
   await (replace({

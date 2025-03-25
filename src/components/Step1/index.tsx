@@ -33,7 +33,6 @@ const Step1 = (): JSX.Element => {
         </Button>
       </Space>}
     >
-
       <ActionSheetSelect
         label={'Акаунт'}
         queryKey={['getAccounts']}
@@ -46,7 +45,6 @@ const Step1 = (): JSX.Element => {
         value={account}
         onChange={(val) => useAppStore.getState().setAccount(val)}
       />
-
       <ActionSheetSelect
         label={'Группа'}
         queryKey={['getAllDocumentPatternGroups', account?.id || '']}

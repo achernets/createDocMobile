@@ -1,6 +1,7 @@
 import { create } from 'zustand';
-import { AuthServiceClient, initClient } from '../api';
-import { Account, UserOrGroup, DocumentPattern, DocumentPatternGroup } from '../api/data/core';
+import { AuthServiceClient, initClient, UserManagementServiceClient } from '../api';
+import { Account, UserOrGroup, DocumentPattern, DocumentPatternGroup, KazFilter, FilterItem, FilterFieldType, FilterCondition } from '../api/data/core';
+import { find } from 'lodash';
 
 interface AppStore {
   account: Account | null,
@@ -38,11 +39,24 @@ const useAppStore = create<AppStore>((set) => ({
       const user = token === null ? null : await AuthServiceClient.refreshAuthSession(
         token
       );
+      const accounts = token === null ? [] : await UserManagementServiceClient.getAccounts(token, new KazFilter({
+        position: 0,
+        countFilter: 999,
+        items: [
+          new FilterItem({
+            field: 'main',
+            value: 'true',
+            fType: FilterFieldType.BOOLEAN,
+            condition: FilterCondition.EQUAL
+          })
+        ]
+      }));
       set({
         loadingApp: false,
         avatarUrl: `${settings.THRIFT.URL}/${settings.THRIFT.AVATAR}`,
         token: token !== null ? token : '',
-        clientInfo: user?.clientInfo || null
+        clientInfo: user?.clientInfo || null,
+        account: find(accounts, { main: true }) || null
       });
     } catch (error) {
       console.log(error);
