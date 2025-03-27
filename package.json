@@ -14,10 +14,12 @@
     "@types/thrift": "^0.10.17",
     "antd-mobile": "^5.39.0",
     "antd-mobile-icons": "^0.3.0",
+    "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
     "node-int64": "^0.4.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-hook-form": "^7.54.2",
     "react-virtualized": "^9.22.6",
     "replace-in-file": "^7.2.0",
     "styled-components": "^6.1.16",
@@ -29,21 +31,21 @@
   "devDependencies": {
     "@creditkarma/thrift-client": "^1.0.4",
     "@creditkarma/thrift-typescript": "^3.7.6",
-    "@eslint/js": "^9.22.0",
-    "@types/react": "^19.0.11",
+    "@eslint/js": "^9.23.0",
+    "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
-    "@vitejs/plugin-react-swc": "^3.8.0",
-    "eslint": "^9.22.0",
+    "@vitejs/plugin-react-swc": "^3.8.1",
+    "eslint": "^9.23.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "typescript": "~5.8.2",
-    "typescript-eslint": "^8.26.1",
-    "vite": "^6.2.2"
+    "typescript-eslint": "^8.28.0",
+    "vite": "^6.2.3"
   },
   "overrides": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "vite": "^6.2.2"
+    "vite": "^6.2.3"
   }
 }

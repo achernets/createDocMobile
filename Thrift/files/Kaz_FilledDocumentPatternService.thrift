@@ -63,4 +63,6 @@ service FilledDocumentPatternService {
   list<Kaz_DocumentService.PatternVariable> getFreezeProcessVariables(1: common.AuthTokenBase64 token, 2: common.ID docId, 3: Kaz_DocumentService.DocumentAccessPolicy policy 4: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Изменение списка процессных переменных */
   list<Kaz_DocumentService.PatternVariable> changeFreezePatternVariables(1: common.AuthTokenBase64 token, 2: common.ID docId, 3: Kaz_DocumentService.DocumentAccessPolicy policy, 4: list<Kaz_DocumentService.PatternVariable> patternVariablesToAdd, 5: set<string> keyIdToRemove) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  /** Список всех айтемов, без проверки видимости и без данных */
+  list<Kaz_DocumentService.ContentItem>  getContentItems(1: common.AuthTokenBase64 token, 2: common.ID docId, 3: Kaz_DocumentService.DocumentAccessPolicy policy 4: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 }

@@ -10,7 +10,7 @@ interface AppStore {
   loadingApp: boolean,
   avatarUrl: string,
   token: string,
-  clientInfo: UserOrGroup | null,
+  clientInfo: UserOrGroup,
   step: 'SELECT_PATTERN' | 'CREATE_DOC',
   getInitialApp: () => void,
   setAccount: (account: Account | null) => void,
@@ -22,7 +22,7 @@ const useAppStore = create<AppStore>((set) => ({
   loadingApp: true,
   avatarUrl: '',
   token: '',
-  clientInfo: null,
+  clientInfo: new UserOrGroup(),
   account: null,
   groupPattern: null,
   pattern: null,
@@ -51,18 +51,19 @@ const useAppStore = create<AppStore>((set) => ({
           })
         ]
       }));
+      console.log(accounts)
       set({
         loadingApp: false,
         avatarUrl: `${settings.THRIFT.URL}/${settings.THRIFT.AVATAR}`,
         token: token !== null ? token : '',
-        clientInfo: user?.clientInfo || null,
+        clientInfo: user?.clientInfo,
         account: find(accounts, { main: true }) || null
       });
     } catch (error) {
       console.log(error);
     }
   },
-  step: "SELECT_PATTERN"
+  step: "SELECT_PATTERN",
 }));
 
 export default useAppStore;

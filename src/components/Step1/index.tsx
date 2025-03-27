@@ -1,12 +1,13 @@
 import { JSX } from 'react';
-import { Button, Form, Space } from 'antd-mobile'
+import { Button, Space } from 'antd-mobile'
 import { DocumentPatternServiceClient, UserManagementServiceClient } from '../../api';
 import useAppStore from '../../store/useAppStore';
 import { useShallow } from 'zustand/shallow';
 import { KazFilter } from '../../api/data/core/KazFilter';
-import ActionSheetSelect from '../ActionSheetSelect';
+import ActionSheetSelect from '../Form/ActionSheetSelect';
 import { FilterCondition, FilterFieldType, FilterItem } from '../../api/data/core';
 import { compact } from 'lodash';
+import { FormStyled } from './styled';
 
 
 const Step1 = (): JSX.Element => {
@@ -19,7 +20,7 @@ const Step1 = (): JSX.Element => {
   })));
 
   return (<>
-    <Form
+    <FormStyled
       name='form'
       footer={<Space
         justify={'between'}
@@ -28,7 +29,14 @@ const Step1 = (): JSX.Element => {
         <Button style={{ minWidth: 100 }} size='large'>
           Відмінити
         </Button>
-        <Button style={{ minWidth: 100 }} type='submit' color='primary' size='large'>
+        <Button style={{ minWidth: 100 }}
+          color='primary'
+          size='large'
+          disabled={pattern === null}
+          onClick={() => useAppStore.setState({
+            step: 'CREATE_DOC'
+          })}
+        >
           Готово
         </Button>
       </Space>}
@@ -89,6 +97,7 @@ const Step1 = (): JSX.Element => {
       />
       <ActionSheetSelect
         label={'Тип документа'}
+        disabled={groupPattern === null}
         queryKey={['getAllDocumentPatterns', account?.id || '', groupPattern?.id || '']}
         filter={new KazFilter({
           position: 0,
@@ -126,7 +135,7 @@ const Step1 = (): JSX.Element => {
         value={pattern}
         onChange={(val) => useAppStore.getState().setPattern(val)}
       />
-    </Form>
+    </FormStyled>
   </>);
 };
 

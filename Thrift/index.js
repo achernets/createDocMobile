@@ -76,6 +76,12 @@ const generateThriftFiles = async () => {
     to: '/** без описания */'
   }));
 
+  // await (replace({
+  //   files: `${saveUrl}*.thrift`,
+  //   from: /i64/g,
+  //   to: 'double'
+  // }));
+
   await (replace({
     files: `${saveUrl}*.thrift`,
     from: /com.devtech.kaz.thrift.gen/g,

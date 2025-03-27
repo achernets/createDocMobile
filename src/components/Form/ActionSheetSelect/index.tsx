@@ -4,9 +4,9 @@ import { JSX, useCallback, useMemo, useState } from 'react';
 import { compact, map, size } from 'lodash';
 import { ListStyled, ItemFullStyled } from './styled';
 import { CheckOutline } from 'antd-mobile-icons';
-import { searchFilter } from '../../utils';
-import { FilterCondition, FilterFieldType, FilterItem, KazFilter } from '../../api/data/core';
-import { useDebounce } from '../../hooks';
+import { searchFilter } from '../../../utils';
+import { FilterCondition, FilterFieldType, FilterItem, KazFilter } from '../../../api/data/core';
+import { useDebounce } from '../../../hooks';
 
 type ActionSheetSelectProps = {
   label?: string,

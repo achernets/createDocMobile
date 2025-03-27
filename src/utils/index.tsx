@@ -10,3 +10,12 @@ export const searchFilter = (items: any, fields: string[], string: string) => {
     return hash;
   }, {}));
 };
+
+export const parseDate = (date: any) => {
+  let value = date
+  if(date?.toNumber){
+    value = date?.toNumber(); 
+  } 
+  if(value === -1 || value === undefined) return null;
+  return value;
+};

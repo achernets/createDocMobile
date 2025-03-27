@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { createGlobalStyle } from 'styled-components';
 import { ConfigProvider } from 'antd-mobile';
 import App from './App.tsx'
-import enUS from 'antd-mobile/es/locales/en-US';
+import enUS from 'antd-mobile/es/locales/ru-Ru';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { queryClient } from './api/index.ts';
 
