@@ -11,7 +11,7 @@ const Wrapper = styled(Form.Item)`
 
 const TabsStyled = styled(Tabs)`
   .adm-tabs-content{
-    padding: 0px;
+    padding: 0px 16px;
   }
 `;
 

@@ -4,7 +4,7 @@ import { DocumentPatternServiceClient, UserManagementServiceClient } from '../..
 import useAppStore from '../../store/useAppStore';
 import { useShallow } from 'zustand/shallow';
 import { KazFilter } from '../../api/data/core/KazFilter';
-import ActionSheetSelect from '../Form/ActionSheetSelect';
+import ActionSheetAsyncSelect from '../Form/ActionSheetAsyncSelect';
 import { FilterCondition, FilterFieldType, FilterItem } from '../../api/data/core';
 import { compact } from 'lodash';
 import { FormStyled } from './styled';
@@ -41,7 +41,7 @@ const Step1 = (): JSX.Element => {
         </Button>
       </Space>}
     >
-      <ActionSheetSelect
+      <ActionSheetAsyncSelect
         label={'Акаунт'}
         queryKey={['getAccounts']}
         filter={new KazFilter({
@@ -53,7 +53,7 @@ const Step1 = (): JSX.Element => {
         value={account}
         onChange={(val) => useAppStore.getState().setAccount(val)}
       />
-      <ActionSheetSelect
+      <ActionSheetAsyncSelect
         label={'Группа'}
         queryKey={['getAllDocumentPatternGroups', account?.id || '']}
         filter={new KazFilter({
@@ -95,7 +95,7 @@ const Step1 = (): JSX.Element => {
           useAppStore.getState().setGroupPattern(val)
         }}
       />
-      <ActionSheetSelect
+      <ActionSheetAsyncSelect
         label={'Тип документа'}
         disabled={groupPattern === null}
         queryKey={['getAllDocumentPatterns', account?.id || '', groupPattern?.id || '']}

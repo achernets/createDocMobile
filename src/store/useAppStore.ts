@@ -4,6 +4,7 @@ import { Account, UserOrGroup, DocumentPattern, DocumentPatternGroup, KazFilter,
 import { find } from 'lodash';
 
 interface AppStore {
+  accounts: Account[],
   account: Account | null,
   groupPattern: DocumentPatternGroup | null,
   pattern: DocumentPattern | null,
@@ -19,6 +20,7 @@ interface AppStore {
 };
 
 const useAppStore = create<AppStore>((set) => ({
+  accounts: [],
   loadingApp: true,
   avatarUrl: '',
   token: '',
@@ -51,13 +53,13 @@ const useAppStore = create<AppStore>((set) => ({
           })
         ]
       }));
-      console.log(accounts)
       set({
         loadingApp: false,
         avatarUrl: `${settings.THRIFT.URL}/${settings.THRIFT.AVATAR}`,
         token: token !== null ? token : '',
         clientInfo: user?.clientInfo,
-        account: find(accounts, { main: true }) || null
+        account: find(accounts, { main: true }) || null,
+        accounts: accounts
       });
     } catch (error) {
       console.log(error);

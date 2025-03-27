@@ -122,6 +122,12 @@ const Step2 = (): JSX.Element => {
             control={control}
             multiple={false}
             label={'Контроль покласти на (за необхідності)'}
+            changeProps={{
+              useFavorite: true,
+              documentId: null,
+              patternId: pattern?.id || null,
+              filters: []
+            }}
           />
           <DateTimePicker
             name={'document.documentDeadlineDate'}

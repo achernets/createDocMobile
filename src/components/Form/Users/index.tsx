@@ -5,7 +5,7 @@ import UserView from "../../UserView";
 import { Control, useController } from "react-hook-form";
 import { Wrapper } from "./styled";
 import { Button } from "antd-mobile";
-import ChangeUsers from "../../ChangeUsers";
+import ChangeUsers, { ChangeUsersProperties } from "../../ChangeUsers";
 
 type UsersProps = {
   label?: string,
@@ -13,10 +13,11 @@ type UsersProps = {
   name: string,
   control: Control<any>,
   multiple?: boolean,
-  disabled?: boolean
+  disabled?: boolean,
+  changeProps: ChangeUsersProperties
 }
 
-const Users = ({ label, name, control, defaultValue = [], disabled = false, multiple = false }: UsersProps): JSX.Element => {
+const Users = ({ label, name, control, defaultValue = [], disabled = false, multiple = false, changeProps }: UsersProps): JSX.Element => {
   const { field: { value } } = useController({
     name,
     control,
@@ -33,6 +34,7 @@ const Users = ({ label, name, control, defaultValue = [], disabled = false, mult
     <ChangeUsers
       visible={visible}
       onHide={setVisible}
+      changeProps={changeProps ? changeProps : {}}
     />
 
   </Wrapper>
