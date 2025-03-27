@@ -31,11 +31,11 @@ const Users = ({ label, name, control, defaultValue = [], disabled = false, mult
   >
     {map(value, (user) => <UserView user={user} key={user?.id} />)}
     {!disabled && <Button block onClick={() => setVisible(true)}>Додати користувача</Button>}
-    <ChangeUsers
+    {visible && <ChangeUsers
       visible={visible}
       onHide={setVisible}
       changeProps={changeProps ? changeProps : {}}
-    />
+    />}
 
   </Wrapper>
 };

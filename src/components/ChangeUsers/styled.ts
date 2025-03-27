@@ -10,9 +10,27 @@ const Wrapper = styled(Form.Item)`
 `;
 
 const TabsStyled = styled(Tabs)`
-  .adm-tabs-content{
-    padding: 0px 16px;
-  }
+    height: calc(100% - 38px);
+    display: flex;
+    flex-direction: column;
+    .adm-tabs-content{ 
+      overflow: hidden;
+      display: flex !important;
+      flex-direction: column;
+      padding: 0px 16px;
+      .adm-list{
+        flex: 1;
+        overflow: hidden;
+        .adm-list-body{
+          overflow: hidden;
+          height: 100%;
+          .adm-list-body-inner{
+            overflow: auto;
+            height: 100%;
+          }
+        }
+      }
+    }
 `;
 
 export {

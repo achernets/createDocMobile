@@ -1,15 +1,16 @@
-import { JSX, useState } from "react";
-import { Button, Ellipsis, Popup, Tabs } from "antd-mobile";
+import { JSX, useEffect, useState } from "react";
+import { Button, Ellipsis, Form, Input, List, Popup, Tabs } from "antd-mobile";
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { CloseOutline, LeftOutline } from "antd-mobile-icons";
 import { TabsStyled } from "./styled";
 import ActionSheetSelect from "../Form/ActionSheetSelect";
 import useAppStore from "../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
-import { Account, FilterItem, KazFilter } from "../../api/data/core";
+import { Account, FilterItem, KazFilter, UserOrGroup, UserOrGroupType } from "../../api/data/core";
 import { find } from "lodash";
 import { useDebounce } from "../../hooks";
 import { DocumentPatternServiceClient, UserManagementServiceClient } from "../../api";
+import UserView from "../UserView";
 
 export type ChangeUsersProperties = {
   filters?: FilterItem[],
@@ -34,9 +35,19 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
   const [account, setAccount] = useState<Account | null>(defAccount);
   const [strSearch, setStrSearch] = useState<string>('');
 
-  const { filters = [], useFavorite = false, patternId = null, documentId = null }  = changeProps;
+  const [visibleLocal, setVisible] = useState<boolean>(false);
+
+  const { filters = [], useFavorite = false, patternId = null, documentId = null } = changeProps;
 
   const debouncedSearch = useDebounce(strSearch, 500);
+
+  useEffect(() => {
+    if(visible){
+      setTimeout(() => {
+        setVisible(true);
+      }, 100);
+    }
+  }, []);
 
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: [filterType, account?.id || null, debouncedSearch],
@@ -55,8 +66,15 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
             result = await UserManagementServiceClient.getAllUsers(token, filter);
             break;
           case 'roles':
-
-            result = await DocumentPatternServiceClient.getPatternProcessRoles(token, patternId, filter);
+            if (patternId !== null) {
+              let roles = await DocumentPatternServiceClient.getPatternProcessRoles(token, patternId, filter);
+              result = roles.map(itm => new UserOrGroup({
+                id: itm.key,
+                userOrGroupId: itm.key,
+                userFirstName: itm.oName,
+                type: UserOrGroupType.USER
+              }));
+            }
             break;
 
           default:
@@ -88,13 +106,16 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
 
   return <Popup
     position='right'
-    visible={visible}
+    visible={visibleLocal}
     onClose={() => {
-      onHide(false)
+      setVisible(false);
+      onHide(false);
     }}
     bodyStyle={{
       width: '100%',
-      height: '100%'
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column'
     }}
   >
     <div style={{
@@ -107,7 +128,10 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
           gridColumn: 1,
           alignSelf: 'start'
         }}
-        onClick={() => onHide(false)}
+        onClick={() =>{
+          setVisible(false);
+          onHide(false);
+        }}
         fill={'none'}
         shape={'rounded'}>
         <LeftOutline />
@@ -126,7 +150,10 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
         gridColumn: 3,
         alignSelf: 'end'
       }}
-        onClick={() => onHide(false)}
+        onClick={() => {
+          setVisible(false);
+          onHide(false)
+        }}
         fill={'none'}
         shape={'rounded'}
       >
@@ -167,6 +194,22 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
           }))}
           onChange={(val) => setAccount(find(accounts, { id: val }) || null)}
         />
+        <Form.Item
+          label={'Назва'}
+        >
+          <Input
+            placeholder={'Введіть назву'}
+            value={strSearch}
+            onChange={(val) => setStrSearch(val)}
+          />
+        </Form.Item>
+        <List>
+          {data?.flatData?.map(item=>
+            <UserView key={item?.id} user={item} />
+            
+          )}
+            
+        </List>
       </Tabs.Tab>
       <Tabs.Tab
         title='Видалити'

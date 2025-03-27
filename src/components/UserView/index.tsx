@@ -1,5 +1,5 @@
-import { Image, List } from "antd-mobile";
-import { JSX } from "react";
+import { Ellipsis, Image, List } from "antd-mobile";
+import { JSX, useMemo } from "react";
 import { UserOrGroup } from "../../api/data/core";
 
 type UserViewProps = {
@@ -7,6 +7,20 @@ type UserViewProps = {
 };
 
 const UserView = ({ user }: UserViewProps): JSX.Element => {
+
+  const fio = useMemo(() => {
+    let str = '';
+    if (user?.userLastName) {
+      str = str + ' ' + user?.userLastName;
+    }
+    if (user?.userFirstName) {
+      str = str + ' ' + user?.userFirstName;
+    }
+    if (user?.userMiddleName) {
+      str = str + ' ' +  user?.userMiddleName;
+    }
+    return str;
+  }, [user]);
 
   return <List.Item
     prefix={
@@ -20,7 +34,7 @@ const UserView = ({ user }: UserViewProps): JSX.Element => {
     }
     description={user?.position}
   >
-    {user?.userLastName} {user?.userFirstName} {user?.userMiddleName}
+    <Ellipsis content={fio}/>
   </List.Item>
 };
 
