@@ -34,6 +34,7 @@ const Users = ({ label, name, control, defaultValue = [], disabled = false, mult
     {visible && <ChangeUsers
       visible={visible}
       onHide={setVisible}
+      //@ts-ignore
       changeProps={changeProps ? changeProps : {}}
     />}
 

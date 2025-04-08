@@ -1,7 +1,7 @@
-import { JSX, useEffect, useState } from "react";
-import { Button, Ellipsis, Form, Input, List, Popup, Tabs } from "antd-mobile";
+import { JSX, useCallback, useEffect, useState } from "react";
+import { Button, InfiniteScroll, Ellipsis, Form, Input, List, Popup, Tabs } from "antd-mobile";
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { CloseOutline, LeftOutline } from "antd-mobile-icons";
+import { AddOutline, CloseOutline, LeftOutline, MinusOutline } from "antd-mobile-icons";
 import { TabsStyled } from "./styled";
 import ActionSheetSelect from "../Form/ActionSheetSelect";
 import useAppStore from "../../store/useAppStore";
@@ -47,6 +47,11 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
         setVisible(true);
       }, 100);
     }
+  }, [visible]);
+
+  const onHideHandler = useCallback(() => {
+    setVisible(false);
+    setTimeout(() => onHide(false), 300);
   }, []);
 
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage } = useInfiniteQuery({
@@ -107,10 +112,7 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
   return <Popup
     position='right'
     visible={visibleLocal}
-    onClose={() => {
-      setVisible(false);
-      onHide(false);
-    }}
+    onClose={onHideHandler}
     bodyStyle={{
       width: '100%',
       height: '100%',
@@ -128,10 +130,7 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
           gridColumn: 1,
           alignSelf: 'start'
         }}
-        onClick={() =>{
-          setVisible(false);
-          onHide(false);
-        }}
+        onClick={onHideHandler}
         fill={'none'}
         shape={'rounded'}>
         <LeftOutline />
@@ -150,10 +149,7 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
         gridColumn: 3,
         alignSelf: 'end'
       }}
-        onClick={() => {
-          setVisible(false);
-          onHide(false)
-        }}
+        onClick={onHideHandler}
         fill={'none'}
         shape={'rounded'}
       >
@@ -165,6 +161,9 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
         title='Додати'
         key={'info'}
       >
+        <div style={{
+          padding: '0px 16px'
+        }}>
         <ActionSheetSelect
           label={'Фільтр'}
           value={filterType}
@@ -203,19 +202,35 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
             onChange={(val) => setStrSearch(val)}
           />
         </Form.Item>
+        </div>
         <List>
           {data?.flatData?.map(item=>
-            <UserView key={item?.id} user={item} />
-            
+            <UserView 
+              key={item?.id} 
+              user={item} 
+              extra={<Button fill={'none'} shape={'rounded'}><AddOutline /></Button>}
+            />
           )}
             
+        {hasNextPage && <InfiniteScroll hasMore={hasNextPage} loadMore={async () => {
+          await fetchNextPage()
+        }} />}
         </List>
       </Tabs.Tab>
       <Tabs.Tab
         title='Видалити'
         key={'info1'}
       >
-        123
+        <List>
+          {data?.flatData?.map(item=>
+            <UserView 
+              key={item?.id} 
+              user={item} 
+              extra={<Button fill={'none'} shape={'rounded'}><MinusOutline /></Button>}
+            />
+          )}
+            
+        </List>
       </Tabs.Tab>
     </TabsStyled>
   </Popup>

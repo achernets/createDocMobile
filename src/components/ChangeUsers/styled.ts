@@ -17,7 +17,7 @@ const TabsStyled = styled(Tabs)`
       overflow: hidden;
       display: flex !important;
       flex-direction: column;
-      padding: 0px 16px;
+      padding: 0px;
       .adm-list{
         flex: 1;
         overflow: hidden;

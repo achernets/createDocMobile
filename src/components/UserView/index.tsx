@@ -1,13 +1,13 @@
-import { Ellipsis, Image, List } from "antd-mobile";
+import { Ellipsis, Image, List, ListItemProps } from "antd-mobile";
 import { JSX, useMemo } from "react";
 import { UserOrGroup } from "../../api/data/core";
 
 type UserViewProps = {
   user: UserOrGroup
-};
+} & ListItemProps
 
-const UserView = ({ user }: UserViewProps): JSX.Element => {
-
+const UserView = ({ user, ...props }: UserViewProps): JSX.Element => {
+  
   const fio = useMemo(() => {
     let str = '';
     if (user?.userLastName) {
@@ -33,6 +33,7 @@ const UserView = ({ user }: UserViewProps): JSX.Element => {
       />
     }
     description={user?.position}
+    {...props}
   >
     <Ellipsis content={fio}/>
   </List.Item>
