@@ -53,7 +53,6 @@ const ActionSheetAsyncSelect = ({ label, optionLabel = 'id', disabled = false,
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage, _, lastPageParam) => {
-      //@ts-expect-error 
       if (lastPage && lastPage.length < filter?.countFilter || 15) {
         return undefined
       }

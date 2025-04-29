@@ -11,7 +11,7 @@ import {
   Document,
   DocumentAccessPolicy,
   DocumentAccessPolicyType
-} from "../../api/data/core";
+} from "../../api/data";
 import Users from "../Form/Users";
 import TextArea from "../Form/TextArea";
 import Checkbox from "../Form/Checkbox";
