@@ -100,17 +100,17 @@ const generateThriftFiles = async () => {
     outDir: 'src/api/data',
     target: 'apache',
     files: files,
-    fallbackNamespace: 'java'
+    fallbackNamespace: 'none'
   })
 
   await (replace({
-    files: [`src/api/data/core/*.ts`],
+    files: [`src/api/data/*.ts`],
     from: /import Int64 = require\("node-int64"\);/g,
-    to: 'import Int64 from "node-int64";'
+    to: 'import { Int64 } from "thrift";'
   }));
 
   await (replace({
-    files: [`src/api/data/core/kazDate.ts`, `src/api/data/core/count.ts`],
+    files: [`src/api/data/kazDate.ts`, `src/api/data/count.ts`],
     from: /import \* as thrift from "thrift";/g,
     to: ''
   }));

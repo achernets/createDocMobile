@@ -3,9 +3,9 @@ import { Button, Space } from 'antd-mobile'
 import { DocumentPatternServiceClient, UserManagementServiceClient } from '../../api';
 import useAppStore from '../../store/useAppStore';
 import { useShallow } from 'zustand/shallow';
-import { KazFilter } from '../../api/data/core/KazFilter';
+import { KazFilter } from '../../api/data/KazFilter';
 import ActionSheetAsyncSelect from '../Form/ActionSheetAsyncSelect';
-import { FilterCondition, FilterFieldType, FilterItem } from '../../api/data/core';
+import { FilterCondition, FilterFieldType, FilterItem } from '../../api/data/';
 import { compact } from 'lodash';
 import { FormStyled } from './styled';
 

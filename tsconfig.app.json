@@ -6,6 +6,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "noUncheckedIndexedAccess": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -16,13 +17,15 @@
     "jsx": "react-jsx",
 
     /* Linting */
-    "strict": true,
+    "strict": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-    "disableSizeLimit": true
+    "maxNodeModuleJsDepth": 2,
+    "disableSizeLimit": true,
+    "noImplicitAny": false,
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist", "build", "**/*.test.ts", "**/__tests__/*"]
+  "exclude": ["node_modules", "dist", "build", "**/*.test.ts", "**/__tests__/*", "api/data/**/*.ts"]
 }

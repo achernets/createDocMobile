@@ -413,7 +413,8 @@ service DocumentPatternService {
 
   /** Получение списка доступных динамический действий */
   list<Kaz_DocumentService.AvailableAction> getAvailableActionList(1: common.AuthTokenBase64 token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-
+  /** Добавить в очередь ночных задач задачу на перерасчет доп. полей документа (С1-С20) */
+  bool addPatternNightlyDocFieldsTask(1: common.AuthTokenBase64 token, 2: common.ID patternId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** получение списка колонок привязанных к шаблону */
   list<Kaz_types.DocColumn>getAllColumnsForPattern(1: common.AuthTokenBase64 token, 2:common.ID patternId, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** изменение колонок привязанных к шаблону */

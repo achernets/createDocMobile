@@ -1,7 +1,7 @@
 
 import { TBufferedTransport, TJSONProtocol, XHRConnection, createXHRConnection, createXHRClient } from 'thrift';
-import { AuthService, DocumentPatternService, DocumentService, UserManagementService } from './data/core';
-import { AUTH_SERVICE_PATH_JSON, DOCUMENT_PATTERN_SERVICE_PATH_JSON, DOCUMENT_SERVICE_PATH_JSON, USER_SERVICE_PATH_JSON } from './data/core/constants';
+import { AuthService, DocumentPatternService, DocumentService, UserManagementService } from './data';
+import { AUTH_SERVICE_PATH_JSON, DOCUMENT_PATTERN_SERVICE_PATH_JSON, DOCUMENT_SERVICE_PATH_JSON, USER_SERVICE_PATH_JSON } from './data/constants';
 import { QueryClient } from '@tanstack/react-query';
 
 let AuthServiceClient: AuthService.Client;

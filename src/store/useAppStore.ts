@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { AuthServiceClient, initClient, UserManagementServiceClient } from '../api';
-import { Account, UserOrGroup, DocumentPattern, DocumentPatternGroup, KazFilter, FilterItem, FilterFieldType, FilterCondition } from '../api/data/core';
+import { Account, UserOrGroup, DocumentPattern, DocumentPatternGroup, KazFilter, FilterItem, FilterFieldType, FilterCondition } from '../api/data';
 import { find } from 'lodash';
 
 interface AppStore {

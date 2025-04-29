@@ -5,6 +5,7 @@ import { useShallow } from 'zustand/shallow';
 import Step1 from './components/Step1';
 import { CloseOutline, LeftOutline } from 'antd-mobile-icons';
 import Step2 from './components/Step2';
+import ModalManager from './components/ModalRenderer';
 
 const App = (): JSX.Element => {
   const { loadingApp, getInitialApp, step } = useAppStore(useShallow((state) => ({
@@ -74,6 +75,7 @@ const App = (): JSX.Element => {
       {step === 'SELECT_PATTERN' && <Step1 />}
       {step === 'CREATE_DOC' && <Step2 />}
     </>}
+    <ModalManager />
   </div>;
 }
 

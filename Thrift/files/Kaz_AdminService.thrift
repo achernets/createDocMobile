@@ -28,7 +28,8 @@ enum JobTaskType {
   UPDATE_MASK_FOR_GROUP,
   UPDATE_MASK_FOR_USERS_GROUP,
   ADD_SC_TO_USER_OR_GROUPS,
-  UPDATE_DOC_ITEMS_SEARCH_VALUE;
+  UPDATE_DOC_ITEMS_SEARCH_VALUE,
+  UPDATE_DOC_ADDITIONAL_FIELDS;
 }
 
 /** Запланированная задача*/
@@ -230,7 +231,7 @@ struct UserOptions {
 service AdminService {
   list<Kaz_types.AvailableFileStorage> getAvailableFileStorageList(1: common.AuthTokenBase64 token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Создание/изменение файлового хранилища */
-  Kaz_types.FileStorage createOrUpdateFileStorage(1: common.AuthTokenBase64 token, 2: Kaz_types.FileStorage fileStorage, 3: string password, 4:list<Kaz_types.Account> accountsToAdd, 5:list<Kaz_types.Account> accountsToRemove) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  Kaz_types.FileStorage createOrUpdateFileStorage(1: common.AuthTokenBase64 token, 2: Kaz_types.FileStorage fileStorage, 3:list<Kaz_types.Account> accountsToAdd, 4:list<Kaz_types.Account> accountsToRemove) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Получение списка дисковых хранилищ
   * accountGroupId - по группе аккаунтов
   * accountId - по аккаунту
@@ -241,7 +242,7 @@ service AdminService {
   /** Получение количества дисковых хранилищ */
   i32 getCountAllFileStorages(1: common.AuthTokenBase64 token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Удаление файлового хранилища */
-  bool removeFileStorages(1: common.AuthTokenBase64 token, 2: list<common.ID> fileStorageIds, 3: string password) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  bool removeFileStorages(1: common.AuthTokenBase64 token, 2: list<common.ID> fileStorageIds) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Перемещение вложения в новое хранилище */
   bool moveAttachment(1: common.AuthTokenBase64 token, 2: common.ID docId, 3: common.ID fileStorageId, 4: bool onlyLatest) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Создание/изменение новости */
@@ -259,7 +260,7 @@ service AdminService {
   /* Обновление внешнего модуля */
   ExternalModule refreshExternalModule(1: common.AuthTokenBase64 token, 2: common.ID extModuleId, 3: bool removeDeletedStages) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /* Удаление внешнего модуля */
-  bool removeExternalModule(1: common.AuthTokenBase64 token, 2: common.ID extModuleId, 3: string password) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  bool removeExternalModule(1: common.AuthTokenBase64 token, 2: common.ID extModuleId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /* Пинг внешнего модуля */
   bool pingExternalModule(1: common.AuthTokenBase64 token, 2: common.ID extModuleId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /* Понг внешнего модуля */
@@ -279,9 +280,9 @@ service AdminService {
   bool changeExecutorForPatternStages(1: common.AuthTokenBase64 token, 2: list<common.ID> patternIds, 3: common.UserOrGroup userOrGroup, 4: list<common.UserOrGroup> usersOrGroups) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
   /** Установить/заменить пользовательский публичный ключ */
-  common.ID setUserPublicKey(1: common.AuthTokenBase64 token, 2: common.ID userId, 3: string publicKey, 4: string password) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  common.ID setUserPublicKey(1: common.AuthTokenBase64 token, 2: common.ID userId, 3: string publicKey) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Удалить пользовательский публичный ключ */
-  bool removeUserPublicKey(1: common.AuthTokenBase64 token, 2: common.ID keyId, 3: string password) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  bool removeUserPublicKey(1: common.AuthTokenBase64 token, 2: common.ID keyId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
 /**
  *  с фильтром accountId возвращает только тех пользователей, которые прикреплены к аккаунту, без фильтра - абсолютно всех
@@ -309,7 +310,7 @@ service AdminService {
 **/
   bool runScheduler(1: common.AuthTokenBase64 token, 2: string oName, 3: bool wait) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Загрузка ключа шифрования */
-  bool changeEncryptKey(1: common.AuthTokenBase64 token, 2: string key, 3:common.ID accountId, 4: string password) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  bool changeEncryptKey(1: common.AuthTokenBase64 token, 2: string key, 3:common.ID accountId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Получение списка расширенных пользователей
    * licenceDateTo - по дате окончания лицензии
    * type - по типу(NORMAL,EXT_MODULE,IMPORTED)

@@ -5,7 +5,7 @@ import { compact, map, size } from 'lodash';
 import { ListStyled, ItemFullStyled } from './styled';
 import { CheckOutline } from 'antd-mobile-icons';
 import { searchFilter } from '../../../utils';
-import { FilterCondition, FilterFieldType, FilterItem, KazFilter } from '../../../api/data/core';
+import { FilterCondition, FilterFieldType, FilterItem, KazFilter } from '../../../api/data/';
 import { useDebounce } from '../../../hooks';
 
 type ActionSheetAsyncSelectProps = {
@@ -53,7 +53,7 @@ const ActionSheetAsyncSelect = ({ label, optionLabel = 'id', disabled = false,
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage, _, lastPageParam) => {
-      //@ts-expect-error
+      //@ts-expect-error 
       if (lastPage && lastPage.length < filter?.countFilter || 15) {
         return undefined
       }

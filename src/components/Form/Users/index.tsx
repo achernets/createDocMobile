@@ -1,5 +1,5 @@
 import { JSX, useState } from "react";
-import { UserOrGroup } from "../../../api/data/core";
+import { UserOrGroup } from "../../../api/data/";
 import { map } from "lodash";
 import UserView from "../../UserView";
 import { Control, useController } from "react-hook-form";

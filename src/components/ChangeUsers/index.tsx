@@ -6,7 +6,7 @@ import { TabsStyled } from "./styled";
 import ActionSheetSelect from "../Form/ActionSheetSelect";
 import useAppStore from "../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
-import { Account, FilterItem, KazFilter, UserOrGroup, UserOrGroupType } from "../../api/data/core";
+import { Account, FilterItem, KazFilter, UserOrGroup, UserOrGroupType } from "../../api/data/";
 import { find } from "lodash";
 import { useDebounce } from "../../hooks";
 import { DocumentPatternServiceClient, UserManagementServiceClient } from "../../api";
@@ -52,13 +52,13 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
   const onHideHandler = useCallback(() => {
     setVisible(false);
     setTimeout(() => onHide(false), 300);
-  }, []);
+  }, [onHide]);
 
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: [filterType, account?.id || null, debouncedSearch],
     queryFn: async ({ pageParam }) => {
       try {
-        let filter = new KazFilter({
+        const filter = new KazFilter({
           position: (pageParam - 1) * 15,
           countFilter: 15,
           orders: useFavorite ? ['fav_first', 'alphabetical'] : ['alphabetical'],
@@ -72,7 +72,7 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
             break;
           case 'roles':
             if (patternId !== null) {
-              let roles = await DocumentPatternServiceClient.getPatternProcessRoles(token, patternId, filter);
+              const roles = await DocumentPatternServiceClient.getPatternProcessRoles(token, patternId, filter);
               result = roles.map(itm => new UserOrGroup({
                 id: itm.key,
                 userOrGroupId: itm.key,

@@ -2145,6 +2145,14 @@ enum DocKeyType {
     VARIABLE
 }
 
+/** Информация о вложении при генерации URL для загрузки */
+struct AttachmentDownloadInfo {
+  /** Идентификатор вложения */
+  1: optional common.ID id;
+  /* Типы вложений */
+  2: list<AttachmentType> types;
+}
+
 /** Сервис управления документами */
 service DocumentService {
   DocPermissions calculatePermissions(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3:DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
@@ -2455,4 +2463,6 @@ service DocumentService {
   string documentFieldByKey(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3: string key, 4: DocKeyType keyType) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Выполнить декорации для вложения  */
   bool addDecoration(1: common.AuthTokenBase64 token, 2: common.ID attachmentId, 3: list<string> decoratorKeys) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  /** Сгенерировать URL загрузки вложений с сервера  */
+  string generateDownloadAttachmentsURL(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3: list<AttachmentDownloadInfo> attachmentsInfo, 4: DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 }

@@ -1,6 +1,6 @@
 import { Ellipsis, Image, List, ListItemProps } from "antd-mobile";
 import { JSX, useMemo } from "react";
-import { UserOrGroup } from "../../api/data/core";
+import { UserOrGroup } from "../../api/data/";
 
 type UserViewProps = {
   user: UserOrGroup
