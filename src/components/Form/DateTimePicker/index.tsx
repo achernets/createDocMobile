@@ -11,7 +11,8 @@ type DatePickerFProps = {
   defaultValue?: number | Int64,
   name: string,
   control: Control<any>,
-  time?: boolean
+  time?: boolean,
+  required?: boolean,
 } & Omit<CalendarProps, 'defaultValue' | 'onChange' | 'selectionMode' | 'value'>
 
 const hours = Array.from({ length: 24 }, (_, i) => ({
@@ -24,7 +25,7 @@ const minutes = Array.from({ length: 60 }, (_, i) => ({
   value: i.toString().padStart(2, '0'),
 }));
 
-const DatePicker = ({ label, name, control, defaultValue = -1, time = false, ...props }: DatePickerFProps): JSX.Element => {
+const DatePicker = ({ label, name, control, defaultValue = -1, time = false, required = false, ...props }: DatePickerFProps): JSX.Element => {
   const { field: { value, onChange, ...field } } = useController({
     name,
     control,
@@ -56,6 +57,7 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, ...
   return <>
     <Wrapper
       label={label}
+      required={required}
     >
       <div style={{
         display: 'flex',

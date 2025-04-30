@@ -1,23 +1,17 @@
 // @ts-nocheck
 import { JSX, useCallback, useEffect } from "react";
 import { Button, Modal, Space, Tabs } from "antd-mobile";
-import { DocumentPatternServiceClient } from "../../api";
+import { DocumentPatternServiceClient, DocumentServiceClient } from "../../api";
+import { AttachmentExtStatus } from "../../api/data";
 import useAppStore from "../../store/useAppStore";
 import useModalStore from "../../store/useModals";
 import { useShallow } from "zustand/shallow";
 import { FormStyled, TabsStyled } from "./styled";
 import { useForm } from "react-hook-form";
-import {
-  Document,
-  DocumentAccessPolicy,
-  DocumentAccessPolicyType
-} from "../../api/data";
-import Users from "../Form/Users";
-import TextArea from "../Form/TextArea";
-import Checkbox from "../Form/Checkbox";
+import { Document, DocumentAccessPolicy, DocumentAccessPolicyType } from "../../api/data";
+import UploadAttAndPatternTemplate from "../Form/UploadAttAndPatternTemplate";
+import TabInfo from "./components/TabInfo";
 import { get } from "lodash";
-import DateTimePicker from "../Form/DateTimePicker";
-import { AddOutline } from "antd-mobile-icons";
 
 const Step2 = (): JSX.Element => {
   const { token, clientInfo, account, groupPattern, pattern } = useAppStore(
@@ -34,7 +28,7 @@ const Step2 = (): JSX.Element => {
     openModal: state.openModal
   })));
 
-  const { control, reset, watch } = useForm({
+  const { control, reset, watch, setValue } = useForm({
     defaultValues: {
       author: [clientInfo],
       controlUsers: [clientInfo],
@@ -43,6 +37,7 @@ const Step2 = (): JSX.Element => {
         controlForDocument: true,
         documentDeadlineDate: -1,
       }),
+      attachments: []
     },
   });
 
@@ -56,7 +51,7 @@ const Step2 = (): JSX.Element => {
         new DocumentAccessPolicy({
           type: DocumentAccessPolicyType.ACCESS,
         }),
-      ) as unknown;
+      );
       reset({
         author: [clientInfo],
         controlUsers: [clientInfo],
@@ -65,10 +60,9 @@ const Step2 = (): JSX.Element => {
           controlForDocument: true,
           documentDeadlineDate: -1,
         }),
+        attachments: []
       });
-      console.log(result);
     } catch (error) {
-
       console.log(error);
     }
   }, [token, pattern, clientInfo, reset]);
@@ -76,8 +70,6 @@ const Step2 = (): JSX.Element => {
   useEffect(() => {
     getInfoDoc();
   }, [getInfoDoc]);
-
-  const [controlForDocument] = watch(["document.controlForDocument"]);
 
   useEffect(() => {
     const { unsubscribe } = watch((value, { name }) => {
@@ -119,77 +111,19 @@ const Step2 = (): JSX.Element => {
         </div>
         <TabsStyled defaultActiveKey={"info"}>
           <Tabs.Tab title="Відомості" key={"info"}>
-            <Users
-              name={"author"}
+            <TabInfo
               control={control}
-              multiple={false}
-              label={"Автор"}
-              disabled={true}
+              pattern={pattern}
             />
-            <TextArea
-              label={"Короткий зміст"}
-              name={"document.nameDocument"}
-              control={control}
-              showCount
-              maxLength={2000}
-              placeholder="Ввести"
-            />
-            <Checkbox
-              label={"Поставити на контроль"}
-              name={"document.controlForDocument"}
-              control={control}
-            />
-            {controlForDocument && (
-              <>
-                <Users
-                  name={"controlUsers"}
-                  control={control}
-                  multiple={false}
-                  label={"Контроль покласти на (за необхідності)"}
-                  changeProps={{
-                    useFavorite: true,
-                    documentId: null,
-                    patternId: pattern?.id || null,
-                    filters: [],
-                  }}
-                />
-                <DateTimePicker
-                  name={"document.documentDeadlineDate"}
-                  control={control}
-                  required={true}
-                  label={"Контрольний термін документу"}
-                  time={true}
-                />
-              </>
-            )}
           </Tabs.Tab>
 
           <Tabs.Tab title="Вкладення" key={"atts"}>
-            <div style={{
-              display: "flex",
-              gap: "8px",
-              padding: "8px",
-              flexDirection: "column",
-            }}>
-              <Button
-                type="primary"
-                block={true}
-              >
-                <AddOutline /> Дадати файл
-              </Button>
-              <Button
-                type="primary"
-                block={true}
-                onClick={() => {
-                  openModal('PATTERN_ATTACHMENTS', {
-                    patternId: pattern.id,
-                    cb: result =>console.log(result)
-                  })
-                }}
-              >
-                <AddOutline /> Додати вкладення з шаблону
-              </Button>
-            </div>
+            <UploadAttAndPatternTemplate
+              name={"attachments"}
+              control={control}
+              pattern={pattern}
+              allowSubStatuses={[AttachmentExtStatus.PRIMARY, AttachmentExtStatus.SECONDARY]}
+            />
           </Tabs.Tab>
 
           <Tabs.Tab title="Хід виконання" key={"stages"}></Tabs.Tab>

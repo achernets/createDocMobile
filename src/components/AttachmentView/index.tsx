@@ -9,7 +9,6 @@ type AttachmentViewProps = {
 
 const AttachmentView = ({ attachment }: AttachmentViewProps): JSX.Element => {
 
-  console.log(attachment);
 
   return <div>
     123

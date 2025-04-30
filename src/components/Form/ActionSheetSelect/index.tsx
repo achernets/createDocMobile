@@ -31,8 +31,6 @@ const ActionSheetAsyncSelect = ({ label, value, disabled = false,
     return localValue === item.value;
   }, [localValue]);
 
-  console.log(value, localValue)
-
   const filterdData = useMemo(() => {
     return searchFilter(options, ['label'], strSearch);
   }, [options, strSearch]);

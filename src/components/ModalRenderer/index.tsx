@@ -1,13 +1,11 @@
 import React, { Suspense } from 'react';
 import { useModalStore } from '../../store/useModals';
+import { SpinLoading } from 'antd-mobile';
 const PatternAttachmentsModal = React.lazy(() => import('../Modals/PatternAttachments'));
-// Динамічний імпорт модальних вікон
-// const ConfirmDeleteModal = React.lazy(() => import('./modals/ConfirmDeleteModal'));
-// const UserProfileModal = React.lazy(() => import('./modals/UserProfileModal'));
 
 const ModalManager = () => {
   const modals = useModalStore((s) => s.modals);
-  console.log(modals)
+  
   return (
     <>
       {modals.map((modal) => {
@@ -25,7 +23,7 @@ const ModalManager = () => {
             break;
         }
         return (
-          <Suspense fallback={<div>Loading...</div>} key={modal.id}>
+          <Suspense fallback={<div><SpinLoading color={'primary'} /></div>} key={modal.id}>
             {ModalComponent}
           </Suspense>
         );

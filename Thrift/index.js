@@ -8,8 +8,6 @@ import replace from 'replace-in-file';
 const initFile = 'Kaz_api.thrift';
 const host = 'https://total.almexecm.com:10443';
 const coreUrl = '/kaz-server-dev1/';
-const chatUrl = '/chat-server-dev1/';
-const dashboardUrl = '/module-dashboard/';
 const dir = 'Thrift/';
 const saveUrl = `${dir}files/`;
 
@@ -76,23 +74,11 @@ const generateThriftFiles = async () => {
     to: '/** без описания */'
   }));
 
-  // await (replace({
-  //   files: `${saveUrl}*.thrift`,
-  //   from: /i64/g,
-  //   to: 'double'
-  // }));
-
   await (replace({
     files: `${saveUrl}*.thrift`,
     from: /com.devtech.kaz.thrift.gen/g,
     to: 'core'
   }));
-
-  // await (replace({
-  //   files: `${saveUrl}*.thrift`,
-  //   from: /com.devtech.mrk.thrift.gen/g,
-  //   to: 'mrk'
-  // }));
 
   generate({
     rootDir: '.',

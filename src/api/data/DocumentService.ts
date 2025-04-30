@@ -16241,6 +16241,120 @@ export class GenerateDownloadAttachmentsURLArgs {
         }
     }
 }
+export interface ISetAttachmentProcessingStatusArgsArgs {
+    token: string;
+    attachmentIds: Array<string>;
+    processingStatus: __ROOT_NAMESPACE__.AttachmentProcessingStatus;
+}
+export class SetAttachmentProcessingStatusArgs {
+    public token: string;
+    public attachmentIds: Array<string>;
+    public processingStatus: __ROOT_NAMESPACE__.AttachmentProcessingStatus;
+    constructor(args: ISetAttachmentProcessingStatusArgsArgs) {
+        if (args != null && args.token != null) {
+            this.token = args.token;
+        }
+        else {
+            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[token] is unset!");
+        }
+        if (args != null && args.attachmentIds != null) {
+            this.attachmentIds = args.attachmentIds;
+        }
+        else {
+            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[attachmentIds] is unset!");
+        }
+        if (args != null && args.processingStatus != null) {
+            this.processingStatus = args.processingStatus;
+        }
+        else {
+            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[processingStatus] is unset!");
+        }
+    }
+    public write(output: thrift.TProtocol): void {
+        output.writeStructBegin("SetAttachmentProcessingStatusArgs");
+        if (this.token != null) {
+            output.writeFieldBegin("token", thrift.Thrift.Type.STRING, 1);
+            output.writeString(this.token);
+            output.writeFieldEnd();
+        }
+        if (this.attachmentIds != null) {
+            output.writeFieldBegin("attachmentIds", thrift.Thrift.Type.LIST, 2);
+            output.writeListBegin(thrift.Thrift.Type.STRING, this.attachmentIds.length);
+            this.attachmentIds.forEach((value_646: string): void => {
+                output.writeString(value_646);
+            });
+            output.writeListEnd();
+            output.writeFieldEnd();
+        }
+        if (this.processingStatus != null) {
+            output.writeFieldBegin("processingStatus", thrift.Thrift.Type.I32, 3);
+            output.writeI32(this.processingStatus);
+            output.writeFieldEnd();
+        }
+        output.writeFieldStop();
+        output.writeStructEnd();
+        return;
+    }
+    public static read(input: thrift.TProtocol): SetAttachmentProcessingStatusArgs {
+        input.readStructBegin();
+        let _args: any = {};
+        while (true) {
+            const ret: thrift.TField = input.readFieldBegin();
+            const fieldType: thrift.Thrift.Type = ret.ftype;
+            const fieldId: number = ret.fid;
+            if (fieldType === thrift.Thrift.Type.STOP) {
+                break;
+            }
+            switch (fieldId) {
+                case 1:
+                    if (fieldType === thrift.Thrift.Type.STRING) {
+                        const value_647: string = input.readString();
+                        _args.token = value_647;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                case 2:
+                    if (fieldType === thrift.Thrift.Type.LIST) {
+                        const value_648: Array<string> = new Array<string>();
+                        const metadata_73: thrift.TList = input.readListBegin();
+                        const size_73: number = metadata_73.size;
+                        for (let i_73: number = 0; i_73 < size_73; i_73++) {
+                            const value_649: string = input.readString();
+                            value_648.push(value_649);
+                        }
+                        input.readListEnd();
+                        _args.attachmentIds = value_648;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                case 3:
+                    if (fieldType === thrift.Thrift.Type.I32) {
+                        const value_650: __ROOT_NAMESPACE__.AttachmentProcessingStatus = input.readI32();
+                        _args.processingStatus = value_650;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                default: {
+                    input.skip(fieldType);
+                }
+            }
+            input.readFieldEnd();
+        }
+        input.readStructEnd();
+        if (_args.token !== undefined && _args.attachmentIds !== undefined && _args.processingStatus !== undefined) {
+            return new SetAttachmentProcessingStatusArgs(_args);
+        }
+        else {
+            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Unable to read SetAttachmentProcessingStatusArgs from input");
+        }
+    }
+}
 export interface ICalculatePermissionsResultArgs {
     success?: DocPermissions.DocPermissions;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
@@ -16295,8 +16409,8 @@ export class CalculatePermissionsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_646: DocPermissions.DocPermissions = DocPermissions.DocPermissions.read(input);
-                        _args.success = value_646;
+                        const value_651: DocPermissions.DocPermissions = DocPermissions.DocPermissions.read(input);
+                        _args.success = value_651;
                     }
                     else {
                         input.skip(fieldType);
@@ -16304,8 +16418,8 @@ export class CalculatePermissionsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_647: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_647;
+                        const value_652: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_652;
                     }
                     else {
                         input.skip(fieldType);
@@ -16313,8 +16427,8 @@ export class CalculatePermissionsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_648: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_648;
+                        const value_653: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_653;
                     }
                     else {
                         input.skip(fieldType);
@@ -16384,8 +16498,8 @@ export class CreateOrUpdateDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_649: Document.Document = Document.Document.read(input);
-                        _args.success = value_649;
+                        const value_654: Document.Document = Document.Document.read(input);
+                        _args.success = value_654;
                     }
                     else {
                         input.skip(fieldType);
@@ -16393,8 +16507,8 @@ export class CreateOrUpdateDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_650: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_650;
+                        const value_655: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_655;
                     }
                     else {
                         input.skip(fieldType);
@@ -16402,8 +16516,8 @@ export class CreateOrUpdateDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_651: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_651;
+                        const value_656: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_656;
                     }
                     else {
                         input.skip(fieldType);
@@ -16473,8 +16587,8 @@ export class UpdateDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_652: Document.Document = Document.Document.read(input);
-                        _args.success = value_652;
+                        const value_657: Document.Document = Document.Document.read(input);
+                        _args.success = value_657;
                     }
                     else {
                         input.skip(fieldType);
@@ -16482,8 +16596,8 @@ export class UpdateDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_653: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_653;
+                        const value_658: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_658;
                     }
                     else {
                         input.skip(fieldType);
@@ -16491,8 +16605,8 @@ export class UpdateDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_654: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_654;
+                        const value_659: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_659;
                     }
                     else {
                         input.skip(fieldType);
@@ -16562,8 +16676,8 @@ export class CreateDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_655: Document.Document = Document.Document.read(input);
-                        _args.success = value_655;
+                        const value_660: Document.Document = Document.Document.read(input);
+                        _args.success = value_660;
                     }
                     else {
                         input.skip(fieldType);
@@ -16571,8 +16685,8 @@ export class CreateDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_656: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_656;
+                        const value_661: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_661;
                     }
                     else {
                         input.skip(fieldType);
@@ -16580,8 +16694,8 @@ export class CreateDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_657: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_657;
+                        const value_662: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_662;
                     }
                     else {
                         input.skip(fieldType);
@@ -16651,8 +16765,8 @@ export class CreateDocumentFromXMLResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_658: Document.Document = Document.Document.read(input);
-                        _args.success = value_658;
+                        const value_663: Document.Document = Document.Document.read(input);
+                        _args.success = value_663;
                     }
                     else {
                         input.skip(fieldType);
@@ -16660,8 +16774,8 @@ export class CreateDocumentFromXMLResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_659: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_659;
+                        const value_664: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_664;
                     }
                     else {
                         input.skip(fieldType);
@@ -16669,8 +16783,8 @@ export class CreateDocumentFromXMLResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_660: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_660;
+                        const value_665: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_665;
                     }
                     else {
                         input.skip(fieldType);
@@ -16740,8 +16854,8 @@ export class GetDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_661: Document.Document = Document.Document.read(input);
-                        _args.success = value_661;
+                        const value_666: Document.Document = Document.Document.read(input);
+                        _args.success = value_666;
                     }
                     else {
                         input.skip(fieldType);
@@ -16749,8 +16863,8 @@ export class GetDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_662: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_662;
+                        const value_667: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_667;
                     }
                     else {
                         input.skip(fieldType);
@@ -16758,8 +16872,8 @@ export class GetDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_663: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_663;
+                        const value_668: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_668;
                     }
                     else {
                         input.skip(fieldType);
@@ -16800,8 +16914,8 @@ export class GetAllDocumentsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_664: Document.Document): void => {
-                value_664.write(output);
+            this.success.forEach((value_669: Document.Document): void => {
+                value_669.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -16833,15 +16947,15 @@ export class GetAllDocumentsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_665: Array<Document.Document> = new Array<Document.Document>();
-                        const metadata_73: thrift.TList = input.readListBegin();
-                        const size_73: number = metadata_73.size;
-                        for (let i_73: number = 0; i_73 < size_73; i_73++) {
-                            const value_666: Document.Document = Document.Document.read(input);
-                            value_665.push(value_666);
+                        const value_670: Array<Document.Document> = new Array<Document.Document>();
+                        const metadata_74: thrift.TList = input.readListBegin();
+                        const size_74: number = metadata_74.size;
+                        for (let i_74: number = 0; i_74 < size_74; i_74++) {
+                            const value_671: Document.Document = Document.Document.read(input);
+                            value_670.push(value_671);
                         }
                         input.readListEnd();
-                        _args.success = value_665;
+                        _args.success = value_670;
                     }
                     else {
                         input.skip(fieldType);
@@ -16849,8 +16963,8 @@ export class GetAllDocumentsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_667: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_667;
+                        const value_672: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_672;
                     }
                     else {
                         input.skip(fieldType);
@@ -16858,8 +16972,8 @@ export class GetAllDocumentsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_668: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_668;
+                        const value_673: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_673;
                     }
                     else {
                         input.skip(fieldType);
@@ -16929,8 +17043,8 @@ export class GetCountAllDocumentsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_669: number = input.readI32();
-                        _args.success = value_669;
+                        const value_674: number = input.readI32();
+                        _args.success = value_674;
                     }
                     else {
                         input.skip(fieldType);
@@ -16938,8 +17052,8 @@ export class GetCountAllDocumentsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_670: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_670;
+                        const value_675: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_675;
                     }
                     else {
                         input.skip(fieldType);
@@ -16947,8 +17061,8 @@ export class GetCountAllDocumentsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_671: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_671;
+                        const value_676: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_676;
                     }
                     else {
                         input.skip(fieldType);
@@ -17018,8 +17132,8 @@ export class DeleteDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_672: boolean = input.readBool();
-                        _args.success = value_672;
+                        const value_677: boolean = input.readBool();
+                        _args.success = value_677;
                     }
                     else {
                         input.skip(fieldType);
@@ -17027,8 +17141,8 @@ export class DeleteDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_673: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_673;
+                        const value_678: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_678;
                     }
                     else {
                         input.skip(fieldType);
@@ -17036,8 +17150,8 @@ export class DeleteDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_674: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_674;
+                        const value_679: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_679;
                     }
                     else {
                         input.skip(fieldType);
@@ -17078,8 +17192,8 @@ export class GetAllPassedStagesResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_675: PassedStage.PassedStage): void => {
-                value_675.write(output);
+            this.success.forEach((value_680: PassedStage.PassedStage): void => {
+                value_680.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -17111,15 +17225,15 @@ export class GetAllPassedStagesResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_676: Array<PassedStage.PassedStage> = new Array<PassedStage.PassedStage>();
-                        const metadata_74: thrift.TList = input.readListBegin();
-                        const size_74: number = metadata_74.size;
-                        for (let i_74: number = 0; i_74 < size_74; i_74++) {
-                            const value_677: PassedStage.PassedStage = PassedStage.PassedStage.read(input);
-                            value_676.push(value_677);
+                        const value_681: Array<PassedStage.PassedStage> = new Array<PassedStage.PassedStage>();
+                        const metadata_75: thrift.TList = input.readListBegin();
+                        const size_75: number = metadata_75.size;
+                        for (let i_75: number = 0; i_75 < size_75; i_75++) {
+                            const value_682: PassedStage.PassedStage = PassedStage.PassedStage.read(input);
+                            value_681.push(value_682);
                         }
                         input.readListEnd();
-                        _args.success = value_676;
+                        _args.success = value_681;
                     }
                     else {
                         input.skip(fieldType);
@@ -17127,8 +17241,8 @@ export class GetAllPassedStagesResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_678: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_678;
+                        const value_683: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_683;
                     }
                     else {
                         input.skip(fieldType);
@@ -17136,8 +17250,8 @@ export class GetAllPassedStagesResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_679: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_679;
+                        const value_684: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_684;
                     }
                     else {
                         input.skip(fieldType);
@@ -17178,8 +17292,8 @@ export class GetExecutionTreeResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_680: ExecutionTree.ExecutionTree): void => {
-                value_680.write(output);
+            this.success.forEach((value_685: ExecutionTree.ExecutionTree): void => {
+                value_685.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -17211,15 +17325,15 @@ export class GetExecutionTreeResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_681: Array<ExecutionTree.ExecutionTree> = new Array<ExecutionTree.ExecutionTree>();
-                        const metadata_75: thrift.TList = input.readListBegin();
-                        const size_75: number = metadata_75.size;
-                        for (let i_75: number = 0; i_75 < size_75; i_75++) {
-                            const value_682: ExecutionTree.ExecutionTree = ExecutionTree.ExecutionTree.read(input);
-                            value_681.push(value_682);
+                        const value_686: Array<ExecutionTree.ExecutionTree> = new Array<ExecutionTree.ExecutionTree>();
+                        const metadata_76: thrift.TList = input.readListBegin();
+                        const size_76: number = metadata_76.size;
+                        for (let i_76: number = 0; i_76 < size_76; i_76++) {
+                            const value_687: ExecutionTree.ExecutionTree = ExecutionTree.ExecutionTree.read(input);
+                            value_686.push(value_687);
                         }
                         input.readListEnd();
-                        _args.success = value_681;
+                        _args.success = value_686;
                     }
                     else {
                         input.skip(fieldType);
@@ -17227,8 +17341,8 @@ export class GetExecutionTreeResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_683: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_683;
+                        const value_688: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_688;
                     }
                     else {
                         input.skip(fieldType);
@@ -17236,8 +17350,8 @@ export class GetExecutionTreeResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_684: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_684;
+                        const value_689: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_689;
                     }
                     else {
                         input.skip(fieldType);
@@ -17278,8 +17392,8 @@ export class GetActiveStagesResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_685: DocumentPatternStage.DocumentPatternStage): void => {
-                value_685.write(output);
+            this.success.forEach((value_690: DocumentPatternStage.DocumentPatternStage): void => {
+                value_690.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -17311,15 +17425,15 @@ export class GetActiveStagesResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_686: Array<DocumentPatternStage.DocumentPatternStage> = new Array<DocumentPatternStage.DocumentPatternStage>();
-                        const metadata_76: thrift.TList = input.readListBegin();
-                        const size_76: number = metadata_76.size;
-                        for (let i_76: number = 0; i_76 < size_76; i_76++) {
-                            const value_687: DocumentPatternStage.DocumentPatternStage = DocumentPatternStage.DocumentPatternStage.read(input);
-                            value_686.push(value_687);
+                        const value_691: Array<DocumentPatternStage.DocumentPatternStage> = new Array<DocumentPatternStage.DocumentPatternStage>();
+                        const metadata_77: thrift.TList = input.readListBegin();
+                        const size_77: number = metadata_77.size;
+                        for (let i_77: number = 0; i_77 < size_77; i_77++) {
+                            const value_692: DocumentPatternStage.DocumentPatternStage = DocumentPatternStage.DocumentPatternStage.read(input);
+                            value_691.push(value_692);
                         }
                         input.readListEnd();
-                        _args.success = value_686;
+                        _args.success = value_691;
                     }
                     else {
                         input.skip(fieldType);
@@ -17327,8 +17441,8 @@ export class GetActiveStagesResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_688: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_688;
+                        const value_693: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_693;
                     }
                     else {
                         input.skip(fieldType);
@@ -17336,8 +17450,8 @@ export class GetActiveStagesResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_689: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_689;
+                        const value_694: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_694;
                     }
                     else {
                         input.skip(fieldType);
@@ -17378,9 +17492,9 @@ export class GetCountPeoplesWhenRenderedDecisionResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.MAP, 0);
             output.writeMapBegin(thrift.Thrift.Type.STRING, thrift.Thrift.Type.I32, this.success.size);
-            this.success.forEach((value_690: number, key_19: string): void => {
+            this.success.forEach((value_695: number, key_19: string): void => {
                 output.writeString(key_19);
-                output.writeI32(value_690);
+                output.writeI32(value_695);
             });
             output.writeMapEnd();
             output.writeFieldEnd();
@@ -17412,16 +17526,16 @@ export class GetCountPeoplesWhenRenderedDecisionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.MAP) {
-                        const value_691: Map<string, number> = new Map<string, number>();
-                        const metadata_77: thrift.TMap = input.readMapBegin();
-                        const size_77: number = metadata_77.size;
-                        for (let i_77: number = 0; i_77 < size_77; i_77++) {
+                        const value_696: Map<string, number> = new Map<string, number>();
+                        const metadata_78: thrift.TMap = input.readMapBegin();
+                        const size_78: number = metadata_78.size;
+                        for (let i_78: number = 0; i_78 < size_78; i_78++) {
                             const key_20: string = input.readString();
-                            const value_692: number = input.readI32();
-                            value_691.set(key_20, value_692);
+                            const value_697: number = input.readI32();
+                            value_696.set(key_20, value_697);
                         }
                         input.readMapEnd();
-                        _args.success = value_691;
+                        _args.success = value_696;
                     }
                     else {
                         input.skip(fieldType);
@@ -17429,8 +17543,8 @@ export class GetCountPeoplesWhenRenderedDecisionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_693: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_693;
+                        const value_698: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_698;
                     }
                     else {
                         input.skip(fieldType);
@@ -17438,8 +17552,8 @@ export class GetCountPeoplesWhenRenderedDecisionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_694: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_694;
+                        const value_699: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_699;
                     }
                     else {
                         input.skip(fieldType);
@@ -17509,8 +17623,8 @@ export class SetDocumentDecisionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_695: Document.Document = Document.Document.read(input);
-                        _args.success = value_695;
+                        const value_700: Document.Document = Document.Document.read(input);
+                        _args.success = value_700;
                     }
                     else {
                         input.skip(fieldType);
@@ -17518,8 +17632,8 @@ export class SetDocumentDecisionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_696: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_696;
+                        const value_701: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_701;
                     }
                     else {
                         input.skip(fieldType);
@@ -17527,8 +17641,8 @@ export class SetDocumentDecisionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_697: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_697;
+                        const value_702: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_702;
                     }
                     else {
                         input.skip(fieldType);
@@ -17598,8 +17712,8 @@ export class SetDocumentDecisionByLinkIdResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_698: Document.Document = Document.Document.read(input);
-                        _args.success = value_698;
+                        const value_703: Document.Document = Document.Document.read(input);
+                        _args.success = value_703;
                     }
                     else {
                         input.skip(fieldType);
@@ -17607,8 +17721,8 @@ export class SetDocumentDecisionByLinkIdResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_699: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_699;
+                        const value_704: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_704;
                     }
                     else {
                         input.skip(fieldType);
@@ -17616,8 +17730,8 @@ export class SetDocumentDecisionByLinkIdResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_700: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_700;
+                        const value_705: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_705;
                     }
                     else {
                         input.skip(fieldType);
@@ -17687,8 +17801,8 @@ export class SetDocumentDecisionUsingServerKeyStorageResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_701: Document.Document = Document.Document.read(input);
-                        _args.success = value_701;
+                        const value_706: Document.Document = Document.Document.read(input);
+                        _args.success = value_706;
                     }
                     else {
                         input.skip(fieldType);
@@ -17696,8 +17810,8 @@ export class SetDocumentDecisionUsingServerKeyStorageResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_702: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_702;
+                        const value_707: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_707;
                     }
                     else {
                         input.skip(fieldType);
@@ -17705,8 +17819,8 @@ export class SetDocumentDecisionUsingServerKeyStorageResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_703: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_703;
+                        const value_708: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_708;
                     }
                     else {
                         input.skip(fieldType);
@@ -17776,8 +17890,8 @@ export class SetDocumentDecisionExtResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_704: Document.Document = Document.Document.read(input);
-                        _args.success = value_704;
+                        const value_709: Document.Document = Document.Document.read(input);
+                        _args.success = value_709;
                     }
                     else {
                         input.skip(fieldType);
@@ -17785,8 +17899,8 @@ export class SetDocumentDecisionExtResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_705: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_705;
+                        const value_710: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_710;
                     }
                     else {
                         input.skip(fieldType);
@@ -17794,8 +17908,8 @@ export class SetDocumentDecisionExtResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_706: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_706;
+                        const value_711: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_711;
                     }
                     else {
                         input.skip(fieldType);
@@ -17865,8 +17979,8 @@ export class ApproveDocumentDecisionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_707: boolean = input.readBool();
-                        _args.success = value_707;
+                        const value_712: boolean = input.readBool();
+                        _args.success = value_712;
                     }
                     else {
                         input.skip(fieldType);
@@ -17874,8 +17988,8 @@ export class ApproveDocumentDecisionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_708: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_708;
+                        const value_713: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_713;
                     }
                     else {
                         input.skip(fieldType);
@@ -17883,8 +17997,8 @@ export class ApproveDocumentDecisionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_709: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_709;
+                        const value_714: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_714;
                     }
                     else {
                         input.skip(fieldType);
@@ -17925,8 +18039,8 @@ export class ShareDocumentResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_710: DocumentExecution.DocumentExecution): void => {
-                value_710.write(output);
+            this.success.forEach((value_715: DocumentExecution.DocumentExecution): void => {
+                value_715.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -17958,15 +18072,15 @@ export class ShareDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_711: Array<DocumentExecution.DocumentExecution> = new Array<DocumentExecution.DocumentExecution>();
-                        const metadata_78: thrift.TList = input.readListBegin();
-                        const size_78: number = metadata_78.size;
-                        for (let i_78: number = 0; i_78 < size_78; i_78++) {
-                            const value_712: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
-                            value_711.push(value_712);
+                        const value_716: Array<DocumentExecution.DocumentExecution> = new Array<DocumentExecution.DocumentExecution>();
+                        const metadata_79: thrift.TList = input.readListBegin();
+                        const size_79: number = metadata_79.size;
+                        for (let i_79: number = 0; i_79 < size_79; i_79++) {
+                            const value_717: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
+                            value_716.push(value_717);
                         }
                         input.readListEnd();
-                        _args.success = value_711;
+                        _args.success = value_716;
                     }
                     else {
                         input.skip(fieldType);
@@ -17974,8 +18088,8 @@ export class ShareDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_713: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_713;
+                        const value_718: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_718;
                     }
                     else {
                         input.skip(fieldType);
@@ -17983,8 +18097,8 @@ export class ShareDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_714: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_714;
+                        const value_719: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_719;
                     }
                     else {
                         input.skip(fieldType);
@@ -18054,8 +18168,8 @@ export class RevokeDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_715: boolean = input.readBool();
-                        _args.success = value_715;
+                        const value_720: boolean = input.readBool();
+                        _args.success = value_720;
                     }
                     else {
                         input.skip(fieldType);
@@ -18063,8 +18177,8 @@ export class RevokeDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_716: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_716;
+                        const value_721: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_721;
                     }
                     else {
                         input.skip(fieldType);
@@ -18072,8 +18186,8 @@ export class RevokeDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_717: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_717;
+                        const value_722: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_722;
                     }
                     else {
                         input.skip(fieldType);
@@ -18114,8 +18228,8 @@ export class GetAllDocumentSharingsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_718: __ROOT_NAMESPACE__.UserOrGroup): void => {
-                value_718.write(output);
+            this.success.forEach((value_723: __ROOT_NAMESPACE__.UserOrGroup): void => {
+                value_723.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -18147,15 +18261,15 @@ export class GetAllDocumentSharingsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_719: Array<__ROOT_NAMESPACE__.UserOrGroup> = new Array<__ROOT_NAMESPACE__.UserOrGroup>();
-                        const metadata_79: thrift.TList = input.readListBegin();
-                        const size_79: number = metadata_79.size;
-                        for (let i_79: number = 0; i_79 < size_79; i_79++) {
-                            const value_720: __ROOT_NAMESPACE__.UserOrGroup = __ROOT_NAMESPACE__.UserOrGroup.read(input);
-                            value_719.push(value_720);
+                        const value_724: Array<__ROOT_NAMESPACE__.UserOrGroup> = new Array<__ROOT_NAMESPACE__.UserOrGroup>();
+                        const metadata_80: thrift.TList = input.readListBegin();
+                        const size_80: number = metadata_80.size;
+                        for (let i_80: number = 0; i_80 < size_80; i_80++) {
+                            const value_725: __ROOT_NAMESPACE__.UserOrGroup = __ROOT_NAMESPACE__.UserOrGroup.read(input);
+                            value_724.push(value_725);
                         }
                         input.readListEnd();
-                        _args.success = value_719;
+                        _args.success = value_724;
                     }
                     else {
                         input.skip(fieldType);
@@ -18163,8 +18277,8 @@ export class GetAllDocumentSharingsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_721: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_721;
+                        const value_726: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_726;
                     }
                     else {
                         input.skip(fieldType);
@@ -18172,8 +18286,8 @@ export class GetAllDocumentSharingsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_722: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_722;
+                        const value_727: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_727;
                     }
                     else {
                         input.skip(fieldType);
@@ -18214,8 +18328,8 @@ export class GetAllDocumentReassignResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_723: DocumentReassign.DocumentReassign): void => {
-                value_723.write(output);
+            this.success.forEach((value_728: DocumentReassign.DocumentReassign): void => {
+                value_728.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -18247,15 +18361,15 @@ export class GetAllDocumentReassignResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_724: Array<DocumentReassign.DocumentReassign> = new Array<DocumentReassign.DocumentReassign>();
-                        const metadata_80: thrift.TList = input.readListBegin();
-                        const size_80: number = metadata_80.size;
-                        for (let i_80: number = 0; i_80 < size_80; i_80++) {
-                            const value_725: DocumentReassign.DocumentReassign = DocumentReassign.DocumentReassign.read(input);
-                            value_724.push(value_725);
+                        const value_729: Array<DocumentReassign.DocumentReassign> = new Array<DocumentReassign.DocumentReassign>();
+                        const metadata_81: thrift.TList = input.readListBegin();
+                        const size_81: number = metadata_81.size;
+                        for (let i_81: number = 0; i_81 < size_81; i_81++) {
+                            const value_730: DocumentReassign.DocumentReassign = DocumentReassign.DocumentReassign.read(input);
+                            value_729.push(value_730);
                         }
                         input.readListEnd();
-                        _args.success = value_724;
+                        _args.success = value_729;
                     }
                     else {
                         input.skip(fieldType);
@@ -18263,8 +18377,8 @@ export class GetAllDocumentReassignResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_726: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_726;
+                        const value_731: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_731;
                     }
                     else {
                         input.skip(fieldType);
@@ -18272,8 +18386,8 @@ export class GetAllDocumentReassignResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_727: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_727;
+                        const value_732: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_732;
                     }
                     else {
                         input.skip(fieldType);
@@ -18314,106 +18428,6 @@ export class ReassignDocumentResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_728: DocumentExecution.DocumentExecution): void => {
-                value_728.write(output);
-            });
-            output.writeListEnd();
-            output.writeFieldEnd();
-        }
-        if (this.validError != null) {
-            output.writeFieldBegin("validError", thrift.Thrift.Type.STRUCT, 1);
-            this.validError.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.error != null) {
-            output.writeFieldBegin("error", thrift.Thrift.Type.STRUCT, 2);
-            this.error.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): ReassignDocumentResult {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 0:
-                    if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_729: Array<DocumentExecution.DocumentExecution> = new Array<DocumentExecution.DocumentExecution>();
-                        const metadata_81: thrift.TList = input.readListBegin();
-                        const size_81: number = metadata_81.size;
-                        for (let i_81: number = 0; i_81 < size_81; i_81++) {
-                            const value_730: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
-                            value_729.push(value_730);
-                        }
-                        input.readListEnd();
-                        _args.success = value_729;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_731: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_731;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_732: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_732;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        return new ReassignDocumentResult(_args);
-    }
-}
-export interface IReassignDocumentUsingServerKeyStorageResultArgs {
-    success?: Array<DocumentExecution.DocumentExecution>;
-    validError?: __ROOT_NAMESPACE__.PreconditionException;
-    error?: __ROOT_NAMESPACE__.ServerException;
-}
-export class ReassignDocumentUsingServerKeyStorageResult {
-    public success?: Array<DocumentExecution.DocumentExecution>;
-    public validError?: __ROOT_NAMESPACE__.PreconditionException;
-    public error?: __ROOT_NAMESPACE__.ServerException;
-    constructor(args?: IReassignDocumentUsingServerKeyStorageResultArgs) {
-        if (args != null && args.success != null) {
-            this.success = args.success;
-        }
-        if (args != null && args.validError != null) {
-            this.validError = args.validError;
-        }
-        if (args != null && args.error != null) {
-            this.error = args.error;
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("ReassignDocumentUsingServerKeyStorageResult");
-        if (this.success != null) {
-            output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
-            output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
             this.success.forEach((value_733: DocumentExecution.DocumentExecution): void => {
                 value_733.write(output);
             });
@@ -18434,7 +18448,7 @@ export class ReassignDocumentUsingServerKeyStorageResult {
         output.writeStructEnd();
         return;
     }
-    public static read(input: thrift.TProtocol): ReassignDocumentUsingServerKeyStorageResult {
+    public static read(input: thrift.TProtocol): ReassignDocumentResult {
         input.readStructBegin();
         let _args: any = {};
         while (true) {
@@ -18486,19 +18500,19 @@ export class ReassignDocumentUsingServerKeyStorageResult {
             input.readFieldEnd();
         }
         input.readStructEnd();
-        return new ReassignDocumentUsingServerKeyStorageResult(_args);
+        return new ReassignDocumentResult(_args);
     }
 }
-export interface IReassignDocumentExtResultArgs {
+export interface IReassignDocumentUsingServerKeyStorageResultArgs {
     success?: Array<DocumentExecution.DocumentExecution>;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
-export class ReassignDocumentExtResult {
+export class ReassignDocumentUsingServerKeyStorageResult {
     public success?: Array<DocumentExecution.DocumentExecution>;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
-    constructor(args?: IReassignDocumentExtResultArgs) {
+    constructor(args?: IReassignDocumentUsingServerKeyStorageResultArgs) {
         if (args != null && args.success != null) {
             this.success = args.success;
         }
@@ -18510,7 +18524,7 @@ export class ReassignDocumentExtResult {
         }
     }
     public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("ReassignDocumentExtResult");
+        output.writeStructBegin("ReassignDocumentUsingServerKeyStorageResult");
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
@@ -18534,7 +18548,7 @@ export class ReassignDocumentExtResult {
         output.writeStructEnd();
         return;
     }
-    public static read(input: thrift.TProtocol): ReassignDocumentExtResult {
+    public static read(input: thrift.TProtocol): ReassignDocumentUsingServerKeyStorageResult {
         input.readStructBegin();
         let _args: any = {};
         while (true) {
@@ -18574,6 +18588,106 @@ export class ReassignDocumentExtResult {
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
                         const value_742: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
                         _args.error = value_742;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                default: {
+                    input.skip(fieldType);
+                }
+            }
+            input.readFieldEnd();
+        }
+        input.readStructEnd();
+        return new ReassignDocumentUsingServerKeyStorageResult(_args);
+    }
+}
+export interface IReassignDocumentExtResultArgs {
+    success?: Array<DocumentExecution.DocumentExecution>;
+    validError?: __ROOT_NAMESPACE__.PreconditionException;
+    error?: __ROOT_NAMESPACE__.ServerException;
+}
+export class ReassignDocumentExtResult {
+    public success?: Array<DocumentExecution.DocumentExecution>;
+    public validError?: __ROOT_NAMESPACE__.PreconditionException;
+    public error?: __ROOT_NAMESPACE__.ServerException;
+    constructor(args?: IReassignDocumentExtResultArgs) {
+        if (args != null && args.success != null) {
+            this.success = args.success;
+        }
+        if (args != null && args.validError != null) {
+            this.validError = args.validError;
+        }
+        if (args != null && args.error != null) {
+            this.error = args.error;
+        }
+    }
+    public write(output: thrift.TProtocol): void {
+        output.writeStructBegin("ReassignDocumentExtResult");
+        if (this.success != null) {
+            output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
+            output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
+            this.success.forEach((value_743: DocumentExecution.DocumentExecution): void => {
+                value_743.write(output);
+            });
+            output.writeListEnd();
+            output.writeFieldEnd();
+        }
+        if (this.validError != null) {
+            output.writeFieldBegin("validError", thrift.Thrift.Type.STRUCT, 1);
+            this.validError.write(output);
+            output.writeFieldEnd();
+        }
+        if (this.error != null) {
+            output.writeFieldBegin("error", thrift.Thrift.Type.STRUCT, 2);
+            this.error.write(output);
+            output.writeFieldEnd();
+        }
+        output.writeFieldStop();
+        output.writeStructEnd();
+        return;
+    }
+    public static read(input: thrift.TProtocol): ReassignDocumentExtResult {
+        input.readStructBegin();
+        let _args: any = {};
+        while (true) {
+            const ret: thrift.TField = input.readFieldBegin();
+            const fieldType: thrift.Thrift.Type = ret.ftype;
+            const fieldId: number = ret.fid;
+            if (fieldType === thrift.Thrift.Type.STOP) {
+                break;
+            }
+            switch (fieldId) {
+                case 0:
+                    if (fieldType === thrift.Thrift.Type.LIST) {
+                        const value_744: Array<DocumentExecution.DocumentExecution> = new Array<DocumentExecution.DocumentExecution>();
+                        const metadata_84: thrift.TList = input.readListBegin();
+                        const size_84: number = metadata_84.size;
+                        for (let i_84: number = 0; i_84 < size_84; i_84++) {
+                            const value_745: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
+                            value_744.push(value_745);
+                        }
+                        input.readListEnd();
+                        _args.success = value_744;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                case 1:
+                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                        const value_746: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_746;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                case 2:
+                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                        const value_747: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_747;
                     }
                     else {
                         input.skip(fieldType);
@@ -18643,8 +18757,8 @@ export class RevokeChildCardsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_743: boolean = input.readBool();
-                        _args.success = value_743;
+                        const value_748: boolean = input.readBool();
+                        _args.success = value_748;
                     }
                     else {
                         input.skip(fieldType);
@@ -18652,8 +18766,8 @@ export class RevokeChildCardsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_744: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_744;
+                        const value_749: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_749;
                     }
                     else {
                         input.skip(fieldType);
@@ -18661,8 +18775,8 @@ export class RevokeChildCardsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_745: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_745;
+                        const value_750: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_750;
                     }
                     else {
                         input.skip(fieldType);
@@ -18732,8 +18846,8 @@ export class CreateOrUpdateAutomaticDocumentReassignResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_746: DocumentReassign.DocumentReassign = DocumentReassign.DocumentReassign.read(input);
-                        _args.success = value_746;
+                        const value_751: DocumentReassign.DocumentReassign = DocumentReassign.DocumentReassign.read(input);
+                        _args.success = value_751;
                     }
                     else {
                         input.skip(fieldType);
@@ -18741,8 +18855,8 @@ export class CreateOrUpdateAutomaticDocumentReassignResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_747: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_747;
+                        const value_752: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_752;
                     }
                     else {
                         input.skip(fieldType);
@@ -18750,8 +18864,8 @@ export class CreateOrUpdateAutomaticDocumentReassignResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_748: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_748;
+                        const value_753: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_753;
                     }
                     else {
                         input.skip(fieldType);
@@ -18821,8 +18935,8 @@ export class DeleteAutomaticDocumentReassignResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_749: boolean = input.readBool();
-                        _args.success = value_749;
+                        const value_754: boolean = input.readBool();
+                        _args.success = value_754;
                     }
                     else {
                         input.skip(fieldType);
@@ -18830,8 +18944,8 @@ export class DeleteAutomaticDocumentReassignResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_750: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_750;
+                        const value_755: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_755;
                     }
                     else {
                         input.skip(fieldType);
@@ -18839,8 +18953,8 @@ export class DeleteAutomaticDocumentReassignResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_751: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_751;
+                        const value_756: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_756;
                     }
                     else {
                         input.skip(fieldType);
@@ -18910,8 +19024,8 @@ export class ChangeReassignControlResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_752: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
-                        _args.success = value_752;
+                        const value_757: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
+                        _args.success = value_757;
                     }
                     else {
                         input.skip(fieldType);
@@ -18919,8 +19033,8 @@ export class ChangeReassignControlResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_753: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_753;
+                        const value_758: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_758;
                     }
                     else {
                         input.skip(fieldType);
@@ -18928,8 +19042,8 @@ export class ChangeReassignControlResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_754: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_754;
+                        const value_759: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_759;
                     }
                     else {
                         input.skip(fieldType);
@@ -18970,8 +19084,8 @@ export class GetAllDocumentExecutionsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_755: DocumentExecution.DocumentExecution): void => {
-                value_755.write(output);
+            this.success.forEach((value_760: DocumentExecution.DocumentExecution): void => {
+                value_760.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -19003,15 +19117,15 @@ export class GetAllDocumentExecutionsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_756: Array<DocumentExecution.DocumentExecution> = new Array<DocumentExecution.DocumentExecution>();
-                        const metadata_84: thrift.TList = input.readListBegin();
-                        const size_84: number = metadata_84.size;
-                        for (let i_84: number = 0; i_84 < size_84; i_84++) {
-                            const value_757: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
-                            value_756.push(value_757);
+                        const value_761: Array<DocumentExecution.DocumentExecution> = new Array<DocumentExecution.DocumentExecution>();
+                        const metadata_85: thrift.TList = input.readListBegin();
+                        const size_85: number = metadata_85.size;
+                        for (let i_85: number = 0; i_85 < size_85; i_85++) {
+                            const value_762: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
+                            value_761.push(value_762);
                         }
                         input.readListEnd();
-                        _args.success = value_756;
+                        _args.success = value_761;
                     }
                     else {
                         input.skip(fieldType);
@@ -19019,8 +19133,8 @@ export class GetAllDocumentExecutionsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_758: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_758;
+                        const value_763: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_763;
                     }
                     else {
                         input.skip(fieldType);
@@ -19028,8 +19142,8 @@ export class GetAllDocumentExecutionsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_759: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_759;
+                        const value_764: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_764;
                     }
                     else {
                         input.skip(fieldType);
@@ -19099,8 +19213,8 @@ export class GetDocumentExecutionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_760: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
-                        _args.success = value_760;
+                        const value_765: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
+                        _args.success = value_765;
                     }
                     else {
                         input.skip(fieldType);
@@ -19108,8 +19222,8 @@ export class GetDocumentExecutionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_761: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_761;
+                        const value_766: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_766;
                     }
                     else {
                         input.skip(fieldType);
@@ -19117,8 +19231,8 @@ export class GetDocumentExecutionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_762: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_762;
+                        const value_767: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_767;
                     }
                     else {
                         input.skip(fieldType);
@@ -19188,8 +19302,8 @@ export class ChangeExecutorsForDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_763: boolean = input.readBool();
-                        _args.success = value_763;
+                        const value_768: boolean = input.readBool();
+                        _args.success = value_768;
                     }
                     else {
                         input.skip(fieldType);
@@ -19197,8 +19311,8 @@ export class ChangeExecutorsForDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_764: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_764;
+                        const value_769: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_769;
                     }
                     else {
                         input.skip(fieldType);
@@ -19206,8 +19320,8 @@ export class ChangeExecutorsForDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_765: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_765;
+                        const value_770: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_770;
                     }
                     else {
                         input.skip(fieldType);
@@ -19248,8 +19362,8 @@ export class CreateAttachmentFromResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_766: Attachment.Attachment): void => {
-                value_766.write(output);
+            this.success.forEach((value_771: Attachment.Attachment): void => {
+                value_771.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -19281,15 +19395,15 @@ export class CreateAttachmentFromResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_767: Array<Attachment.Attachment> = new Array<Attachment.Attachment>();
-                        const metadata_85: thrift.TList = input.readListBegin();
-                        const size_85: number = metadata_85.size;
-                        for (let i_85: number = 0; i_85 < size_85; i_85++) {
-                            const value_768: Attachment.Attachment = Attachment.Attachment.read(input);
-                            value_767.push(value_768);
+                        const value_772: Array<Attachment.Attachment> = new Array<Attachment.Attachment>();
+                        const metadata_86: thrift.TList = input.readListBegin();
+                        const size_86: number = metadata_86.size;
+                        for (let i_86: number = 0; i_86 < size_86; i_86++) {
+                            const value_773: Attachment.Attachment = Attachment.Attachment.read(input);
+                            value_772.push(value_773);
                         }
                         input.readListEnd();
-                        _args.success = value_767;
+                        _args.success = value_772;
                     }
                     else {
                         input.skip(fieldType);
@@ -19297,8 +19411,8 @@ export class CreateAttachmentFromResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_769: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_769;
+                        const value_774: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_774;
                     }
                     else {
                         input.skip(fieldType);
@@ -19306,8 +19420,8 @@ export class CreateAttachmentFromResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_770: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_770;
+                        const value_775: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_775;
                     }
                     else {
                         input.skip(fieldType);
@@ -19377,8 +19491,8 @@ export class CreateLoadableAttachmentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_771: string = input.readString();
-                        _args.success = value_771;
+                        const value_776: string = input.readString();
+                        _args.success = value_776;
                     }
                     else {
                         input.skip(fieldType);
@@ -19386,8 +19500,8 @@ export class CreateLoadableAttachmentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_772: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_772;
+                        const value_777: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_777;
                     }
                     else {
                         input.skip(fieldType);
@@ -19395,8 +19509,8 @@ export class CreateLoadableAttachmentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_773: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_773;
+                        const value_778: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_778;
                     }
                     else {
                         input.skip(fieldType);
@@ -19466,8 +19580,8 @@ export class UploadDocumentAttachmentPortionsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_774: Attachment.Attachment = Attachment.Attachment.read(input);
-                        _args.success = value_774;
+                        const value_779: Attachment.Attachment = Attachment.Attachment.read(input);
+                        _args.success = value_779;
                     }
                     else {
                         input.skip(fieldType);
@@ -19475,8 +19589,8 @@ export class UploadDocumentAttachmentPortionsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_775: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_775;
+                        const value_780: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_780;
                     }
                     else {
                         input.skip(fieldType);
@@ -19484,8 +19598,8 @@ export class UploadDocumentAttachmentPortionsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_776: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_776;
+                        const value_781: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_781;
                     }
                     else {
                         input.skip(fieldType);
@@ -19555,8 +19669,8 @@ export class AddPreviewToAttachmentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_777: Attachment.Attachment = Attachment.Attachment.read(input);
-                        _args.success = value_777;
+                        const value_782: Attachment.Attachment = Attachment.Attachment.read(input);
+                        _args.success = value_782;
                     }
                     else {
                         input.skip(fieldType);
@@ -19564,8 +19678,8 @@ export class AddPreviewToAttachmentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_778: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_778;
+                        const value_783: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_783;
                     }
                     else {
                         input.skip(fieldType);
@@ -19573,8 +19687,8 @@ export class AddPreviewToAttachmentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_779: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_779;
+                        const value_784: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_784;
                     }
                     else {
                         input.skip(fieldType);
@@ -19644,8 +19758,8 @@ export class WriteHistoryOpenAttachmentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_780: boolean = input.readBool();
-                        _args.success = value_780;
+                        const value_785: boolean = input.readBool();
+                        _args.success = value_785;
                     }
                     else {
                         input.skip(fieldType);
@@ -19653,8 +19767,8 @@ export class WriteHistoryOpenAttachmentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_781: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_781;
+                        const value_786: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_786;
                     }
                     else {
                         input.skip(fieldType);
@@ -19662,8 +19776,8 @@ export class WriteHistoryOpenAttachmentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_782: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_782;
+                        const value_787: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_787;
                     }
                     else {
                         input.skip(fieldType);
@@ -19733,8 +19847,8 @@ export class DownloadDocumentAttachmentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_783: Buffer = input.readBinary();
-                        _args.success = value_783;
+                        const value_788: Buffer = input.readBinary();
+                        _args.success = value_788;
                     }
                     else {
                         input.skip(fieldType);
@@ -19742,8 +19856,8 @@ export class DownloadDocumentAttachmentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_784: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_784;
+                        const value_789: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_789;
                     }
                     else {
                         input.skip(fieldType);
@@ -19751,8 +19865,8 @@ export class DownloadDocumentAttachmentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_785: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_785;
+                        const value_790: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_790;
                     }
                     else {
                         input.skip(fieldType);
@@ -19822,8 +19936,8 @@ export class RotatePdfPagesResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_786: boolean = input.readBool();
-                        _args.success = value_786;
+                        const value_791: boolean = input.readBool();
+                        _args.success = value_791;
                     }
                     else {
                         input.skip(fieldType);
@@ -19831,8 +19945,8 @@ export class RotatePdfPagesResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_787: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_787;
+                        const value_792: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_792;
                     }
                     else {
                         input.skip(fieldType);
@@ -19840,8 +19954,8 @@ export class RotatePdfPagesResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_788: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_788;
+                        const value_793: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_793;
                     }
                     else {
                         input.skip(fieldType);
@@ -19911,8 +20025,8 @@ export class AddAttachmentsToDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_789: boolean = input.readBool();
-                        _args.success = value_789;
+                        const value_794: boolean = input.readBool();
+                        _args.success = value_794;
                     }
                     else {
                         input.skip(fieldType);
@@ -19920,8 +20034,8 @@ export class AddAttachmentsToDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_790: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_790;
+                        const value_795: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_795;
                     }
                     else {
                         input.skip(fieldType);
@@ -19929,8 +20043,8 @@ export class AddAttachmentsToDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_791: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_791;
+                        const value_796: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_796;
                     }
                     else {
                         input.skip(fieldType);
@@ -20000,8 +20114,8 @@ export class RemoveDocumentAttachmentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_792: boolean = input.readBool();
-                        _args.success = value_792;
+                        const value_797: boolean = input.readBool();
+                        _args.success = value_797;
                     }
                     else {
                         input.skip(fieldType);
@@ -20009,8 +20123,8 @@ export class RemoveDocumentAttachmentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_793: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_793;
+                        const value_798: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_798;
                     }
                     else {
                         input.skip(fieldType);
@@ -20018,8 +20132,8 @@ export class RemoveDocumentAttachmentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_794: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_794;
+                        const value_799: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_799;
                     }
                     else {
                         input.skip(fieldType);
@@ -20089,8 +20203,8 @@ export class MarkAsWaitForPublishResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_795: boolean = input.readBool();
-                        _args.success = value_795;
+                        const value_800: boolean = input.readBool();
+                        _args.success = value_800;
                     }
                     else {
                         input.skip(fieldType);
@@ -20098,8 +20212,8 @@ export class MarkAsWaitForPublishResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_796: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_796;
+                        const value_801: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_801;
                     }
                     else {
                         input.skip(fieldType);
@@ -20107,8 +20221,8 @@ export class MarkAsWaitForPublishResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_797: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_797;
+                        const value_802: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_802;
                     }
                     else {
                         input.skip(fieldType);
@@ -20178,8 +20292,8 @@ export class ChangeAttachmentEditModeResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_798: Attachment.Attachment = Attachment.Attachment.read(input);
-                        _args.success = value_798;
+                        const value_803: Attachment.Attachment = Attachment.Attachment.read(input);
+                        _args.success = value_803;
                     }
                     else {
                         input.skip(fieldType);
@@ -20187,8 +20301,8 @@ export class ChangeAttachmentEditModeResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_799: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_799;
+                        const value_804: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_804;
                     }
                     else {
                         input.skip(fieldType);
@@ -20196,8 +20310,8 @@ export class ChangeAttachmentEditModeResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_800: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_800;
+                        const value_805: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_805;
                     }
                     else {
                         input.skip(fieldType);
@@ -20238,8 +20352,8 @@ export class GetDocumentAttachmentsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_801: Attachment.Attachment): void => {
-                value_801.write(output);
+            this.success.forEach((value_806: Attachment.Attachment): void => {
+                value_806.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -20271,15 +20385,15 @@ export class GetDocumentAttachmentsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_802: Array<Attachment.Attachment> = new Array<Attachment.Attachment>();
-                        const metadata_86: thrift.TList = input.readListBegin();
-                        const size_86: number = metadata_86.size;
-                        for (let i_86: number = 0; i_86 < size_86; i_86++) {
-                            const value_803: Attachment.Attachment = Attachment.Attachment.read(input);
-                            value_802.push(value_803);
+                        const value_807: Array<Attachment.Attachment> = new Array<Attachment.Attachment>();
+                        const metadata_87: thrift.TList = input.readListBegin();
+                        const size_87: number = metadata_87.size;
+                        for (let i_87: number = 0; i_87 < size_87; i_87++) {
+                            const value_808: Attachment.Attachment = Attachment.Attachment.read(input);
+                            value_807.push(value_808);
                         }
                         input.readListEnd();
-                        _args.success = value_802;
+                        _args.success = value_807;
                     }
                     else {
                         input.skip(fieldType);
@@ -20287,8 +20401,8 @@ export class GetDocumentAttachmentsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_804: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_804;
+                        const value_809: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_809;
                     }
                     else {
                         input.skip(fieldType);
@@ -20296,8 +20410,8 @@ export class GetDocumentAttachmentsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_805: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_805;
+                        const value_810: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_810;
                     }
                     else {
                         input.skip(fieldType);
@@ -20367,8 +20481,8 @@ export class GetDocumentAttachmentByIdResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_806: Attachment.Attachment = Attachment.Attachment.read(input);
-                        _args.success = value_806;
+                        const value_811: Attachment.Attachment = Attachment.Attachment.read(input);
+                        _args.success = value_811;
                     }
                     else {
                         input.skip(fieldType);
@@ -20376,8 +20490,8 @@ export class GetDocumentAttachmentByIdResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_807: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_807;
+                        const value_812: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_812;
                     }
                     else {
                         input.skip(fieldType);
@@ -20385,8 +20499,8 @@ export class GetDocumentAttachmentByIdResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_808: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_808;
+                        const value_813: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_813;
                     }
                     else {
                         input.skip(fieldType);
@@ -20427,8 +20541,8 @@ export class GetAllDocumentAttachmentVersionsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_809: Attachment.Attachment): void => {
-                value_809.write(output);
+            this.success.forEach((value_814: Attachment.Attachment): void => {
+                value_814.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -20460,15 +20574,15 @@ export class GetAllDocumentAttachmentVersionsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_810: Array<Attachment.Attachment> = new Array<Attachment.Attachment>();
-                        const metadata_87: thrift.TList = input.readListBegin();
-                        const size_87: number = metadata_87.size;
-                        for (let i_87: number = 0; i_87 < size_87; i_87++) {
-                            const value_811: Attachment.Attachment = Attachment.Attachment.read(input);
-                            value_810.push(value_811);
+                        const value_815: Array<Attachment.Attachment> = new Array<Attachment.Attachment>();
+                        const metadata_88: thrift.TList = input.readListBegin();
+                        const size_88: number = metadata_88.size;
+                        for (let i_88: number = 0; i_88 < size_88; i_88++) {
+                            const value_816: Attachment.Attachment = Attachment.Attachment.read(input);
+                            value_815.push(value_816);
                         }
                         input.readListEnd();
-                        _args.success = value_810;
+                        _args.success = value_815;
                     }
                     else {
                         input.skip(fieldType);
@@ -20476,8 +20590,8 @@ export class GetAllDocumentAttachmentVersionsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_812: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_812;
+                        const value_817: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_817;
                     }
                     else {
                         input.skip(fieldType);
@@ -20485,8 +20599,8 @@ export class GetAllDocumentAttachmentVersionsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_813: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_813;
+                        const value_818: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_818;
                     }
                     else {
                         input.skip(fieldType);
@@ -20556,8 +20670,8 @@ export class ChangeAttachmentsVisibilityResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_814: boolean = input.readBool();
-                        _args.success = value_814;
+                        const value_819: boolean = input.readBool();
+                        _args.success = value_819;
                     }
                     else {
                         input.skip(fieldType);
@@ -20565,8 +20679,8 @@ export class ChangeAttachmentsVisibilityResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_815: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_815;
+                        const value_820: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_820;
                     }
                     else {
                         input.skip(fieldType);
@@ -20574,8 +20688,8 @@ export class ChangeAttachmentsVisibilityResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_816: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_816;
+                        const value_821: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_821;
                     }
                     else {
                         input.skip(fieldType);
@@ -20645,8 +20759,8 @@ export class CreateOrUpdateDocumentCommentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_817: DocumentComment.DocumentComment = DocumentComment.DocumentComment.read(input);
-                        _args.success = value_817;
+                        const value_822: DocumentComment.DocumentComment = DocumentComment.DocumentComment.read(input);
+                        _args.success = value_822;
                     }
                     else {
                         input.skip(fieldType);
@@ -20654,8 +20768,8 @@ export class CreateOrUpdateDocumentCommentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_818: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_818;
+                        const value_823: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_823;
                     }
                     else {
                         input.skip(fieldType);
@@ -20663,8 +20777,8 @@ export class CreateOrUpdateDocumentCommentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_819: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_819;
+                        const value_824: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_824;
                     }
                     else {
                         input.skip(fieldType);
@@ -20705,8 +20819,8 @@ export class GetAllDocumentCommentsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_820: DocumentComment.DocumentComment): void => {
-                value_820.write(output);
+            this.success.forEach((value_825: DocumentComment.DocumentComment): void => {
+                value_825.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -20738,15 +20852,15 @@ export class GetAllDocumentCommentsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_821: Array<DocumentComment.DocumentComment> = new Array<DocumentComment.DocumentComment>();
-                        const metadata_88: thrift.TList = input.readListBegin();
-                        const size_88: number = metadata_88.size;
-                        for (let i_88: number = 0; i_88 < size_88; i_88++) {
-                            const value_822: DocumentComment.DocumentComment = DocumentComment.DocumentComment.read(input);
-                            value_821.push(value_822);
+                        const value_826: Array<DocumentComment.DocumentComment> = new Array<DocumentComment.DocumentComment>();
+                        const metadata_89: thrift.TList = input.readListBegin();
+                        const size_89: number = metadata_89.size;
+                        for (let i_89: number = 0; i_89 < size_89; i_89++) {
+                            const value_827: DocumentComment.DocumentComment = DocumentComment.DocumentComment.read(input);
+                            value_826.push(value_827);
                         }
                         input.readListEnd();
-                        _args.success = value_821;
+                        _args.success = value_826;
                     }
                     else {
                         input.skip(fieldType);
@@ -20754,8 +20868,8 @@ export class GetAllDocumentCommentsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_823: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_823;
+                        const value_828: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_828;
                     }
                     else {
                         input.skip(fieldType);
@@ -20763,8 +20877,8 @@ export class GetAllDocumentCommentsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_824: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_824;
+                        const value_829: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_829;
                     }
                     else {
                         input.skip(fieldType);
@@ -20834,8 +20948,8 @@ export class DeleteDocumentCommentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_825: boolean = input.readBool();
-                        _args.success = value_825;
+                        const value_830: boolean = input.readBool();
+                        _args.success = value_830;
                     }
                     else {
                         input.skip(fieldType);
@@ -20843,8 +20957,8 @@ export class DeleteDocumentCommentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_826: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_826;
+                        const value_831: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_831;
                     }
                     else {
                         input.skip(fieldType);
@@ -20852,8 +20966,8 @@ export class DeleteDocumentCommentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_827: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_827;
+                        const value_832: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_832;
                     }
                     else {
                         input.skip(fieldType);
@@ -20894,8 +21008,8 @@ export class CreateOrUpdateDocumentContentHolderLinkResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_828: ContentHolderShowPlace.ContentHolderShowPlace): void => {
-                value_828.write(output);
+            this.success.forEach((value_833: ContentHolderShowPlace.ContentHolderShowPlace): void => {
+                value_833.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -20927,15 +21041,15 @@ export class CreateOrUpdateDocumentContentHolderLinkResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_829: Array<ContentHolderShowPlace.ContentHolderShowPlace> = new Array<ContentHolderShowPlace.ContentHolderShowPlace>();
-                        const metadata_89: thrift.TList = input.readListBegin();
-                        const size_89: number = metadata_89.size;
-                        for (let i_89: number = 0; i_89 < size_89; i_89++) {
-                            const value_830: ContentHolderShowPlace.ContentHolderShowPlace = ContentHolderShowPlace.ContentHolderShowPlace.read(input);
-                            value_829.push(value_830);
+                        const value_834: Array<ContentHolderShowPlace.ContentHolderShowPlace> = new Array<ContentHolderShowPlace.ContentHolderShowPlace>();
+                        const metadata_90: thrift.TList = input.readListBegin();
+                        const size_90: number = metadata_90.size;
+                        for (let i_90: number = 0; i_90 < size_90; i_90++) {
+                            const value_835: ContentHolderShowPlace.ContentHolderShowPlace = ContentHolderShowPlace.ContentHolderShowPlace.read(input);
+                            value_834.push(value_835);
                         }
                         input.readListEnd();
-                        _args.success = value_829;
+                        _args.success = value_834;
                     }
                     else {
                         input.skip(fieldType);
@@ -20943,8 +21057,8 @@ export class CreateOrUpdateDocumentContentHolderLinkResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_831: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_831;
+                        const value_836: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_836;
                     }
                     else {
                         input.skip(fieldType);
@@ -20952,8 +21066,8 @@ export class CreateOrUpdateDocumentContentHolderLinkResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_832: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_832;
+                        const value_837: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_837;
                     }
                     else {
                         input.skip(fieldType);
@@ -21023,8 +21137,8 @@ export class DocumentToArchiveResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_833: boolean = input.readBool();
-                        _args.success = value_833;
+                        const value_838: boolean = input.readBool();
+                        _args.success = value_838;
                     }
                     else {
                         input.skip(fieldType);
@@ -21032,8 +21146,8 @@ export class DocumentToArchiveResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_834: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_834;
+                        const value_839: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_839;
                     }
                     else {
                         input.skip(fieldType);
@@ -21041,8 +21155,8 @@ export class DocumentToArchiveResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_835: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_835;
+                        const value_840: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_840;
                     }
                     else {
                         input.skip(fieldType);
@@ -21083,8 +21197,8 @@ export class GetAllResponsibleForDocumentResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.SET, 0);
             output.writeSetBegin(thrift.Thrift.Type.STRUCT, this.success.size);
-            this.success.forEach((value_836: __ROOT_NAMESPACE__.UserOrGroup): void => {
-                value_836.write(output);
+            this.success.forEach((value_841: __ROOT_NAMESPACE__.UserOrGroup): void => {
+                value_841.write(output);
             });
             output.writeSetEnd();
             output.writeFieldEnd();
@@ -21116,15 +21230,15 @@ export class GetAllResponsibleForDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.SET) {
-                        const value_837: Set<__ROOT_NAMESPACE__.UserOrGroup> = new Set<__ROOT_NAMESPACE__.UserOrGroup>();
-                        const metadata_90: thrift.TSet = input.readSetBegin();
-                        const size_90: number = metadata_90.size;
-                        for (let i_90: number = 0; i_90 < size_90; i_90++) {
-                            const value_838: __ROOT_NAMESPACE__.UserOrGroup = __ROOT_NAMESPACE__.UserOrGroup.read(input);
-                            value_837.add(value_838);
+                        const value_842: Set<__ROOT_NAMESPACE__.UserOrGroup> = new Set<__ROOT_NAMESPACE__.UserOrGroup>();
+                        const metadata_91: thrift.TSet = input.readSetBegin();
+                        const size_91: number = metadata_91.size;
+                        for (let i_91: number = 0; i_91 < size_91; i_91++) {
+                            const value_843: __ROOT_NAMESPACE__.UserOrGroup = __ROOT_NAMESPACE__.UserOrGroup.read(input);
+                            value_842.add(value_843);
                         }
                         input.readSetEnd();
-                        _args.success = value_837;
+                        _args.success = value_842;
                     }
                     else {
                         input.skip(fieldType);
@@ -21132,8 +21246,8 @@ export class GetAllResponsibleForDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_839: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_839;
+                        const value_844: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_844;
                     }
                     else {
                         input.skip(fieldType);
@@ -21141,8 +21255,8 @@ export class GetAllResponsibleForDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_840: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_840;
+                        const value_845: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_845;
                     }
                     else {
                         input.skip(fieldType);
@@ -21212,8 +21326,8 @@ export class AddResponsibleForDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_841: boolean = input.readBool();
-                        _args.success = value_841;
+                        const value_846: boolean = input.readBool();
+                        _args.success = value_846;
                     }
                     else {
                         input.skip(fieldType);
@@ -21221,8 +21335,8 @@ export class AddResponsibleForDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_842: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_842;
+                        const value_847: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_847;
                     }
                     else {
                         input.skip(fieldType);
@@ -21230,8 +21344,8 @@ export class AddResponsibleForDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_843: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_843;
+                        const value_848: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_848;
                     }
                     else {
                         input.skip(fieldType);
@@ -21301,8 +21415,8 @@ export class RemoveResponsibleForDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_844: boolean = input.readBool();
-                        _args.success = value_844;
+                        const value_849: boolean = input.readBool();
+                        _args.success = value_849;
                     }
                     else {
                         input.skip(fieldType);
@@ -21310,8 +21424,8 @@ export class RemoveResponsibleForDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_845: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_845;
+                        const value_850: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_850;
                     }
                     else {
                         input.skip(fieldType);
@@ -21319,8 +21433,8 @@ export class RemoveResponsibleForDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_846: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_846;
+                        const value_851: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_851;
                     }
                     else {
                         input.skip(fieldType);
@@ -21390,8 +21504,8 @@ export class GetDocHistoryPageResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_847: HistoryPage.HistoryPage = HistoryPage.HistoryPage.read(input);
-                        _args.success = value_847;
+                        const value_852: HistoryPage.HistoryPage = HistoryPage.HistoryPage.read(input);
+                        _args.success = value_852;
                     }
                     else {
                         input.skip(fieldType);
@@ -21399,8 +21513,8 @@ export class GetDocHistoryPageResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_848: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_848;
+                        const value_853: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_853;
                     }
                     else {
                         input.skip(fieldType);
@@ -21408,8 +21522,8 @@ export class GetDocHistoryPageResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_849: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_849;
+                        const value_854: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_854;
                     }
                     else {
                         input.skip(fieldType);
@@ -21450,8 +21564,8 @@ export class GetAllNewsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_850: __ROOT_NAMESPACE__.News): void => {
-                value_850.write(output);
+            this.success.forEach((value_855: __ROOT_NAMESPACE__.News): void => {
+                value_855.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -21483,15 +21597,15 @@ export class GetAllNewsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_851: Array<__ROOT_NAMESPACE__.News> = new Array<__ROOT_NAMESPACE__.News>();
-                        const metadata_91: thrift.TList = input.readListBegin();
-                        const size_91: number = metadata_91.size;
-                        for (let i_91: number = 0; i_91 < size_91; i_91++) {
-                            const value_852: __ROOT_NAMESPACE__.News = __ROOT_NAMESPACE__.News.read(input);
-                            value_851.push(value_852);
+                        const value_856: Array<__ROOT_NAMESPACE__.News> = new Array<__ROOT_NAMESPACE__.News>();
+                        const metadata_92: thrift.TList = input.readListBegin();
+                        const size_92: number = metadata_92.size;
+                        for (let i_92: number = 0; i_92 < size_92; i_92++) {
+                            const value_857: __ROOT_NAMESPACE__.News = __ROOT_NAMESPACE__.News.read(input);
+                            value_856.push(value_857);
                         }
                         input.readListEnd();
-                        _args.success = value_851;
+                        _args.success = value_856;
                     }
                     else {
                         input.skip(fieldType);
@@ -21499,8 +21613,8 @@ export class GetAllNewsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_853: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_853;
+                        const value_858: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_858;
                     }
                     else {
                         input.skip(fieldType);
@@ -21508,8 +21622,8 @@ export class GetAllNewsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_854: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_854;
+                        const value_859: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_859;
                     }
                     else {
                         input.skip(fieldType);
@@ -21550,9 +21664,9 @@ export class GetTasksByDateResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.MAP, 0);
             output.writeMapBegin(thrift.Thrift.Type.I32, thrift.Thrift.Type.I32, this.success.size);
-            this.success.forEach((value_855: number, key_21: TodayTaskType.TodayTaskType): void => {
+            this.success.forEach((value_860: number, key_21: TodayTaskType.TodayTaskType): void => {
                 output.writeI32(key_21);
-                output.writeI32(value_855);
+                output.writeI32(value_860);
             });
             output.writeMapEnd();
             output.writeFieldEnd();
@@ -21584,16 +21698,16 @@ export class GetTasksByDateResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.MAP) {
-                        const value_856: Map<TodayTaskType.TodayTaskType, number> = new Map<TodayTaskType.TodayTaskType, number>();
-                        const metadata_92: thrift.TMap = input.readMapBegin();
-                        const size_92: number = metadata_92.size;
-                        for (let i_92: number = 0; i_92 < size_92; i_92++) {
+                        const value_861: Map<TodayTaskType.TodayTaskType, number> = new Map<TodayTaskType.TodayTaskType, number>();
+                        const metadata_93: thrift.TMap = input.readMapBegin();
+                        const size_93: number = metadata_93.size;
+                        for (let i_93: number = 0; i_93 < size_93; i_93++) {
                             const key_22: TodayTaskType.TodayTaskType = input.readI32();
-                            const value_857: number = input.readI32();
-                            value_856.set(key_22, value_857);
+                            const value_862: number = input.readI32();
+                            value_861.set(key_22, value_862);
                         }
                         input.readMapEnd();
-                        _args.success = value_856;
+                        _args.success = value_861;
                     }
                     else {
                         input.skip(fieldType);
@@ -21601,8 +21715,8 @@ export class GetTasksByDateResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_858: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_858;
+                        const value_863: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_863;
                     }
                     else {
                         input.skip(fieldType);
@@ -21610,8 +21724,8 @@ export class GetTasksByDateResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_859: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_859;
+                        const value_864: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_864;
                     }
                     else {
                         input.skip(fieldType);
@@ -21681,8 +21795,8 @@ export class GenerateDocumentNumberResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_860: string = input.readString();
-                        _args.success = value_860;
+                        const value_865: string = input.readString();
+                        _args.success = value_865;
                     }
                     else {
                         input.skip(fieldType);
@@ -21690,8 +21804,8 @@ export class GenerateDocumentNumberResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_861: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_861;
+                        const value_866: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_866;
                     }
                     else {
                         input.skip(fieldType);
@@ -21699,8 +21813,8 @@ export class GenerateDocumentNumberResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_862: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_862;
+                        const value_867: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_867;
                     }
                     else {
                         input.skip(fieldType);
@@ -21770,8 +21884,8 @@ export class SetDocumentViewedResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_863: boolean = input.readBool();
-                        _args.success = value_863;
+                        const value_868: boolean = input.readBool();
+                        _args.success = value_868;
                     }
                     else {
                         input.skip(fieldType);
@@ -21779,8 +21893,8 @@ export class SetDocumentViewedResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_864: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_864;
+                        const value_869: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_869;
                     }
                     else {
                         input.skip(fieldType);
@@ -21788,8 +21902,8 @@ export class SetDocumentViewedResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_865: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_865;
+                        const value_870: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_870;
                     }
                     else {
                         input.skip(fieldType);
@@ -21830,8 +21944,8 @@ export class GetAllDocumentRelationsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_866: DocumentRelation.DocumentRelation): void => {
-                value_866.write(output);
+            this.success.forEach((value_871: DocumentRelation.DocumentRelation): void => {
+                value_871.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -21863,15 +21977,15 @@ export class GetAllDocumentRelationsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_867: Array<DocumentRelation.DocumentRelation> = new Array<DocumentRelation.DocumentRelation>();
-                        const metadata_93: thrift.TList = input.readListBegin();
-                        const size_93: number = metadata_93.size;
-                        for (let i_93: number = 0; i_93 < size_93; i_93++) {
-                            const value_868: DocumentRelation.DocumentRelation = DocumentRelation.DocumentRelation.read(input);
-                            value_867.push(value_868);
+                        const value_872: Array<DocumentRelation.DocumentRelation> = new Array<DocumentRelation.DocumentRelation>();
+                        const metadata_94: thrift.TList = input.readListBegin();
+                        const size_94: number = metadata_94.size;
+                        for (let i_94: number = 0; i_94 < size_94; i_94++) {
+                            const value_873: DocumentRelation.DocumentRelation = DocumentRelation.DocumentRelation.read(input);
+                            value_872.push(value_873);
                         }
                         input.readListEnd();
-                        _args.success = value_867;
+                        _args.success = value_872;
                     }
                     else {
                         input.skip(fieldType);
@@ -21879,8 +21993,8 @@ export class GetAllDocumentRelationsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_869: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_869;
+                        const value_874: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_874;
                     }
                     else {
                         input.skip(fieldType);
@@ -21888,8 +22002,8 @@ export class GetAllDocumentRelationsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_870: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_870;
+                        const value_875: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_875;
                     }
                     else {
                         input.skip(fieldType);
@@ -21930,8 +22044,8 @@ export class ChangeRelationsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_871: DocumentRelation.DocumentRelation): void => {
-                value_871.write(output);
+            this.success.forEach((value_876: DocumentRelation.DocumentRelation): void => {
+                value_876.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -21963,15 +22077,15 @@ export class ChangeRelationsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_872: Array<DocumentRelation.DocumentRelation> = new Array<DocumentRelation.DocumentRelation>();
-                        const metadata_94: thrift.TList = input.readListBegin();
-                        const size_94: number = metadata_94.size;
-                        for (let i_94: number = 0; i_94 < size_94; i_94++) {
-                            const value_873: DocumentRelation.DocumentRelation = DocumentRelation.DocumentRelation.read(input);
-                            value_872.push(value_873);
+                        const value_877: Array<DocumentRelation.DocumentRelation> = new Array<DocumentRelation.DocumentRelation>();
+                        const metadata_95: thrift.TList = input.readListBegin();
+                        const size_95: number = metadata_95.size;
+                        for (let i_95: number = 0; i_95 < size_95; i_95++) {
+                            const value_878: DocumentRelation.DocumentRelation = DocumentRelation.DocumentRelation.read(input);
+                            value_877.push(value_878);
                         }
                         input.readListEnd();
-                        _args.success = value_872;
+                        _args.success = value_877;
                     }
                     else {
                         input.skip(fieldType);
@@ -21979,8 +22093,8 @@ export class ChangeRelationsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_874: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_874;
+                        const value_879: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_879;
                     }
                     else {
                         input.skip(fieldType);
@@ -21988,8 +22102,8 @@ export class ChangeRelationsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_875: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_875;
+                        const value_880: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_880;
                     }
                     else {
                         input.skip(fieldType);
@@ -22059,8 +22173,8 @@ export class ChangeSubStatusResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_876: boolean = input.readBool();
-                        _args.success = value_876;
+                        const value_881: boolean = input.readBool();
+                        _args.success = value_881;
                     }
                     else {
                         input.skip(fieldType);
@@ -22068,8 +22182,8 @@ export class ChangeSubStatusResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_877: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_877;
+                        const value_882: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_882;
                     }
                     else {
                         input.skip(fieldType);
@@ -22077,8 +22191,8 @@ export class ChangeSubStatusResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_878: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_878;
+                        const value_883: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_883;
                     }
                     else {
                         input.skip(fieldType);
@@ -22148,8 +22262,8 @@ export class RevertSubStatusResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_879: boolean = input.readBool();
-                        _args.success = value_879;
+                        const value_884: boolean = input.readBool();
+                        _args.success = value_884;
                     }
                     else {
                         input.skip(fieldType);
@@ -22157,8 +22271,8 @@ export class RevertSubStatusResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_880: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_880;
+                        const value_885: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_885;
                     }
                     else {
                         input.skip(fieldType);
@@ -22166,8 +22280,8 @@ export class RevertSubStatusResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_881: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_881;
+                        const value_886: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_886;
                     }
                     else {
                         input.skip(fieldType);
@@ -22237,8 +22351,8 @@ export class IncreaseDeadlineForDocumentOrDocumentExecutionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_882: boolean = input.readBool();
-                        _args.success = value_882;
+                        const value_887: boolean = input.readBool();
+                        _args.success = value_887;
                     }
                     else {
                         input.skip(fieldType);
@@ -22246,8 +22360,8 @@ export class IncreaseDeadlineForDocumentOrDocumentExecutionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_883: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_883;
+                        const value_888: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_888;
                     }
                     else {
                         input.skip(fieldType);
@@ -22255,8 +22369,8 @@ export class IncreaseDeadlineForDocumentOrDocumentExecutionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_884: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_884;
+                        const value_889: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_889;
                     }
                     else {
                         input.skip(fieldType);
@@ -22326,8 +22440,8 @@ export class AddAdditionalConfirmersResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_885: boolean = input.readBool();
-                        _args.success = value_885;
+                        const value_890: boolean = input.readBool();
+                        _args.success = value_890;
                     }
                     else {
                         input.skip(fieldType);
@@ -22335,8 +22449,8 @@ export class AddAdditionalConfirmersResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_886: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_886;
+                        const value_891: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_891;
                     }
                     else {
                         input.skip(fieldType);
@@ -22344,8 +22458,8 @@ export class AddAdditionalConfirmersResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_887: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_887;
+                        const value_892: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_892;
                     }
                     else {
                         input.skip(fieldType);
@@ -22415,8 +22529,8 @@ export class SetAdditionalDecisionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_888: Document.Document = Document.Document.read(input);
-                        _args.success = value_888;
+                        const value_893: Document.Document = Document.Document.read(input);
+                        _args.success = value_893;
                     }
                     else {
                         input.skip(fieldType);
@@ -22424,8 +22538,8 @@ export class SetAdditionalDecisionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_889: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_889;
+                        const value_894: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_894;
                     }
                     else {
                         input.skip(fieldType);
@@ -22433,8 +22547,8 @@ export class SetAdditionalDecisionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_890: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_890;
+                        const value_895: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_895;
                     }
                     else {
                         input.skip(fieldType);
@@ -22504,8 +22618,8 @@ export class SetAdditionalDecisionUsingServerKeyStorageResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_891: Document.Document = Document.Document.read(input);
-                        _args.success = value_891;
+                        const value_896: Document.Document = Document.Document.read(input);
+                        _args.success = value_896;
                     }
                     else {
                         input.skip(fieldType);
@@ -22513,8 +22627,8 @@ export class SetAdditionalDecisionUsingServerKeyStorageResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_892: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_892;
+                        const value_897: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_897;
                     }
                     else {
                         input.skip(fieldType);
@@ -22522,8 +22636,8 @@ export class SetAdditionalDecisionUsingServerKeyStorageResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_893: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_893;
+                        const value_898: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_898;
                     }
                     else {
                         input.skip(fieldType);
@@ -22593,8 +22707,8 @@ export class SetAdditionalDecisionExtResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_894: Document.Document = Document.Document.read(input);
-                        _args.success = value_894;
+                        const value_899: Document.Document = Document.Document.read(input);
+                        _args.success = value_899;
                     }
                     else {
                         input.skip(fieldType);
@@ -22602,8 +22716,8 @@ export class SetAdditionalDecisionExtResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_895: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_895;
+                        const value_900: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_900;
                     }
                     else {
                         input.skip(fieldType);
@@ -22611,8 +22725,8 @@ export class SetAdditionalDecisionExtResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_896: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_896;
+                        const value_901: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_901;
                     }
                     else {
                         input.skip(fieldType);
@@ -22682,8 +22796,8 @@ export class RevokeDecisionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_897: Document.Document = Document.Document.read(input);
-                        _args.success = value_897;
+                        const value_902: Document.Document = Document.Document.read(input);
+                        _args.success = value_902;
                     }
                     else {
                         input.skip(fieldType);
@@ -22691,8 +22805,8 @@ export class RevokeDecisionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_898: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_898;
+                        const value_903: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_903;
                     }
                     else {
                         input.skip(fieldType);
@@ -22700,8 +22814,8 @@ export class RevokeDecisionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_899: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_899;
+                        const value_904: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_904;
                     }
                     else {
                         input.skip(fieldType);
@@ -22771,8 +22885,8 @@ export class MarkDecisionAsRemovedResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_900: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
-                        _args.success = value_900;
+                        const value_905: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
+                        _args.success = value_905;
                     }
                     else {
                         input.skip(fieldType);
@@ -22780,8 +22894,8 @@ export class MarkDecisionAsRemovedResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_901: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_901;
+                        const value_906: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_906;
                     }
                     else {
                         input.skip(fieldType);
@@ -22789,8 +22903,8 @@ export class MarkDecisionAsRemovedResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_902: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_902;
+                        const value_907: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_907;
                     }
                     else {
                         input.skip(fieldType);
@@ -22831,9 +22945,9 @@ export class GetAllOpenDocumentExecutionsStatisticResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.MAP, 0);
             output.writeMapBegin(thrift.Thrift.Type.I32, thrift.Thrift.Type.I32, this.success.size);
-            this.success.forEach((value_903: number, key_23: DocumentExecutionStatisticType.DocumentExecutionStatisticType): void => {
+            this.success.forEach((value_908: number, key_23: DocumentExecutionStatisticType.DocumentExecutionStatisticType): void => {
                 output.writeI32(key_23);
-                output.writeI32(value_903);
+                output.writeI32(value_908);
             });
             output.writeMapEnd();
             output.writeFieldEnd();
@@ -22865,16 +22979,16 @@ export class GetAllOpenDocumentExecutionsStatisticResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.MAP) {
-                        const value_904: Map<DocumentExecutionStatisticType.DocumentExecutionStatisticType, number> = new Map<DocumentExecutionStatisticType.DocumentExecutionStatisticType, number>();
-                        const metadata_95: thrift.TMap = input.readMapBegin();
-                        const size_95: number = metadata_95.size;
-                        for (let i_95: number = 0; i_95 < size_95; i_95++) {
+                        const value_909: Map<DocumentExecutionStatisticType.DocumentExecutionStatisticType, number> = new Map<DocumentExecutionStatisticType.DocumentExecutionStatisticType, number>();
+                        const metadata_96: thrift.TMap = input.readMapBegin();
+                        const size_96: number = metadata_96.size;
+                        for (let i_96: number = 0; i_96 < size_96; i_96++) {
                             const key_24: DocumentExecutionStatisticType.DocumentExecutionStatisticType = input.readI32();
-                            const value_905: number = input.readI32();
-                            value_904.set(key_24, value_905);
+                            const value_910: number = input.readI32();
+                            value_909.set(key_24, value_910);
                         }
                         input.readMapEnd();
-                        _args.success = value_904;
+                        _args.success = value_909;
                     }
                     else {
                         input.skip(fieldType);
@@ -22882,8 +22996,8 @@ export class GetAllOpenDocumentExecutionsStatisticResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_906: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_906;
+                        const value_911: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_911;
                     }
                     else {
                         input.skip(fieldType);
@@ -22891,8 +23005,8 @@ export class GetAllOpenDocumentExecutionsStatisticResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_907: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_907;
+                        const value_912: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_912;
                     }
                     else {
                         input.skip(fieldType);
@@ -22962,8 +23076,8 @@ export class ChangeControlForDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_908: boolean = input.readBool();
-                        _args.success = value_908;
+                        const value_913: boolean = input.readBool();
+                        _args.success = value_913;
                     }
                     else {
                         input.skip(fieldType);
@@ -22971,8 +23085,8 @@ export class ChangeControlForDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_909: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_909;
+                        const value_914: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_914;
                     }
                     else {
                         input.skip(fieldType);
@@ -22980,8 +23094,8 @@ export class ChangeControlForDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_910: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_910;
+                        const value_915: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_915;
                     }
                     else {
                         input.skip(fieldType);
@@ -23051,8 +23165,8 @@ export class AddTagsToDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_911: boolean = input.readBool();
-                        _args.success = value_911;
+                        const value_916: boolean = input.readBool();
+                        _args.success = value_916;
                     }
                     else {
                         input.skip(fieldType);
@@ -23060,8 +23174,8 @@ export class AddTagsToDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_912: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_912;
+                        const value_917: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_917;
                     }
                     else {
                         input.skip(fieldType);
@@ -23069,8 +23183,8 @@ export class AddTagsToDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_913: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_913;
+                        const value_918: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_918;
                     }
                     else {
                         input.skip(fieldType);
@@ -23140,8 +23254,8 @@ export class RemoveTagsToDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_914: boolean = input.readBool();
-                        _args.success = value_914;
+                        const value_919: boolean = input.readBool();
+                        _args.success = value_919;
                     }
                     else {
                         input.skip(fieldType);
@@ -23149,8 +23263,8 @@ export class RemoveTagsToDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_915: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_915;
+                        const value_920: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_920;
                     }
                     else {
                         input.skip(fieldType);
@@ -23158,8 +23272,8 @@ export class RemoveTagsToDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_916: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_916;
+                        const value_921: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_921;
                     }
                     else {
                         input.skip(fieldType);
@@ -23200,8 +23314,8 @@ export class AddExecutorsToStageResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_917: DocumentExecution.DocumentExecution): void => {
-                value_917.write(output);
+            this.success.forEach((value_922: DocumentExecution.DocumentExecution): void => {
+                value_922.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -23233,15 +23347,15 @@ export class AddExecutorsToStageResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_918: Array<DocumentExecution.DocumentExecution> = new Array<DocumentExecution.DocumentExecution>();
-                        const metadata_96: thrift.TList = input.readListBegin();
-                        const size_96: number = metadata_96.size;
-                        for (let i_96: number = 0; i_96 < size_96; i_96++) {
-                            const value_919: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
-                            value_918.push(value_919);
+                        const value_923: Array<DocumentExecution.DocumentExecution> = new Array<DocumentExecution.DocumentExecution>();
+                        const metadata_97: thrift.TList = input.readListBegin();
+                        const size_97: number = metadata_97.size;
+                        for (let i_97: number = 0; i_97 < size_97; i_97++) {
+                            const value_924: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
+                            value_923.push(value_924);
                         }
                         input.readListEnd();
-                        _args.success = value_918;
+                        _args.success = value_923;
                     }
                     else {
                         input.skip(fieldType);
@@ -23249,8 +23363,8 @@ export class AddExecutorsToStageResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_920: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_920;
+                        const value_925: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_925;
                     }
                     else {
                         input.skip(fieldType);
@@ -23258,8 +23372,8 @@ export class AddExecutorsToStageResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_921: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_921;
+                        const value_926: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_926;
                     }
                     else {
                         input.skip(fieldType);
@@ -23334,8 +23448,8 @@ export class GetCountDocsByFilterNoPermissionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.I64) {
-                        const value_922: Int64 = input.readI64();
-                        _args.success = value_922;
+                        const value_927: Int64 = input.readI64();
+                        _args.success = value_927;
                     }
                     else {
                         input.skip(fieldType);
@@ -23343,8 +23457,8 @@ export class GetCountDocsByFilterNoPermissionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_923: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_923;
+                        const value_928: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_928;
                     }
                     else {
                         input.skip(fieldType);
@@ -23352,8 +23466,8 @@ export class GetCountDocsByFilterNoPermissionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_924: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_924;
+                        const value_929: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_929;
                     }
                     else {
                         input.skip(fieldType);
@@ -23394,8 +23508,8 @@ export class GetTinyDocsByFilterNoPermissionResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_925: Document.Document): void => {
-                value_925.write(output);
+            this.success.forEach((value_930: Document.Document): void => {
+                value_930.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -23427,15 +23541,15 @@ export class GetTinyDocsByFilterNoPermissionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_926: Array<Document.Document> = new Array<Document.Document>();
-                        const metadata_97: thrift.TList = input.readListBegin();
-                        const size_97: number = metadata_97.size;
-                        for (let i_97: number = 0; i_97 < size_97; i_97++) {
-                            const value_927: Document.Document = Document.Document.read(input);
-                            value_926.push(value_927);
+                        const value_931: Array<Document.Document> = new Array<Document.Document>();
+                        const metadata_98: thrift.TList = input.readListBegin();
+                        const size_98: number = metadata_98.size;
+                        for (let i_98: number = 0; i_98 < size_98; i_98++) {
+                            const value_932: Document.Document = Document.Document.read(input);
+                            value_931.push(value_932);
                         }
                         input.readListEnd();
-                        _args.success = value_926;
+                        _args.success = value_931;
                     }
                     else {
                         input.skip(fieldType);
@@ -23443,8 +23557,8 @@ export class GetTinyDocsByFilterNoPermissionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_928: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_928;
+                        const value_933: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_933;
                     }
                     else {
                         input.skip(fieldType);
@@ -23452,8 +23566,8 @@ export class GetTinyDocsByFilterNoPermissionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_929: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_929;
+                        const value_934: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_934;
                     }
                     else {
                         input.skip(fieldType);
@@ -23523,8 +23637,8 @@ export class ChangeRegistrationInfoForDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_930: boolean = input.readBool();
-                        _args.success = value_930;
+                        const value_935: boolean = input.readBool();
+                        _args.success = value_935;
                     }
                     else {
                         input.skip(fieldType);
@@ -23532,8 +23646,8 @@ export class ChangeRegistrationInfoForDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_931: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_931;
+                        const value_936: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_936;
                     }
                     else {
                         input.skip(fieldType);
@@ -23541,8 +23655,8 @@ export class ChangeRegistrationInfoForDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_932: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_932;
+                        const value_937: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_937;
                     }
                     else {
                         input.skip(fieldType);
@@ -23612,8 +23726,8 @@ export class CreateChatForDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_933: string = input.readString();
-                        _args.success = value_933;
+                        const value_938: string = input.readString();
+                        _args.success = value_938;
                     }
                     else {
                         input.skip(fieldType);
@@ -23621,8 +23735,8 @@ export class CreateChatForDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_934: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_934;
+                        const value_939: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_939;
                     }
                     else {
                         input.skip(fieldType);
@@ -23630,8 +23744,8 @@ export class CreateChatForDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_935: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_935;
+                        const value_940: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_940;
                     }
                     else {
                         input.skip(fieldType);
@@ -23672,8 +23786,8 @@ export class GetDocumentExtShareListResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_936: DocumentExtShare.DocumentExtShare): void => {
-                value_936.write(output);
+            this.success.forEach((value_941: DocumentExtShare.DocumentExtShare): void => {
+                value_941.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -23705,15 +23819,15 @@ export class GetDocumentExtShareListResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_937: Array<DocumentExtShare.DocumentExtShare> = new Array<DocumentExtShare.DocumentExtShare>();
-                        const metadata_98: thrift.TList = input.readListBegin();
-                        const size_98: number = metadata_98.size;
-                        for (let i_98: number = 0; i_98 < size_98; i_98++) {
-                            const value_938: DocumentExtShare.DocumentExtShare = DocumentExtShare.DocumentExtShare.read(input);
-                            value_937.push(value_938);
+                        const value_942: Array<DocumentExtShare.DocumentExtShare> = new Array<DocumentExtShare.DocumentExtShare>();
+                        const metadata_99: thrift.TList = input.readListBegin();
+                        const size_99: number = metadata_99.size;
+                        for (let i_99: number = 0; i_99 < size_99; i_99++) {
+                            const value_943: DocumentExtShare.DocumentExtShare = DocumentExtShare.DocumentExtShare.read(input);
+                            value_942.push(value_943);
                         }
                         input.readListEnd();
-                        _args.success = value_937;
+                        _args.success = value_942;
                     }
                     else {
                         input.skip(fieldType);
@@ -23721,8 +23835,8 @@ export class GetDocumentExtShareListResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_939: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_939;
+                        const value_944: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_944;
                     }
                     else {
                         input.skip(fieldType);
@@ -23730,8 +23844,8 @@ export class GetDocumentExtShareListResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_940: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_940;
+                        const value_945: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_945;
                     }
                     else {
                         input.skip(fieldType);
@@ -23772,8 +23886,8 @@ export class ChangeDocumentExtShareResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_941: DocumentExtShare.DocumentExtShare): void => {
-                value_941.write(output);
+            this.success.forEach((value_946: DocumentExtShare.DocumentExtShare): void => {
+                value_946.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -23805,15 +23919,15 @@ export class ChangeDocumentExtShareResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_942: Array<DocumentExtShare.DocumentExtShare> = new Array<DocumentExtShare.DocumentExtShare>();
-                        const metadata_99: thrift.TList = input.readListBegin();
-                        const size_99: number = metadata_99.size;
-                        for (let i_99: number = 0; i_99 < size_99; i_99++) {
-                            const value_943: DocumentExtShare.DocumentExtShare = DocumentExtShare.DocumentExtShare.read(input);
-                            value_942.push(value_943);
+                        const value_947: Array<DocumentExtShare.DocumentExtShare> = new Array<DocumentExtShare.DocumentExtShare>();
+                        const metadata_100: thrift.TList = input.readListBegin();
+                        const size_100: number = metadata_100.size;
+                        for (let i_100: number = 0; i_100 < size_100; i_100++) {
+                            const value_948: DocumentExtShare.DocumentExtShare = DocumentExtShare.DocumentExtShare.read(input);
+                            value_947.push(value_948);
                         }
                         input.readListEnd();
-                        _args.success = value_942;
+                        _args.success = value_947;
                     }
                     else {
                         input.skip(fieldType);
@@ -23821,8 +23935,8 @@ export class ChangeDocumentExtShareResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_944: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_944;
+                        const value_949: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_949;
                     }
                     else {
                         input.skip(fieldType);
@@ -23830,8 +23944,8 @@ export class ChangeDocumentExtShareResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_945: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_945;
+                        const value_950: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_950;
                     }
                     else {
                         input.skip(fieldType);
@@ -23901,8 +24015,8 @@ export class ChangeAttachmentExtStatusResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_946: boolean = input.readBool();
-                        _args.success = value_946;
+                        const value_951: boolean = input.readBool();
+                        _args.success = value_951;
                     }
                     else {
                         input.skip(fieldType);
@@ -23910,8 +24024,8 @@ export class ChangeAttachmentExtStatusResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_947: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_947;
+                        const value_952: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_952;
                     }
                     else {
                         input.skip(fieldType);
@@ -23919,8 +24033,8 @@ export class ChangeAttachmentExtStatusResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_948: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_948;
+                        const value_953: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_953;
                     }
                     else {
                         input.skip(fieldType);
@@ -23990,8 +24104,8 @@ export class RemindDocumentExecutorResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_949: boolean = input.readBool();
-                        _args.success = value_949;
+                        const value_954: boolean = input.readBool();
+                        _args.success = value_954;
                     }
                     else {
                         input.skip(fieldType);
@@ -23999,8 +24113,8 @@ export class RemindDocumentExecutorResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_950: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_950;
+                        const value_955: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_955;
                     }
                     else {
                         input.skip(fieldType);
@@ -24008,8 +24122,8 @@ export class RemindDocumentExecutorResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_951: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_951;
+                        const value_956: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_956;
                     }
                     else {
                         input.skip(fieldType);
@@ -24079,8 +24193,8 @@ export class UpdateReassignResolutionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_952: boolean = input.readBool();
-                        _args.success = value_952;
+                        const value_957: boolean = input.readBool();
+                        _args.success = value_957;
                     }
                     else {
                         input.skip(fieldType);
@@ -24088,8 +24202,8 @@ export class UpdateReassignResolutionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_953: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_953;
+                        const value_958: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_958;
                     }
                     else {
                         input.skip(fieldType);
@@ -24097,8 +24211,8 @@ export class UpdateReassignResolutionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_954: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_954;
+                        const value_959: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_959;
                     }
                     else {
                         input.skip(fieldType);
@@ -24168,8 +24282,8 @@ export class UpdateSubStatusCommentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_955: boolean = input.readBool();
-                        _args.success = value_955;
+                        const value_960: boolean = input.readBool();
+                        _args.success = value_960;
                     }
                     else {
                         input.skip(fieldType);
@@ -24177,8 +24291,8 @@ export class UpdateSubStatusCommentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_956: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_956;
+                        const value_961: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_961;
                     }
                     else {
                         input.skip(fieldType);
@@ -24186,8 +24300,8 @@ export class UpdateSubStatusCommentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_957: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_957;
+                        const value_962: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_962;
                     }
                     else {
                         input.skip(fieldType);
@@ -24257,8 +24371,8 @@ export class RemoveSubStatusCommentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_958: boolean = input.readBool();
-                        _args.success = value_958;
+                        const value_963: boolean = input.readBool();
+                        _args.success = value_963;
                     }
                     else {
                         input.skip(fieldType);
@@ -24266,8 +24380,8 @@ export class RemoveSubStatusCommentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_959: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_959;
+                        const value_964: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_964;
                     }
                     else {
                         input.skip(fieldType);
@@ -24275,8 +24389,8 @@ export class RemoveSubStatusCommentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_960: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_960;
+                        const value_965: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_965;
                     }
                     else {
                         input.skip(fieldType);
@@ -24346,8 +24460,8 @@ export class ChangeDocumentTypeResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_961: boolean = input.readBool();
-                        _args.success = value_961;
+                        const value_966: boolean = input.readBool();
+                        _args.success = value_966;
                     }
                     else {
                         input.skip(fieldType);
@@ -24355,8 +24469,8 @@ export class ChangeDocumentTypeResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_962: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_962;
+                        const value_967: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_967;
                     }
                     else {
                         input.skip(fieldType);
@@ -24364,8 +24478,8 @@ export class ChangeDocumentTypeResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_963: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_963;
+                        const value_968: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_968;
                     }
                     else {
                         input.skip(fieldType);
@@ -24435,8 +24549,8 @@ export class GetDocumentRelationModelResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_964: DocumentRelationModel.DocumentRelationModel = DocumentRelationModel.DocumentRelationModel.read(input);
-                        _args.success = value_964;
+                        const value_969: DocumentRelationModel.DocumentRelationModel = DocumentRelationModel.DocumentRelationModel.read(input);
+                        _args.success = value_969;
                     }
                     else {
                         input.skip(fieldType);
@@ -24444,8 +24558,8 @@ export class GetDocumentRelationModelResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_965: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_965;
+                        const value_970: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_970;
                     }
                     else {
                         input.skip(fieldType);
@@ -24453,8 +24567,8 @@ export class GetDocumentRelationModelResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_966: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_966;
+                        const value_971: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_971;
                     }
                     else {
                         input.skip(fieldType);
@@ -24524,8 +24638,8 @@ export class GetNewConvertedAttachmentVersionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_967: Attachment.Attachment = Attachment.Attachment.read(input);
-                        _args.success = value_967;
+                        const value_972: Attachment.Attachment = Attachment.Attachment.read(input);
+                        _args.success = value_972;
                     }
                     else {
                         input.skip(fieldType);
@@ -24533,8 +24647,8 @@ export class GetNewConvertedAttachmentVersionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_968: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_968;
+                        const value_973: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_973;
                     }
                     else {
                         input.skip(fieldType);
@@ -24542,8 +24656,8 @@ export class GetNewConvertedAttachmentVersionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_969: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_969;
+                        const value_974: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_974;
                     }
                     else {
                         input.skip(fieldType);
@@ -24613,8 +24727,8 @@ export class ExportAsXMLResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_970: Buffer = input.readBinary();
-                        _args.success = value_970;
+                        const value_975: Buffer = input.readBinary();
+                        _args.success = value_975;
                     }
                     else {
                         input.skip(fieldType);
@@ -24622,8 +24736,8 @@ export class ExportAsXMLResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_971: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_971;
+                        const value_976: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_976;
                     }
                     else {
                         input.skip(fieldType);
@@ -24631,8 +24745,8 @@ export class ExportAsXMLResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_972: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_972;
+                        const value_977: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_977;
                     }
                     else {
                         input.skip(fieldType);
@@ -24702,8 +24816,8 @@ export class ExportAsXMLv2Result {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_973: Buffer = input.readBinary();
-                        _args.success = value_973;
+                        const value_978: Buffer = input.readBinary();
+                        _args.success = value_978;
                     }
                     else {
                         input.skip(fieldType);
@@ -24711,8 +24825,8 @@ export class ExportAsXMLv2Result {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_974: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_974;
+                        const value_979: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_979;
                     }
                     else {
                         input.skip(fieldType);
@@ -24720,8 +24834,8 @@ export class ExportAsXMLv2Result {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_975: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_975;
+                        const value_980: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_980;
                     }
                     else {
                         input.skip(fieldType);
@@ -24791,8 +24905,8 @@ export class ImportFromXMLResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_976: Document.Document = Document.Document.read(input);
-                        _args.success = value_976;
+                        const value_981: Document.Document = Document.Document.read(input);
+                        _args.success = value_981;
                     }
                     else {
                         input.skip(fieldType);
@@ -24800,8 +24914,8 @@ export class ImportFromXMLResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_977: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_977;
+                        const value_982: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_982;
                     }
                     else {
                         input.skip(fieldType);
@@ -24809,8 +24923,8 @@ export class ImportFromXMLResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_978: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_978;
+                        const value_983: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_983;
                     }
                     else {
                         input.skip(fieldType);
@@ -24851,8 +24965,8 @@ export class GetDocContentItemsForChangeTypeResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_979: ContentItem.ContentItem): void => {
-                value_979.write(output);
+            this.success.forEach((value_984: ContentItem.ContentItem): void => {
+                value_984.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -24884,15 +24998,15 @@ export class GetDocContentItemsForChangeTypeResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_980: Array<ContentItem.ContentItem> = new Array<ContentItem.ContentItem>();
-                        const metadata_100: thrift.TList = input.readListBegin();
-                        const size_100: number = metadata_100.size;
-                        for (let i_100: number = 0; i_100 < size_100; i_100++) {
-                            const value_981: ContentItem.ContentItem = ContentItem.ContentItem.read(input);
-                            value_980.push(value_981);
+                        const value_985: Array<ContentItem.ContentItem> = new Array<ContentItem.ContentItem>();
+                        const metadata_101: thrift.TList = input.readListBegin();
+                        const size_101: number = metadata_101.size;
+                        for (let i_101: number = 0; i_101 < size_101; i_101++) {
+                            const value_986: ContentItem.ContentItem = ContentItem.ContentItem.read(input);
+                            value_985.push(value_986);
                         }
                         input.readListEnd();
-                        _args.success = value_980;
+                        _args.success = value_985;
                     }
                     else {
                         input.skip(fieldType);
@@ -24900,8 +25014,8 @@ export class GetDocContentItemsForChangeTypeResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_982: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_982;
+                        const value_987: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_987;
                     }
                     else {
                         input.skip(fieldType);
@@ -24909,8 +25023,8 @@ export class GetDocContentItemsForChangeTypeResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_983: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_983;
+                        const value_988: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_988;
                     }
                     else {
                         input.skip(fieldType);
@@ -24980,8 +25094,8 @@ export class DownloadDocumentTemplateResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_984: Buffer = input.readBinary();
-                        _args.success = value_984;
+                        const value_989: Buffer = input.readBinary();
+                        _args.success = value_989;
                     }
                     else {
                         input.skip(fieldType);
@@ -24989,8 +25103,8 @@ export class DownloadDocumentTemplateResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_985: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_985;
+                        const value_990: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_990;
                     }
                     else {
                         input.skip(fieldType);
@@ -24998,8 +25112,8 @@ export class DownloadDocumentTemplateResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_986: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_986;
+                        const value_991: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_991;
                     }
                     else {
                         input.skip(fieldType);
@@ -25040,8 +25154,8 @@ export class GetAllDocumentExecutionsByFilterResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_987: DocumentExecution.DocumentExecution): void => {
-                value_987.write(output);
+            this.success.forEach((value_992: DocumentExecution.DocumentExecution): void => {
+                value_992.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -25073,15 +25187,15 @@ export class GetAllDocumentExecutionsByFilterResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_988: Array<DocumentExecution.DocumentExecution> = new Array<DocumentExecution.DocumentExecution>();
-                        const metadata_101: thrift.TList = input.readListBegin();
-                        const size_101: number = metadata_101.size;
-                        for (let i_101: number = 0; i_101 < size_101; i_101++) {
-                            const value_989: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
-                            value_988.push(value_989);
+                        const value_993: Array<DocumentExecution.DocumentExecution> = new Array<DocumentExecution.DocumentExecution>();
+                        const metadata_102: thrift.TList = input.readListBegin();
+                        const size_102: number = metadata_102.size;
+                        for (let i_102: number = 0; i_102 < size_102; i_102++) {
+                            const value_994: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
+                            value_993.push(value_994);
                         }
                         input.readListEnd();
-                        _args.success = value_988;
+                        _args.success = value_993;
                     }
                     else {
                         input.skip(fieldType);
@@ -25089,8 +25203,8 @@ export class GetAllDocumentExecutionsByFilterResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_990: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_990;
+                        const value_995: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_995;
                     }
                     else {
                         input.skip(fieldType);
@@ -25098,8 +25212,8 @@ export class GetAllDocumentExecutionsByFilterResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_991: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_991;
+                        const value_996: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_996;
                     }
                     else {
                         input.skip(fieldType);
@@ -25169,8 +25283,8 @@ export class GetDocumentIdResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_992: string = input.readString();
-                        _args.success = value_992;
+                        const value_997: string = input.readString();
+                        _args.success = value_997;
                     }
                     else {
                         input.skip(fieldType);
@@ -25178,8 +25292,8 @@ export class GetDocumentIdResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_993: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_993;
+                        const value_998: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_998;
                     }
                     else {
                         input.skip(fieldType);
@@ -25187,8 +25301,8 @@ export class GetDocumentIdResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_994: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_994;
+                        const value_999: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_999;
                     }
                     else {
                         input.skip(fieldType);
@@ -25258,8 +25372,8 @@ export class ChangeDocumentNameResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_995: boolean = input.readBool();
-                        _args.success = value_995;
+                        const value_1000: boolean = input.readBool();
+                        _args.success = value_1000;
                     }
                     else {
                         input.skip(fieldType);
@@ -25267,8 +25381,8 @@ export class ChangeDocumentNameResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_996: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_996;
+                        const value_1001: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1001;
                     }
                     else {
                         input.skip(fieldType);
@@ -25276,8 +25390,8 @@ export class ChangeDocumentNameResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_997: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_997;
+                        const value_1002: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1002;
                     }
                     else {
                         input.skip(fieldType);
@@ -25347,8 +25461,8 @@ export class ChangeAttachmentOrderResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_998: boolean = input.readBool();
-                        _args.success = value_998;
+                        const value_1003: boolean = input.readBool();
+                        _args.success = value_1003;
                     }
                     else {
                         input.skip(fieldType);
@@ -25356,8 +25470,8 @@ export class ChangeAttachmentOrderResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_999: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_999;
+                        const value_1004: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1004;
                     }
                     else {
                         input.skip(fieldType);
@@ -25365,8 +25479,8 @@ export class ChangeAttachmentOrderResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1000: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1000;
+                        const value_1005: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1005;
                     }
                     else {
                         input.skip(fieldType);
@@ -25436,8 +25550,8 @@ export class CompareAttachmentsURLResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_1001: string = input.readString();
-                        _args.success = value_1001;
+                        const value_1006: string = input.readString();
+                        _args.success = value_1006;
                     }
                     else {
                         input.skip(fieldType);
@@ -25445,8 +25559,8 @@ export class CompareAttachmentsURLResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1002: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1002;
+                        const value_1007: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1007;
                     }
                     else {
                         input.skip(fieldType);
@@ -25454,8 +25568,8 @@ export class CompareAttachmentsURLResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1003: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1003;
+                        const value_1008: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1008;
                     }
                     else {
                         input.skip(fieldType);
@@ -25525,8 +25639,8 @@ export class GetDocumentDecisionXmlResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_1004: string = input.readString();
-                        _args.success = value_1004;
+                        const value_1009: string = input.readString();
+                        _args.success = value_1009;
                     }
                     else {
                         input.skip(fieldType);
@@ -25534,8 +25648,8 @@ export class GetDocumentDecisionXmlResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1005: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1005;
+                        const value_1010: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1010;
                     }
                     else {
                         input.skip(fieldType);
@@ -25543,8 +25657,8 @@ export class GetDocumentDecisionXmlResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1006: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1006;
+                        const value_1011: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1011;
                     }
                     else {
                         input.skip(fieldType);
@@ -25614,8 +25728,8 @@ export class GetReassignDocXmlResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_1007: string = input.readString();
-                        _args.success = value_1007;
+                        const value_1012: string = input.readString();
+                        _args.success = value_1012;
                     }
                     else {
                         input.skip(fieldType);
@@ -25623,8 +25737,8 @@ export class GetReassignDocXmlResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1008: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1008;
+                        const value_1013: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1013;
                     }
                     else {
                         input.skip(fieldType);
@@ -25632,8 +25746,8 @@ export class GetReassignDocXmlResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1009: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1009;
+                        const value_1014: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1014;
                     }
                     else {
                         input.skip(fieldType);
@@ -25703,8 +25817,8 @@ export class AddAnswerersResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_1010: boolean = input.readBool();
-                        _args.success = value_1010;
+                        const value_1015: boolean = input.readBool();
+                        _args.success = value_1015;
                     }
                     else {
                         input.skip(fieldType);
@@ -25712,8 +25826,8 @@ export class AddAnswerersResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1011: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1011;
+                        const value_1016: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1016;
                     }
                     else {
                         input.skip(fieldType);
@@ -25721,8 +25835,8 @@ export class AddAnswerersResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1012: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1012;
+                        const value_1017: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1017;
                     }
                     else {
                         input.skip(fieldType);
@@ -25792,8 +25906,8 @@ export class AddAnswerersToLinkedDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_1013: boolean = input.readBool();
-                        _args.success = value_1013;
+                        const value_1018: boolean = input.readBool();
+                        _args.success = value_1018;
                     }
                     else {
                         input.skip(fieldType);
@@ -25801,8 +25915,8 @@ export class AddAnswerersToLinkedDocumentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1014: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1014;
+                        const value_1019: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1019;
                     }
                     else {
                         input.skip(fieldType);
@@ -25810,8 +25924,8 @@ export class AddAnswerersToLinkedDocumentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1015: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1015;
+                        const value_1020: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1020;
                     }
                     else {
                         input.skip(fieldType);
@@ -25881,8 +25995,8 @@ export class CreateMeetingQuestionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1016: Document.Document = Document.Document.read(input);
-                        _args.success = value_1016;
+                        const value_1021: Document.Document = Document.Document.read(input);
+                        _args.success = value_1021;
                     }
                     else {
                         input.skip(fieldType);
@@ -25890,8 +26004,8 @@ export class CreateMeetingQuestionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1017: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1017;
+                        const value_1022: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1022;
                     }
                     else {
                         input.skip(fieldType);
@@ -25899,8 +26013,8 @@ export class CreateMeetingQuestionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1018: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1018;
+                        const value_1023: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1023;
                     }
                     else {
                         input.skip(fieldType);
@@ -25970,8 +26084,8 @@ export class ChangeExternalNumberResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_1019: boolean = input.readBool();
-                        _args.success = value_1019;
+                        const value_1024: boolean = input.readBool();
+                        _args.success = value_1024;
                     }
                     else {
                         input.skip(fieldType);
@@ -25979,8 +26093,8 @@ export class ChangeExternalNumberResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1020: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1020;
+                        const value_1025: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1025;
                     }
                     else {
                         input.skip(fieldType);
@@ -25988,8 +26102,8 @@ export class ChangeExternalNumberResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1021: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1021;
+                        const value_1026: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1026;
                     }
                     else {
                         input.skip(fieldType);
@@ -26030,8 +26144,8 @@ export class GetAvailableSubStatusesResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.SET, 0);
             output.writeSetBegin(thrift.Thrift.Type.I32, this.success.size);
-            this.success.forEach((value_1022: DocPatternStageSubStatus.DocPatternStageSubStatus): void => {
-                output.writeI32(value_1022);
+            this.success.forEach((value_1027: DocPatternStageSubStatus.DocPatternStageSubStatus): void => {
+                output.writeI32(value_1027);
             });
             output.writeSetEnd();
             output.writeFieldEnd();
@@ -26063,15 +26177,15 @@ export class GetAvailableSubStatusesResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.SET) {
-                        const value_1023: Set<DocPatternStageSubStatus.DocPatternStageSubStatus> = new Set<DocPatternStageSubStatus.DocPatternStageSubStatus>();
-                        const metadata_102: thrift.TSet = input.readSetBegin();
-                        const size_102: number = metadata_102.size;
-                        for (let i_102: number = 0; i_102 < size_102; i_102++) {
-                            const value_1024: DocPatternStageSubStatus.DocPatternStageSubStatus = input.readI32();
-                            value_1023.add(value_1024);
+                        const value_1028: Set<DocPatternStageSubStatus.DocPatternStageSubStatus> = new Set<DocPatternStageSubStatus.DocPatternStageSubStatus>();
+                        const metadata_103: thrift.TSet = input.readSetBegin();
+                        const size_103: number = metadata_103.size;
+                        for (let i_103: number = 0; i_103 < size_103; i_103++) {
+                            const value_1029: DocPatternStageSubStatus.DocPatternStageSubStatus = input.readI32();
+                            value_1028.add(value_1029);
                         }
                         input.readSetEnd();
-                        _args.success = value_1023;
+                        _args.success = value_1028;
                     }
                     else {
                         input.skip(fieldType);
@@ -26079,8 +26193,8 @@ export class GetAvailableSubStatusesResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1025: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1025;
+                        const value_1030: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1030;
                     }
                     else {
                         input.skip(fieldType);
@@ -26088,8 +26202,8 @@ export class GetAvailableSubStatusesResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1026: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1026;
+                        const value_1031: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1031;
                     }
                     else {
                         input.skip(fieldType);
@@ -26159,8 +26273,8 @@ export class CardWorkingStartResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1027: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
-                        _args.success = value_1027;
+                        const value_1032: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
+                        _args.success = value_1032;
                     }
                     else {
                         input.skip(fieldType);
@@ -26168,8 +26282,8 @@ export class CardWorkingStartResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1028: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1028;
+                        const value_1033: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1033;
                     }
                     else {
                         input.skip(fieldType);
@@ -26177,8 +26291,8 @@ export class CardWorkingStartResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1029: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1029;
+                        const value_1034: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1034;
                     }
                     else {
                         input.skip(fieldType);
@@ -26248,8 +26362,8 @@ export class CardWorkingLogResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1030: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
-                        _args.success = value_1030;
+                        const value_1035: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
+                        _args.success = value_1035;
                     }
                     else {
                         input.skip(fieldType);
@@ -26257,8 +26371,8 @@ export class CardWorkingLogResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1031: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1031;
+                        const value_1036: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1036;
                     }
                     else {
                         input.skip(fieldType);
@@ -26266,8 +26380,8 @@ export class CardWorkingLogResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1032: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1032;
+                        const value_1037: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1037;
                     }
                     else {
                         input.skip(fieldType);
@@ -26337,8 +26451,8 @@ export class CardWorkingStopResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1033: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
-                        _args.success = value_1033;
+                        const value_1038: DocumentExecution.DocumentExecution = DocumentExecution.DocumentExecution.read(input);
+                        _args.success = value_1038;
                     }
                     else {
                         input.skip(fieldType);
@@ -26346,8 +26460,8 @@ export class CardWorkingStopResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1034: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1034;
+                        const value_1039: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1039;
                     }
                     else {
                         input.skip(fieldType);
@@ -26355,8 +26469,8 @@ export class CardWorkingStopResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1035: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1035;
+                        const value_1040: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1040;
                     }
                     else {
                         input.skip(fieldType);
@@ -26397,11 +26511,11 @@ export class GetEnabledSubStatusesResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.MAP, 0);
             output.writeMapBegin(thrift.Thrift.Type.I32, thrift.Thrift.Type.LIST, this.success.size);
-            this.success.forEach((value_1036: Array<DocPatternStageSubStatus.DocPatternStageSubStatus>, key_25: SubStatusKey.SubStatusKey): void => {
+            this.success.forEach((value_1041: Array<DocPatternStageSubStatus.DocPatternStageSubStatus>, key_25: SubStatusKey.SubStatusKey): void => {
                 output.writeI32(key_25);
-                output.writeListBegin(thrift.Thrift.Type.I32, value_1036.length);
-                value_1036.forEach((value_1037: DocPatternStageSubStatus.DocPatternStageSubStatus): void => {
-                    output.writeI32(value_1037);
+                output.writeListBegin(thrift.Thrift.Type.I32, value_1041.length);
+                value_1041.forEach((value_1042: DocPatternStageSubStatus.DocPatternStageSubStatus): void => {
+                    output.writeI32(value_1042);
                 });
                 output.writeListEnd();
             });
@@ -26435,23 +26549,23 @@ export class GetEnabledSubStatusesResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.MAP) {
-                        const value_1038: Map<SubStatusKey.SubStatusKey, Array<DocPatternStageSubStatus.DocPatternStageSubStatus>> = new Map<SubStatusKey.SubStatusKey, Array<DocPatternStageSubStatus.DocPatternStageSubStatus>>();
-                        const metadata_103: thrift.TMap = input.readMapBegin();
-                        const size_103: number = metadata_103.size;
-                        for (let i_103: number = 0; i_103 < size_103; i_103++) {
+                        const value_1043: Map<SubStatusKey.SubStatusKey, Array<DocPatternStageSubStatus.DocPatternStageSubStatus>> = new Map<SubStatusKey.SubStatusKey, Array<DocPatternStageSubStatus.DocPatternStageSubStatus>>();
+                        const metadata_104: thrift.TMap = input.readMapBegin();
+                        const size_104: number = metadata_104.size;
+                        for (let i_104: number = 0; i_104 < size_104; i_104++) {
                             const key_26: SubStatusKey.SubStatusKey = input.readI32();
-                            const value_1039: Array<DocPatternStageSubStatus.DocPatternStageSubStatus> = new Array<DocPatternStageSubStatus.DocPatternStageSubStatus>();
-                            const metadata_104: thrift.TList = input.readListBegin();
-                            const size_104: number = metadata_104.size;
-                            for (let i_104: number = 0; i_104 < size_104; i_104++) {
-                                const value_1040: DocPatternStageSubStatus.DocPatternStageSubStatus = input.readI32();
-                                value_1039.push(value_1040);
+                            const value_1044: Array<DocPatternStageSubStatus.DocPatternStageSubStatus> = new Array<DocPatternStageSubStatus.DocPatternStageSubStatus>();
+                            const metadata_105: thrift.TList = input.readListBegin();
+                            const size_105: number = metadata_105.size;
+                            for (let i_105: number = 0; i_105 < size_105; i_105++) {
+                                const value_1045: DocPatternStageSubStatus.DocPatternStageSubStatus = input.readI32();
+                                value_1044.push(value_1045);
                             }
                             input.readListEnd();
-                            value_1038.set(key_26, value_1039);
+                            value_1043.set(key_26, value_1044);
                         }
                         input.readMapEnd();
-                        _args.success = value_1038;
+                        _args.success = value_1043;
                     }
                     else {
                         input.skip(fieldType);
@@ -26459,8 +26573,8 @@ export class GetEnabledSubStatusesResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1041: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1041;
+                        const value_1046: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1046;
                     }
                     else {
                         input.skip(fieldType);
@@ -26468,8 +26582,8 @@ export class GetEnabledSubStatusesResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1042: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1042;
+                        const value_1047: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1047;
                     }
                     else {
                         input.skip(fieldType);
@@ -26539,8 +26653,8 @@ export class UpdateUserTagResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1043: DocumentTag.DocumentTag = DocumentTag.DocumentTag.read(input);
-                        _args.success = value_1043;
+                        const value_1048: DocumentTag.DocumentTag = DocumentTag.DocumentTag.read(input);
+                        _args.success = value_1048;
                     }
                     else {
                         input.skip(fieldType);
@@ -26548,8 +26662,8 @@ export class UpdateUserTagResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1044: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1044;
+                        const value_1049: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1049;
                     }
                     else {
                         input.skip(fieldType);
@@ -26557,8 +26671,8 @@ export class UpdateUserTagResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1045: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1045;
+                        const value_1050: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1050;
                     }
                     else {
                         input.skip(fieldType);
@@ -26599,8 +26713,8 @@ export class GetUserTagsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_1046: DocumentTag.DocumentTag): void => {
-                value_1046.write(output);
+            this.success.forEach((value_1051: DocumentTag.DocumentTag): void => {
+                value_1051.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -26632,15 +26746,15 @@ export class GetUserTagsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_1047: Array<DocumentTag.DocumentTag> = new Array<DocumentTag.DocumentTag>();
-                        const metadata_105: thrift.TList = input.readListBegin();
-                        const size_105: number = metadata_105.size;
-                        for (let i_105: number = 0; i_105 < size_105; i_105++) {
-                            const value_1048: DocumentTag.DocumentTag = DocumentTag.DocumentTag.read(input);
-                            value_1047.push(value_1048);
+                        const value_1052: Array<DocumentTag.DocumentTag> = new Array<DocumentTag.DocumentTag>();
+                        const metadata_106: thrift.TList = input.readListBegin();
+                        const size_106: number = metadata_106.size;
+                        for (let i_106: number = 0; i_106 < size_106; i_106++) {
+                            const value_1053: DocumentTag.DocumentTag = DocumentTag.DocumentTag.read(input);
+                            value_1052.push(value_1053);
                         }
                         input.readListEnd();
-                        _args.success = value_1047;
+                        _args.success = value_1052;
                     }
                     else {
                         input.skip(fieldType);
@@ -26648,8 +26762,8 @@ export class GetUserTagsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1049: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1049;
+                        const value_1054: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1054;
                     }
                     else {
                         input.skip(fieldType);
@@ -26657,8 +26771,8 @@ export class GetUserTagsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1050: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1050;
+                        const value_1055: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1055;
                     }
                     else {
                         input.skip(fieldType);
@@ -26728,8 +26842,8 @@ export class UpdateTagOrdersResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_1051: boolean = input.readBool();
-                        _args.success = value_1051;
+                        const value_1056: boolean = input.readBool();
+                        _args.success = value_1056;
                     }
                     else {
                         input.skip(fieldType);
@@ -26737,8 +26851,8 @@ export class UpdateTagOrdersResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1052: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1052;
+                        const value_1057: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1057;
                     }
                     else {
                         input.skip(fieldType);
@@ -26746,8 +26860,8 @@ export class UpdateTagOrdersResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1053: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1053;
+                        const value_1058: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1058;
                     }
                     else {
                         input.skip(fieldType);
@@ -26817,8 +26931,8 @@ export class DocumentFieldByKeyResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_1054: string = input.readString();
-                        _args.success = value_1054;
+                        const value_1059: string = input.readString();
+                        _args.success = value_1059;
                     }
                     else {
                         input.skip(fieldType);
@@ -26826,8 +26940,8 @@ export class DocumentFieldByKeyResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1055: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1055;
+                        const value_1060: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1060;
                     }
                     else {
                         input.skip(fieldType);
@@ -26835,8 +26949,8 @@ export class DocumentFieldByKeyResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1056: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1056;
+                        const value_1061: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1061;
                     }
                     else {
                         input.skip(fieldType);
@@ -26906,8 +27020,8 @@ export class AddDecorationResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_1057: boolean = input.readBool();
-                        _args.success = value_1057;
+                        const value_1062: boolean = input.readBool();
+                        _args.success = value_1062;
                     }
                     else {
                         input.skip(fieldType);
@@ -26915,8 +27029,8 @@ export class AddDecorationResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1058: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1058;
+                        const value_1063: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1063;
                     }
                     else {
                         input.skip(fieldType);
@@ -26924,8 +27038,8 @@ export class AddDecorationResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1059: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1059;
+                        const value_1064: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1064;
                     }
                     else {
                         input.skip(fieldType);
@@ -26995,8 +27109,8 @@ export class GenerateDownloadAttachmentsURLResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_1060: string = input.readString();
-                        _args.success = value_1060;
+                        const value_1065: string = input.readString();
+                        _args.success = value_1065;
                     }
                     else {
                         input.skip(fieldType);
@@ -27004,8 +27118,8 @@ export class GenerateDownloadAttachmentsURLResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1061: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_1061;
+                        const value_1066: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1066;
                     }
                     else {
                         input.skip(fieldType);
@@ -27013,8 +27127,8 @@ export class GenerateDownloadAttachmentsURLResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1062: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_1062;
+                        const value_1067: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1067;
                     }
                     else {
                         input.skip(fieldType);
@@ -27028,6 +27142,95 @@ export class GenerateDownloadAttachmentsURLResult {
         }
         input.readStructEnd();
         return new GenerateDownloadAttachmentsURLResult(_args);
+    }
+}
+export interface ISetAttachmentProcessingStatusResultArgs {
+    success?: boolean;
+    validError?: __ROOT_NAMESPACE__.PreconditionException;
+    error?: __ROOT_NAMESPACE__.ServerException;
+}
+export class SetAttachmentProcessingStatusResult {
+    public success?: boolean;
+    public validError?: __ROOT_NAMESPACE__.PreconditionException;
+    public error?: __ROOT_NAMESPACE__.ServerException;
+    constructor(args?: ISetAttachmentProcessingStatusResultArgs) {
+        if (args != null && args.success != null) {
+            this.success = args.success;
+        }
+        if (args != null && args.validError != null) {
+            this.validError = args.validError;
+        }
+        if (args != null && args.error != null) {
+            this.error = args.error;
+        }
+    }
+    public write(output: thrift.TProtocol): void {
+        output.writeStructBegin("SetAttachmentProcessingStatusResult");
+        if (this.success != null) {
+            output.writeFieldBegin("success", thrift.Thrift.Type.BOOL, 0);
+            output.writeBool(this.success);
+            output.writeFieldEnd();
+        }
+        if (this.validError != null) {
+            output.writeFieldBegin("validError", thrift.Thrift.Type.STRUCT, 1);
+            this.validError.write(output);
+            output.writeFieldEnd();
+        }
+        if (this.error != null) {
+            output.writeFieldBegin("error", thrift.Thrift.Type.STRUCT, 2);
+            this.error.write(output);
+            output.writeFieldEnd();
+        }
+        output.writeFieldStop();
+        output.writeStructEnd();
+        return;
+    }
+    public static read(input: thrift.TProtocol): SetAttachmentProcessingStatusResult {
+        input.readStructBegin();
+        let _args: any = {};
+        while (true) {
+            const ret: thrift.TField = input.readFieldBegin();
+            const fieldType: thrift.Thrift.Type = ret.ftype;
+            const fieldId: number = ret.fid;
+            if (fieldType === thrift.Thrift.Type.STOP) {
+                break;
+            }
+            switch (fieldId) {
+                case 0:
+                    if (fieldType === thrift.Thrift.Type.BOOL) {
+                        const value_1068: boolean = input.readBool();
+                        _args.success = value_1068;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                case 1:
+                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                        const value_1069: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_1069;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                case 2:
+                    if (fieldType === thrift.Thrift.Type.STRUCT) {
+                        const value_1070: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_1070;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                default: {
+                    input.skip(fieldType);
+                }
+            }
+            input.readFieldEnd();
+        }
+        input.readStructEnd();
+        return new SetAttachmentProcessingStatusResult(_args);
     }
 }
 export class Client {
@@ -28801,6 +29004,21 @@ export class Client {
             this.send_generateDownloadAttachmentsURL(token, documentId, attachmentsInfo, accessPolicy, requestId);
         });
     }
+    public setAttachmentProcessingStatus(token: string, attachmentIds: Array<string>, processingStatus: __ROOT_NAMESPACE__.AttachmentProcessingStatus): Promise<boolean> {
+        const requestId: number = this.incrementSeqId();
+        return new Promise<boolean>((resolve, reject): void => {
+            this._reqs[requestId] = (error, result) => {
+                delete this._reqs[requestId];
+                if (error != null) {
+                    reject(error);
+                }
+                else {
+                    resolve(result);
+                }
+            };
+            this.send_setAttachmentProcessingStatus(token, attachmentIds, processingStatus, requestId);
+        });
+    }
     public send_calculatePermissions(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, requestId: number): void {
         const output: thrift.TProtocol = new this.protocol(this.output);
         output.writeMessageBegin("calculatePermissions", thrift.Thrift.MessageType.CALL, requestId);
@@ -29849,6 +30067,15 @@ export class Client {
         const output: thrift.TProtocol = new this.protocol(this.output);
         output.writeMessageBegin("generateDownloadAttachmentsURL", thrift.Thrift.MessageType.CALL, requestId);
         const args: GenerateDownloadAttachmentsURLArgs = new GenerateDownloadAttachmentsURLArgs({ token, documentId, attachmentsInfo, accessPolicy });
+        args.write(output);
+        output.writeMessageEnd();
+        this.output.flush();
+        return;
+    }
+    public send_setAttachmentProcessingStatus(token: string, attachmentIds: Array<string>, processingStatus: __ROOT_NAMESPACE__.AttachmentProcessingStatus, requestId: number): void {
+        const output: thrift.TProtocol = new this.protocol(this.output);
+        output.writeMessageBegin("setAttachmentProcessingStatus", thrift.Thrift.MessageType.CALL, requestId);
+        const args: SetAttachmentProcessingStatusArgs = new SetAttachmentProcessingStatusArgs({ token, attachmentIds, processingStatus });
         args.write(output);
         output.writeMessageEnd();
         this.output.flush();
@@ -33130,6 +33357,34 @@ export class Client {
             }
         }
     }
+    public recv_setAttachmentProcessingStatus(input: thrift.TProtocol, mtype: thrift.Thrift.MessageType, requestId: number): void {
+        const noop = (): any => null;
+        const callback = this._reqs[requestId] || noop;
+        if (mtype === thrift.Thrift.MessageType.EXCEPTION) {
+            const x: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException();
+            x.read(input);
+            input.readMessageEnd();
+            return callback(x);
+        }
+        else {
+            const result: SetAttachmentProcessingStatusResult = SetAttachmentProcessingStatusResult.read(input);
+            input.readMessageEnd();
+            if (result.validError != null) {
+                return callback(result.validError);
+            }
+            else if (result.error != null) {
+                return callback(result.error);
+            }
+            else {
+                if (result.success != null) {
+                    return callback(undefined, result.success);
+                }
+                else {
+                    return callback(new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, "setAttachmentProcessingStatus failed: unknown result"));
+                }
+            }
+        }
+    }
 }
 export interface IHandler {
     calculatePermissions(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): DocPermissions.DocPermissions | Promise<DocPermissions.DocPermissions>;
@@ -33249,6 +33504,7 @@ export interface IHandler {
     documentFieldByKey(token: string, documentId: string, key: string, keyType: DocKeyType.DocKeyType): string | Promise<string>;
     addDecoration(token: string, attachmentId: string, decoratorKeys: Array<string>): boolean | Promise<boolean>;
     generateDownloadAttachmentsURL(token: string, documentId: string, attachmentsInfo: Array<AttachmentDownloadInfo.AttachmentDownloadInfo>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): string | Promise<string>;
+    setAttachmentProcessingStatus(token: string, attachmentIds: Array<string>, processingStatus: __ROOT_NAMESPACE__.AttachmentProcessingStatus): boolean | Promise<boolean>;
 }
 export class Processor {
     public _handler: IHandler;
@@ -33727,6 +33983,10 @@ export class Processor {
             }
             case "process_generateDownloadAttachmentsURL": {
                 this.process_generateDownloadAttachmentsURL(requestId, input, output);
+                return;
+            }
+            case "process_setAttachmentProcessingStatus": {
+                this.process_setAttachmentProcessingStatus(requestId, input, output);
                 return;
             }
             default: {
@@ -38883,6 +39143,50 @@ export class Processor {
             else {
                 const result: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, err.message);
                 output.writeMessageBegin("generateDownloadAttachmentsURL", thrift.Thrift.MessageType.EXCEPTION, requestId);
+                result.write(output);
+                output.writeMessageEnd();
+                output.flush();
+                return;
+            }
+        });
+    }
+    public process_setAttachmentProcessingStatus(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
+        new Promise<boolean>((resolve, reject): void => {
+            try {
+                const args: SetAttachmentProcessingStatusArgs = SetAttachmentProcessingStatusArgs.read(input);
+                input.readMessageEnd();
+                resolve(this._handler.setAttachmentProcessingStatus(args.token, args.attachmentIds, args.processingStatus));
+            }
+            catch (err) {
+                reject(err);
+            }
+        }).then((data: boolean): void => {
+            const result: SetAttachmentProcessingStatusResult = new SetAttachmentProcessingStatusResult({ success: data });
+            output.writeMessageBegin("setAttachmentProcessingStatus", thrift.Thrift.MessageType.REPLY, requestId);
+            result.write(output);
+            output.writeMessageEnd();
+            output.flush();
+            return;
+        }).catch((err: Error): void => {
+            if (err instanceof __ROOT_NAMESPACE__.PreconditionException) {
+                const result: SetAttachmentProcessingStatusResult = new SetAttachmentProcessingStatusResult({ validError: err });
+                output.writeMessageBegin("setAttachmentProcessingStatus", thrift.Thrift.MessageType.REPLY, requestId);
+                result.write(output);
+                output.writeMessageEnd();
+                output.flush();
+                return;
+            }
+            else if (err instanceof __ROOT_NAMESPACE__.ServerException) {
+                const result: SetAttachmentProcessingStatusResult = new SetAttachmentProcessingStatusResult({ error: err });
+                output.writeMessageBegin("setAttachmentProcessingStatus", thrift.Thrift.MessageType.REPLY, requestId);
+                result.write(output);
+                output.writeMessageEnd();
+                output.flush();
+                return;
+            }
+            else {
+                const result: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, err.message);
+                output.writeMessageBegin("setAttachmentProcessingStatus", thrift.Thrift.MessageType.EXCEPTION, requestId);
                 result.write(output);
                 output.writeMessageEnd();
                 output.flush();

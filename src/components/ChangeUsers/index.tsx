@@ -107,8 +107,6 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
     enabled: visible
   });
 
-  console.log(data, patternId)
-
   return <Popup
     position='right'
     visible={visibleLocal}

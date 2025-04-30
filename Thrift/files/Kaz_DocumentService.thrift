@@ -2465,4 +2465,7 @@ service DocumentService {
   bool addDecoration(1: common.AuthTokenBase64 token, 2: common.ID attachmentId, 3: list<string> decoratorKeys) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Сгенерировать URL загрузки вложений с сервера  */
   string generateDownloadAttachmentsURL(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3: list<AttachmentDownloadInfo> attachmentsInfo, 4: DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  /** Смена статуса вложения */
+  bool setAttachmentProcessingStatus(1: common.AuthTokenBase64 token, 2: list<common.ID> attachmentIds, 3: common.AttachmentProcessingStatus processingStatus) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+
 }
