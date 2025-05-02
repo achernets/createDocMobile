@@ -1,4 +1,4 @@
-import { Button, Calendar, CalendarProps, CenterPopup, Input, Picker } from "antd-mobile";
+import { Button, Calendar, CalendarProps, CenterPopup, FormItemProps, Input, Picker } from "antd-mobile";
 import { JSX, useMemo, useState } from "react";
 import { CalendarOutlineStyled, ClockCircleOutlineStyled, InputWrapper, Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
@@ -12,7 +12,7 @@ type DatePickerFProps = {
   name: string,
   control: Control<any>,
   time?: boolean,
-  required?: boolean,
+  formItemProps?: FormItemProps,
 } & Omit<CalendarProps, 'defaultValue' | 'onChange' | 'selectionMode' | 'value'>
 
 const hours = Array.from({ length: 24 }, (_, i) => ({
@@ -25,7 +25,7 @@ const minutes = Array.from({ length: 60 }, (_, i) => ({
   value: i.toString().padStart(2, '0'),
 }));
 
-const DatePicker = ({ label, name, control, defaultValue = -1, time = false, required = false, ...props }: DatePickerFProps): JSX.Element => {
+const DatePicker = ({ label, name, control, defaultValue = -1, time = false, formItemProps = {}, ...props }: DatePickerFProps): JSX.Element => {
   const { field: { value, onChange, ...field } } = useController({
     name,
     control,
@@ -56,8 +56,10 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, req
 
   return <>
     <Wrapper
-      label={label}
-      required={required}
+      label={<>
+        {label}
+        {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
+      </>}
     >
       <div style={{
         display: 'flex',

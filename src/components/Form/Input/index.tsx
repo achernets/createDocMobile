@@ -1,22 +1,23 @@
-import { TextArea as ATextArea, FormItemProps, TextAreaProps } from "antd-mobile";
+import { Input as AInput, FormItemProps, InputProps } from "antd-mobile";
 import { JSX } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
 
-type TextAreaFProps = {
+type InputFProps = {
   label?: string,
   defaultValue?: boolean,
   name: string,
   control: Control<any>,
   formItemProps?: FormItemProps,
-} & TextAreaProps
+} & InputProps
 
-const TextArea = ({ label, name, control, defaultValue, formItemProps = {}, ...props }: TextAreaFProps): JSX.Element => {
+const Input = ({ label, name, control, defaultValue, formItemProps = {}, ...props }: InputFProps): JSX.Element => {
   const { field } = useController({
     name,
     control,
     defaultValue
   });
+
   return <Wrapper
     label={<>
       {label}
@@ -24,7 +25,7 @@ const TextArea = ({ label, name, control, defaultValue, formItemProps = {}, ...p
     </>}
     {...formItemProps}
   >
-    <ATextArea
+    <AInput
       {...field}
       {...props}
     />
@@ -32,4 +33,4 @@ const TextArea = ({ label, name, control, defaultValue, formItemProps = {}, ...p
 };
 
 
-export default TextArea;
+export default Input;

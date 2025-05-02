@@ -1,12 +1,12 @@
-import { JSX, useCallback, useRef, useState } from "react";
+import { JSX, useCallback, useRef } from "react";
 import { Control, useFieldArray } from "react-hook-form";
-import { Attachment, AttachmentExtStatus, AttachmentStatus, AttachmentType, DocumentPattern } from "../../../api/data";
-import { ActionSheet, Button, Card, Dialog, Divider, Ellipsis, Image, List, Space, Toast } from "antd-mobile";
+import { Attachment, AttachmentExtStatus, DocumentPattern } from "../../../api/data";
+import { ActionSheet, Button, Card, Dialog, Ellipsis, Image, Space, Toast } from "antd-mobile";
 import { createAttachmetFromFile, getFileIcon } from "../../../utils";
 import { AddOutline, RightOutline } from "antd-mobile-icons";
 import useModalStore from "../../../store/useModals";
 import { useShallow } from "zustand/shallow";
-import { at, includes, invert } from "lodash";
+import { includes, invert } from "lodash";
 
 type UploadAttAndPatternTemplateProps = {
   label?: string,
@@ -29,8 +29,6 @@ const UploadAttAndPatternTemplate = ({ name, control, pattern, allowSubStatuses 
     keyName: 'idx'
   });
   const inputRef = useRef(null);
-
-  console.log(fields)
 
   const handleFileChange = useCallback(async (event) => {
     const files = event.target.files;
@@ -71,10 +69,9 @@ const UploadAttAndPatternTemplate = ({ name, control, pattern, allowSubStatuses 
   const actionsAttchments = useCallback((att: Attachment, index: number) => {
     ActionSheet.show({
       actions: [
-        ...allowSubStatuses.map(extStatus => ({
+        ...allowSubStatuses.filter(itm=>itm !== att.attachmentExtStatus).map(extStatus => ({
           key: extStatus,
-          description: 'subStatus',
-          disabled: extStatus === att.attachmentExtStatus,
+          description: 'Тип вкладення',
           text: `${AttachmentExtStatus[extStatus]}`
         })),
         {
@@ -86,16 +83,18 @@ const UploadAttAndPatternTemplate = ({ name, control, pattern, allowSubStatuses 
       closeOnAction: true,
       onAction: (action) => {
         if (includes(allowSubStatuses, action.key)) {
-          update(index, {
+          update(index, new Attachment({
             ...att,
-            attachmentExtStatus: action.key
-          });
+            attachmentExtStatus: action.key as number
+          }));
         } else {
           switch (action.key) {
             case 'delete':
               Dialog.confirm({
                 title: `Видалити вкладення ${att.fileName}`,
-                onConfirm: () => remove(index)
+                onConfirm: () => remove(index),
+                confirmText: 'Видалити',
+                cancelText: 'Відмінити'
               });
               break;
             default:
@@ -147,18 +146,7 @@ const UploadAttAndPatternTemplate = ({ name, control, pattern, allowSubStatuses 
         </Space>
         }
         extra={<RightOutline />}
-      >
-        {`AttachmentExtStatus.${invert(AttachmentExtStatus)[itm.attachmentExtStatus]}`}
-        <Divider />
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'flex-end',
-          alignItems: 'center'
-        }}>
-          <Button color={'primary'}>Видалити</Button>
-        </div>
-      </Card>
+      />
     })}
     <input
       type="file"

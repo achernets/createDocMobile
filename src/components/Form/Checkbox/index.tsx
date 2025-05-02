@@ -1,4 +1,4 @@
-import { Checkbox as ACheckbox, CheckboxProps } from "antd-mobile";
+import { Checkbox as ACheckbox, CheckboxProps, FormItemProps } from "antd-mobile";
 import { JSX } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
@@ -8,9 +8,11 @@ type CheckboxFProps = {
   defaultValue?: string,
   name: string,
   control: Control<any>,
+  isString?: boolean,
+  formItemProps?: FormItemProps,
 } & CheckboxProps
 
-const Checkbox = ({ label, name, control, defaultValue = '', ...props }: CheckboxFProps): JSX.Element => {
+const Checkbox = ({ label, name, control, defaultValue = '', isString = false, formItemProps = {}, ...props }: CheckboxFProps): JSX.Element => {
   const { field: { value, ...field } } = useController({
     name,
     control,
@@ -19,11 +21,13 @@ const Checkbox = ({ label, name, control, defaultValue = '', ...props }: Checkbo
 
   return <Wrapper>
     <ACheckbox
-      checked={value}
+      checked={isString ? value === 'true' : value}
       {...field}
+      onChange={(e) => isString ? field.onChange(String(e)) : field.onChange(e)}
       {...props}
     >
       {label}
+      {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
     </ACheckbox>
   </Wrapper>
 };

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { JSX, useCallback, useEffect } from "react";
+import { JSX, useCallback, useEffect, useState } from "react";
 import { Button, Modal, Space, Tabs } from "antd-mobile";
 import { DocumentPatternServiceClient, DocumentServiceClient } from "../../api";
 import { AttachmentExtStatus } from "../../api/data";
@@ -8,10 +8,11 @@ import useModalStore from "../../store/useModals";
 import { useShallow } from "zustand/shallow";
 import { FormStyled, TabsStyled } from "./styled";
 import { useForm } from "react-hook-form";
-import { Document, DocumentAccessPolicy, DocumentAccessPolicyType } from "../../api/data";
+import { Document, DocumentAccessPolicy, DocumentAccessPolicyType, ContentHolder, ContentItemType } from "../../api/data";
 import UploadAttAndPatternTemplate from "../Form/UploadAttAndPatternTemplate";
 import TabInfo from "./components/TabInfo";
-import { get } from "lodash";
+import { get, pick, orderBy, map, reduce, size, debounce, uniqBy, findIndex } from "lodash";
+import { GetFilledDocumentPatternStagesExecutorsArgs } from "../../api/data/FilledDocumentPatternService";
 
 const Step2 = (): JSX.Element => {
   const { token, clientInfo, account, groupPattern, pattern } = useAppStore(
@@ -28,18 +29,25 @@ const Step2 = (): JSX.Element => {
     openModal: state.openModal
   })));
 
-  const { control, reset, watch, setValue } = useForm({
+  const { control, reset, watch, setValue, getValues } = useForm({
     defaultValues: {
       author: [clientInfo],
       controlUsers: [clientInfo],
       document: new Document({
         nameDocument: "",
-        controlForDocument: true,
+        controlForDocument: false,
         documentDeadlineDate: -1,
       }),
-      attachments: []
+      attachments: [],
+      holders: [],
+      stages: [],
+      scGrifs: []
     },
+    shouldUnregister: false
   });
+
+  const [changes, setChanges] = useState([]);
+  const [changesIsWork, setChangesIsWork] = useState(false);
 
   const getInfoDoc = useCallback(async () => {
     try {
@@ -57,10 +65,21 @@ const Step2 = (): JSX.Element => {
         controlUsers: [clientInfo],
         document: new Document({
           nameDocument: "",
-          controlForDocument: true,
+          controlForDocument: false,
           documentDeadlineDate: -1,
         }),
-        attachments: []
+        attachments: [],
+        holders: orderBy(result.holders, ['order', 'oName']).map(holder => new ContentHolder({
+          ...holder,
+          contentHolderLink: orderBy(holder.contentHolderLink, ['order', 'oName'])
+        })),
+        contentItems: reduce(result.holders, (hash, holder) => {
+          map(holder.contentHolderLink, itm => {
+            hash[itm.contentItem.key] = itm.contentItem;
+          })
+          return hash;
+        }, {}),
+        ...pick(result, ['stages', 'scGrifs'])
       });
     } catch (error) {
       console.log(error);
@@ -71,12 +90,79 @@ const Step2 = (): JSX.Element => {
     getInfoDoc();
   }, [getInfoDoc]);
 
+  const execFunc = (obj) => {
+    const holder = getValues(obj.holderPath);
+    const fn = new Function('Methods', `return (async () => {${obj.item.onChangeScript}})();`);
+    console.log('start');
+    const getPathLinkByKey = (key) => {
+      return `${obj.holderPath}.contentHolderLink.${findIndex(holder.contentHolderLink, { contentItem: { key: key } })}`
+    };
+
+    const getContentItem = (key) => getValues(`contentItems.${key}`)
+    fn({
+      getContentItemValue: (key) => {
+        const item = getValues(`contentItems.${key}`);
+        const v = getValues(`contentItems.${key}.value.strValue`);
+        switch (item.type) {
+          case ContentItemType.CHECKBOX:
+            return getValues(`contentItems.${key}.value.strValue`) === 'true';
+          default:
+            return v;
+        }
+      },
+      setContentItemValue: (key, value) => {
+        setValue(`contentItems.${key}.value.strValue`, value);
+      },
+      setRequiredLink: (key, value) => {
+        const addressPath = getPathLinkByKey(key);
+        setValue(`${addressPath}.requared`, value);
+      }
+    }).then(() => {
+      console.log('end');
+      setChanges(prev => prev.filter((itm, i) => i !== 0));
+      setChangesIsWork(false);
+    });
+  };
+
+  const debouncedExec = debounce((change) => {
+    execFunc(change);
+  }, 300);
+
   useEffect(() => {
-    const { unsubscribe } = watch((value, { name }) => {
-      console.log(`${name}=`, get(value, name));
+    if (size(changes) === 0) return;
+    if (changesIsWork === false) {
+      setChangesIsWork(true);
+      debouncedExec(changes[0]);
+    }
+  }, [debouncedExec, changes, changesIsWork]);
+
+  useEffect(() => {
+    const { unsubscribe } = watch((value, { name, type }) => {
+      if (name?.startsWith('contentItems.')) {
+        const paths = name.split('.');
+        const holders = getValues('holders');
+        const links = reduce(holders, (hash, holder, index) => {
+          map(holder.contentHolderLink, (itm, idx) => {
+            if (itm.contentItem.key === paths[1] && itm.onChangeScript !== undefined && itm.onChangeScript !== null && itm.onChangeScript !== '') {
+              hash.push({
+                holderPath: `holders.${index}`,
+                pathItem: `holders.${index}.contentHolderLink.${idx}`,
+                item: itm
+              });
+            }
+          })
+          return hash;
+        }, []);
+        setChanges(prev => {
+          return uniqBy([
+            ...prev,
+            ...links
+          ].reverse(), 'path').reverse();
+        });
+      }
     });
     return () => unsubscribe();
-  }, [watch]);
+  }, [watch, getValues]);
 
   return (
     <>
@@ -114,6 +200,7 @@ const Step2 = (): JSX.Element => {
             <TabInfo
               control={control}
               pattern={pattern}
+              watch={watch}
             />
           </Tabs.Tab>
 

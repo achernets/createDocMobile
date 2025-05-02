@@ -1,20 +1,28 @@
-import { JSX } from "react";
+import { Fragment, JSX } from "react";
 import Users from "../../Form/Users";
 import TextArea from "../../Form/TextArea";
 import Checkbox from "../../Form/Checkbox";
 import DateTimePicker from "../../Form/DateTimePicker";
-import { Control, useWatch } from "react-hook-form";
-import { DocumentPattern } from "../../../api/data";
+import { Control, useFieldArray, useWatch } from "react-hook-form";
+import { ContentHolder, DocumentPattern } from "../../../api/data";
+import { map } from "lodash";
+import Holder from "../../Form/Holder";
 
 type TabInfoProps = {
   control: Control,
-  pattern: DocumentPattern
+  pattern: DocumentPattern,
+  watch: any
 };
 
 const TabInfo = ({ control, pattern }: TabInfoProps): JSX.Element => {
   const controlForDocument = useWatch({
     control,
     name: 'document.controlForDocument',
+  });
+
+  const holdersField = useFieldArray({
+    control,
+    name: 'holders',
   });
 
   return <>
@@ -59,13 +67,23 @@ const TabInfo = ({ control, pattern }: TabInfoProps): JSX.Element => {
         <DateTimePicker
           name={"document.documentDeadlineDate"}
           control={control}
-          required={true}
           label={"Контрольний термін документу"}
           time={true}
+          formItemProps={{
+            required: true
+          }}
         />
       </>
     )}
-
+    {map(holdersField.fields, (holder: ContentHolder, index: number) => {
+      return <Fragment key={holder.id}>
+        {holder.showInInfo && <Holder
+          holder={holder}
+          name={`holders.${index}`}
+          control={control}
+        />}
+      </Fragment>
+    })}
   </>;
 };
 
