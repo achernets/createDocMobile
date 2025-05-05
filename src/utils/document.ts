@@ -1,3 +1,4 @@
+import { get } from "lodash";
 import { ContentItemType } from "../api/data";
 
 
@@ -7,12 +8,11 @@ export const ContentItemExecScript = async (setValue, getValues) => {
   return {
     getContentItemValue: (key) => {
       const item = getValues(`contentItems.${key}`);
-      const v = getValues(`contentItems.${key}.value.strValue`);
       switch (item.type) {
         case ContentItemType.CHECKBOX:
-          return getValues(`contentItems.${key}.value.strValue`) === 'true';
+          return get(item, 'value.strValue', false) === 'true';
         default:
-          return v;
+          return get(item, 'value.strValue', null);
       }
     },
     setContentItemValue: (key, value) => {

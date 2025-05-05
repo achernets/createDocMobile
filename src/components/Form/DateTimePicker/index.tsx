@@ -13,6 +13,7 @@ type DatePickerFProps = {
   control: Control<any>,
   time?: boolean,
   formItemProps?: FormItemProps,
+  disabled?: boolean,
 } & Omit<CalendarProps, 'defaultValue' | 'onChange' | 'selectionMode' | 'value'>
 
 const hours = Array.from({ length: 24 }, (_, i) => ({

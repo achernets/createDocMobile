@@ -97,21 +97,21 @@ const Step2 = (): JSX.Element => {
     const getPathLinkByKey = (key) => {
       return `${obj.holderPath}.contentHolderLink.${findIndex(holder.contentHolderLink, { contentItem: { key: key } })}`
     };
-
     const getContentItem = (key) => getValues(`contentItems.${key}`)
     fn({
       getContentItemValue: (key) => {
         const item = getValues(`contentItems.${key}`);
-        const v = getValues(`contentItems.${key}.value.strValue`);
         switch (item.type) {
           case ContentItemType.CHECKBOX:
-            return getValues(`contentItems.${key}.value.strValue`) === 'true';
+            return get(item, `value.strValue`) === 'true';
           default:
-            return v;
+            return get(item, `value.strValue`);
         }
       },
       setContentItemValue: (key, value) => {
-        setValue(`contentItems.${key}.value.strValue`, value);
+        if (getValues(`contentItems.${key}.value.strValue`) !== value) {
+          setValue(`contentItems.${key}.value.strValue`, value);
+        }
       },
       setRequiredLink: (key, value) => {
         const addressPath = getPathLinkByKey(key);
@@ -157,7 +157,7 @@ const Step2 = (): JSX.Element => {
           return uniqBy([
             ...prev,
             ...links
-          ].reverse(), 'path').reverse();
+          ].reverse(), 'pathItem').reverse();
         });
       }
     });
