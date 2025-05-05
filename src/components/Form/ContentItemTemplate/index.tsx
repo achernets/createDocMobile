@@ -10,6 +10,7 @@ import DatePicker from "../DateTimePicker";
 import Users from "../Users";
 import InputUrl from "../InputUrl";
 import { Button, Divider, Ellipsis } from "antd-mobile";
+import RandeDatePicker from "../RandeDatePicker";
 
 type ContentItemTemplateProps = {
   pathAllItems: string,
@@ -78,7 +79,6 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
           formItemProps={{
             required: requiredItem
           }}
-          // @ts-check
           options={map(item.fields, itm => ({
             label: itm,
             value: itm
@@ -135,7 +135,14 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
       case ContentItemType.MARK:
         return <Ellipsis content={item.oName} />;
       case ContentItemType.BUTTON:
-        return <Button color={'primary'}>{item.oName}</Button>
+        return <Button color={'primary'}>{item.oName}</Button>;
+      case ContentItemType.CALENDAR_RANGE:
+        return <RandeDatePicker
+          label={item.oName}
+          name={`${pathAllItems}.${item.key}.value`}
+          control={control}
+          disabled={readOnlyItem}
+        />;
       default:
         return <div>{invert(ContentItemType)[item.type]}</div>;
     }
