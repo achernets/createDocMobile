@@ -1,8 +1,9 @@
-import { includes, reduce, toLower, values } from "lodash";
+import { get, includes, isEmpty, reduce, toLower, trim, values } from "lodash";
 import { DocumentServiceClient } from "../api";
 import useAppStore from "../store/useAppStore";
-import { AttachmentEditMode, AttachmentExtStatus, DocumentAccessPolicy } from "../api/data";
+import { AttachmentEditMode, AttachmentExtStatus, DocumentAccessPolicy, HBColumnType, HBColumnValue, HBValue, UserOrGroup, UserOrGroupType } from "../api/data";
 import Int64 from "node-int64";
+import dayjs from "dayjs";
 
 export const PUBLIC_URL = import.meta.env.BASE_URL;
 
@@ -18,12 +19,9 @@ export const searchFilter = (items: any, fields: string[], string: string) => {
 };
 
 export const parseDate = (date: any) => {
-  let value = date
-  if (date?.toNumber) {
-    value = date?.toNumber();
-  }
+  let value = date;
   if (value === -1 || value === undefined) return null;
-  return value;
+  return Number(value);
 };
 
 export const parseNumber = (number: any) => {
@@ -138,3 +136,58 @@ export const getPortions = (size = 0, string = '') => {
     portions: string.length
   };
 };
+
+const getFio = (user: UserOrGroup) => {
+  if (user === null || user === undefined) return '';
+  const { type = 0, nameGroup = '', userLastName = '', userFirstName = '', userMiddleName = '' } = user;
+  if (type === UserOrGroupType.GROUP) {
+    return trim(nameGroup);
+  }
+  let fio = '';
+  if (!isEmpty(trim(userLastName))) {
+    fio = trim(userLastName);
+  }
+  if (!isEmpty(trim(userFirstName))) {
+    fio = `${fio} ${trim(userFirstName).substr(0, 1)}.`;
+  }
+  if (!isEmpty(trim(userMiddleName))) {
+    fio = `${fio}${trim(userMiddleName).substr(0, 1)}.`;
+  }
+  return fio;
+};
+
+export const getHBValue = (hbValue : HBColumnValue, string = true, lang = getCurrentLocale()) => {
+  const language = lang;
+  if (hbValue === null) return null;
+  const value = hbValue.depColumnId === null || hbValue.depColumnId === undefined ? hbValue.value : hbValue.depValue;
+  switch (get(value, 'type', null)) {
+    case HBColumnType.TEXT:
+      return value?.value?.get(language) || null;
+    case HBColumnType.NUMBER:
+    case HBColumnType.GLOBAL_TEXT:
+      return value?.value?.get('any') || null;
+    case HBColumnType.USER_CHOICE:
+      const user = get(value, 'user', null);
+      return string ? getFio(user) : user;
+    case HBColumnType.DATE:
+      const date = get(value, 'valueDate', null);
+      return parseDate(date) !== null ? (string ? dayjs(parseDate(date)).format('DD.MM.YYYY') : date) : null;
+    default:
+      return null;
+  }
+};
+
+export const getFilterHBValueSearchWord = (column) => {
+  switch (column?.columnType) {
+    case HBColumnType.DATE:
+      return 'directDate';
+    case HBColumnType.HAND_BOOK:
+      return 'directDepRowId';
+    case HBColumnType.USER_CHOICE:
+      return 'directUserFullName';
+    default:
+      return 'directValue';
+  };
+};
+
+export const getCurrentLocale = () => 'en';

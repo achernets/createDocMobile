@@ -10,10 +10,11 @@ type HolderProps = {
   holder: ContentHolder,
   name: string,
   control: Control<any>,
-  withName?: boolean
+  withName?: boolean,
+  setChanges: (newValue: []) => void
 };
 
-const Holder = ({ name, control, holder, withName = true }: HolderProps): JSX.Element => {
+const Holder = ({ name, control, holder, withName = true, setChanges }: HolderProps): JSX.Element => {
 
   const visibles = useWatch({
     control: control,
@@ -43,6 +44,15 @@ const Holder = ({ name, control, holder, withName = true }: HolderProps): JSX.El
             control={control}
             pathAllItems="contentItems"
             pathLink={`${name}.contentHolderLink.${index}`}
+            //@ts-ignore
+            addChanges={() => setChanges(prev=>[
+              ...prev,
+              {
+                holderPath: name,
+                pathItem: `${name}.contentHolderLink.${index}`,
+                item: contentHolderLink
+              }
+            ])}
           />}
         </Fragment>
       })}

@@ -10,9 +10,13 @@ import DatePicker from "../DateTimePicker";
 import Users from "../Users";
 import InputUrl from "../InputUrl";
 import { Button, Divider, Ellipsis } from "antd-mobile";
-import RandeDatePicker from "../RandeDatePicker";
+import RangeDatePicker from "../RangeDatePicker";
 import Currency from "../Currency";
 import RadioGroup from "../RadioGroup";
+import AttachmentItem from "../AttachmentItem";
+import DepartmentItem from "../DepartmentItem";
+import { PlayOutline } from "antd-mobile-icons";
+import HandBookItem from "../HandBookItem";
 
 type ContentItemTemplateProps = {
   pathAllItems: string,
@@ -20,10 +24,11 @@ type ContentItemTemplateProps = {
   control: Control,
   contentItem: ContentItem,
   patternId?: string,
-  documentId?: string
+  documentId?: string,
+  addChanges: () => void
 };
 
-const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', control, pathLink, patternId, documentId }: ContentItemTemplateProps) => {
+const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', control, pathLink, patternId, documentId, addChanges }: ContentItemTemplateProps) => {
 
   const readOnlyItem = useWatch({
     control: control,
@@ -135,11 +140,20 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
       case ContentItemType.SEPARATOR:
         return <Divider />;
       case ContentItemType.MARK:
-        return <Ellipsis content={item.oName} />;
+        return <Ellipsis
+          content={item.oName}
+        />;
       case ContentItemType.BUTTON:
-        return <Button color={'primary'}>{item.oName}</Button>;
+        return <Button
+          color={'primary'}
+          block
+          onClick={addChanges}
+        >
+          {item.oName}
+          <PlayOutline />
+        </Button>;
       case ContentItemType.CALENDAR_RANGE:
-        return <RandeDatePicker
+        return <RangeDatePicker
           label={item.oName}
           name={`${pathAllItems}.${item.key}.value`}
           control={control}
@@ -152,14 +166,35 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
           control={control}
           disabled={readOnlyItem}
         />;
+      case ContentItemType.ATTACHMENT:
+        return <AttachmentItem
+          label={item.oName}
+          name={`${pathAllItems}.${item.key}.attachment`}
+          control={control}
+          disabled={readOnlyItem}
+        />;
+      case ContentItemType.ORG_STRUCTURE:
+        return <DepartmentItem
+          label={item.oName}
+          name={`${pathAllItems}.${item.key}.department`}
+          control={control}
+          disabled={readOnlyItem}
+        />;
+      case ContentItemType.HAND_BOOK:
+        return <HandBookItem
+          label={item.oName}
+          name={`${pathAllItems}.${item.key}.value.hbValue`}
+          control={control}
+          disabled={readOnlyItem}
+          handBook={item.handBook}
+          itemKey={item.key}
+        />
       default:
         return <div>{invert(ContentItemType)[item.type]}</div>;
     }
   }, [readOnlyItem, requiredItem]);
 
-  return <div>
-    {renderItem(contentItem)}
-  </div>
+  return renderItem(contentItem);
 }
 
 export default ContentItemTemplate;

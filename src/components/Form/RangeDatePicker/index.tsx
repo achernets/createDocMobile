@@ -6,7 +6,7 @@ import Int64 from "node-int64";
 import { parseDate } from "../../../utils";
 import dayjs from "dayjs";
 
-type RandeDatePickerFProps = {
+type RangeDatePickerFProps = {
   label?: string,
   defaultValue?: number | Int64,
   name: string,
@@ -16,7 +16,7 @@ type RandeDatePickerFProps = {
 } & Omit<CalendarProps, 'defaultValue' | 'onChange' | 'selectionMode' | 'value'>
 
 
-const RandeDatePicker = ({ label, name, control, defaultValue = -1, formItemProps = {}, ...props }: RandeDatePickerFProps): JSX.Element => {
+const RangeDatePicker = ({ label, name, control, defaultValue = -1, formItemProps = {}, ...props }: RangeDatePickerFProps): JSX.Element => {
   const { field: { value, onChange, ...field } } = useController({
     name,
     control,
@@ -54,6 +54,9 @@ const RandeDatePicker = ({ label, name, control, defaultValue = -1, formItemProp
             readOnly
             placeholder={'Обрати дати'}
             value={textInput}
+            style={{
+              width: '100%'
+            }}
           />
           <Button fill={'none'}>
             <CalendarOutlineStyled />
@@ -93,6 +96,8 @@ const RandeDatePicker = ({ label, name, control, defaultValue = -1, formItemProp
             });
           }
         }}
+        //@ts-ignore
+        value={val}
         weekStartsOn={'Monday'}
         {...props}
       />
@@ -102,4 +107,4 @@ const RandeDatePicker = ({ label, name, control, defaultValue = -1, formItemProp
 };
 
 
-export default RandeDatePicker;
+export default RangeDatePicker;

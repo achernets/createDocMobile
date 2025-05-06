@@ -201,6 +201,7 @@ const Step2 = (): JSX.Element => {
               control={control}
               pattern={pattern}
               watch={watch}
+              setChanges={setChanges}
             />
           </Tabs.Tab>
 

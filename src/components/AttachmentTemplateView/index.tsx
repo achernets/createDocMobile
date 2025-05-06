@@ -12,7 +12,7 @@ type PatternAttachmentTemplateProps = {
 
 const PatternAttachmentTemplateView = ({ patternAttachment, onSelect, isSelected }: PatternAttachmentTemplateProps): JSX.Element => {
 
-  return <Space align={'center'}  block onClick={() => onSelect(!isSelected, patternAttachment.id)}>
+  return <Space align={'center'} block onClick={() => onSelect(!isSelected, patternAttachment.id)}>
     {onSelect && <Checkbox checked={isSelected} />}
     <Image
       src={getFileIcon(patternAttachment.oName)}

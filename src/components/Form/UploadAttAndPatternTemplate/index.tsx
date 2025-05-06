@@ -1,12 +1,13 @@
 import { JSX, useCallback, useRef } from "react";
 import { Control, useFieldArray } from "react-hook-form";
 import { Attachment, AttachmentExtStatus, DocumentPattern } from "../../../api/data";
-import { ActionSheet, Button, Card, Dialog, Ellipsis, Image, Space, Toast } from "antd-mobile";
-import { createAttachmetFromFile, getFileIcon } from "../../../utils";
+import { ActionSheet, Button, Card, Dialog, Toast } from "antd-mobile";
+import { createAttachmetFromFile } from "../../../utils";
 import { AddOutline, RightOutline } from "antd-mobile-icons";
 import useModalStore from "../../../store/useModals";
 import { useShallow } from "zustand/shallow";
-import { includes, invert } from "lodash";
+import { includes } from "lodash";
+import AttachmentView from "../../AttachmentView";
 
 type UploadAttAndPatternTemplateProps = {
   label?: string,
@@ -69,7 +70,7 @@ const UploadAttAndPatternTemplate = ({ name, control, pattern, allowSubStatuses 
   const actionsAttchments = useCallback((att: Attachment, index: number) => {
     ActionSheet.show({
       actions: [
-        ...allowSubStatuses.filter(itm=>itm !== att.attachmentExtStatus).map(extStatus => ({
+        ...allowSubStatuses.filter(itm => itm !== att.attachmentExtStatus).map(extStatus => ({
           key: extStatus,
           description: 'Тип вкладення',
           text: `${AttachmentExtStatus[extStatus]}`
@@ -120,31 +121,10 @@ const UploadAttAndPatternTemplate = ({ name, control, pattern, allowSubStatuses 
           boxShadow: '0 0 0 1px rgba(5, 32, 101, 0.05)'
         }}
         onHeaderClick={() => actionsAttchments(itm, index)}
-        icon={<Space
-          align={'center'}
-          justify={'center'}
-        >
-          <Image
-            src={getFileIcon(itm.fileName)}
-            width={28}
-            height={28}
-          />
-          <Space direction={'vertical'}
-            style={{
-              '--gap': '4px'
-            }}
-          >
-            <Ellipsis content={itm.fileName} />
-            <Ellipsis
-              content={`AttachmentExtStatus.${invert(AttachmentExtStatus)[itm.attachmentExtStatus]}`}
-              style={{
-                color: '#1890FF',
-                fontSize: 14
-              }}
-            />
-          </Space>
-        </Space>
-        }
+        icon={<AttachmentView
+          attachment={itm}
+          extStatusShow={true}
+        />}
         extra={<RightOutline />}
       />
     })}

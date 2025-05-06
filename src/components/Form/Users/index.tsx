@@ -4,7 +4,7 @@ import { map } from "lodash";
 import UserView from "../../UserView";
 import { Control, useController } from "react-hook-form";
 import { Wrapper } from "./styled";
-import { Button } from "antd-mobile";
+import { Button, FormItemProps } from "antd-mobile";
 import ChangeUsers, { ChangeUsersProperties } from "../../ChangeUsers";
 
 type UsersProps = {
@@ -13,11 +13,12 @@ type UsersProps = {
   name: string,
   control: Control<any>,
   multiple?: boolean,
+  formItemProps?: FormItemProps,
   disabled?: boolean,
   changeProps: ChangeUsersProperties
 }
 
-const Users = ({ label, name, control, defaultValue = [], disabled = false, multiple = false, changeProps }: UsersProps): JSX.Element => {
+const Users = ({ label, name, control, defaultValue = [], disabled = false, multiple = false, formItemProps = {}, changeProps }: UsersProps): JSX.Element => {
   const { field: { value } } = useController({
     name,
     control,
@@ -27,7 +28,10 @@ const Users = ({ label, name, control, defaultValue = [], disabled = false, mult
   const [visible, setVisible] = useState(false);
 
   return <Wrapper
-    label={label}
+    label={<>
+      {label}
+      {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
+    </>}
   >
     {map(value, (user) => <UserView user={user} key={user?.id} />)}
     {!disabled && <Button block onClick={() => setVisible(true)}>Додати користувача</Button>}

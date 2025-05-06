@@ -47,7 +47,6 @@ const Selector = ({ label, name, control, defaultValue = [], formItemProps = {},
         {label}
         {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
       </>}
-
       trigger='onConfirm'
       onClick={() => disabled ? undefined : setVisible(true)}
       {...formItemProps}

@@ -16,7 +16,7 @@ const Wrapper = styled(Form.Item)`
 const InputWrapper = styled.div`
   display: flex;
   align-items: center;
-  
+  width: 100%;
 `;
 
 const CalendarOutlineStyled = styled(CalendarOutline)`

@@ -11,10 +11,11 @@ import Holder from "../../Form/Holder";
 type TabInfoProps = {
   control: Control,
   pattern: DocumentPattern,
-  watch: any
+  watch: any,
+  setChanges: (newValue: []) => void
 };
 
-const TabInfo = ({ control, pattern }: TabInfoProps): JSX.Element => {
+const TabInfo = ({ control, pattern, setChanges }: TabInfoProps): JSX.Element => {
   const controlForDocument = useWatch({
     control,
     name: 'document.controlForDocument',
@@ -81,6 +82,7 @@ const TabInfo = ({ control, pattern }: TabInfoProps): JSX.Element => {
           holder={holder}
           name={`holders.${index}`}
           control={control}
+          setChanges={setChanges}
         />}
       </Fragment>
     })}

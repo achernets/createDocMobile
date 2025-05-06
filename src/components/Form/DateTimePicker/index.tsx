@@ -37,7 +37,6 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, for
 
   const val = useMemo(() => {
     const v = parseDate(value);
-
     return v === null ? null : dayjs(parseDate(value)).toDate();
   }, [value]);
 
