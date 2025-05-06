@@ -11,6 +11,8 @@ import Users from "../Users";
 import InputUrl from "../InputUrl";
 import { Button, Divider, Ellipsis } from "antd-mobile";
 import RandeDatePicker from "../RandeDatePicker";
+import Currency from "../Currency";
+import RadioGroup from "../RadioGroup";
 
 type ContentItemTemplateProps = {
   pathAllItems: string,
@@ -105,7 +107,7 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
           }}
         />;
       case ContentItemType.SWITCH_ITEM:
-        return <Selector
+        return <RadioGroup
           label={item.oName}
           name={`${pathAllItems}.${item.key}.value.strValue`}
           control={control}
@@ -140,6 +142,13 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
         return <RandeDatePicker
           label={item.oName}
           name={`${pathAllItems}.${item.key}.value`}
+          control={control}
+          disabled={readOnlyItem}
+        />;
+      case ContentItemType.CURRENCY:
+        return <Currency
+          label={item.oName}
+          name={`${pathAllItems}.${item.key}.value.strValue`}
           control={control}
           disabled={readOnlyItem}
         />;
