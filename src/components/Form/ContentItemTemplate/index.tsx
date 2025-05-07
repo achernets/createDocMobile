@@ -19,6 +19,7 @@ import { PlayOutline } from "antd-mobile-icons";
 import HandBookItem from "../HandBookItem";
 import TableItem from "../TableItem";
 import ContainerItem from "../ContainerItem";
+import JiraTime from "../JiraTime";
 
 type ContentItemTemplateProps = {
   pathAllItems: string,
@@ -196,7 +197,6 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
           }}
         />;
       case ContentItemType.HAND_BOOK:
-        console.log(item.handBook, item.key)
         return <HandBookItem
           label={item.oName}
           name={`${pathAllItems}.${item.key}.value.hbValue`}
@@ -221,6 +221,16 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
         />;
       case ContentItemType.CONTAINER:
         return <ContainerItem
+          label={item.oName}
+          name={`${pathAllItems}.${item.key}.childItems`}
+          control={control}
+          disabled={readOnlyItem}
+          formItemProps={{
+            required: requiredItem
+          }}
+        />;
+      case ContentItemType.JIRA_TIME:
+        return <JiraTime
           label={item.oName}
           name={`${pathAllItems}.${item.key}.childItems`}
           control={control}

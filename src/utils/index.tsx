@@ -1,9 +1,12 @@
-import { get, includes, isEmpty, reduce, toLower, trim, values } from "lodash";
+import { get, includes, isEmpty, reduce, replace, toLower, trim, values } from "lodash";
 import { DocumentServiceClient } from "../api";
 import useAppStore from "../store/useAppStore";
 import { AttachmentEditMode, AttachmentExtStatus, DocumentAccessPolicy, HBColumnType, HBColumnValue, UserOrGroup, UserOrGroupType } from "../api/data";
 import Int64 from "node-int64";
 import dayjs from "dayjs";
+
+
+export const JIRA_TIME = ['m', 'h', 'd', 'w', 'M', 'q', 'y'];
 
 export const PUBLIC_URL = import.meta.env.BASE_URL;
 
@@ -191,3 +194,7 @@ export const getFilterHBValueSearchWord = (column) => {
 };
 
 export const getCurrentLocale = () => 'en';
+
+export const getNumberJiraTime = input => Number(trim(replace(input, /\D/g, '')));
+
+export const getLetterJiraTime = input => trim(replace(input, /[0-9]/g, ''));

@@ -8,11 +8,12 @@ import useModalStore from "../../store/useModals";
 import { useShallow } from "zustand/shallow";
 import { FormStyled, TabsStyled } from "./styled";
 import { useForm } from "react-hook-form";
-import { Document, DocumentAccessPolicy, DocumentAccessPolicyType, ContentHolder, ContentItemType } from "../../api/data";
+import { Document, DocumentAccessPolicy, DocPatternStageStatus, DocumentAccessPolicyType, ContentHolder, ContentItemType } from "../../api/data";
 import UploadAttAndPatternTemplate from "../Form/UploadAttAndPatternTemplate";
 import Holder from "../Form/Holder";
 import TabInfo from "./components/TabInfo";
-import { get, pick, orderBy, map, reduce, size, debounce, uniqBy, findIndex } from "lodash";
+import Stages from "./components/Stages";
+import { get, pick, sortBy, orderBy, map, reverse, reduce, filter, size, debounce, uniqBy, findIndex } from "lodash";
 import { GetFilledDocumentPatternStagesExecutorsArgs } from "../../api/data/FilledDocumentPatternService";
 
 const Step2 = (): JSX.Element => {
@@ -80,7 +81,8 @@ const Step2 = (): JSX.Element => {
           })
           return hash;
         }, {}),
-        ...pick(result, ['stages', 'scGrifs'])
+        stages: sortBy(reverse(filter(result.stages, { status: DocPatternStageStatus.IN_PROGRESS, hide: false })), ['orderNum']),
+        ...pick(result, ['scGrifs'])
       });
     } catch (error) {
       console.log(error);
@@ -228,7 +230,13 @@ const Step2 = (): JSX.Element => {
             />
           </Tabs.Tab>
 
-          <Tabs.Tab title="Хід виконання" key={"stages"}></Tabs.Tab>
+          <Tabs.Tab title="Хід виконання" key={"stages"}>
+            <Stages
+              name={"stages"}
+              control={control}
+              pattern={pattern}
+            />
+          </Tabs.Tab>
         </TabsStyled>
       </FormStyled>
     </>
