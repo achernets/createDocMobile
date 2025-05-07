@@ -1,5 +1,5 @@
 import { AutoCenter, Grid } from 'antd-mobile';
-import { ModalInstance, useModalStore } from '../../../store/useModals';
+import { ModalPatternAttachments, useModalStore } from '../../../store/useModals';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { ModalStyled } from '../styled';
 import { AttachmentEditMode, AttachmentProcessingType, AttCreateInfo, DocumentAccessPolicy, KazFilter, PatternAttachmentTemplate } from '../../../api/data';
@@ -8,7 +8,7 @@ import { DocumentPatternServiceClient, DocumentServiceClient } from '../../../ap
 import useAppStore from '../../../store/useAppStore';
 import PatternAttachmentTemplateView from '../../AttachmentTemplateView';
 
-const PatternAttachmentsModal = ({ id, params: { cb, patternId = null } }: Omit<ModalInstance, 'key'>) => {
+const PatternAttachmentsModal = ({ id, params: { cb, patternId = null } }: Omit<ModalPatternAttachments, 'key'>) => {
   const token = useAppStore((state) => state.token);
   const closeModalById = useModalStore((state) => state.closeModalById);
   const [patternAttachments, setPatternAttachments] = useState<PatternAttachmentTemplate[]>([]);

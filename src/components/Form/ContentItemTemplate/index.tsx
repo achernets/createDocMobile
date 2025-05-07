@@ -17,11 +17,12 @@ import AttachmentItem from "../AttachmentItem";
 import DepartmentItem from "../DepartmentItem";
 import { PlayOutline } from "antd-mobile-icons";
 import HandBookItem from "../HandBookItem";
+import TableItem from "../TableItem";
 
 type ContentItemTemplateProps = {
   pathAllItems: string,
   pathLink: string,
-  control: Control,
+  control: Control<any>,
   contentItem: ContentItem,
   patternId?: string,
   documentId?: string,
@@ -158,6 +159,9 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
           name={`${pathAllItems}.${item.key}.value`}
           control={control}
           disabled={readOnlyItem}
+          formItemProps={{
+            required: requiredItem
+          }}
         />;
       case ContentItemType.CURRENCY:
         return <Currency
@@ -165,6 +169,9 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
           name={`${pathAllItems}.${item.key}.value.strValue`}
           control={control}
           disabled={readOnlyItem}
+          formItemProps={{
+            required: requiredItem
+          }}
         />;
       case ContentItemType.ATTACHMENT:
         return <AttachmentItem
@@ -172,6 +179,9 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
           name={`${pathAllItems}.${item.key}.attachment`}
           control={control}
           disabled={readOnlyItem}
+          formItemProps={{
+            required: requiredItem
+          }}
         />;
       case ContentItemType.ORG_STRUCTURE:
         return <DepartmentItem
@@ -179,8 +189,13 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
           name={`${pathAllItems}.${item.key}.department`}
           control={control}
           disabled={readOnlyItem}
+          itemKey={item.key}
+          formItemProps={{
+            required: requiredItem
+          }}
         />;
       case ContentItemType.HAND_BOOK:
+        console.log(item.handBook, item.key)
         return <HandBookItem
           label={item.oName}
           name={`${pathAllItems}.${item.key}.value.hbValue`}
@@ -188,7 +203,21 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
           disabled={readOnlyItem}
           handBook={item.handBook}
           itemKey={item.key}
+          formItemProps={{
+            required: requiredItem
+          }}
         />;
+      case ContentItemType.TABLE:
+        return <TableItem
+          label={item.oName}
+          name={`${pathAllItems}.${item.key}.childItems`}
+          control={control}
+          disabled={readOnlyItem}
+          contentItem={item}
+          formItemProps={{
+            required: requiredItem
+          }}
+        />
       default:
         return <div>{invert(ContentItemType)[item.type]}</div>;
     }

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { JSX, useCallback, useEffect, useState } from "react";
+import { JSX, useCallback, useEffect, useState, Fragment } from "react";
 import { Button, Modal, Space, Tabs } from "antd-mobile";
 import { DocumentPatternServiceClient, DocumentServiceClient } from "../../api";
 import { AttachmentExtStatus } from "../../api/data";
@@ -10,6 +10,7 @@ import { FormStyled, TabsStyled } from "./styled";
 import { useForm } from "react-hook-form";
 import { Document, DocumentAccessPolicy, DocumentAccessPolicyType, ContentHolder, ContentItemType } from "../../api/data";
 import UploadAttAndPatternTemplate from "../Form/UploadAttAndPatternTemplate";
+import Holder from "../Form/Holder";
 import TabInfo from "./components/TabInfo";
 import { get, pick, orderBy, map, reduce, size, debounce, uniqBy, findIndex } from "lodash";
 import { GetFilledDocumentPatternStagesExecutorsArgs } from "../../api/data/FilledDocumentPatternService";
@@ -164,6 +165,8 @@ const Step2 = (): JSX.Element => {
     return () => unsubscribe();
   }, [watch, getValues]);
 
+  const [holders] = watch(['holders']);
+
   return (
     <>
       <FormStyled
@@ -204,7 +207,18 @@ const Step2 = (): JSX.Element => {
               setChanges={setChanges}
             />
           </Tabs.Tab>
-
+          {map(holders, (holder: ContentHolder, index: number) => {
+            return <Fragment key={holder.id}>
+              {holder.showInInfo === false && <Tabs.Tab title={holder.oName} key={holder.id}>
+                <Holder
+                  holder={holder}
+                  name={`holders.${index}`}
+                  control={control}
+                  setChanges={setChanges}
+                />
+              </Tabs.Tab>}
+            </Fragment>
+          })}
           <Tabs.Tab title="Вкладення" key={"atts"}>
             <UploadAttAndPatternTemplate
               name={"attachments"}

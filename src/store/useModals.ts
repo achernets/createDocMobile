@@ -1,18 +1,42 @@
 import { create } from 'zustand';
+import { ContentItem } from '../api/data';
 
-export type ModalKey = 'PATTERN_ATTACHMENTS';
+export type ModalKey = 'PATTERN_ATTACHMENTS' | 'TABLE_EDIT' | 'ADD_EDIT_ROW_TABLE';
+
 
 export type ModalInstance = {
   id: string;
   key: ModalKey;
+};
+
+export type ModalPatternAttachments = ModalInstance & {
+  key: 'PATTERN_ATTACHMENTS',
   params: {
-    [key: string]: any,
-    cb?: (result?: any) => void
+    patternId: string,
+    cb: (result?: any) => void
+  }
+};
+
+
+export type ModalTableEdit = ModalInstance & {
+  key: 'TABLE_EDIT',
+  params: {
+    contentItem: ContentItem, 
+    disabled: boolean,
+    cb: (items: ContentItem[], removeIds: string[]) => void
+  }
+};
+
+export type ModalAddEditRowTable = ModalInstance & {
+  key: 'ADD_EDIT_ROW_TABLE',
+  params: {
+    items: ContentItem[], 
+    cb: (items: ContentItem[]) => void
   }
 };
 
 type ModalStore = {
-  modals: ModalInstance[];
+  modals: any[];
   openModal: (key: ModalKey, params?: any) => string;
   closeModalByKey: (key: ModalKey) => void;
   closeModalById: (id: string) => void;

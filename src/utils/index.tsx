@@ -1,7 +1,7 @@
 import { get, includes, isEmpty, reduce, toLower, trim, values } from "lodash";
 import { DocumentServiceClient } from "../api";
 import useAppStore from "../store/useAppStore";
-import { AttachmentEditMode, AttachmentExtStatus, DocumentAccessPolicy, HBColumnType, HBColumnValue, HBValue, UserOrGroup, UserOrGroupType } from "../api/data";
+import { AttachmentEditMode, AttachmentExtStatus, DocumentAccessPolicy, HBColumnType, HBColumnValue, UserOrGroup, UserOrGroupType } from "../api/data";
 import Int64 from "node-int64";
 import dayjs from "dayjs";
 
@@ -159,7 +159,7 @@ const getFio = (user: UserOrGroup) => {
 export const getHBValue = (hbValue : HBColumnValue, string = true, lang = getCurrentLocale()) => {
   const language = lang;
   if (hbValue === null) return null;
-  const value = hbValue.depColumnId === null || hbValue.depColumnId === undefined ? hbValue.value : hbValue.depValue;
+  const value = hbValue?.depColumnId === null || hbValue?.depColumnId === undefined ? hbValue?.value : hbValue?.depValue;
   switch (get(value, 'type', null)) {
     case HBColumnType.TEXT:
       return value?.value?.get(language) || null;

@@ -47,6 +47,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
     };
     return fColumn;
   }, [handBook, columnId]);
+  
 
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['getAllHandBookRows', 'contentItem', itemKey, columnId, debouncedSearch, debouncedDateSearch, token],
@@ -117,7 +118,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
     const v = getHBValue(value?.row?.values?.get(columnId), true);
     return v === null ? '' : v;
   }, [value, columnId]);
-
+  console.log(size(data?.flatData) > 0)
   return <>
     <Wrapper
       label={<>
@@ -181,7 +182,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
             description={null}
           />
         </ItemFullStyled>}
-        {hasNextPage && <InfiniteScroll hasMore={hasNextPage} loadMore={async () => {
+        {size(data?.flatData) > 0 && hasNextPage && <InfiniteScroll hasMore={hasNextPage} loadMore={async () => {
           await fetchNextPage()
         }} />}
       </ListStyled>

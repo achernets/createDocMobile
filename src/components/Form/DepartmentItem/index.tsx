@@ -1,9 +1,9 @@
-import { JSX, useCallback, useMemo, useRef, useState } from "react";
+import { JSX, useCallback, useState } from "react";
 import { Control, useController } from "react-hook-form";
 import { ItemFullStyled, ListStyled, Wrapper } from "./styled";
-import { Button, ErrorBlock, FormItemProps, InfiniteScroll, Input, List, Popup, SearchBar, SpinLoading, Toast } from "antd-mobile";
+import { ErrorBlock, FormItemProps, InfiniteScroll, Input, List, Popup, SearchBar, SpinLoading } from "antd-mobile";
 import { useDebounce } from "../../../hooks";
-import { compact, get, map, size, split } from "lodash";
+import { compact, get, map, size } from "lodash";
 import { CheckOutline } from "antd-mobile-icons";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import useAppStore from "../../../store/useAppStore";
@@ -17,10 +17,11 @@ type DepartmentItemProps = {
   name: string,
   control: Control<any>,
   formItemProps?: FormItemProps,
-  disabled?: boolean
+  disabled?: boolean,
+  itemKey: string
 }
 
-const DepartmentItem = ({ label, name, control, defaultValue = null, formItemProps = {}, disabled = false }: DepartmentItemProps): JSX.Element => {
+const DepartmentItem = ({ label, name, control, defaultValue = null, formItemProps = {}, disabled = false, itemKey }: DepartmentItemProps): JSX.Element => {
   const { field: { value, onChange } } = useController({
     name,
     control,
@@ -32,7 +33,7 @@ const DepartmentItem = ({ label, name, control, defaultValue = null, formItemPro
   const debouncedSearch = useDebounce(strSearch, 500);
 
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage } = useInfiniteQuery({
-    queryKey: ['getAllOrgStructure', 'contentItem', debouncedSearch, token],
+    queryKey: ['getAllOrgStructure', 'contentItem', debouncedSearch, token, itemKey],
     queryFn: async ({ pageParam }) => {
       try {
         const r = await DepartmentServiceClient.getAllDepartments(token, new KazFilter({
@@ -145,7 +146,7 @@ const DepartmentItem = ({ label, name, control, defaultValue = null, formItemPro
             description={null}
           />
         </ItemFullStyled>}
-        {hasNextPage && <InfiniteScroll hasMore={hasNextPage} loadMore={async () => {
+        {size(data?.flatData) > 0 && hasNextPage && <InfiniteScroll hasMore={hasNextPage} loadMore={async () => {
           await fetchNextPage()
         }} />}
       </ListStyled>
