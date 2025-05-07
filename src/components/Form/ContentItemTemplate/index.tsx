@@ -188,7 +188,7 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
           disabled={readOnlyItem}
           handBook={item.handBook}
           itemKey={item.key}
-        />
+        />;
       default:
         return <div>{invert(ContentItemType)[item.type]}</div>;
     }

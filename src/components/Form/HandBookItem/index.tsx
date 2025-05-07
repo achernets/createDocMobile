@@ -164,7 +164,6 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
                 row: null
               });
             } else {
-              console.log(item)
               onChange({
                 ...value,
                 row: item
