@@ -118,7 +118,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
     const v = getHBValue(value?.row?.values?.get(columnId), true);
     return v === null ? '' : v;
   }, [value, columnId]);
-  console.log(size(data?.flatData) > 0)
+  
   return <>
     <Wrapper
       label={<>

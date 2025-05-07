@@ -59,13 +59,13 @@ const AddEditRowTableModal = ({ id, params: { cb, items = [] } }: Omit<ModalAddE
             padding: "8px",
             flexDirection: "column",
           }}>
-            {map(items, (contentItem: ContentItem, index: number) => {
+            {map(items, (contentItem: ContentItem) => {
               return <Fragment key={contentItem.key}>
                 <ContentItemTemplate
                   contentItem={contentItem}
                   control={control}
                   pathAllItems='contentItems'
-                  pathLink={`contentItems.${index}`}
+                  pathLink={`contentItems.${contentItem.key}`}
                   //@ts-ignore
                   addChanges={() => console.log('s1')}
                 />

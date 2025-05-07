@@ -3,7 +3,7 @@ import { ModalTableEdit, useModalStore } from '../../../store/useModals';
 import { useCallback, useMemo, useState } from 'react';
 import { ModalStyled } from '../styled';;
 import { cloneDeep, compact, filter, findIndex, get, groupBy, map, maxBy, orderBy, reject, values } from 'lodash';
-import { parseNumber } from '../../../utils';
+import { getHBValue, parseNumber } from '../../../utils';
 import { AddCircleOutline, DeleteOutline, EditSOutline } from 'antd-mobile-icons';
 import { ContentItem, ContentTableDefinition } from '../../../api/data';
 import { useShallow } from 'zustand/shallow';
@@ -143,7 +143,8 @@ const TableEditModal = ({ id, params: { cb, contentItem = new ContentItem({
                   </div>
                   {row.map((cell: ContentItem, cellIndex: number) => (
                     <div key={cellIndex} style={cellStyle} title={cell.key}>
-                      {cell.key}
+                      {cell?.value?.strValue}
+                      {getHBValue(cell?.value?.hbValue?.row?.values?.get(cell?.value?.hbValue?.column?.id), true)}
                     </div>
                   ))}
                   {!disabled && <div key={`a${rowIndex}`} style={cellStyle} title={String(rowIndex + 1)}>

@@ -18,6 +18,7 @@ import DepartmentItem from "../DepartmentItem";
 import { PlayOutline } from "antd-mobile-icons";
 import HandBookItem from "../HandBookItem";
 import TableItem from "../TableItem";
+import ContainerItem from "../ContainerItem";
 
 type ContentItemTemplateProps = {
   pathAllItems: string,
@@ -217,7 +218,17 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
           formItemProps={{
             required: requiredItem
           }}
-        />
+        />;
+      case ContentItemType.CONTAINER:
+        return <ContainerItem
+          label={item.oName}
+          name={`${pathAllItems}.${item.key}.childItems`}
+          control={control}
+          disabled={readOnlyItem}
+          formItemProps={{
+            required: requiredItem
+          }}
+        />;
       default:
         return <div>{invert(ContentItemType)[item.type]}</div>;
     }
