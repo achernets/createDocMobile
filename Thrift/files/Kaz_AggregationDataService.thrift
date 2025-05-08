@@ -27,7 +27,7 @@ struct DocSubStatus {
 /** Детальная информация о документе */
 struct AggregationDocumentData {
   /** Документ */
-  1: optional Kaz_DocumentService.Document document;
+  1: optional Kaz_DocumentService.ADocument document;
   /**Комментарии */
   4: optional list<Kaz_DocumentService.DocumentComment> comments;
   /** Связи */

@@ -28,6 +28,9 @@ const Stage = ({ name, pattern, control, }: StageProps): JSX.Element => {
     <StageDeadline
       name={`${name}`}
       control={control}
+      formItemProps={{
+        required: true
+      }}
     />
   </>;
 };

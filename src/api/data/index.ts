@@ -200,7 +200,7 @@ export * from "./DocumentExecution";
 export * from "./ExecutionPermissions";
 export * from "./DocumentParticipantGroup";
 export * from "./DocumentTag";
-export * from "./Document";
+export * from "./ADocument";
 export * from "./AttachmentPermissions";
 export * from "./AttachmentVersionInfo";
 export * from "./Attachment";

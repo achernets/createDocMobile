@@ -1,14 +1,13 @@
-import { JSX } from 'react';
-import { Button, Space } from 'antd-mobile'
-import { DocumentPatternServiceClient, UserManagementServiceClient } from '../../api';
+import { JSX, useCallback } from 'react';
+import { Button, Space, Toast } from 'antd-mobile'
+import { DocumentPatternServiceClient, DocumentServiceClient, UserManagementServiceClient } from '../../api';
 import useAppStore from '../../store/useAppStore';
 import { useShallow } from 'zustand/shallow';
 import { KazFilter } from '../../api/data/KazFilter';
 import ActionSheetAsyncSelect from '../Form/ActionSheetAsyncSelect';
-import { FilterCondition, FilterFieldType, FilterItem } from '../../api/data/';
-import { compact } from 'lodash';
+import { ADocument, AttachmentEditMode, AttachmentProcessingType, AttCreateInfo, ContentHolder, DocPatternStageStatus, DocumentAccessPolicy, DocumentAccessPolicyType, FilterCondition, FilterFieldType, FilterItem } from '../../api/data/';
+import { compact, filter, find, get, map, orderBy, pick, reduce, reverse, size, sortBy } from 'lodash';
 import { FormStyled } from './styled';
-
 
 const Step1 = (): JSX.Element => {
   const { token, clientInfo, account, groupPattern, pattern } = useAppStore(useShallow((state) => ({
@@ -18,6 +17,68 @@ const Step1 = (): JSX.Element => {
     token: state.token,
     clientInfo: state.clientInfo
   })));
+
+  const getData = useCallback(async () => {
+    const toast = Toast.show({
+      icon: 'loading',
+      content: `Підготовка процесу`,
+      duration: 0
+    });
+    try {
+      const result = await DocumentPatternServiceClient.getInfoForCreateDoc(
+        token,
+        pattern?.id,
+        "",
+        new DocumentAccessPolicy({
+          type: DocumentAccessPolicyType.ACCESS,
+        }),
+      );
+
+      console.log(result)
+      const attachments = size(result.templates) > 0 ? await (DocumentServiceClient.createAttachmentFrom(token, '', '', new DocumentAccessPolicy({
+        type: DocumentAccessPolicyType.ACCESS
+      }), result.templates.map(template => new AttCreateInfo({
+        attachmentTemplateId: template.id,
+        fileName: template.oName,
+        forDraft: true,
+        editMode: AttachmentEditMode.MULTIPLE,
+      })), AttachmentProcessingType.PROCESS)) : [];
+      useAppStore.setState({
+        docInfo: {
+          author: [clientInfo],
+          controlUsers: [],
+          document: new ADocument({
+            nameDocument: "",
+            controlForDocument: false,
+            documentDeadlineDate: -1,
+          }),
+          attachments: attachments,
+          holders: orderBy(result.holders, ['order', 'oName']).map(holder => new ContentHolder({
+            ...holder,
+            contentHolderLink: orderBy(holder.contentHolderLink, ['order', 'oName'])
+          })),
+          contentItems: reduce(result.holders, (hash, holder) => {
+            map(holder.contentHolderLink, itm => {
+              hash[itm.contentItem.key] = itm.contentItem;
+            })
+            return hash;
+          }, {}),
+          stages: sortBy(reverse(filter(result.stages, { status: DocPatternStageStatus.IN_PROGRESS, hide: false })), ['orderNum']),
+          formEdit: get(find(result.stages, { status: DocPatternStageStatus.CREATED }), 'fmEditKey', null),
+          ...pick(result, ['permissions', 'templates', 'scGrifs'])
+        },
+        step: 'CREATE_DOC'
+      });
+      toast.close();
+    } catch (error) {
+      console.log(error)
+      toast.close();
+      Toast.show({
+        icon: 'fail',
+        content: 'Сталася помилка',
+      })
+    }
+  }, [token, clientInfo, pattern]);
 
   return (<>
     <FormStyled
@@ -33,9 +94,7 @@ const Step1 = (): JSX.Element => {
           color='primary'
           size='large'
           disabled={pattern === null}
-          onClick={() => useAppStore.setState({
-            step: 'CREATE_DOC'
-          })}
+          onClick={getData}
         >
           Готово
         </Button>

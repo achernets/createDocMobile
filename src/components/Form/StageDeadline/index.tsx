@@ -1,8 +1,7 @@
-import { Divider, FormItemProps, Input, Popup, Selector, Space, Stepper } from "antd-mobile";
-import { JSX, useMemo, useState } from "react";
+import { FormItemProps, Input, Popup } from "antd-mobile";
+import { JSX, useState } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController, useWatch } from "react-hook-form";
-import { getLetterJiraTime, getNumberJiraTime, JIRA_TIME } from "../../../utils";
 import Switch from "../Switch";
 import DatePicker from "../DateTimePicker";
 import JiraTime from "../JiraTime";
@@ -16,7 +15,7 @@ type StageDeadlineFProps = {
 };
 
 const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabled = false }: StageDeadlineFProps): JSX.Element => {
-  const { field: { value, onChange } } = useController({
+  const { field: { value } } = useController({
     name: `${name}.deadLine`,
     control,
     defaultValue
@@ -37,7 +36,6 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
   return <Wrapper
     label={<>
       {runPerriodicall ? 'Період' : 'Термін виконання'}
-      {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
     </>}
     trigger='onConfirm'
     onClick={() => disabled ? undefined : setVisible(true)}
@@ -50,60 +48,72 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
     <Popup
       visible={visible}
       onMaskClick={() => {
-        //field.onChange(localValue);
         setVisible(false);
       }}
       bodyStyle={{ maxHeight: '80vh', overflow: 'auto' }}
       destroyOnClose
-      afterClose={() => {
-        //if(value !== localValue) { field.onChange(localValue); }
-      }}
     >
       <div style={{
         padding: 16,
         paddingTop: 8
       }}>
-      <Switch
-        name={`${name}.runPerriodicall`}
-        control={control}
-        label={'Періодичне виконання'}
-      />
-      {runPerriodicall ? <>
-        <DatePicker
-          name={`${name}.startPeriod`}
+        <Switch
+          name={`${name}.runPerriodicall`}
           control={control}
-          label={'Дата початку'}
-          time={true}
+          label={'Періодичне виконання'}
         />
-        <JiraTime
-          name={`${name}.periodicJiraEndDate`}
-          control={control}
-          label={'periodicJiraEndDate'}
-        />
-        <DatePicker
-          name={`${name}.periodicEndDate`}
-          control={control}
-          label={'Дата закінчення циклу'}
-          time={true}
-        />
+        {runPerriodicall ? <>
+          <DatePicker
+            name={`${name}.startPeriod`}
+            control={control}
+            label={'Дата початку'}
+            time={true}
+            formItemProps={{
+              required: true
+            }}
+          />
+          <JiraTime
+            name={`${name}.periodicJiraEndDate`}
+            control={control}
+            label={'periodicJiraEndDate'}
+            formItemProps={{
+              required: true
+            }}
+          />
+          <DatePicker
+            name={`${name}.periodicEndDate`}
+            control={control}
+            label={'Дата закінчення циклу'}
+            time={true}
+            formItemProps={{
+              required: true
+            }}
+          />
 
-        <JiraTime
-          name={`${name}.nextStartPeriod`}
+          <JiraTime
+            name={`${name}.nextStartPeriod`}
+            control={control}
+            label={'Період'}
+            formItemProps={{
+              required: true
+            }}
+          />
+          <JiraTime
+            name={`${name}.cardActivityPeriod`}
+            control={control}
+            label={'Час виконання'}
+            formItemProps={{
+              required: true
+            }}
+          />
+        </> : <JiraTime
+          name={`${name}.deadLine`}
           control={control}
-          label={'Період'}
-        />
-      <JiraTime
-          name={`${name}.cardActivityPeriod`}
-          control={control}
-          label={'Час виконання'}
-        />
-
-
-      </> : <JiraTime
-        name={`${name}.deadLine`}
-        control={control}
-        label={'Термін виконання'}
-      />}
+          label={'Термін виконання'}
+          formItemProps={{
+            required: true
+          }}
+        />}
       </div>
     </Popup>
   </Wrapper>

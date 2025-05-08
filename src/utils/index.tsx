@@ -1,7 +1,7 @@
 import { get, includes, isEmpty, reduce, replace, toLower, trim, values } from "lodash";
 import { DocumentServiceClient } from "../api";
 import useAppStore from "../store/useAppStore";
-import { AttachmentEditMode, AttachmentExtStatus, DocumentAccessPolicy, HBColumnType, HBColumnValue, UserOrGroup, UserOrGroupType } from "../api/data";
+import { AttachmentEditMode, AttachmentExtStatus, DocumentAccessPolicy, DocumentAccessPolicyType, HBColumnType, HBColumnValue, UserOrGroup, UserOrGroupType } from "../api/data";
 import Int64 from "node-int64";
 import dayjs from "dayjs";
 
@@ -197,3 +197,13 @@ export const getCurrentLocale = () => 'en';
 export const getNumberJiraTime = input => Number(trim(replace(input, /\D/g, '')));
 
 export const getLetterJiraTime = input => trim(replace(input, /[0-9]/g, ''));
+
+export const hasRole = (role: string) => {
+  const roles = useAppStore.getState().roles;
+  return roles.has(role);
+};
+
+export const accessWithPolicy = (policy, userRole, adminRole) => {
+  if (hasRole(adminRole)) return true;
+  return (get(policy, 'type', DocumentAccessPolicyType.ACCESS) === DocumentAccessPolicyType.ACCESS && hasRole(userRole));
+};

@@ -9,7 +9,7 @@ import * as thrift from "thrift";
 import * as DocumentAccessPolicy from "./DocumentAccessPolicy";
 import * as __ROOT_NAMESPACE__ from "./";
 import * as DocPermissions from "./DocPermissions";
-import * as Document from "./Document";
+import * as ADocument from "./ADocument";
 import * as ContentHolderLink from "./ContentHolderLink";
 import * as AttCreateInfo from "./AttCreateInfo";
 import * as DocumentRelation from "./DocumentRelation";
@@ -145,12 +145,12 @@ export class CalculatePermissionsArgs {
 }
 export interface ICreateOrUpdateDocumentArgsArgs {
     token: string;
-    document: Document.Document;
+    document: ADocument.ADocument;
     accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy;
 }
 export class CreateOrUpdateDocumentArgs {
     public token: string;
-    public document: Document.Document;
+    public document: ADocument.ADocument;
     public accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy;
     constructor(args: ICreateOrUpdateDocumentArgsArgs) {
         if (args != null && args.token != null) {
@@ -215,7 +215,7 @@ export class CreateOrUpdateDocumentArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_5: Document.Document = Document.Document.read(input);
+                        const value_5: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.document = value_5;
                     }
                     else {
@@ -248,7 +248,7 @@ export class CreateOrUpdateDocumentArgs {
 }
 export interface IUpdateDocumentArgsArgs {
     token: string;
-    document: Document.Document;
+    document: ADocument.ADocument;
     accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy;
     addedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>;
     removedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>;
@@ -257,7 +257,7 @@ export interface IUpdateDocumentArgsArgs {
 }
 export class UpdateDocumentArgs {
     public token: string;
-    public document: Document.Document;
+    public document: ADocument.ADocument;
     public accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy;
     public addedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>;
     public removedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>;
@@ -386,7 +386,7 @@ export class UpdateDocumentArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_12: Document.Document = Document.Document.read(input);
+                        const value_12: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.document = value_12;
                     }
                     else {
@@ -483,7 +483,7 @@ export class UpdateDocumentArgs {
 }
 export interface ICreateDocumentArgsArgs {
     token: string;
-    document: Document.Document;
+    document: ADocument.ADocument;
     users: Array<__ROOT_NAMESPACE__.UserOrGroup>;
     holderLinks: Array<ContentHolderLink.ContentHolderLink>;
     securityClassificationsId: Set<string>;
@@ -492,7 +492,7 @@ export interface ICreateDocumentArgsArgs {
 }
 export class CreateDocumentArgs {
     public token: string;
-    public document: Document.Document;
+    public document: ADocument.ADocument;
     public users: Array<__ROOT_NAMESPACE__.UserOrGroup>;
     public holderLinks: Array<ContentHolderLink.ContentHolderLink>;
     public securityClassificationsId: Set<string>;
@@ -625,7 +625,7 @@ export class CreateDocumentArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_28: Document.Document = Document.Document.read(input);
+                        const value_28: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.document = value_28;
                     }
                     else {
@@ -14677,7 +14677,7 @@ export class AddAnswerersToLinkedDocumentArgs {
 }
 export interface ICreateMeetingQuestionArgsArgs {
     token: string;
-    document: Document.Document;
+    document: ADocument.ADocument;
     users: Array<__ROOT_NAMESPACE__.UserOrGroup>;
     holderLinks: Array<ContentHolderLink.ContentHolderLink>;
     securityClassificationsId: Set<string>;
@@ -14687,7 +14687,7 @@ export interface ICreateMeetingQuestionArgsArgs {
 }
 export class CreateMeetingQuestionArgs {
     public token: string;
-    public document: Document.Document;
+    public document: ADocument.ADocument;
     public users: Array<__ROOT_NAMESPACE__.UserOrGroup>;
     public holderLinks: Array<ContentHolderLink.ContentHolderLink>;
     public securityClassificationsId: Set<string>;
@@ -14832,7 +14832,7 @@ export class CreateMeetingQuestionArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_591: Document.Document = Document.Document.read(input);
+                        const value_591: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.document = value_591;
                     }
                     else {
@@ -16445,12 +16445,12 @@ export class CalculatePermissionsResult {
     }
 }
 export interface ICreateOrUpdateDocumentResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class CreateOrUpdateDocumentResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: ICreateOrUpdateDocumentResultArgs) {
@@ -16498,7 +16498,7 @@ export class CreateOrUpdateDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_654: Document.Document = Document.Document.read(input);
+                        const value_654: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_654;
                     }
                     else {
@@ -16534,12 +16534,12 @@ export class CreateOrUpdateDocumentResult {
     }
 }
 export interface IUpdateDocumentResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class UpdateDocumentResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: IUpdateDocumentResultArgs) {
@@ -16587,7 +16587,7 @@ export class UpdateDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_657: Document.Document = Document.Document.read(input);
+                        const value_657: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_657;
                     }
                     else {
@@ -16623,12 +16623,12 @@ export class UpdateDocumentResult {
     }
 }
 export interface ICreateDocumentResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class CreateDocumentResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: ICreateDocumentResultArgs) {
@@ -16676,7 +16676,7 @@ export class CreateDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_660: Document.Document = Document.Document.read(input);
+                        const value_660: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_660;
                     }
                     else {
@@ -16712,12 +16712,12 @@ export class CreateDocumentResult {
     }
 }
 export interface ICreateDocumentFromXMLResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class CreateDocumentFromXMLResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: ICreateDocumentFromXMLResultArgs) {
@@ -16765,7 +16765,7 @@ export class CreateDocumentFromXMLResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_663: Document.Document = Document.Document.read(input);
+                        const value_663: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_663;
                     }
                     else {
@@ -16801,12 +16801,12 @@ export class CreateDocumentFromXMLResult {
     }
 }
 export interface IGetDocumentResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class GetDocumentResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: IGetDocumentResultArgs) {
@@ -16854,7 +16854,7 @@ export class GetDocumentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_666: Document.Document = Document.Document.read(input);
+                        const value_666: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_666;
                     }
                     else {
@@ -16890,12 +16890,12 @@ export class GetDocumentResult {
     }
 }
 export interface IGetAllDocumentsResultArgs {
-    success?: Array<Document.Document>;
+    success?: Array<ADocument.ADocument>;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class GetAllDocumentsResult {
-    public success?: Array<Document.Document>;
+    public success?: Array<ADocument.ADocument>;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: IGetAllDocumentsResultArgs) {
@@ -16914,7 +16914,7 @@ export class GetAllDocumentsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_669: Document.Document): void => {
+            this.success.forEach((value_669: ADocument.ADocument): void => {
                 value_669.write(output);
             });
             output.writeListEnd();
@@ -16947,11 +16947,11 @@ export class GetAllDocumentsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_670: Array<Document.Document> = new Array<Document.Document>();
+                        const value_670: Array<ADocument.ADocument> = new Array<ADocument.ADocument>();
                         const metadata_74: thrift.TList = input.readListBegin();
                         const size_74: number = metadata_74.size;
                         for (let i_74: number = 0; i_74 < size_74; i_74++) {
-                            const value_671: Document.Document = Document.Document.read(input);
+                            const value_671: ADocument.ADocument = ADocument.ADocument.read(input);
                             value_670.push(value_671);
                         }
                         input.readListEnd();
@@ -17570,12 +17570,12 @@ export class GetCountPeoplesWhenRenderedDecisionResult {
     }
 }
 export interface ISetDocumentDecisionResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class SetDocumentDecisionResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: ISetDocumentDecisionResultArgs) {
@@ -17623,7 +17623,7 @@ export class SetDocumentDecisionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_700: Document.Document = Document.Document.read(input);
+                        const value_700: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_700;
                     }
                     else {
@@ -17659,12 +17659,12 @@ export class SetDocumentDecisionResult {
     }
 }
 export interface ISetDocumentDecisionByLinkIdResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class SetDocumentDecisionByLinkIdResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: ISetDocumentDecisionByLinkIdResultArgs) {
@@ -17712,7 +17712,7 @@ export class SetDocumentDecisionByLinkIdResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_703: Document.Document = Document.Document.read(input);
+                        const value_703: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_703;
                     }
                     else {
@@ -17748,12 +17748,12 @@ export class SetDocumentDecisionByLinkIdResult {
     }
 }
 export interface ISetDocumentDecisionUsingServerKeyStorageResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class SetDocumentDecisionUsingServerKeyStorageResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: ISetDocumentDecisionUsingServerKeyStorageResultArgs) {
@@ -17801,7 +17801,7 @@ export class SetDocumentDecisionUsingServerKeyStorageResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_706: Document.Document = Document.Document.read(input);
+                        const value_706: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_706;
                     }
                     else {
@@ -17837,12 +17837,12 @@ export class SetDocumentDecisionUsingServerKeyStorageResult {
     }
 }
 export interface ISetDocumentDecisionExtResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class SetDocumentDecisionExtResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: ISetDocumentDecisionExtResultArgs) {
@@ -17890,7 +17890,7 @@ export class SetDocumentDecisionExtResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_709: Document.Document = Document.Document.read(input);
+                        const value_709: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_709;
                     }
                     else {
@@ -22476,12 +22476,12 @@ export class AddAdditionalConfirmersResult {
     }
 }
 export interface ISetAdditionalDecisionResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class SetAdditionalDecisionResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: ISetAdditionalDecisionResultArgs) {
@@ -22529,7 +22529,7 @@ export class SetAdditionalDecisionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_893: Document.Document = Document.Document.read(input);
+                        const value_893: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_893;
                     }
                     else {
@@ -22565,12 +22565,12 @@ export class SetAdditionalDecisionResult {
     }
 }
 export interface ISetAdditionalDecisionUsingServerKeyStorageResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class SetAdditionalDecisionUsingServerKeyStorageResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: ISetAdditionalDecisionUsingServerKeyStorageResultArgs) {
@@ -22618,7 +22618,7 @@ export class SetAdditionalDecisionUsingServerKeyStorageResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_896: Document.Document = Document.Document.read(input);
+                        const value_896: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_896;
                     }
                     else {
@@ -22654,12 +22654,12 @@ export class SetAdditionalDecisionUsingServerKeyStorageResult {
     }
 }
 export interface ISetAdditionalDecisionExtResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class SetAdditionalDecisionExtResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: ISetAdditionalDecisionExtResultArgs) {
@@ -22707,7 +22707,7 @@ export class SetAdditionalDecisionExtResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_899: Document.Document = Document.Document.read(input);
+                        const value_899: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_899;
                     }
                     else {
@@ -22743,12 +22743,12 @@ export class SetAdditionalDecisionExtResult {
     }
 }
 export interface IRevokeDecisionResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class RevokeDecisionResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: IRevokeDecisionResultArgs) {
@@ -22796,7 +22796,7 @@ export class RevokeDecisionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_902: Document.Document = Document.Document.read(input);
+                        const value_902: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_902;
                     }
                     else {
@@ -23484,12 +23484,12 @@ export class GetCountDocsByFilterNoPermissionResult {
     }
 }
 export interface IGetTinyDocsByFilterNoPermissionResultArgs {
-    success?: Array<Document.Document>;
+    success?: Array<ADocument.ADocument>;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class GetTinyDocsByFilterNoPermissionResult {
-    public success?: Array<Document.Document>;
+    public success?: Array<ADocument.ADocument>;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: IGetTinyDocsByFilterNoPermissionResultArgs) {
@@ -23508,7 +23508,7 @@ export class GetTinyDocsByFilterNoPermissionResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_930: Document.Document): void => {
+            this.success.forEach((value_930: ADocument.ADocument): void => {
                 value_930.write(output);
             });
             output.writeListEnd();
@@ -23541,11 +23541,11 @@ export class GetTinyDocsByFilterNoPermissionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_931: Array<Document.Document> = new Array<Document.Document>();
+                        const value_931: Array<ADocument.ADocument> = new Array<ADocument.ADocument>();
                         const metadata_98: thrift.TList = input.readListBegin();
                         const size_98: number = metadata_98.size;
                         for (let i_98: number = 0; i_98 < size_98; i_98++) {
-                            const value_932: Document.Document = Document.Document.read(input);
+                            const value_932: ADocument.ADocument = ADocument.ADocument.read(input);
                             value_931.push(value_932);
                         }
                         input.readListEnd();
@@ -24852,12 +24852,12 @@ export class ExportAsXMLv2Result {
     }
 }
 export interface IImportFromXMLResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class ImportFromXMLResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: IImportFromXMLResultArgs) {
@@ -24905,7 +24905,7 @@ export class ImportFromXMLResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_981: Document.Document = Document.Document.read(input);
+                        const value_981: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_981;
                     }
                     else {
@@ -25942,12 +25942,12 @@ export class AddAnswerersToLinkedDocumentResult {
     }
 }
 export interface ICreateMeetingQuestionResultArgs {
-    success?: Document.Document;
+    success?: ADocument.ADocument;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
     error?: __ROOT_NAMESPACE__.ServerException;
 }
 export class CreateMeetingQuestionResult {
-    public success?: Document.Document;
+    public success?: ADocument.ADocument;
     public validError?: __ROOT_NAMESPACE__.PreconditionException;
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: ICreateMeetingQuestionResultArgs) {
@@ -25995,7 +25995,7 @@ export class CreateMeetingQuestionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_1021: Document.Document = Document.Document.read(input);
+                        const value_1021: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.success = value_1021;
                     }
                     else {
@@ -27264,9 +27264,9 @@ export class Client {
             this.send_calculatePermissions(token, documentId, accessPolicy, requestId);
         });
     }
-    public createOrUpdateDocument(token: string, document: Document.Document, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): Promise<Document.Document> {
+    public createOrUpdateDocument(token: string, document: ADocument.ADocument, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -27279,9 +27279,9 @@ export class Client {
             this.send_createOrUpdateDocument(token, document, accessPolicy, requestId);
         });
     }
-    public updateDocument(token: string, document: Document.Document, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>, removedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>, addedSecurityClassificationIds: Array<string>, removedSecurityClassificationIds: Array<string>): Promise<Document.Document> {
+    public updateDocument(token: string, document: ADocument.ADocument, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>, removedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>, addedSecurityClassificationIds: Array<string>, removedSecurityClassificationIds: Array<string>): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -27294,9 +27294,9 @@ export class Client {
             this.send_updateDocument(token, document, accessPolicy, addedResponsibles, removedResponsibles, addedSecurityClassificationIds, removedSecurityClassificationIds, requestId);
         });
     }
-    public createDocument(token: string, document: Document.Document, users: Array<__ROOT_NAMESPACE__.UserOrGroup>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, securityClassificationsId: Set<string>, attachments: Array<AttCreateInfo.AttCreateInfo>, docRelations: Array<DocumentRelation.DocumentRelation>): Promise<Document.Document> {
+    public createDocument(token: string, document: ADocument.ADocument, users: Array<__ROOT_NAMESPACE__.UserOrGroup>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, securityClassificationsId: Set<string>, attachments: Array<AttCreateInfo.AttCreateInfo>, docRelations: Array<DocumentRelation.DocumentRelation>): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -27309,9 +27309,9 @@ export class Client {
             this.send_createDocument(token, document, users, holderLinks, securityClassificationsId, attachments, docRelations, requestId);
         });
     }
-    public createDocumentFromXML(token: string, xmlDoc: Buffer): Promise<Document.Document> {
+    public createDocumentFromXML(token: string, xmlDoc: Buffer): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -27324,9 +27324,9 @@ export class Client {
             this.send_createDocumentFromXML(token, xmlDoc, requestId);
         });
     }
-    public getDocument(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, decrypt: boolean, executorsPortion: number): Promise<Document.Document> {
+    public getDocument(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, decrypt: boolean, executorsPortion: number): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -27339,9 +27339,9 @@ export class Client {
             this.send_getDocument(token, documentId, accessPolicy, decrypt, executorsPortion, requestId);
         });
     }
-    public getAllDocuments(token: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, filter: __ROOT_NAMESPACE__.KazFilter): Promise<Array<Document.Document>> {
+    public getAllDocuments(token: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, filter: __ROOT_NAMESPACE__.KazFilter): Promise<Array<ADocument.ADocument>> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Array<Document.Document>>((resolve, reject): void => {
+        return new Promise<Array<ADocument.ADocument>>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -27444,9 +27444,9 @@ export class Client {
             this.send_getCountPeoplesWhenRenderedDecision(token, documentId, stageId, accessPolicy, requestId);
         });
     }
-    public setDocumentDecision(token: string, documentId: string, decision: string, documentComment: string, force: boolean, signature: string, cardId: string, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addSignToAttachment: Map<string, Array<string>>): Promise<Document.Document> {
+    public setDocumentDecision(token: string, documentId: string, decision: string, documentComment: string, force: boolean, signature: string, cardId: string, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addSignToAttachment: Map<string, Array<string>>): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -27459,9 +27459,9 @@ export class Client {
             this.send_setDocumentDecision(token, documentId, decision, documentComment, force, signature, cardId, attachments, holderLinks, accessPolicy, addSignToAttachment, requestId);
         });
     }
-    public setDocumentDecisionByLinkId(token: string, documentId: string, linkID: string, cardId: string, documentComment: string, force: boolean, signature: string, pKeyId: string, password: string, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addSignToAttachment: Map<string, Array<string>>, attachmentsToSign: Array<string>): Promise<Document.Document> {
+    public setDocumentDecisionByLinkId(token: string, documentId: string, linkID: string, cardId: string, documentComment: string, force: boolean, signature: string, pKeyId: string, password: string, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addSignToAttachment: Map<string, Array<string>>, attachmentsToSign: Array<string>): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -27474,9 +27474,9 @@ export class Client {
             this.send_setDocumentDecisionByLinkId(token, documentId, linkID, cardId, documentComment, force, signature, pKeyId, password, attachments, holderLinks, accessPolicy, addSignToAttachment, attachmentsToSign, requestId);
         });
     }
-    public setDocumentDecisionUsingServerKeyStorage(token: string, documentId: string, decision: string, documentComment: string, force: boolean, pKeyId: string, password: string, cardId: string, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, attachmentsToSign: Array<string>): Promise<Document.Document> {
+    public setDocumentDecisionUsingServerKeyStorage(token: string, documentId: string, decision: string, documentComment: string, force: boolean, pKeyId: string, password: string, cardId: string, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, attachmentsToSign: Array<string>): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -27489,9 +27489,9 @@ export class Client {
             this.send_setDocumentDecisionUsingServerKeyStorage(token, documentId, decision, documentComment, force, pKeyId, password, cardId, attachments, holderLinks, accessPolicy, attachmentsToSign, requestId);
         });
     }
-    public setDocumentDecisionExt(token: string, documentId: string, cardId: string, linkID: string, documentComment: string, force: boolean, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, addSignToDecision: Array<string>, addSignToAttachment: Map<string, Array<string>>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): Promise<Document.Document> {
+    public setDocumentDecisionExt(token: string, documentId: string, cardId: string, linkID: string, documentComment: string, force: boolean, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, addSignToDecision: Array<string>, addSignToAttachment: Map<string, Array<string>>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -28239,9 +28239,9 @@ export class Client {
             this.send_addAdditionalConfirmers(token, cardId, users, deadlineDate, comment, requireMyParticipation, accessPolicy, requestId);
         });
     }
-    public setAdditionalDecision(token: string, userDecision: Map<string, string>, cardId: string, comment: string, returnToParentStage: boolean, signature: string): Promise<Document.Document> {
+    public setAdditionalDecision(token: string, userDecision: Map<string, string>, cardId: string, comment: string, returnToParentStage: boolean, signature: string): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -28254,9 +28254,9 @@ export class Client {
             this.send_setAdditionalDecision(token, userDecision, cardId, comment, returnToParentStage, signature, requestId);
         });
     }
-    public setAdditionalDecisionUsingServerKeyStorage(token: string, userDecision: Map<string, string>, cardId: string, comment: string, returnToParentStage: boolean, pKeyId: string, password: string): Promise<Document.Document> {
+    public setAdditionalDecisionUsingServerKeyStorage(token: string, userDecision: Map<string, string>, cardId: string, comment: string, returnToParentStage: boolean, pKeyId: string, password: string): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -28269,9 +28269,9 @@ export class Client {
             this.send_setAdditionalDecisionUsingServerKeyStorage(token, userDecision, cardId, comment, returnToParentStage, pKeyId, password, requestId);
         });
     }
-    public setAdditionalDecisionExt(token: string, userMap: Map<string, string>, cardId: string, comment: string, returnToParentStage: boolean, signatures: Array<string>): Promise<Document.Document> {
+    public setAdditionalDecisionExt(token: string, userMap: Map<string, string>, cardId: string, comment: string, returnToParentStage: boolean, signatures: Array<string>): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -28284,9 +28284,9 @@ export class Client {
             this.send_setAdditionalDecisionExt(token, userMap, cardId, comment, returnToParentStage, signatures, requestId);
         });
     }
-    public revokeDecision(token: string, documentReassign: Array<DocumentReassign.DocumentReassign>, cardId: string, comment: string): Promise<Document.Document> {
+    public revokeDecision(token: string, documentReassign: Array<DocumentReassign.DocumentReassign>, cardId: string, comment: string): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -28404,9 +28404,9 @@ export class Client {
             this.send_getCountDocsByFilterNoPermission(token, patternGroupId, filter, requestId);
         });
     }
-    public getTinyDocsByFilterNoPermission(token: string, filter: __ROOT_NAMESPACE__.KazFilter): Promise<Array<Document.Document>> {
+    public getTinyDocsByFilterNoPermission(token: string, filter: __ROOT_NAMESPACE__.KazFilter): Promise<Array<ADocument.ADocument>> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Array<Document.Document>>((resolve, reject): void => {
+        return new Promise<Array<ADocument.ADocument>>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -28629,9 +28629,9 @@ export class Client {
             this.send_exportAsXMLv2(token, documentId, accessPolicy, allowedAttachmentFileExt, allowedAttachmentType, requestId);
         });
     }
-    public importFromXML(token: string, xml: Buffer): Promise<Document.Document> {
+    public importFromXML(token: string, xml: Buffer): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -28809,9 +28809,9 @@ export class Client {
             this.send_addAnswerersToLinkedDocument(token, docId, users, deadlineDate, comment, requireMyParticipation, accessPolicy, requestId);
         });
     }
-    public createMeetingQuestion(token: string, document: Document.Document, users: Array<__ROOT_NAMESPACE__.UserOrGroup>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, securityClassificationsId: Set<string>, attachments: Array<AttCreateInfo.AttCreateInfo>, docRelations: Array<DocumentRelation.DocumentRelation>, meetingDocumentId: string): Promise<Document.Document> {
+    public createMeetingQuestion(token: string, document: ADocument.ADocument, users: Array<__ROOT_NAMESPACE__.UserOrGroup>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, securityClassificationsId: Set<string>, attachments: Array<AttCreateInfo.AttCreateInfo>, docRelations: Array<DocumentRelation.DocumentRelation>, meetingDocumentId: string): Promise<ADocument.ADocument> {
         const requestId: number = this.incrementSeqId();
-        return new Promise<Document.Document>((resolve, reject): void => {
+        return new Promise<ADocument.ADocument>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
                 delete this._reqs[requestId];
                 if (error != null) {
@@ -29028,7 +29028,7 @@ export class Client {
         this.output.flush();
         return;
     }
-    public send_createOrUpdateDocument(token: string, document: Document.Document, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, requestId: number): void {
+    public send_createOrUpdateDocument(token: string, document: ADocument.ADocument, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, requestId: number): void {
         const output: thrift.TProtocol = new this.protocol(this.output);
         output.writeMessageBegin("createOrUpdateDocument", thrift.Thrift.MessageType.CALL, requestId);
         const args: CreateOrUpdateDocumentArgs = new CreateOrUpdateDocumentArgs({ token, document, accessPolicy });
@@ -29037,7 +29037,7 @@ export class Client {
         this.output.flush();
         return;
     }
-    public send_updateDocument(token: string, document: Document.Document, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>, removedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>, addedSecurityClassificationIds: Array<string>, removedSecurityClassificationIds: Array<string>, requestId: number): void {
+    public send_updateDocument(token: string, document: ADocument.ADocument, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>, removedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>, addedSecurityClassificationIds: Array<string>, removedSecurityClassificationIds: Array<string>, requestId: number): void {
         const output: thrift.TProtocol = new this.protocol(this.output);
         output.writeMessageBegin("updateDocument", thrift.Thrift.MessageType.CALL, requestId);
         const args: UpdateDocumentArgs = new UpdateDocumentArgs({ token, document, accessPolicy, addedResponsibles, removedResponsibles, addedSecurityClassificationIds, removedSecurityClassificationIds });
@@ -29046,7 +29046,7 @@ export class Client {
         this.output.flush();
         return;
     }
-    public send_createDocument(token: string, document: Document.Document, users: Array<__ROOT_NAMESPACE__.UserOrGroup>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, securityClassificationsId: Set<string>, attachments: Array<AttCreateInfo.AttCreateInfo>, docRelations: Array<DocumentRelation.DocumentRelation>, requestId: number): void {
+    public send_createDocument(token: string, document: ADocument.ADocument, users: Array<__ROOT_NAMESPACE__.UserOrGroup>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, securityClassificationsId: Set<string>, attachments: Array<AttCreateInfo.AttCreateInfo>, docRelations: Array<DocumentRelation.DocumentRelation>, requestId: number): void {
         const output: thrift.TProtocol = new this.protocol(this.output);
         output.writeMessageBegin("createDocument", thrift.Thrift.MessageType.CALL, requestId);
         const args: CreateDocumentArgs = new CreateDocumentArgs({ token, document, users, holderLinks, securityClassificationsId, attachments, docRelations });
@@ -29955,7 +29955,7 @@ export class Client {
         this.output.flush();
         return;
     }
-    public send_createMeetingQuestion(token: string, document: Document.Document, users: Array<__ROOT_NAMESPACE__.UserOrGroup>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, securityClassificationsId: Set<string>, attachments: Array<AttCreateInfo.AttCreateInfo>, docRelations: Array<DocumentRelation.DocumentRelation>, meetingDocumentId: string, requestId: number): void {
+    public send_createMeetingQuestion(token: string, document: ADocument.ADocument, users: Array<__ROOT_NAMESPACE__.UserOrGroup>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, securityClassificationsId: Set<string>, attachments: Array<AttCreateInfo.AttCreateInfo>, docRelations: Array<DocumentRelation.DocumentRelation>, meetingDocumentId: string, requestId: number): void {
         const output: thrift.TProtocol = new this.protocol(this.output);
         output.writeMessageBegin("createMeetingQuestion", thrift.Thrift.MessageType.CALL, requestId);
         const args: CreateMeetingQuestionArgs = new CreateMeetingQuestionArgs({ token, document, users, holderLinks, securityClassificationsId, attachments, docRelations, meetingDocumentId });
@@ -33388,22 +33388,22 @@ export class Client {
 }
 export interface IHandler {
     calculatePermissions(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): DocPermissions.DocPermissions | Promise<DocPermissions.DocPermissions>;
-    createOrUpdateDocument(token: string, document: Document.Document, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): Document.Document | Promise<Document.Document>;
-    updateDocument(token: string, document: Document.Document, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>, removedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>, addedSecurityClassificationIds: Array<string>, removedSecurityClassificationIds: Array<string>): Document.Document | Promise<Document.Document>;
-    createDocument(token: string, document: Document.Document, users: Array<__ROOT_NAMESPACE__.UserOrGroup>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, securityClassificationsId: Set<string>, attachments: Array<AttCreateInfo.AttCreateInfo>, docRelations: Array<DocumentRelation.DocumentRelation>): Document.Document | Promise<Document.Document>;
-    createDocumentFromXML(token: string, xmlDoc: Buffer): Document.Document | Promise<Document.Document>;
-    getDocument(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, decrypt: boolean, executorsPortion: number): Document.Document | Promise<Document.Document>;
-    getAllDocuments(token: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, filter: __ROOT_NAMESPACE__.KazFilter): Array<Document.Document> | Promise<Array<Document.Document>>;
+    createOrUpdateDocument(token: string, document: ADocument.ADocument, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): ADocument.ADocument | Promise<ADocument.ADocument>;
+    updateDocument(token: string, document: ADocument.ADocument, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>, removedResponsibles: Array<__ROOT_NAMESPACE__.UserOrGroup>, addedSecurityClassificationIds: Array<string>, removedSecurityClassificationIds: Array<string>): ADocument.ADocument | Promise<ADocument.ADocument>;
+    createDocument(token: string, document: ADocument.ADocument, users: Array<__ROOT_NAMESPACE__.UserOrGroup>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, securityClassificationsId: Set<string>, attachments: Array<AttCreateInfo.AttCreateInfo>, docRelations: Array<DocumentRelation.DocumentRelation>): ADocument.ADocument | Promise<ADocument.ADocument>;
+    createDocumentFromXML(token: string, xmlDoc: Buffer): ADocument.ADocument | Promise<ADocument.ADocument>;
+    getDocument(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, decrypt: boolean, executorsPortion: number): ADocument.ADocument | Promise<ADocument.ADocument>;
+    getAllDocuments(token: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, filter: __ROOT_NAMESPACE__.KazFilter): Array<ADocument.ADocument> | Promise<Array<ADocument.ADocument>>;
     getCountAllDocuments(token: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, filter: __ROOT_NAMESPACE__.KazFilter): number | Promise<number>;
     deleteDocument(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): boolean | Promise<boolean>;
     getAllPassedStages(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, filter: __ROOT_NAMESPACE__.KazFilter): Array<PassedStage.PassedStage> | Promise<Array<PassedStage.PassedStage>>;
     getExecutionTree(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, iteration: number, filter: __ROOT_NAMESPACE__.KazFilter): Array<ExecutionTree.ExecutionTree> | Promise<Array<ExecutionTree.ExecutionTree>>;
     getActiveStages(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): Array<DocumentPatternStage.DocumentPatternStage> | Promise<Array<DocumentPatternStage.DocumentPatternStage>>;
     getCountPeoplesWhenRenderedDecision(token: string, documentId: string, stageId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): Map<string, number> | Promise<Map<string, number>>;
-    setDocumentDecision(token: string, documentId: string, decision: string, documentComment: string, force: boolean, signature: string, cardId: string, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addSignToAttachment: Map<string, Array<string>>): Document.Document | Promise<Document.Document>;
-    setDocumentDecisionByLinkId(token: string, documentId: string, linkID: string, cardId: string, documentComment: string, force: boolean, signature: string, pKeyId: string, password: string, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addSignToAttachment: Map<string, Array<string>>, attachmentsToSign: Array<string>): Document.Document | Promise<Document.Document>;
-    setDocumentDecisionUsingServerKeyStorage(token: string, documentId: string, decision: string, documentComment: string, force: boolean, pKeyId: string, password: string, cardId: string, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, attachmentsToSign: Array<string>): Document.Document | Promise<Document.Document>;
-    setDocumentDecisionExt(token: string, documentId: string, cardId: string, linkID: string, documentComment: string, force: boolean, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, addSignToDecision: Array<string>, addSignToAttachment: Map<string, Array<string>>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): Document.Document | Promise<Document.Document>;
+    setDocumentDecision(token: string, documentId: string, decision: string, documentComment: string, force: boolean, signature: string, cardId: string, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addSignToAttachment: Map<string, Array<string>>): ADocument.ADocument | Promise<ADocument.ADocument>;
+    setDocumentDecisionByLinkId(token: string, documentId: string, linkID: string, cardId: string, documentComment: string, force: boolean, signature: string, pKeyId: string, password: string, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, addSignToAttachment: Map<string, Array<string>>, attachmentsToSign: Array<string>): ADocument.ADocument | Promise<ADocument.ADocument>;
+    setDocumentDecisionUsingServerKeyStorage(token: string, documentId: string, decision: string, documentComment: string, force: boolean, pKeyId: string, password: string, cardId: string, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, attachmentsToSign: Array<string>): ADocument.ADocument | Promise<ADocument.ADocument>;
+    setDocumentDecisionExt(token: string, documentId: string, cardId: string, linkID: string, documentComment: string, force: boolean, attachments: Array<AttCreateInfo.AttCreateInfo>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, addSignToDecision: Array<string>, addSignToAttachment: Map<string, Array<string>>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): ADocument.ADocument | Promise<ADocument.ADocument>;
     approveDocumentDecision(token: string, executionId: string): boolean | Promise<boolean>;
     shareDocument(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, usersOrGroups: Array<__ROOT_NAMESPACE__.UserOrGroup>): Array<DocumentExecution.DocumentExecution> | Promise<Array<DocumentExecution.DocumentExecution>>;
     revokeDocument(token: string, documentId: string, usersOrGroups: Array<__ROOT_NAMESPACE__.UserOrGroup>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): boolean | Promise<boolean>;
@@ -33453,10 +33453,10 @@ export interface IHandler {
     revertSubStatus(token: string, documentId: string, subStatus: DocPatternStageSubStatus.DocPatternStageSubStatus, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): boolean | Promise<boolean>;
     increaseDeadlineForDocumentOrDocumentExecution(token: string, documentId: string, documentExecution: string, deadlineTime: Int64, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): boolean | Promise<boolean>;
     addAdditionalConfirmers(token: string, cardId: string, users: Array<string>, deadlineDate: Int64, comment: string, requireMyParticipation: boolean, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): boolean | Promise<boolean>;
-    setAdditionalDecision(token: string, userDecision: Map<string, string>, cardId: string, comment: string, returnToParentStage: boolean, signature: string): Document.Document | Promise<Document.Document>;
-    setAdditionalDecisionUsingServerKeyStorage(token: string, userDecision: Map<string, string>, cardId: string, comment: string, returnToParentStage: boolean, pKeyId: string, password: string): Document.Document | Promise<Document.Document>;
-    setAdditionalDecisionExt(token: string, userMap: Map<string, string>, cardId: string, comment: string, returnToParentStage: boolean, signatures: Array<string>): Document.Document | Promise<Document.Document>;
-    revokeDecision(token: string, documentReassign: Array<DocumentReassign.DocumentReassign>, cardId: string, comment: string): Document.Document | Promise<Document.Document>;
+    setAdditionalDecision(token: string, userDecision: Map<string, string>, cardId: string, comment: string, returnToParentStage: boolean, signature: string): ADocument.ADocument | Promise<ADocument.ADocument>;
+    setAdditionalDecisionUsingServerKeyStorage(token: string, userDecision: Map<string, string>, cardId: string, comment: string, returnToParentStage: boolean, pKeyId: string, password: string): ADocument.ADocument | Promise<ADocument.ADocument>;
+    setAdditionalDecisionExt(token: string, userMap: Map<string, string>, cardId: string, comment: string, returnToParentStage: boolean, signatures: Array<string>): ADocument.ADocument | Promise<ADocument.ADocument>;
+    revokeDecision(token: string, documentReassign: Array<DocumentReassign.DocumentReassign>, cardId: string, comment: string): ADocument.ADocument | Promise<ADocument.ADocument>;
     markDecisionAsRemoved(token: string, documentId: string, cardId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): DocumentExecution.DocumentExecution | Promise<DocumentExecution.DocumentExecution>;
     getAllOpenDocumentExecutionsStatistic(token: string, userId: string): Map<DocumentExecutionStatisticType.DocumentExecutionStatisticType, number> | Promise<Map<DocumentExecutionStatisticType.DocumentExecutionStatisticType, number>>;
     changeControlForDocument(token: string, documentId: string, control: boolean, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): boolean | Promise<boolean>;
@@ -33464,7 +33464,7 @@ export interface IHandler {
     removeTagsToDocument(token: string, docId: string, tags: Array<string>): boolean | Promise<boolean>;
     addExecutorsToStage(token: string, docId: string, documentReassign: Array<DocumentReassign.DocumentReassign>, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): Array<DocumentExecution.DocumentExecution> | Promise<Array<DocumentExecution.DocumentExecution>>;
     getCountDocsByFilterNoPermission(token: string, patternGroupId: string, filter: __ROOT_NAMESPACE__.KazFilter): Int64 | Promise<Int64>;
-    getTinyDocsByFilterNoPermission(token: string, filter: __ROOT_NAMESPACE__.KazFilter): Array<Document.Document> | Promise<Array<Document.Document>>;
+    getTinyDocsByFilterNoPermission(token: string, filter: __ROOT_NAMESPACE__.KazFilter): Array<ADocument.ADocument> | Promise<Array<ADocument.ADocument>>;
     changeRegistrationInfoForDocument(token: string, documentId: string, newRegistrationDate: Int64, newRegistrationNumber: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): boolean | Promise<boolean>;
     createChatForDocument(token: string, documentId: string): string | Promise<string>;
     getDocumentExtShareList(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, filter: __ROOT_NAMESPACE__.KazFilter): Array<DocumentExtShare.DocumentExtShare> | Promise<Array<DocumentExtShare.DocumentExtShare>>;
@@ -33479,7 +33479,7 @@ export interface IHandler {
     getNewConvertedAttachmentVersion(token: string, prevAttId: string): Attachment.Attachment | Promise<Attachment.Attachment>;
     exportAsXML(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, allowedAttachmentFileExt: string, allowedAttachmentType: string): Buffer | Promise<Buffer>;
     exportAsXMLv2(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, allowedAttachmentFileExt: string, allowedAttachmentType: string): Buffer | Promise<Buffer>;
-    importFromXML(token: string, xml: Buffer): Document.Document | Promise<Document.Document>;
+    importFromXML(token: string, xml: Buffer): ADocument.ADocument | Promise<ADocument.ADocument>;
     getDocContentItemsForChangeType(token: string, documentId: string): Array<ContentItem.ContentItem> | Promise<Array<ContentItem.ContentItem>>;
     downloadDocumentTemplate(token: string, documentId: string, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy, pdfPostDecorators: Array<__ROOT_NAMESPACE__.PDFPostDecorator>): Buffer | Promise<Buffer>;
     getAllDocumentExecutionsByFilter(token: string, documentId: string, filter: __ROOT_NAMESPACE__.KazFilter, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): Array<DocumentExecution.DocumentExecution> | Promise<Array<DocumentExecution.DocumentExecution>>;
@@ -33491,7 +33491,7 @@ export interface IHandler {
     getReassignDocXml(token: string, documentId: string, cardId: string, documentReassign: Array<DocumentReassign.DocumentReassign>): string | Promise<string>;
     addAnswerers(token: string, cardId: string, users: Array<string>, deadlineDate: Int64, comment: string, requireMyParticipation: boolean, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): boolean | Promise<boolean>;
     addAnswerersToLinkedDocument(token: string, docId: string, users: Array<__ROOT_NAMESPACE__.UserOrGroup>, deadlineDate: Int64, comment: string, requireMyParticipation: boolean, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): boolean | Promise<boolean>;
-    createMeetingQuestion(token: string, document: Document.Document, users: Array<__ROOT_NAMESPACE__.UserOrGroup>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, securityClassificationsId: Set<string>, attachments: Array<AttCreateInfo.AttCreateInfo>, docRelations: Array<DocumentRelation.DocumentRelation>, meetingDocumentId: string): Document.Document | Promise<Document.Document>;
+    createMeetingQuestion(token: string, document: ADocument.ADocument, users: Array<__ROOT_NAMESPACE__.UserOrGroup>, holderLinks: Array<ContentHolderLink.ContentHolderLink>, securityClassificationsId: Set<string>, attachments: Array<AttCreateInfo.AttCreateInfo>, docRelations: Array<DocumentRelation.DocumentRelation>, meetingDocumentId: string): ADocument.ADocument | Promise<ADocument.ADocument>;
     changeExternalNumber(token: string, documentId: string, externalId: string, externalNumber: string, externalRegDate: Int64, accessPolicy: DocumentAccessPolicy.DocumentAccessPolicy): boolean | Promise<boolean>;
     getAvailableSubStatuses(token: string, documentId: string): Set<DocPatternStageSubStatus.DocPatternStageSubStatus> | Promise<Set<DocPatternStageSubStatus.DocPatternStageSubStatus>>;
     cardWorkingStart(token: string, cardId: string, workComment: string): DocumentExecution.DocumentExecution | Promise<DocumentExecution.DocumentExecution>;
@@ -34047,7 +34047,7 @@ export class Processor {
         });
     }
     public process_createOrUpdateDocument(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: CreateOrUpdateDocumentArgs = CreateOrUpdateDocumentArgs.read(input);
                 input.readMessageEnd();
@@ -34056,7 +34056,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: CreateOrUpdateDocumentResult = new CreateOrUpdateDocumentResult({ success: data });
             output.writeMessageBegin("createOrUpdateDocument", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -34091,7 +34091,7 @@ export class Processor {
         });
     }
     public process_updateDocument(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: UpdateDocumentArgs = UpdateDocumentArgs.read(input);
                 input.readMessageEnd();
@@ -34100,7 +34100,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: UpdateDocumentResult = new UpdateDocumentResult({ success: data });
             output.writeMessageBegin("updateDocument", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -34135,7 +34135,7 @@ export class Processor {
         });
     }
     public process_createDocument(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: CreateDocumentArgs = CreateDocumentArgs.read(input);
                 input.readMessageEnd();
@@ -34144,7 +34144,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: CreateDocumentResult = new CreateDocumentResult({ success: data });
             output.writeMessageBegin("createDocument", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -34179,7 +34179,7 @@ export class Processor {
         });
     }
     public process_createDocumentFromXML(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: CreateDocumentFromXMLArgs = CreateDocumentFromXMLArgs.read(input);
                 input.readMessageEnd();
@@ -34188,7 +34188,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: CreateDocumentFromXMLResult = new CreateDocumentFromXMLResult({ success: data });
             output.writeMessageBegin("createDocumentFromXML", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -34223,7 +34223,7 @@ export class Processor {
         });
     }
     public process_getDocument(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: GetDocumentArgs = GetDocumentArgs.read(input);
                 input.readMessageEnd();
@@ -34232,7 +34232,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: GetDocumentResult = new GetDocumentResult({ success: data });
             output.writeMessageBegin("getDocument", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -34267,7 +34267,7 @@ export class Processor {
         });
     }
     public process_getAllDocuments(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Array<Document.Document>>((resolve, reject): void => {
+        new Promise<Array<ADocument.ADocument>>((resolve, reject): void => {
             try {
                 const args: GetAllDocumentsArgs = GetAllDocumentsArgs.read(input);
                 input.readMessageEnd();
@@ -34276,7 +34276,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Array<Document.Document>): void => {
+        }).then((data: Array<ADocument.ADocument>): void => {
             const result: GetAllDocumentsResult = new GetAllDocumentsResult({ success: data });
             output.writeMessageBegin("getAllDocuments", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -34575,7 +34575,7 @@ export class Processor {
         });
     }
     public process_setDocumentDecision(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: SetDocumentDecisionArgs = SetDocumentDecisionArgs.read(input);
                 input.readMessageEnd();
@@ -34584,7 +34584,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: SetDocumentDecisionResult = new SetDocumentDecisionResult({ success: data });
             output.writeMessageBegin("setDocumentDecision", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -34619,7 +34619,7 @@ export class Processor {
         });
     }
     public process_setDocumentDecisionByLinkId(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: SetDocumentDecisionByLinkIdArgs = SetDocumentDecisionByLinkIdArgs.read(input);
                 input.readMessageEnd();
@@ -34628,7 +34628,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: SetDocumentDecisionByLinkIdResult = new SetDocumentDecisionByLinkIdResult({ success: data });
             output.writeMessageBegin("setDocumentDecisionByLinkId", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -34663,7 +34663,7 @@ export class Processor {
         });
     }
     public process_setDocumentDecisionUsingServerKeyStorage(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: SetDocumentDecisionUsingServerKeyStorageArgs = SetDocumentDecisionUsingServerKeyStorageArgs.read(input);
                 input.readMessageEnd();
@@ -34672,7 +34672,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: SetDocumentDecisionUsingServerKeyStorageResult = new SetDocumentDecisionUsingServerKeyStorageResult({ success: data });
             output.writeMessageBegin("setDocumentDecisionUsingServerKeyStorage", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -34707,7 +34707,7 @@ export class Processor {
         });
     }
     public process_setDocumentDecisionExt(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: SetDocumentDecisionExtArgs = SetDocumentDecisionExtArgs.read(input);
                 input.readMessageEnd();
@@ -34716,7 +34716,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: SetDocumentDecisionExtResult = new SetDocumentDecisionExtResult({ success: data });
             output.writeMessageBegin("setDocumentDecisionExt", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -36907,7 +36907,7 @@ export class Processor {
         });
     }
     public process_setAdditionalDecision(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: SetAdditionalDecisionArgs = SetAdditionalDecisionArgs.read(input);
                 input.readMessageEnd();
@@ -36916,7 +36916,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: SetAdditionalDecisionResult = new SetAdditionalDecisionResult({ success: data });
             output.writeMessageBegin("setAdditionalDecision", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -36951,7 +36951,7 @@ export class Processor {
         });
     }
     public process_setAdditionalDecisionUsingServerKeyStorage(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: SetAdditionalDecisionUsingServerKeyStorageArgs = SetAdditionalDecisionUsingServerKeyStorageArgs.read(input);
                 input.readMessageEnd();
@@ -36960,7 +36960,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: SetAdditionalDecisionUsingServerKeyStorageResult = new SetAdditionalDecisionUsingServerKeyStorageResult({ success: data });
             output.writeMessageBegin("setAdditionalDecisionUsingServerKeyStorage", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -36995,7 +36995,7 @@ export class Processor {
         });
     }
     public process_setAdditionalDecisionExt(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: SetAdditionalDecisionExtArgs = SetAdditionalDecisionExtArgs.read(input);
                 input.readMessageEnd();
@@ -37004,7 +37004,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: SetAdditionalDecisionExtResult = new SetAdditionalDecisionExtResult({ success: data });
             output.writeMessageBegin("setAdditionalDecisionExt", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -37039,7 +37039,7 @@ export class Processor {
         });
     }
     public process_revokeDecision(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: RevokeDecisionArgs = RevokeDecisionArgs.read(input);
                 input.readMessageEnd();
@@ -37048,7 +37048,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: RevokeDecisionResult = new RevokeDecisionResult({ success: data });
             output.writeMessageBegin("revokeDecision", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -37391,7 +37391,7 @@ export class Processor {
         });
     }
     public process_getTinyDocsByFilterNoPermission(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Array<Document.Document>>((resolve, reject): void => {
+        new Promise<Array<ADocument.ADocument>>((resolve, reject): void => {
             try {
                 const args: GetTinyDocsByFilterNoPermissionArgs = GetTinyDocsByFilterNoPermissionArgs.read(input);
                 input.readMessageEnd();
@@ -37400,7 +37400,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Array<Document.Document>): void => {
+        }).then((data: Array<ADocument.ADocument>): void => {
             const result: GetTinyDocsByFilterNoPermissionResult = new GetTinyDocsByFilterNoPermissionResult({ success: data });
             output.writeMessageBegin("getTinyDocsByFilterNoPermission", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -38051,7 +38051,7 @@ export class Processor {
         });
     }
     public process_importFromXML(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: ImportFromXMLArgs = ImportFromXMLArgs.read(input);
                 input.readMessageEnd();
@@ -38060,7 +38060,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: ImportFromXMLResult = new ImportFromXMLResult({ success: data });
             output.writeMessageBegin("importFromXML", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);
@@ -38579,7 +38579,7 @@ export class Processor {
         });
     }
     public process_createMeetingQuestion(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Document.Document>((resolve, reject): void => {
+        new Promise<ADocument.ADocument>((resolve, reject): void => {
             try {
                 const args: CreateMeetingQuestionArgs = CreateMeetingQuestionArgs.read(input);
                 input.readMessageEnd();
@@ -38588,7 +38588,7 @@ export class Processor {
             catch (err) {
                 reject(err);
             }
-        }).then((data: Document.Document): void => {
+        }).then((data: ADocument.ADocument): void => {
             const result: CreateMeetingQuestionResult = new CreateMeetingQuestionResult({ success: data });
             output.writeMessageBegin("createMeetingQuestion", thrift.Thrift.MessageType.REPLY, requestId);
             result.write(output);

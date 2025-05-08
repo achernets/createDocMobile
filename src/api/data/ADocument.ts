@@ -17,7 +17,7 @@ import * as __ROOT_NAMESPACE__ from "./";
 import * as DocumentParticipantGroup from "./DocumentParticipantGroup";
 import * as DocumentIconType from "./DocumentIconType";
 import * as DocumentTag from "./DocumentTag";
-export interface IDocumentArgs {
+export interface IADocumentArgs {
     id?: string;
     createDate?: number | Int64;
     originalPatternId?: string;
@@ -68,7 +68,7 @@ export interface IDocumentArgs {
     subStatuses?: Set<DocPatternStageSubStatus.DocPatternStageSubStatus>;
     tags?: Array<DocumentTag.DocumentTag>;
 }
-export class Document {
+export class ADocument {
     public id?: string;
     public createDate?: Int64;
     public originalPatternId?: string;
@@ -118,7 +118,7 @@ export class Document {
     public uid?: string;
     public subStatuses?: Set<DocPatternStageSubStatus.DocPatternStageSubStatus>;
     public tags?: Array<DocumentTag.DocumentTag>;
-    constructor(args?: IDocumentArgs) {
+    constructor(args?: IADocumentArgs) {
         if (args != null && args.id != null) {
             this.id = args.id;
         }
@@ -313,7 +313,7 @@ export class Document {
         }
     }
     public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("Document");
+        output.writeStructBegin("ADocument");
         if (this.id != null) {
             output.writeFieldBegin("id", thrift.Thrift.Type.STRING, 1);
             output.writeString(this.id);
@@ -597,7 +597,7 @@ export class Document {
         output.writeStructEnd();
         return;
     }
-    public static read(input: thrift.TProtocol): Document {
+    public static read(input: thrift.TProtocol): ADocument {
         input.readStructBegin();
         let _args: any = {};
         while (true) {
@@ -1114,6 +1114,6 @@ export class Document {
             input.readFieldEnd();
         }
         input.readStructEnd();
-        return new Document(_args);
+        return new ADocument(_args);
     }
 }

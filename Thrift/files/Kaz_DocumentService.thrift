@@ -1315,7 +1315,7 @@ struct DocumentTag {
 }
 
 /** Документ */
-struct Document {
+struct ADocument {
   /** Идентификатор */
   1: optional common.ID id;
   /** Дата создания документа */
@@ -1942,7 +1942,7 @@ struct DeadlineHistory {
     /** Client who changed date */
     3: optional common.UserOrGroup creator;
     /** Document */
-    4: optional Document document;
+    4: optional ADocument document;
     /** Document exection */
     5: optional DocumentExecution documentExecution;
     /** old deadline date */
@@ -2157,15 +2157,15 @@ struct AttachmentDownloadInfo {
 service DocumentService {
   DocPermissions calculatePermissions(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3:DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Создание/изменение документа */
-   Document createOrUpdateDocument(1: common.AuthTokenBase64 token, 2: Document document, 3: DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+   ADocument createOrUpdateDocument(1: common.AuthTokenBase64 token, 2: ADocument document, 3: DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Изменение документа */
-   Document updateDocument(1: common.AuthTokenBase64 token, 2: Document document, 3: DocumentAccessPolicy accessPolicy, 4: list<common.UserOrGroup> addedResponsibles, 5: list<common.UserOrGroup> removedResponsibles, 6: list<common.ID> addedSecurityClassificationIds, 7: list<common.ID> removedSecurityClassificationIds) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+   ADocument updateDocument(1: common.AuthTokenBase64 token, 2: ADocument document, 3: DocumentAccessPolicy accessPolicy, 4: list<common.UserOrGroup> addedResponsibles, 5: list<common.UserOrGroup> removedResponsibles, 6: list<common.ID> addedSecurityClassificationIds, 7: list<common.ID> removedSecurityClassificationIds) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /* Создание документа */
-  Document createDocument(1: common.AuthTokenBase64 token, 2: Document document, 3: list<common.UserOrGroup> users, 4: list<ContentHolderLink> holderLinks, 5: set<common.ID> securityClassificationsId, 6: list<AttCreateInfo> attachments, 7: list<DocumentRelation> docRelations) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  ADocument createDocument(1: common.AuthTokenBase64 token, 2: ADocument document, 3: list<common.UserOrGroup> users, 4: list<ContentHolderLink> holderLinks, 5: set<common.ID> securityClassificationsId, 6: list<AttCreateInfo> attachments, 7: list<DocumentRelation> docRelations) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Создание документа из xml черновика*/
-  Document createDocumentFromXML(1:common.AuthTokenBase64 token, 2:binary xmlDoc) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  ADocument createDocumentFromXML(1:common.AuthTokenBase64 token, 2:binary xmlDoc) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Получение документа по идентификатору */
-  Document getDocument(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3:DocumentAccessPolicy accessPolicy, 4: bool decrypt, 5: i32 executorsPortion) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  ADocument getDocument(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3:DocumentAccessPolicy accessPolicy, 4: bool decrypt, 5: i32 executorsPortion) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Список всех документов.
   * Есть возможность фильтровать по:
   *  - common.ID паттерна (fieldname: "documentPatternId", fType: STRING)
@@ -2202,7 +2202,7 @@ service DocumentService {
   *  - externalRegDate внешняя дата регистрации
   *  - по справочнику (HB_COLUMN_ID, HB_ROW_IDS) or (HB_COLUMN_ID, HB_WORDS)
   *  - */
-  list<Document> getAllDocuments(1: common.AuthTokenBase64 token, 2: DocumentAccessPolicy accessPolicy, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  list<ADocument> getAllDocuments(1: common.AuthTokenBase64 token, 2: DocumentAccessPolicy accessPolicy, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Получение количества всех документов */
   i32 getCountAllDocuments(1: common.AuthTokenBase64 token, 2: DocumentAccessPolicy accessPolicy, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Удаление документа */
@@ -2222,14 +2222,14 @@ service DocumentService {
   /** Получение количества людей, которые уже вынесли решение */
   map<string, i32> getCountPeoplesWhenRenderedDecision(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3: common.ID stageId, 4:DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /**@Depraceted(use setDocumentDecisionExt) Вынесение решения по документу, флаг force используется для фонового вызова forceMoveToNextStage */
-  Document setDocumentDecision(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3: string decision, 4:string documentComment, 5:bool force, 6:string signature, 7:common.ID cardId, 8:list<AttCreateInfo> attachments, 9:list<ContentHolderLink> holderLinks, 10:DocumentAccessPolicy accessPolicy, 11:map<common.ID, list<string>> addSignToAttachment) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  ADocument setDocumentDecision(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3: string decision, 4:string documentComment, 5:bool force, 6:string signature, 7:common.ID cardId, 8:list<AttCreateInfo> attachments, 9:list<ContentHolderLink> holderLinks, 10:DocumentAccessPolicy accessPolicy, 11:map<common.ID, list<string>> addSignToAttachment) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /**@Depraceted(use setDocumentDecisionExt) Вынесение решения по документу через идентификатор ссылки, флаг force используется для фонового вызова forceMoveToNextStage */
-  Document setDocumentDecisionByLinkId(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3: common.ID linkID, 4:common.ID cardId, 5:string documentComment, 6:bool force, 7:string signature, 8:common.ID pKeyId, 9:string password, 10:list<AttCreateInfo> attachments, 11:list<ContentHolderLink> holderLinks, 12:DocumentAccessPolicy accessPolicy, 13:map<common.ID, list<string>> addSignToAttachment, 14: list<common.ID> attachmentsToSign) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  ADocument setDocumentDecisionByLinkId(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3: common.ID linkID, 4:common.ID cardId, 5:string documentComment, 6:bool force, 7:string signature, 8:common.ID pKeyId, 9:string password, 10:list<AttCreateInfo> attachments, 11:list<ContentHolderLink> holderLinks, 12:DocumentAccessPolicy accessPolicy, 13:map<common.ID, list<string>> addSignToAttachment, 14: list<common.ID> attachmentsToSign) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /**@Depraceted(use setDocumentDecisionExt) */
-  Document setDocumentDecisionUsingServerKeyStorage(1: common.AuthTokenBase64 token, 2:common.ID documentId, 3:string decision, 4:string documentComment, 5:bool force, 6:common.ID pKeyId, 7:string password, 8:common.ID cardId, 9:list<AttCreateInfo> attachments, 10:list<ContentHolderLink> holderLinks, 11:DocumentAccessPolicy accessPolicy, 12: list<common.ID> attachmentsToSign) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  ADocument setDocumentDecisionUsingServerKeyStorage(1: common.AuthTokenBase64 token, 2:common.ID documentId, 3:string decision, 4:string documentComment, 5:bool force, 6:common.ID pKeyId, 7:string password, 8:common.ID cardId, 9:list<AttCreateInfo> attachments, 10:list<ContentHolderLink> holderLinks, 11:DocumentAccessPolicy accessPolicy, 12: list<common.ID> attachmentsToSign) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
   /**Вынесение решения по документу через идентификатор ссылки, флаг force используется для фонового вызова forceMoveToNextStage */
-  Document setDocumentDecisionExt(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3:common.ID cardId, 4: common.ID linkID, 5:string documentComment, 6:bool force, 7:list<AttCreateInfo> attachments, 8:list<ContentHolderLink> holderLinks, 9: list<string> addSignToDecision, 10:map<common.ID, list<string>> addSignToAttachment, 11:DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  ADocument setDocumentDecisionExt(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3:common.ID cardId, 4: common.ID linkID, 5:string documentComment, 6:bool force, 7:list<AttCreateInfo> attachments, 8:list<ContentHolderLink> holderLinks, 9: list<string> addSignToDecision, 10:map<common.ID, list<string>> addSignToAttachment, 11:DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
   /*** Утверждение решения по документу */
   bool approveDocumentDecision(1: common.AuthTokenBase64 token, 2: common.ID executionId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
@@ -2363,12 +2363,12 @@ service DocumentService {
    *  returnToParentStage = true - документ будет перемещен на начало стрелки, false - на конец
  **/
   /** @Depraceted(use setAdditionalDecisionExt) */
-  Document setAdditionalDecision(1: common.AuthTokenBase64 token, 2: map<common.ID, string> userDecision, 3: common.ID cardId, 4:string comment, 5:bool returnToParentStage, 6: string signature) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  ADocument setAdditionalDecision(1: common.AuthTokenBase64 token, 2: map<common.ID, string> userDecision, 3: common.ID cardId, 4:string comment, 5:bool returnToParentStage, 6: string signature) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** @Depraceted(use setAdditionalDecisionExt) */
-  Document setAdditionalDecisionUsingServerKeyStorage(1: common.AuthTokenBase64 token, 2: map<common.ID, string> userDecision, 3: common.ID cardId, 4:string comment, 5:bool returnToParentStage,  6: common.ID pKeyId, 7: string password) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-  Document setAdditionalDecisionExt(1: common.AuthTokenBase64 token, 2: map<common.ID, string> userMap, 3: common.ID cardId, 4:string comment, 5:bool returnToParentStage, 6: list<string> signatures) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  ADocument setAdditionalDecisionUsingServerKeyStorage(1: common.AuthTokenBase64 token, 2: map<common.ID, string> userDecision, 3: common.ID cardId, 4:string comment, 5:bool returnToParentStage,  6: common.ID pKeyId, 7: string password) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  ADocument setAdditionalDecisionExt(1: common.AuthTokenBase64 token, 2: map<common.ID, string> userMap, 3: common.ID cardId, 4:string comment, 5:bool returnToParentStage, 6: list<string> signatures) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Отмена решения(карточка должна быть верхнего уровня или дочерняя от групповой верхнего уровня) */
-  Document revokeDecision(1: common.AuthTokenBase64 token, 2: list<DocumentReassign> documentReassign, 3: common.ID cardId, 4:string comment) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  ADocument revokeDecision(1: common.AuthTokenBase64 token, 2: list<DocumentReassign> documentReassign, 3: common.ID cardId, 4:string comment) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Отмена решения, карточка должна быть  */
   DocumentExecution markDecisionAsRemoved(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3: common.ID cardId, 4: DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /**Метод на получение статистики по открытым карточкам исполнения*/
@@ -2385,7 +2385,7 @@ service DocumentService {
   /* (fieldname: "value", fType: STRING, fieldCondition: EQUAL) */
   common.count getCountDocsByFilterNoPermission(1:common.AuthTokenBase64 token, 2:common.ID patternGroupId, 3:filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /* Метод на поиск документов, вне зависимости от доступа (в ответ только id и номер) */
-  list<Document> getTinyDocsByFilterNoPermission(1:common.AuthTokenBase64 token, 2:filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  list<ADocument> getTinyDocsByFilterNoPermission(1:common.AuthTokenBase64 token, 2:filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /**Метод на изменение регистрационного номера и(или) даты регистрации документа*/
   bool changeRegistrationInfoForDocument(1:common.AuthTokenBase64 token, 2: common.ID documentId, 3: common.kazDate newRegistrationDate, 4: string newRegistrationNumber, 5: DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /**Создать чат для документа */
@@ -2414,7 +2414,7 @@ service DocumentService {
   /** Экспорт документа в xml v2*/
   binary exportAsXMLv2(1:common.AuthTokenBase64 token, 2:common.ID documentId, 3:DocumentAccessPolicy accessPolicy, 4:string allowedAttachmentFileExt, 5:string allowedAttachmentType) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Создание документа из xml*/
-  Document importFromXML(1:common.AuthTokenBase64 token, 2:binary xml) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  ADocument importFromXML(1:common.AuthTokenBase64 token, 2:binary xml) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Выгрузка всех контентов вне зависимости от доступных контент контейнеров*/
   list<ContentItem> getDocContentItemsForChangeType(1:common.AuthTokenBase64 token, 2:common.ID documentId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Скачать пустой шаблон документа с наложенной декорацией */
@@ -2440,7 +2440,7 @@ service DocumentService {
   /** Задать вопрос */
   bool addAnswerersToLinkedDocument(1: common.AuthTokenBase64 token, 2: common.ID docId, 3: list<common.UserOrGroup> users, 4: common.kazDate deadlineDate, 5: string comment, 6: bool requireMyParticipation, 7: DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /* Создание документа с вопросом в момент проведения голосования */
-  Document createMeetingQuestion(1: common.AuthTokenBase64 token, 2: Document document, 3: list<common.UserOrGroup> users, 4: list<ContentHolderLink> holderLinks, 5: set<common.ID> securityClassificationsId, 6: list<AttCreateInfo> attachments, 7: list<DocumentRelation> docRelations, 8: common.ID meetingDocumentId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  ADocument createMeetingQuestion(1: common.AuthTokenBase64 token, 2: ADocument document, 3: list<common.UserOrGroup> users, 4: list<ContentHolderLink> holderLinks, 5: set<common.ID> securityClassificationsId, 6: list<AttCreateInfo> attachments, 7: list<DocumentRelation> docRelations, 8: common.ID meetingDocumentId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Указать внешний номер */
   bool changeExternalNumber(1: common.AuthTokenBase64 token, 2:common.ID documentId, 3:common.ID externalId, 4:string externalNumber, 5:common.kazDate externalRegDate, 6: DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Получить множество доступных подстатусов этапа шаблона для указаного документа */

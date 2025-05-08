@@ -7,13 +7,13 @@
 import { Int64 } from "thrift";
 import * as thrift from "thrift";
 import * as __ROOT_NAMESPACE__ from "./";
-import * as Document from "./Document";
+import * as ADocument from "./ADocument";
 import * as DocumentExecution from "./DocumentExecution";
 export interface IDeadlineHistoryArgs {
     id?: string;
     createDate?: number | Int64;
     creator?: __ROOT_NAMESPACE__.UserOrGroup;
-    document?: Document.Document;
+    document?: ADocument.ADocument;
     documentExecution?: DocumentExecution.DocumentExecution;
     oldDeadlineDate?: number | Int64;
     theNewDeadlineDate?: number | Int64;
@@ -22,7 +22,7 @@ export class DeadlineHistory {
     public id?: string;
     public createDate?: Int64;
     public creator?: __ROOT_NAMESPACE__.UserOrGroup;
-    public document?: Document.Document;
+    public document?: ADocument.ADocument;
     public documentExecution?: DocumentExecution.DocumentExecution;
     public oldDeadlineDate?: Int64;
     public theNewDeadlineDate?: Int64;
@@ -145,7 +145,7 @@ export class DeadlineHistory {
                     break;
                 case 4:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_4: Document.Document = Document.Document.read(input);
+                        const value_4: ADocument.ADocument = ADocument.ADocument.read(input);
                         _args.document = value_4;
                     }
                     else {

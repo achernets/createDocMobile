@@ -70,6 +70,24 @@ const generateThriftFiles = async () => {
 
   await (replace({
     files: `${saveUrl}*.thrift`,
+    ignore: [
+      `${saveUrl}Kaz_NotificationService.thrift`
+    ],
+    from: new RegExp('\\bDocument\\b', 'gm'),
+    to: 'ADocument'
+  }));
+
+  await (replace({
+    files: `${saveUrl}*.thrift`,
+    ignore: [
+      `${saveUrl}Kaz_NotificationService.thrift`
+    ],
+    from: new RegExp('\\/\\** ADocument\\b', 'gm'),
+    to: '/** Document'
+  }));
+  
+  await (replace({
+    files: `${saveUrl}*.thrift`,
     from: /\/\*\* \*\//g,
     to: '/** без описания */'
   }));

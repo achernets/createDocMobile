@@ -1,97 +1,33 @@
-// @ts-nocheck
-import { JSX, useCallback, useEffect, useState, Fragment } from "react";
-import { Button, Modal, Space, Tabs } from "antd-mobile";
-import { DocumentPatternServiceClient, DocumentServiceClient } from "../../api";
-import { AttachmentExtStatus } from "../../api/data";
+import { JSX, useEffect, useState, Fragment } from "react";
+import { Button, Space, Tabs } from "antd-mobile";
 import useAppStore from "../../store/useAppStore";
-import useModalStore from "../../store/useModals";
 import { useShallow } from "zustand/shallow";
 import { FormStyled, TabsStyled } from "./styled";
 import { useForm } from "react-hook-form";
-import { Document, DocumentAccessPolicy, DocPatternStageStatus, DocumentAccessPolicyType, ContentHolder, ContentItemType } from "../../api/data";
+import { AttachmentExtStatus, ContentHolder, ContentItemType } from "../../api/data";
 import UploadAttAndPatternTemplate from "../Form/UploadAttAndPatternTemplate";
 import Holder from "../Form/Holder";
 import TabInfo from "./components/TabInfo";
 import Stages from "./components/Stages";
-import { get, pick, sortBy, orderBy, map, reverse, reduce, filter, size, debounce, uniqBy, findIndex } from "lodash";
-import { GetFilledDocumentPatternStagesExecutorsArgs } from "../../api/data/FilledDocumentPatternService";
+import { get, map, reduce, size, debounce, uniqBy, findIndex } from "lodash";
 
 const Step2 = (): JSX.Element => {
-  const { token, clientInfo, account, groupPattern, pattern } = useAppStore(
+  const { docInfo, account, groupPattern, pattern } = useAppStore(
     useShallow((state) => ({
       account: state.account,
       groupPattern: state.groupPattern,
       pattern: state.pattern,
-      token: state.token,
-      clientInfo: state.clientInfo,
+      docInfo: state.docInfo
     })),
   );
 
-  const { openModal } = useModalStore(useShallow((state) => ({
-    openModal: state.openModal
-  })));
-
-  const { control, reset, watch, setValue, getValues } = useForm({
-    defaultValues: {
-      author: [clientInfo],
-      controlUsers: [clientInfo],
-      document: new Document({
-        nameDocument: "",
-        controlForDocument: false,
-        documentDeadlineDate: -1,
-      }),
-      attachments: [],
-      holders: [],
-      stages: [],
-      scGrifs: []
-    },
+  const { control, watch, setValue, getValues } = useForm({
+    defaultValues: docInfo,
     shouldUnregister: false
   });
 
   const [changes, setChanges] = useState([]);
   const [changesIsWork, setChangesIsWork] = useState(false);
-
-  const getInfoDoc = useCallback(async () => {
-    try {
-      if (pattern?.id === undefined) return;
-      const result = await DocumentPatternServiceClient.getInfoForCreateDoc(
-        token,
-        pattern?.id,
-        "",
-        new DocumentAccessPolicy({
-          type: DocumentAccessPolicyType.ACCESS,
-        }),
-      );
-      reset({
-        author: [clientInfo],
-        controlUsers: [clientInfo],
-        document: new Document({
-          nameDocument: "",
-          controlForDocument: false,
-          documentDeadlineDate: -1,
-        }),
-        attachments: [],
-        holders: orderBy(result.holders, ['order', 'oName']).map(holder => new ContentHolder({
-          ...holder,
-          contentHolderLink: orderBy(holder.contentHolderLink, ['order', 'oName'])
-        })),
-        contentItems: reduce(result.holders, (hash, holder) => {
-          map(holder.contentHolderLink, itm => {
-            hash[itm.contentItem.key] = itm.contentItem;
-          })
-          return hash;
-        }, {}),
-        stages: sortBy(reverse(filter(result.stages, { status: DocPatternStageStatus.IN_PROGRESS, hide: false })), ['orderNum']),
-        ...pick(result, ['scGrifs'])
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, [token, pattern, clientInfo, reset]);
-
-  useEffect(() => {
-    getInfoDoc();
-  }, [getInfoDoc]);
 
   const execFunc = (obj) => {
     const holder = getValues(obj.holderPath);
@@ -100,7 +36,6 @@ const Step2 = (): JSX.Element => {
     const getPathLinkByKey = (key) => {
       return `${obj.holderPath}.contentHolderLink.${findIndex(holder.contentHolderLink, { contentItem: { key: key } })}`
     };
-    const getContentItem = (key) => getValues(`contentItems.${key}`)
     fn({
       getContentItemValue: (key) => {
         const item = getValues(`contentItems.${key}`);
@@ -122,7 +57,7 @@ const Step2 = (): JSX.Element => {
       }
     }).then(() => {
       console.log('end');
-      setChanges(prev => prev.filter((itm, i) => i !== 0));
+      setChanges(prev => prev.filter((_, i) => i !== 0));
       setChangesIsWork(false);
     });
   };
@@ -140,7 +75,7 @@ const Step2 = (): JSX.Element => {
   }, [debouncedExec, changes, changesIsWork]);
 
   useEffect(() => {
-    const { unsubscribe } = watch((value, { name, type }) => {
+    const { unsubscribe } = watch((_, { name }) => {
       if (name?.startsWith('contentItems.')) {
         const paths = name.split('.');
         const holders = getValues('holders');
@@ -195,6 +130,7 @@ const Step2 = (): JSX.Element => {
             fontWeight: 400,
             lineHeight: "20px",
             color: "rgba(0, 0, 0, 0.45)",
+            padding: '0px 16px'
           }}
         >
           {account?.accountName} / {groupPattern?.nameDocPatGroup} /{" "}
@@ -206,6 +142,7 @@ const Step2 = (): JSX.Element => {
               control={control}
               pattern={pattern}
               watch={watch}
+              formEdit={docInfo.formEdit}
               setChanges={setChanges}
             />
           </Tabs.Tab>

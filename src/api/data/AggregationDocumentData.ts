@@ -9,7 +9,7 @@ import * as __ROOT_NAMESPACE__ from "./";
 import * as MatchingUserGroup from "./MatchingUserGroup";
 import * as DocSubStatus from "./DocSubStatus";
 export interface IAggregationDocumentDataArgs {
-    document?: __ROOT_NAMESPACE__.Document;
+    document?: __ROOT_NAMESPACE__.ADocument;
     comments?: Array<__ROOT_NAMESPACE__.DocumentComment>;
     relations?: Array<__ROOT_NAMESPACE__.DocumentRelation>;
     securityClassifications?: Array<__ROOT_NAMESPACE__.SecurityClassification>;
@@ -25,7 +25,7 @@ export interface IAggregationDocumentDataArgs {
     docSubStasuses?: Array<DocSubStatus.DocSubStatus>;
 }
 export class AggregationDocumentData {
-    public document?: __ROOT_NAMESPACE__.Document;
+    public document?: __ROOT_NAMESPACE__.ADocument;
     public comments?: Array<__ROOT_NAMESPACE__.DocumentComment>;
     public relations?: Array<__ROOT_NAMESPACE__.DocumentRelation>;
     public securityClassifications?: Array<__ROOT_NAMESPACE__.SecurityClassification>;
@@ -218,7 +218,7 @@ export class AggregationDocumentData {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_12: __ROOT_NAMESPACE__.Document = __ROOT_NAMESPACE__.Document.read(input);
+                        const value_12: __ROOT_NAMESPACE__.ADocument = __ROOT_NAMESPACE__.ADocument.read(input);
                         _args.document = value_12;
                     }
                     else {
