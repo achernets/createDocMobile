@@ -1,7 +1,8 @@
-import { Switch as ASwitch, CheckboxProps, SwitchProps, FormItemProps } from "antd-mobile";
+import { Switch as ASwitch, SwitchProps, FormItemProps } from "antd-mobile";
 import { JSX } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
+import { omit } from "lodash";
 
 type SwitchFProps = {
   label?: string,
@@ -10,7 +11,7 @@ type SwitchFProps = {
   control: Control<any>,
   isString?: boolean,
   formItemProps?: FormItemProps,
-} & CheckboxProps
+} & SwitchProps;
 
 const Switch = ({ label, name, control, defaultValue = '', isString = false, formItemProps = {}, ...props }: SwitchFProps): JSX.Element => {
   const { field: { value, ...field } } = useController({
@@ -27,7 +28,7 @@ const Switch = ({ label, name, control, defaultValue = '', isString = false, for
   >
     <ASwitch
       checked={isString ? value === 'true' : value}
-      {...field}
+      {...omit(field, 'ref') }
       onChange={(e) => isString ? field.onChange(String(e)) : field.onChange(e)}
       {...props}
     />

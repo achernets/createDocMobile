@@ -23,15 +23,14 @@ export const searchFilter = (items: any, fields: string[], string: string) => {
 
 export const parseDate = (date: any) => {
   let value = date;
+  if(date?.toNumber){
+    value = date?.toNumber();
+  }
   if (value === -1 || value === undefined) return null;
   return Number(value);
 };
 
-export const parseNumber = (number: any) => {
-  let value = number;
-  if (number === null || number === undefined) return null;
-  return Number(value);
-};
+export const parseNumber = parseDate;
 
 export const getFileExt = (name: string) => {
   return toLower(name.substr(name.lastIndexOf('.') + 1, name.length));

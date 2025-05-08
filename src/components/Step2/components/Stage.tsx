@@ -30,11 +30,6 @@ const Stage = ({ name, pattern, control, }: StageProps): JSX.Element => {
       name={`${name}`}
       control={control}
     />
-    {/* <JiraTime
-      name={`${name}.deadLine`}
-      label={'Термін виконання'}
-      control={control}
-    /> */}
   </>;
 };
 
