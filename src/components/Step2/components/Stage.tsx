@@ -3,7 +3,6 @@ import { JSX } from "react";
 import { DocumentPattern } from "../../../api/data";
 import { Control } from "react-hook-form";
 import Users from "../../Form/Users";
-import JiraTime from "../../Form/JiraTime";
 import StageDeadline from "../../Form/StageDeadline";
 
 type StageProps = {
