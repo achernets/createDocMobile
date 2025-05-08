@@ -142,8 +142,9 @@ const Step2 = (): JSX.Element => {
               control={control}
               pattern={pattern}
               watch={watch}
-              formEdit={docInfo.formEdit}
+              formEdit={docInfo?.formEdit}
               setChanges={setChanges}
+              notRemoveScIds={map(docInfo?.scGrifs, itm => itm.id) }
             />
           </Tabs.Tab>
           {map(holders, (holder: ContentHolder, index: number) => {

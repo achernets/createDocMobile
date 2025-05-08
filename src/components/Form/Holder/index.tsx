@@ -27,14 +27,15 @@ const Holder = ({ name, control, holder, withName = true, setChanges }: HolderPr
   return <div style={{
     display: "flex",
     gap: "8px",
-    padding: "8px",
+    padding: "8px 0px",
     flexDirection: "column",
   }}>
-    {withName && <Ellipsis content={holder.oName} />}
+    {withName && <Ellipsis style={{
+      fontWeight: 500
+    }} content={holder.oName} />}
     <div style={{
       display: "flex",
       gap: "8px",
-      padding: "8px",
       flexDirection: "column",
     }}>
       {map(holder.contentHolderLink, (contentHolderLink: ContentHolderLink, index: number) => {
@@ -45,7 +46,7 @@ const Holder = ({ name, control, holder, withName = true, setChanges }: HolderPr
             pathAllItems="contentItems"
             pathLink={`${name}.contentHolderLink.${index}`}
             //@ts-ignore
-            addChanges={() => setChanges(prev=>[
+            addChanges={() => setChanges(prev => [
               ...prev,
               {
                 holderPath: name,
