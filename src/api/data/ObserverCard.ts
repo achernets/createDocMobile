@@ -13,6 +13,7 @@ import * as ObserverDocument from "./ObserverDocument";
 import * as DeadLineExtention from "./DeadLineExtention";
 import * as CardsByStatus from "./CardsByStatus";
 import * as DeadlineStatus from "./DeadlineStatus";
+import * as CoExecutor from "./CoExecutor";
 export interface IObserverCardArgs {
     id?: string;
     cardType?: __ROOT_NAMESPACE__.DocumentExecutionOwnerType;
@@ -27,6 +28,7 @@ export interface IObserverCardArgs {
     deadLines?: Array<DeadLineExtention.DeadLineExtention>;
     dashboardStatus?: CardsByStatus.CardsByStatus;
     deadlineStatus?: DeadlineStatus.DeadlineStatus;
+    coExecutors?: Array<CoExecutor.CoExecutor>;
 }
 export class ObserverCard {
     public id?: string;
@@ -42,6 +44,7 @@ export class ObserverCard {
     public deadLines?: Array<DeadLineExtention.DeadLineExtention>;
     public dashboardStatus?: CardsByStatus.CardsByStatus;
     public deadlineStatus?: DeadlineStatus.DeadlineStatus;
+    public coExecutors?: Array<CoExecutor.CoExecutor>;
     constructor(args?: IObserverCardArgs) {
         if (args != null && args.id != null) {
             this.id = args.id;
@@ -86,6 +89,9 @@ export class ObserverCard {
         }
         if (args != null && args.deadlineStatus != null) {
             this.deadlineStatus = args.deadlineStatus;
+        }
+        if (args != null && args.coExecutors != null) {
+            this.coExecutors = args.coExecutors;
         }
     }
     public write(output: thrift.TProtocol): void {
@@ -163,6 +169,15 @@ export class ObserverCard {
             output.writeI32(this.deadlineStatus);
             output.writeFieldEnd();
         }
+        if (this.coExecutors != null) {
+            output.writeFieldBegin("coExecutors", thrift.Thrift.Type.LIST, 14);
+            output.writeListBegin(thrift.Thrift.Type.STRUCT, this.coExecutors.length);
+            this.coExecutors.forEach((value_3: CoExecutor.CoExecutor): void => {
+                value_3.write(output);
+            });
+            output.writeListEnd();
+            output.writeFieldEnd();
+        }
         output.writeFieldStop();
         output.writeStructEnd();
         return;
@@ -180,8 +195,8 @@ export class ObserverCard {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_3: string = input.readString();
-                        _args.id = value_3;
+                        const value_4: string = input.readString();
+                        _args.id = value_4;
                     }
                     else {
                         input.skip(fieldType);
@@ -189,8 +204,8 @@ export class ObserverCard {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_4: __ROOT_NAMESPACE__.DocumentExecutionOwnerType = input.readI32();
-                        _args.cardType = value_4;
+                        const value_5: __ROOT_NAMESPACE__.DocumentExecutionOwnerType = input.readI32();
+                        _args.cardType = value_5;
                     }
                     else {
                         input.skip(fieldType);
@@ -198,8 +213,8 @@ export class ObserverCard {
                     break;
                 case 3:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_5: __ROOT_NAMESPACE__.ExecutionReassignType = input.readI32();
-                        _args.cardReassignType = value_5;
+                        const value_6: __ROOT_NAMESPACE__.ExecutionReassignType = input.readI32();
+                        _args.cardReassignType = value_6;
                     }
                     else {
                         input.skip(fieldType);
@@ -207,8 +222,8 @@ export class ObserverCard {
                     break;
                 case 4:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_6: string = input.readString();
-                        _args.cardTaskComment = value_6;
+                        const value_7: string = input.readString();
+                        _args.cardTaskComment = value_7;
                     }
                     else {
                         input.skip(fieldType);
@@ -216,8 +231,8 @@ export class ObserverCard {
                     break;
                 case 5:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_7: __ROOT_NAMESPACE__.UserOrGroup = __ROOT_NAMESPACE__.UserOrGroup.read(input);
-                        _args.cardUser = value_7;
+                        const value_8: __ROOT_NAMESPACE__.UserOrGroup = __ROOT_NAMESPACE__.UserOrGroup.read(input);
+                        _args.cardUser = value_8;
                     }
                     else {
                         input.skip(fieldType);
@@ -225,8 +240,8 @@ export class ObserverCard {
                     break;
                 case 6:
                     if (fieldType === thrift.Thrift.Type.I64) {
-                        const value_8: Int64 = input.readI64();
-                        _args.deadLineDate = value_8;
+                        const value_9: Int64 = input.readI64();
+                        _args.deadLineDate = value_9;
                     }
                     else {
                         input.skip(fieldType);
@@ -234,8 +249,8 @@ export class ObserverCard {
                     break;
                 case 7:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_9: ObserverCardStatus.ObserverCardStatus = input.readI32();
-                        _args.cardStatus = value_9;
+                        const value_10: ObserverCardStatus.ObserverCardStatus = input.readI32();
+                        _args.cardStatus = value_10;
                     }
                     else {
                         input.skip(fieldType);
@@ -243,15 +258,15 @@ export class ObserverCard {
                     break;
                 case 8:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_10: Array<ObserverCardComment.ObserverCardComment> = new Array<ObserverCardComment.ObserverCardComment>();
+                        const value_11: Array<ObserverCardComment.ObserverCardComment> = new Array<ObserverCardComment.ObserverCardComment>();
                         const metadata_1: thrift.TList = input.readListBegin();
                         const size_1: number = metadata_1.size;
                         for (let i_1: number = 0; i_1 < size_1; i_1++) {
-                            const value_11: ObserverCardComment.ObserverCardComment = ObserverCardComment.ObserverCardComment.read(input);
-                            value_10.push(value_11);
+                            const value_12: ObserverCardComment.ObserverCardComment = ObserverCardComment.ObserverCardComment.read(input);
+                            value_11.push(value_12);
                         }
                         input.readListEnd();
-                        _args.cardComments = value_10;
+                        _args.cardComments = value_11;
                     }
                     else {
                         input.skip(fieldType);
@@ -259,8 +274,8 @@ export class ObserverCard {
                     break;
                 case 9:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_12: ObserverDocument.ObserverDocument = ObserverDocument.ObserverDocument.read(input);
-                        _args.document = value_12;
+                        const value_13: ObserverDocument.ObserverDocument = ObserverDocument.ObserverDocument.read(input);
+                        _args.document = value_13;
                     }
                     else {
                         input.skip(fieldType);
@@ -268,8 +283,8 @@ export class ObserverCard {
                     break;
                 case 10:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_13: ObserverCardStatus.ObserverCardStatus = input.readI32();
-                        _args.originalCardStatus = value_13;
+                        const value_14: ObserverCardStatus.ObserverCardStatus = input.readI32();
+                        _args.originalCardStatus = value_14;
                     }
                     else {
                         input.skip(fieldType);
@@ -277,15 +292,15 @@ export class ObserverCard {
                     break;
                 case 11:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_14: Array<DeadLineExtention.DeadLineExtention> = new Array<DeadLineExtention.DeadLineExtention>();
+                        const value_15: Array<DeadLineExtention.DeadLineExtention> = new Array<DeadLineExtention.DeadLineExtention>();
                         const metadata_2: thrift.TList = input.readListBegin();
                         const size_2: number = metadata_2.size;
                         for (let i_2: number = 0; i_2 < size_2; i_2++) {
-                            const value_15: DeadLineExtention.DeadLineExtention = DeadLineExtention.DeadLineExtention.read(input);
-                            value_14.push(value_15);
+                            const value_16: DeadLineExtention.DeadLineExtention = DeadLineExtention.DeadLineExtention.read(input);
+                            value_15.push(value_16);
                         }
                         input.readListEnd();
-                        _args.deadLines = value_14;
+                        _args.deadLines = value_15;
                     }
                     else {
                         input.skip(fieldType);
@@ -293,8 +308,8 @@ export class ObserverCard {
                     break;
                 case 12:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_16: CardsByStatus.CardsByStatus = input.readI32();
-                        _args.dashboardStatus = value_16;
+                        const value_17: CardsByStatus.CardsByStatus = input.readI32();
+                        _args.dashboardStatus = value_17;
                     }
                     else {
                         input.skip(fieldType);
@@ -302,8 +317,24 @@ export class ObserverCard {
                     break;
                 case 13:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_17: DeadlineStatus.DeadlineStatus = input.readI32();
-                        _args.deadlineStatus = value_17;
+                        const value_18: DeadlineStatus.DeadlineStatus = input.readI32();
+                        _args.deadlineStatus = value_18;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                case 14:
+                    if (fieldType === thrift.Thrift.Type.LIST) {
+                        const value_19: Array<CoExecutor.CoExecutor> = new Array<CoExecutor.CoExecutor>();
+                        const metadata_3: thrift.TList = input.readListBegin();
+                        const size_3: number = metadata_3.size;
+                        for (let i_3: number = 0; i_3 < size_3; i_3++) {
+                            const value_20: CoExecutor.CoExecutor = CoExecutor.CoExecutor.read(input);
+                            value_19.push(value_20);
+                        }
+                        input.readListEnd();
+                        _args.coExecutors = value_19;
                     }
                     else {
                         input.skip(fieldType);

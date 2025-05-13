@@ -29,12 +29,12 @@ include "Kaz_ExportImportService.thrift"
 include "Kaz_ExecutionMonitoringService.thrift"
 include "Kaz_AnalyticsService.thrift"
 
-/** Открытое api системы AlmexECM version 3.0.175 */
+/** Открытое api системы AlmexECM version 3.0.176 */
 namespace java core
 
 
 /** Версия продукта AlmexECM */
-const string CURRENT_VERSION     = '3.0.175';
+const string CURRENT_VERSION     = '3.0.176';
 
 /*
 путь к сервисам по протоколу json

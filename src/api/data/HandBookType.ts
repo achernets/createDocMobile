@@ -7,5 +7,6 @@
 export enum HandBookType {
     EXTERNAL = 0,
     INTERNAL = 1,
-    INTERNAL_NOT_EDITABLE = 2
+    INTERNAL_NOT_EDITABLE = 2,
+    EXTERNAL_EDITABLE = 3
 }

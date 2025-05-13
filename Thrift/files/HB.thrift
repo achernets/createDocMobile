@@ -103,7 +103,8 @@ struct HBColumn {
 enum HandBookType {
   EXTERNAL,
   INTERNAL,
-  INTERNAL_NOT_EDITABLE
+  INTERNAL_NOT_EDITABLE,
+  EXTERNAL_EDITABLE
 }
 
 /** Справочник */

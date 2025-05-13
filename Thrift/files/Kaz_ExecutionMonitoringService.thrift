@@ -88,6 +88,12 @@ struct DeadLineExtention {
    7: bool lastChange;
 }
 
+struct CoExecutor {
+   1: common.ID id;
+   2: string fio;
+   3: common.kazDate execDate;
+}
+
 struct ObserverCard {
    1: common.ID id;
    2: Kaz_DocumentService.DocumentExecutionOwnerType cardType;
@@ -102,6 +108,7 @@ struct ObserverCard {
   11: optional list<DeadLineExtention> deadLines;
   12: CardsByStatus dashboardStatus;
   13: DeadlineStatus deadlineStatus;
+  14: optional list<CoExecutor> coExecutors;
 }
 
 struct MailingPeriods {
@@ -151,6 +158,9 @@ service ExecutionMonitoringService {
    list<ObserverDocument> getAllObservedDocuments(1: common.AuthTokenBase64 token, 2: common.ID userId, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
    i32 getCountObservedDocuments(1: common.AuthTokenBase64 token, 2: common.ID userId, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
+   /**
+   * filter field: status, ENUMERATION, IN(ObserverCardStatus.*)
+   **/
    list<ObserverCard> getAllObservedCards(1: common.AuthTokenBase64 token, 2: common.ID userId, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
    i32 getCountObservedCards(1: common.AuthTokenBase64 token, 2: common.ID userId, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 

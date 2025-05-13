@@ -3,7 +3,7 @@ import https from 'https';
 import fs from 'fs';
 import { generate } from '@creditkarma/thrift-typescript'
 import { readdirSync } from 'fs'
-import replace from 'replace-in-file';
+import { replaceInFile as replace } from 'replace-in-file';
 
 const initFile = 'Kaz_api.thrift';
 const host = 'https://total.almexecm.com:10443';

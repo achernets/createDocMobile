@@ -241,6 +241,7 @@ export * from "./UserObserver";
 export * from "./ObserverDocument";
 export * from "./ObserverCardComment";
 export * from "./DeadLineExtention";
+export * from "./CoExecutor";
 export * from "./ObserverCard";
 export * from "./MailingPeriods";
 export * from "./MailingUser";

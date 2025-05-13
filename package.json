@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.75.5",
+    "@tanstack/react-query": "^5.76.0",
     "@types/thrift": "^0.10.17",
     "antd-mobile": "^5.39.0",
     "antd-mobile-icons": "^0.3.0",
@@ -19,11 +19,11 @@
     "node-int64": "^0.4.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-hook-form": "^7.56.2",
+    "react-hook-form": "^7.56.3",
     "react-number-format": "^5.4.4",
     "react-virtualized": "^9.22.6",
-    "replace-in-file": "^7.2.0",
-    "styled-components": "^6.1.17",
+    "replace-in-file": "^8.3.0",
+    "styled-components": "^6.1.18",
     "thrift": "^0.21.0",
     "vite-plugin-node-polyfills": "^0.23.0",
     "vite-plugin-require": "^1.2.14",
@@ -41,7 +41,7 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.1.0",
     "typescript": "~5.8.3",
-    "typescript-eslint": "^8.32.0",
+    "typescript-eslint": "^8.32.1",
     "vite": "^6.3.5"
   },
   "overrides": {
