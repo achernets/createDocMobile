@@ -37,7 +37,7 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
 
   const [visibleLocal, setVisible] = useState<boolean>(false);
 
-  const { filters = [], useFavorite = false, patternId = null, documentId = null } = changeProps;
+  const { useFavorite = false, patternId = null } = changeProps;
 
   const debouncedSearch = useDebounce(strSearch, 500);
 
@@ -54,7 +54,7 @@ const ChangeUsers = ({ visible, onHide, changeProps }: ChangeUsersProps): JSX.El
     setTimeout(() => onHide(false), 300);
   }, [onHide]);
 
-  const { data, isLoading, isFetching, hasNextPage, fetchNextPage } = useInfiniteQuery({
+  const { data, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: [filterType, account?.id || null, debouncedSearch],
     queryFn: async ({ pageParam }) => {
       try {

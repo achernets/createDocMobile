@@ -18,7 +18,7 @@ type UsersProps = {
   changeProps: ChangeUsersProperties
 }
 
-const Users = ({ label, name, control, defaultValue = [], disabled = false, multiple = false, formItemProps = {}, changeProps }: UsersProps): JSX.Element => {
+const Users = ({ label, name, control, defaultValue = [], disabled = false, formItemProps = {}, changeProps }: UsersProps): JSX.Element => {
   const { field: { value } } = useController({
     name,
     control,

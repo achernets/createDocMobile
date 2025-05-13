@@ -16,7 +16,7 @@ type AttachmentItemProps = {
 }
 
 const AttachmentItem = ({ label, name, control, defaultValue = null, formItemProps = {}, disabled = false }: AttachmentItemProps): JSX.Element => {
-  const { field: { value, onChange, ...field } } = useController({
+  const { field: { value, onChange } } = useController({
     name,
     control,
     defaultValue

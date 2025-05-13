@@ -33,7 +33,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
   const [visible, setVisible] = useState<boolean>(false);
   const [strSearch, setStrSearch] = useState<string>('');
   const debouncedSearch = useDebounce(strSearch, 500);
-  const [dateSearch, setDateSearch] = useState<string>('');
+  const [dateSearch] = useState<string>('');
   const debouncedDateSearch = useDebounce(dateSearch, 500);
 
   const columnId = useMemo(() => {

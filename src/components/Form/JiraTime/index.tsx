@@ -1,4 +1,4 @@
-import { Divider, FormItemProps, Selector, Space, Stepper } from "antd-mobile";
+import { Divider, FormItemProps, Selector, Stepper } from "antd-mobile";
 import { JSX, useMemo } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";

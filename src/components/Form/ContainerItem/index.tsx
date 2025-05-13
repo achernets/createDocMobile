@@ -16,7 +16,7 @@ type ContainerItemFProps = {
   formItemProps?: FormItemProps,
 }
 
-const ContainerItem = ({ label, name, control, defaultValue, formItemProps = {}, disabled = false }: ContainerItemFProps): JSX.Element => {
+const ContainerItem = ({ label, name, control, defaultValue, formItemProps = {} }: ContainerItemFProps): JSX.Element => {
   const { field: { value, onChange } } = useController({
     name,
     control,

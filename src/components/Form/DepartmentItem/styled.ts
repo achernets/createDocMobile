@@ -1,4 +1,4 @@
-import { Form, List, Tabs } from "antd-mobile";
+import { Form, List } from "antd-mobile";
 import styled from "styled-components";
 
 
