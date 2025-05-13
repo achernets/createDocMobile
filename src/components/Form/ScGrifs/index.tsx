@@ -65,14 +65,21 @@ const ScGrifs = ({ label, name, control, defaultValue = null, formItemProps = {}
     return searchFilter(data, ['gname'], strSearch);
   }, [data, strSearch]);
 
+  const propsItem = useMemo(() => {
+    if (disabled) return {};
+    return {
+      trigger: 'onConfirm',
+      onClick: () => setVisible(true)
+    }
+  }, [disabled]);
+
   return <>
     <Wrapper
       label={<>
         {label}
         {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
       </>}
-      trigger='onConfirm'
-      onClick={() => disabled ? undefined : setVisible(true)}
+      {...propsItem}
       {...formItemProps}
     >
       <Input
@@ -80,7 +87,6 @@ const ScGrifs = ({ label, name, control, defaultValue = null, formItemProps = {}
         placeholder={'Обрати'}
         value={join(map(value, itm => itm.gname), ', ')}
       />
-
     </Wrapper>
     <Popup
       visible={visible}

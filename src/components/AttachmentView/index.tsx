@@ -50,7 +50,7 @@ const AttachmentView = ({ attachment, remove, extStatusShow = false }: Attachmen
         position: 'absolute',
         top: '0%',
         right: 0,
-        transform: 'translate(100%, -50%)'
+        transform: 'translate(50%, -50%)'
       }}
     >
       <DeleteOutline />

@@ -65,6 +65,10 @@ export const getFileIcon = (name: string) => {
   }
 };
 
+export const getDocIcon = (icon: string | number) => {
+  return `${PUBLIC_URL}assets/img/document-icons/${icon}.svg`;
+};
+
 export const readFileBinaryString = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

@@ -65,6 +65,7 @@ const Step1 = (): JSX.Element => {
           }, {}),
           stages: sortBy(reverse(filter(result.stages, { status: DocPatternStageStatus.IN_PROGRESS, hide: false })), ['orderNum']),
           formEdit: get(find(result.stages, { status: DocPatternStageStatus.CREATED }), 'fmEditKey', null),
+          docRelations: [],
           ...pick(result, ['permissions', 'templates', 'scGrifs'])
         },
         step: 'CREATE_DOC'
