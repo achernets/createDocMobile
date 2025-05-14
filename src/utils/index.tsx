@@ -26,7 +26,7 @@ export const parseDate = (date: any) => {
   if(date?.toNumber){
     value = date?.toNumber();
   }
-  if (value === -1 || value === undefined) return null;
+  if (value === -1 || value === undefined || value === null) return null;
   return Number(value);
 };
 

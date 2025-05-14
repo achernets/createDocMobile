@@ -27,6 +27,7 @@ const Input = ({ label, name, control, defaultValue, formItemProps = {}, ...prop
   >
     <AInput
       {...field}
+      placeholder="Ввести"
       {...props}
     />
   </Wrapper>

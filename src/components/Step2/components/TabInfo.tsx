@@ -5,13 +5,13 @@ import Checkbox from "../../Form/Checkbox";
 import DateTimePicker from "../../Form/DateTimePicker";
 import { Control, useFieldArray, useWatch } from "react-hook-form";
 import { ContentHolder, DocumentAccessPolicy, DocumentAccessPolicyType, DocumentPattern } from "../../../api/data";
-import { map } from "lodash";
+import { includes, map } from "lodash";
 import Holder from "../../Form/Holder";
 import Input from "../../Form/Input";
 import { accessWithPolicy, hasRole } from "../../../utils";
-import { Button } from "antd-mobile";
 import ScGrifs from "../../Form/ScGrifs";
 import DocRelations from "../../Form/DocRelations";
+import InboxDoc from "../../Form/InboxDoc";
 
 type TabInfoProps = {
   control: Control,
@@ -21,6 +21,8 @@ type TabInfoProps = {
   setChanges: (newValue: []) => void,
   notRemoveScIds?: string[]
 };
+
+const FORM_EDIT_TYPE = ['inbox_simple', 'inbox_simple_not_required', 'inbox'];
 
 const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }: TabInfoProps): JSX.Element => {
   const controlForDocument = useWatch({
@@ -37,6 +39,8 @@ const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }
     control,
     name: 'holders',
   });
+
+  console.log(formEdit)
 
   return <>
     <Users
@@ -69,9 +73,12 @@ const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }
       }}
     />}
 
-    {formEdit !== null && <div>
-      <Button block>тут форм едіт</Button>
-    </div>}
+    {includes(FORM_EDIT_TYPE, formEdit) && <InboxDoc
+      control={control}
+      name={"document"}
+      documentId={documentId}
+      required={'inbox_simple_not_required' !== formEdit}
+    />}
 
     {pattern.useDocNumber && <Input
       label={"Номер документа"}
@@ -121,11 +128,11 @@ const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }
     {accessWithPolicy(new DocumentAccessPolicy({
       type: DocumentAccessPolicyType.ACCESS
     }), 'USER_DOC_RELATIONS_UPDATE', 'ADMIN_DOC_RELATIONS_UPDATE') && <DocRelations
-          name={"controlUsers"}
-          control={control}
-          label={"Повязані документи"}
-          documentId={documentId}
-    />}
+        name={"controlUsers"}
+        control={control}
+        label={"Повязані документи"}
+        documentId={documentId}
+      />}
   </>;
 };
 

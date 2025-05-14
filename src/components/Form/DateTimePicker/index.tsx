@@ -42,7 +42,7 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, for
 
   const textInput = useMemo(() => {
     if (val === null) {
-      return undefined;
+      return "";
     }
     return dayjs(val).format('DD.MM.YYYY');
   }, [val]);
@@ -60,6 +60,7 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, for
         {label}
         {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
       </>}
+      {...formItemProps}
     >
       <div style={{
         display: 'flex',
@@ -106,7 +107,9 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, for
       <Calendar
         {...field}
         selectionMode={'single'}
-        onChange={(v) => onChange(dayjs(v).valueOf())}
+        onChange={(v) => {
+          onChange(v === null ? null : dayjs(v).valueOf())
+        }}
         value={val}
         weekStartsOn={'Monday'}
         {...props}
