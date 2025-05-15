@@ -25,17 +25,15 @@ type TabInfoProps = {
 const FORM_EDIT_TYPE = ['inbox_simple', 'inbox_simple_not_required', 'inbox'];
 
 const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }: TabInfoProps): JSX.Element => {
-  const [controlForDocument, documentId, scGrifs, controlUsers] = useWatch({
+  const [document, scGrifs, controlUsers] = useWatch({
     control,
-    name: ['document.controlForDocument', 'document.id', 'scGrifs', 'controlUsers'],
+    name: ['document', 'scGrifs', 'controlUsers'],
   });
 
   const holdersField = useFieldArray({
     control,
     name: 'holders',
   });
-
-  console.log(formEdit)
 
   return <>
     <Users
@@ -46,7 +44,6 @@ const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }
       disabled={true}
       changeProps={{
         patternId: null,
-        documentId: null,
         selected: [],
         scGrifs: scGrifs,
         filters: [],
@@ -75,7 +72,7 @@ const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }
     {includes(FORM_EDIT_TYPE, formEdit) && <InboxDoc
       control={control}
       name={"document"}
-      documentId={documentId}
+      documentId={document.id}
       required={'inbox_simple_not_required' !== formEdit}
     />}
 
@@ -89,7 +86,7 @@ const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }
       name={"document.controlForDocument"}
       control={control}
     />}
-    {controlForDocument && (
+    {document.controlForDocument && (
       <>
         <Users
           name={"controlUsers"}
@@ -98,7 +95,6 @@ const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }
           label={"Контроль покласти на (за необхідності)"}
           changeProps={{
             useFavorite: true,
-            documentId: null,
             patternId: pattern?.id || null,
             filters: [
               new FilterItem({
@@ -131,6 +127,7 @@ const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }
           name={`holders.${index}`}
           control={control}
           setChanges={setChanges}
+          patternId={pattern.id}
         />}
       </Fragment>
     })}
@@ -140,7 +137,7 @@ const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }
         name={"controlUsers"}
         control={control}
         label={"Повязані документи"}
-        documentId={documentId}
+        documentId={document.id}
       />}
   </>;
 };

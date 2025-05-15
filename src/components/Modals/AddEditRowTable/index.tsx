@@ -62,7 +62,7 @@ const AddEditRowTableModal = ({ id, params: { cb, items = [] } }: Omit<ModalAddE
             {map(items, (contentItem: ContentItem) => {
               return <Fragment key={contentItem.key}>
                 <ContentItemTemplate
-                  contentItem={contentItem}
+                  contentItemKey={contentItem.key}
                   control={control}
                   pathAllItems='contentItems'
                   pathLink={`contentItems.${contentItem.key}`}

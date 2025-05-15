@@ -5,7 +5,7 @@ import useAppStore from '../../store/useAppStore';
 import { useShallow } from 'zustand/shallow';
 import { KazFilter } from '../../api/data/KazFilter';
 import ActionSheetAsyncSelect from '../Form/ActionSheetAsyncSelect';
-import { ADocument, AttachmentEditMode, AttachmentProcessingType, AttCreateInfo, ContentHolder, DocPatternStageStatus, DocumentAccessPolicy, DocumentAccessPolicyType, FilterCondition, FilterFieldType, FilterItem } from '../../api/data/';
+import { ADocument, AttachmentEditMode, AttachmentProcessingType, AttCreateInfo, ContentHolder, ContentItem, ContentItemType, ContentTableDefinition, DocPatternStageStatus, DocumentAccessPolicy, DocumentAccessPolicyType, FilterCondition, FilterFieldType, FilterItem } from '../../api/data/';
 import { compact, filter, find, get, map, orderBy, pick, reduce, reverse, size, sortBy } from 'lodash';
 import { FormStyled } from './styled';
 
@@ -34,7 +34,6 @@ const Step1 = (): JSX.Element => {
         }),
       );
 
-      console.log(result)
       const attachments = size(result.templates) > 0 ? await (DocumentServiceClient.createAttachmentFrom(token, '', '', new DocumentAccessPolicy({
         type: DocumentAccessPolicyType.ACCESS
       }), result.templates.map(template => new AttCreateInfo({
@@ -59,7 +58,15 @@ const Step1 = (): JSX.Element => {
           })),
           contentItems: reduce(result.holders, (hash, holder) => {
             map(holder.contentHolderLink, itm => {
-              hash[itm.contentItem.key] = itm.contentItem;
+              hash[itm.contentItem.key] = new ContentItem({
+                ...itm.contentItem,
+                id: null,
+                tableDefenition: itm.contentItem.type === ContentItemType.TABLE ? new ContentTableDefinition({
+                  ...itm.contentItem?.tableDefenition,
+                  columnDefenition: orderBy(itm.contentItem?.tableDefenition?.columnDefenition, ['order', 'oName']).map(it => new ContentItem(it))
+                }) : null,
+                childItems: map(orderBy(itm.contentItem?.childItems, itm.contentItem.type === ContentItemType.TABLE ? ['rowNumber', 'order'] : ['order', 'oName']), ch => new ContentItem({ ...ch, id: null }))
+              });
             })
             return hash;
           }, {}),

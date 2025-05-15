@@ -1,7 +1,7 @@
 import { get, includes, isEmpty, reduce, replace, toLower, trim, values } from "lodash";
 import { DocumentServiceClient } from "../api";
 import useAppStore from "../store/useAppStore";
-import { AttachmentEditMode, AttachmentExtStatus, DocumentAccessPolicy, DocumentAccessPolicyType, HBColumnType, HBColumnValue, UserOrGroup, UserOrGroupType } from "../api/data";
+import { AttachmentEditMode, AttachmentExtStatus, ContentItem, DocumentAccessPolicy, DocumentAccessPolicyType, HBColumnType, HBColumnValue, UserOrGroup, UserOrGroupType } from "../api/data";
 import Int64 from "node-int64";
 import dayjs from "dayjs";
 
@@ -23,7 +23,7 @@ export const searchFilter = (items: any, fields: string[], string: string) => {
 
 export const parseDate = (date: any) => {
   let value = date;
-  if(date?.toNumber){
+  if (date?.toNumber) {
     value = date?.toNumber();
   }
   if (value === -1 || value === undefined || value === null) return null;
@@ -162,7 +162,7 @@ const getFio = (user: UserOrGroup) => {
   return fio;
 };
 
-export const getHBValue = (hbValue : HBColumnValue, string = true, lang = getCurrentLocale()) => {
+export const getHBValue = (hbValue: HBColumnValue, string = true, lang = getCurrentLocale()) => {
   const language = lang;
   if (hbValue === null) return null;
   const value = hbValue?.depColumnId === null || hbValue?.depColumnId === undefined ? hbValue?.value : hbValue?.depValue;
@@ -210,4 +210,11 @@ export const hasRole = (role: string) => {
 export const accessWithPolicy = (policy, userRole, adminRole) => {
   if (hasRole(adminRole)) return true;
   return (get(policy, 'type', DocumentAccessPolicyType.ACCESS) === DocumentAccessPolicyType.ACCESS && hasRole(userRole));
+};
+
+export const getContentItemOriginalKey = (contentItem: ContentItem) => {
+  if (contentItem.tableKey && contentItem.originalKey && contentItem.tableKey !== null && contentItem.originalKey !== null) {
+    return contentItem.originalKey;
+  };
+  return contentItem.key;
 };

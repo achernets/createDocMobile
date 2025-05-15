@@ -155,6 +155,7 @@ const Step2 = (): JSX.Element => {
                   name={`holders.${index}`}
                   control={control}
                   setChanges={setChanges}
+                  patternId={pattern.id}
                 />
               </Tabs.Tab>}
             </Fragment>

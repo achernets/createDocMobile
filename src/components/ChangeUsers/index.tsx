@@ -1,5 +1,5 @@
 import { JSX, useCallback, useEffect, useMemo, useState } from "react";
-import { Button, InfiniteScroll, Ellipsis, Form, Input, List, Popup, Tabs, Space } from "antd-mobile";
+import { Button, InfiniteScroll, Ellipsis, Form, Input, List, Popup, Tabs, Space, Toast } from "antd-mobile";
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { AddOutline, CloseOutline, LeftOutline, MinusOutline } from "antd-mobile-icons";
 import { TabsStyled } from "./styled";
@@ -7,7 +7,7 @@ import ActionSheetSelect from "../Form/ActionSheetSelect";
 import useAppStore from "../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
 import { Account, FilterCondition, FilterFieldType, FilterItem, KazFilter, SecurityClassification, UserOrGroup, UserOrGroupType } from "../../api/data/";
-import { compact, find, includes, size } from "lodash";
+import { compact, find, includes, size, slice } from "lodash";
 import { useDebounce } from "../../hooks";
 import { DocumentPatternServiceClient, UserManagementServiceClient } from "../../api";
 import UserView from "../UserView";
@@ -18,10 +18,10 @@ export type ChangeUsersProperties = {
   filters: FilterItem[],
   useFavorite?: boolean,
   patternId: string | null,
-  documentId: string | null,
   scGrifs: SecurityClassification[],
   selected: UserOrGroup[],
-  types: typeof TYPES_FILTERS[number][]
+  types: typeof TYPES_FILTERS[number][],
+  maxSelected?: number
 }
 
 type ChangeUsersProps = {
@@ -39,9 +39,9 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
   })));
 
 
-  const { useFavorite = false, patternId = null, selected = [], scGrifs = [], filters = [], types = ['users'] } = changeProps;
+  const { useFavorite = false, patternId = null, selected = [], scGrifs = [], filters = [], types = ['users'], maxSelected = -1 } = changeProps;
 
-  const [filterType, setFilterType] = useState<'users' | 'groups' | 'scs' | 'roles'>('users');
+  const [filterType, setFilterType] = useState<'users' | 'groups' | 'scs' | 'roles'>(types[0]);
   const [account, setAccount] = useState<Account | null>(null);
   const [strSearch, setStrSearch] = useState<string>('');
 
@@ -50,7 +50,6 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
 
   const debouncedSearch = useDebounce(strSearch, 500);
 
-  console.log(scGrifs)
   useEffect(() => {
     if (visible) {
       setTimeout(() => {
@@ -253,7 +252,14 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
               user={item}
               arrowIcon={isSelected ? <MinusOutline /> : <AddOutline />}
               onClick={() => {
-                setSelectedUsers(prev => isSelected ? prev.filter(itm => itm?.id !== item?.id) : [item, ...prev])
+                if (!isSelected && selectedUsers.length + 1 > maxSelected && maxSelected > 0) {
+                  Toast.show({
+                    icon: 'fail',
+                    content: `Можна додати лише ${maxSelected} користувачів/груп`
+                  });
+                } else {
+                  setSelectedUsers(prev => isSelected ? prev.filter(itm => itm?.id !== item?.id) : [...prev, item])
+                }
               }}
             />;
           })}

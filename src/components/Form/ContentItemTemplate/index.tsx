@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { ContentItem, ContentItemType } from "../../../api/data";
+import { ContentItem, ContentItemType, FilterCondition, FilterFieldType, FilterItem } from "../../../api/data";
 import Input from "../Input";
 import { Control, useWatch } from "react-hook-form";
 import TextArea from "../TextArea";
@@ -20,31 +20,26 @@ import HandBookItem from "../HandBookItem";
 import TableItem from "../TableItem";
 import ContainerItem from "../ContainerItem";
 import JiraTime from "../JiraTime";
+import { getContentItemOriginalKey } from "../../../utils";
 
 type ContentItemTemplateProps = {
   pathAllItems: string,
   pathLink: string,
   control: Control<any>,
-  contentItem: ContentItem,
+  contentItemKey: string,
   patternId?: string,
-  documentId?: string,
   addChanges: () => void
 };
 
-const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', control, pathLink, patternId, documentId, addChanges }: ContentItemTemplateProps) => {
+const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', control, pathLink, patternId, addChanges }: ContentItemTemplateProps) => {
 
-  const readOnlyItem = useWatch({
+  const [conItem, readOnlyItem, requiredItem] = useWatch({
     control: control,
-    name: `${pathLink}.readOnly`
-  });
-
-  const requiredItem = useWatch({
-    control: control,
-    name: `${pathLink}.requared`
+    name: [`${pathAllItems}.${contentItemKey}`, `${pathLink}.readOnly`, `${pathLink}.requared`]
   });
 
   const renderItem = useCallback((item: ContentItem) => {
-    switch (contentItem.type) {
+    switch (item.type) {
       case ContentItemType.TEXT_FIELD:
         return <Input
           label={item.oName}
@@ -111,7 +106,20 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
           disabled={readOnlyItem}
           changeProps={{
             patternId: patternId,
-            documentId: documentId
+            filters: [
+              new FilterItem({
+                field: 'allowedInContent',
+                value: patternId,
+                fType: FilterFieldType.STRING,
+                condition: FilterCondition.EQUAL,
+                additionValue: getContentItemOriginalKey(item),
+                additionValue1: item.id
+              })
+            ],
+            scGrifs: [],
+            types: ['users', 'scs'],
+            selected: item.users,
+            maxSelected: item.maxUserCount
           }}
         />;
       case ContentItemType.SWITCH_ITEM:
@@ -244,7 +252,7 @@ const ContentItemTemplate = ({ contentItem, pathAllItems = 'contentItems', contr
     }
   }, [readOnlyItem, requiredItem]);
 
-  return renderItem(contentItem);
+  return renderItem(conItem);
 }
 
 export default ContentItemTemplate;

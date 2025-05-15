@@ -59,7 +59,7 @@ const ContainerItem = ({ label, name, control, defaultValue, formItemProps = {} 
     {map(value, (contentItem: ContentItem) => {
       return <Fragment key={contentItem.key}>
         <ContentItemTemplate
-          contentItem={contentItem}
+          contentItemKey={contentItem.key}
           control={subForm.control}
           pathAllItems='contentItems'
           pathLink={`contentItems.${contentItem.key}`}

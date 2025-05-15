@@ -11,10 +11,11 @@ type HolderProps = {
   name: string,
   control: Control<any>,
   withName?: boolean,
-  setChanges: (newValue: []) => void
+  setChanges: (newValue: []) => void,
+  patternId: string
 };
 
-const Holder = ({ name, control, holder, withName = true, setChanges }: HolderProps): JSX.Element => {
+const Holder = ({ name, control, holder, withName = true, setChanges, patternId }: HolderProps): JSX.Element => {
 
   const visibles = useWatch({
     control: control,
@@ -41,7 +42,7 @@ const Holder = ({ name, control, holder, withName = true, setChanges }: HolderPr
       {map(holder.contentHolderLink, (contentHolderLink: ContentHolderLink, index: number) => {
         return <Fragment key={contentHolderLink.id}>
           {visibles[index] && <ContentItemTemplate
-            contentItem={contentHolderLink.contentItem}
+            contentItemKey={contentHolderLink.contentItem?.key}
             control={control}
             pathAllItems="contentItems"
             pathLink={`${name}.contentHolderLink.${index}`}
@@ -54,6 +55,7 @@ const Holder = ({ name, control, holder, withName = true, setChanges }: HolderPr
                 item: contentHolderLink
               }
             ])}
+            patternId={patternId}
           />}
         </Fragment>
       })}
