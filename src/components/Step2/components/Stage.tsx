@@ -1,28 +1,70 @@
 
-import { JSX } from "react";
-import { DocumentPattern } from "../../../api/data";
-import { Control } from "react-hook-form";
+import { JSX, useMemo } from "react";
+import { DocPatternStageActionType, DocumentPattern, FilterCondition, FilterFieldType, FilterItem, SecurityClassification } from "../../../api/data";
+import { Control, useWatch } from "react-hook-form";
 import Users from "../../Form/Users";
 import StageDeadline from "../../Form/StageDeadline";
+import { compact, get } from "lodash";
+import useAppStore from "../../../store/useAppStore";
+import { useShallow } from "zustand/shallow";
 
 type StageProps = {
   name: string,
   control: Control<any>,
-  pattern: DocumentPattern
+  pattern: DocumentPattern,
+  scGrifs?: SecurityClassification[]
 };
 
-const Stage = ({ name, pattern, control, }: StageProps): JSX.Element => {
+const Stage = ({ name, pattern, control, scGrifs = [] }: StageProps): JSX.Element => {
+  const { USE_BPM_ROLES, HIDE_BLOCKED_USERS_IN_STAGE } = useAppStore(useShallow((state) => ({
+    USE_BPM_ROLES: get(state, 'SETTINGS.USE_BPM_ROLES', true),
+    HIDE_BLOCKED_USERS_IN_STAGE: get(state, 'SETTINGS.HIDE_BLOCKED_USERS_IN_STAGE', true),
+  })));
 
+
+  const [userOrGroups, maxSigner, actionType, changeOnDraft] = useWatch({
+    control: control,
+    name: [`${name}.userOrGroups`, `${name}.maxSigner`, `${name}.actionType`, `${name}.changeOnDraft`]
+  })
+
+  const filterActionType = useMemo(() => {
+    switch (actionType) {
+      case DocPatternStageActionType.SIGN:
+        return 'INBOX';
+      case DocPatternStageActionType.CONFIRM:
+        return 'OUTBOX';
+      default:
+        return 'VIEW';
+    }
+  }, [actionType]);
 
   return <>
     <Users
       control={control}
       name={`${name}.userOrGroups`}
       label={'Учасники'}
+      disabled={!changeOnDraft}
       changeProps={{
+        useFavorite: true,
         patternId: pattern?.id || null,
-        documentId: null,
-        filters: [],
+        filters: compact([
+          new FilterItem({
+            field: filterActionType,
+            value: pattern?.id,
+            fType: FilterFieldType.STRING,
+            condition: FilterCondition.EQUAL
+          }),
+          HIDE_BLOCKED_USERS_IN_STAGE ? new FilterItem({
+            field: 'haveAccess',
+            value: 'true',
+            fType: FilterFieldType.BOOLEAN,
+            condition: FilterCondition.EQUAL
+          }) : null
+        ]),
+        selected: userOrGroups,
+        scGrifs: scGrifs,
+        maxSelected: maxSigner,
+        types: compact(['users', actionType !== DocPatternStageActionType.SIGN ? 'groups' : null, 'scs', USE_BPM_ROLES ? 'roles' : null])
       }}
     />
     <StageDeadline
@@ -31,6 +73,7 @@ const Stage = ({ name, pattern, control, }: StageProps): JSX.Element => {
       formItemProps={{
         required: true
       }}
+      disabled={!changeOnDraft}
     />
   </>;
 };

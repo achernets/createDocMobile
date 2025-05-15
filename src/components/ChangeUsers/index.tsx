@@ -7,7 +7,7 @@ import ActionSheetSelect from "../Form/ActionSheetSelect";
 import useAppStore from "../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
 import { Account, FilterCondition, FilterFieldType, FilterItem, KazFilter, SecurityClassification, UserOrGroup, UserOrGroupType } from "../../api/data/";
-import { compact, find, includes, size, slice } from "lodash";
+import { compact, filter, find, includes, size, slice } from "lodash";
 import { useDebounce } from "../../hooks";
 import { DocumentPatternServiceClient, UserManagementServiceClient } from "../../api";
 import UserView from "../UserView";
@@ -72,7 +72,7 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
     queryKey: [filterType, account?.id || null, scGrifs.map(itm => itm.id), filters, debouncedSearch],
     queryFn: async ({ pageParam }) => {
       try {
-        const filter = new KazFilter({
+        const kazFilter = new KazFilter({
           position: (pageParam - 1) * 15,
           countFilter: 15,
           orders: useFavorite ? ['fav_first', 'alphabetical'] : ['alphabetical'],
@@ -102,11 +102,17 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
         switch (filterType) {
           case 'users':
           case 'scs':
-            result = await UserManagementServiceClient.getAllUsers(token, filter);
+            result = await UserManagementServiceClient.getAllUsers(token, kazFilter);
+            break;
+          case 'groups':
+            result = await UserManagementServiceClient.getAllGroups(token, '', kazFilter);
             break;
           case 'roles':
             if (patternId !== null) {
-              const roles = await DocumentPatternServiceClient.getPatternProcessRoles(token, patternId, filter);
+              const roles = await DocumentPatternServiceClient.getPatternProcessRoles(token, patternId, new KazFilter({
+                ...kazFilter,
+                items: filter(kazFilter.items, { field: 'name' })
+              }));
               result = roles.map(itm => new UserOrGroup({
                 id: itm.key,
                 userOrGroupId: itm.key,

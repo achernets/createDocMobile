@@ -1,5 +1,5 @@
 import { Input as AInput, FormItemProps, InputProps } from "antd-mobile";
-import { JSX } from "react";
+import { JSX, useMemo } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
 
@@ -12,11 +12,16 @@ type InputFProps = {
 } & InputProps
 
 const Input = ({ label, name, control, defaultValue, formItemProps = {}, ...props }: InputFProps): JSX.Element => {
-  const { field } = useController({
+  const { field: { value, ...field } } = useController({
     name,
     control,
     defaultValue
   });
+
+  const val = useMemo(() => {
+    if (!value || value === null) return '';
+    return value;
+  }, [value]);
 
   return <Wrapper
     label={<>
@@ -27,6 +32,7 @@ const Input = ({ label, name, control, defaultValue, formItemProps = {}, ...prop
   >
     <AInput
       {...field}
+      value={val}
       placeholder="Ввести"
       {...props}
     />

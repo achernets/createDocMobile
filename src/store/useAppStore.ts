@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { AuthServiceClient, initClient, UserManagementServiceClient } from '../api';
-import { Account, UserOrGroup, DocumentPattern, DocumentPatternGroup, KazFilter, FilterItem, FilterFieldType, FilterCondition } from '../api/data';
+import { Account, UserOrGroup, DocumentPattern, DocumentPatternGroup, KazFilter, FilterItem, FilterFieldType, FilterCondition, ServerSettings } from '../api/data';
 import { find } from 'lodash';
 
 interface AppStore {
@@ -15,6 +15,7 @@ interface AppStore {
   roles: Set<string>,
   step: 'SELECT_PATTERN' | 'CREATE_DOC',
   docInfo: any,
+  SETTINGS: object,
   getInitialApp: () => void,
   setAccount: (account: Account | null) => void,
   setGroupPattern: (groupPattern: DocumentPatternGroup | null) => void,
@@ -32,6 +33,7 @@ const useAppStore = create<AppStore>((set) => ({
   groupPattern: null,
   pattern: null,
   docInfo: null,
+  SETTINGS: new Object(),
   setAccount: (account: Account | null) => set({ account, groupPattern: null, pattern: null }),
   setGroupPattern: (groupPattern: DocumentPatternGroup | null) => set({ groupPattern, pattern: null }),
   setPattern: (pattern: DocumentPattern | null) => set({ pattern }),
@@ -42,6 +44,8 @@ const useAppStore = create<AppStore>((set) => ({
       const result = await fetch('/web-config.json');
       const settings = await result.json();
       initClient('total.almexecm.com', 10443, true, 'kaz-server-dev1');
+      // const settingsBack = await AuthServiceClient.getSettings();
+      // console.log(settingsBack.infoMap)
       const user = token === null ? null : await AuthServiceClient.refreshAuthSession(
         token
       );
@@ -64,7 +68,10 @@ const useAppStore = create<AppStore>((set) => ({
         clientInfo: user?.clientInfo,
         roles: user?.roles,
         account: find(accounts, { main: true }) || null,
-        accounts: accounts
+        accounts: accounts,
+        SETTINGS: {
+          ...settings
+        }
       });
     } catch (error) {
       console.log(error);

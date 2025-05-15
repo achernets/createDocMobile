@@ -5,6 +5,9 @@ import { Control, useController, useWatch } from "react-hook-form";
 import Switch from "../Switch";
 import DatePicker from "../DateTimePicker";
 import JiraTime from "../JiraTime";
+import useAppStore from "../../../store/useAppStore";
+import { useShallow } from "zustand/shallow";
+import { get } from "lodash";
 
 type StageDeadlineFProps = {
   defaultValue?: boolean,
@@ -15,6 +18,9 @@ type StageDeadlineFProps = {
 };
 
 const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabled = false }: StageDeadlineFProps): JSX.Element => {
+    const { STAGE_PERIOD_OF_EXECUTION } = useAppStore(useShallow((state) => ({
+    STAGE_PERIOD_OF_EXECUTION: get(state, 'SETTINGS.STAGE_PERIOD_OF_EXECUTION', true)
+  })));
   const { field: { value } } = useController({
     name: `${name}.deadLine`,
     control,
@@ -57,11 +63,12 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
         padding: 16,
         paddingTop: 8
       }}>
-        <Switch
+        {STAGE_PERIOD_OF_EXECUTION && <Switch
           name={`${name}.runPerriodicall`}
           control={control}
           label={'Періодичне виконання'}
-        />
+          disabled={disabled}
+        />}
         {runPerriodicall ? <>
           <DatePicker
             name={`${name}.startPeriod`}
@@ -71,6 +78,7 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
             formItemProps={{
               required: true
             }}
+            disabled={disabled}
           />
           <JiraTime
             name={`${name}.periodicJiraEndDate`}
@@ -79,6 +87,7 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
             formItemProps={{
               required: true
             }}
+            disabled={disabled}
           />
           <DatePicker
             name={`${name}.periodicEndDate`}
@@ -88,6 +97,7 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
             formItemProps={{
               required: true
             }}
+            disabled={disabled}
           />
 
           <JiraTime
@@ -97,6 +107,7 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
             formItemProps={{
               required: true
             }}
+            disabled={disabled}
           />
           <JiraTime
             name={`${name}.cardActivityPeriod`}
@@ -105,6 +116,7 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
             formItemProps={{
               required: true
             }}
+            disabled={disabled}
           />
         </> : <JiraTime
           name={`${name}.deadLine`}
@@ -113,6 +125,7 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
           formItemProps={{
             required: true
           }}
+          disabled={disabled}
         />}
       </div>
     </Popup>

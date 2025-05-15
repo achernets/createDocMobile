@@ -59,6 +59,10 @@ const Step2 = (): JSX.Element => {
       console.log('end');
       setChanges(prev => prev.filter((_, i) => i !== 0));
       setChangesIsWork(false);
+    }).catch((err) => {
+      console.log(`Script error contentItemKey=${obj.item.contentItem.key}`, err);
+      setChanges(prev => prev.filter((_, i) => i !== 0));
+      setChangesIsWork(false);
     });
   };
 
@@ -144,7 +148,7 @@ const Step2 = (): JSX.Element => {
               watch={watch}
               formEdit={docInfo?.formEdit}
               setChanges={setChanges}
-              notRemoveScIds={map(docInfo?.scGrifs, itm => itm.id) }
+              notRemoveScIds={map(docInfo?.scGrifs, itm => itm.id)}
             />
           </Tabs.Tab>
           {map(holders, (holder: ContentHolder, index: number) => {
