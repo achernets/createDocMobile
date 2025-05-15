@@ -7,7 +7,7 @@ import ActionSheetSelect from "../Form/ActionSheetSelect";
 import useAppStore from "../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
 import { Account, FilterCondition, FilterFieldType, FilterItem, KazFilter, SecurityClassification, UserOrGroup, UserOrGroupType } from "../../api/data/";
-import { compact, filter, find, includes, size, slice } from "lodash";
+import { compact, filter, find, includes, size } from "lodash";
 import { useDebounce } from "../../hooks";
 import { DocumentPatternServiceClient, UserManagementServiceClient } from "../../api";
 import UserView from "../UserView";
@@ -121,7 +121,6 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
               }));
             }
             break;
-
           default:
             break;
         }
