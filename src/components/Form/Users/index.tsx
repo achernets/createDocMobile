@@ -19,7 +19,7 @@ type UsersProps = {
 }
 
 const Users = ({ label, name, control, defaultValue = [], disabled = false, formItemProps = {}, changeProps }: UsersProps): JSX.Element => {
-  const { field: { value } } = useController({
+  const { field: { value, onChange } } = useController({
     name,
     control,
     defaultValue
@@ -38,8 +38,15 @@ const Users = ({ label, name, control, defaultValue = [], disabled = false, form
     {visible && <ChangeUsers
       visible={visible}
       onHide={setVisible}
+      onSave={(users: UserOrGroup[]) => {
+        setVisible(false);
+        onChange(users);
+      }}
       //@ts-ignore
-      changeProps={changeProps ? changeProps : {}}
+      changeProps={changeProps ? {
+        ...changeProps,
+        selected: value,
+      } : {}}
     />}
 
   </Wrapper>

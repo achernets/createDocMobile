@@ -4,7 +4,7 @@ import TextArea from "../../Form/TextArea";
 import Checkbox from "../../Form/Checkbox";
 import DateTimePicker from "../../Form/DateTimePicker";
 import { Control, useFieldArray, useWatch } from "react-hook-form";
-import { ContentHolder, DocumentAccessPolicy, DocumentAccessPolicyType, DocumentPattern } from "../../../api/data";
+import { ContentHolder, DocumentAccessPolicy, DocumentAccessPolicyType, DocumentPattern, FilterCondition, FilterFieldType, FilterItem } from "../../../api/data";
 import { includes, map } from "lodash";
 import Holder from "../../Form/Holder";
 import Input from "../../Form/Input";
@@ -25,14 +25,9 @@ type TabInfoProps = {
 const FORM_EDIT_TYPE = ['inbox_simple', 'inbox_simple_not_required', 'inbox'];
 
 const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }: TabInfoProps): JSX.Element => {
-  const controlForDocument = useWatch({
+  const [controlForDocument, documentId, scGrifs, controlUsers] = useWatch({
     control,
-    name: 'document.controlForDocument',
-  });
-
-  const documentId = useWatch({
-    control,
-    name: 'document.id',
+    name: ['document.controlForDocument', 'document.id', 'scGrifs', 'controlUsers'],
   });
 
   const holdersField = useFieldArray({
@@ -51,7 +46,11 @@ const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }
       disabled={true}
       changeProps={{
         patternId: null,
-        documentId: null
+        documentId: null,
+        selected: [],
+        scGrifs: scGrifs,
+        filters: [],
+        types: []
       }}
     />
     {pattern?.useSC && <ScGrifs
@@ -101,7 +100,17 @@ const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }
             useFavorite: true,
             documentId: null,
             patternId: pattern?.id || null,
-            filters: [],
+            filters: [
+              new FilterItem({
+                field: 'VIEW',
+                value: pattern?.id,
+                fType: FilterFieldType.STRING,
+                condition: FilterCondition.EQUAL
+              })
+            ],
+            selected: controlUsers,
+            scGrifs: scGrifs,
+            types: ['users', 'scs']
           }}
         />
         <DateTimePicker

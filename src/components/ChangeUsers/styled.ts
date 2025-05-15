@@ -10,9 +10,11 @@ const Wrapper = styled(Form.Item)`
 `;
 
 const TabsStyled = styled(Tabs)`
-    height: calc(100% - 38px);
+    //height: calc(100% - 38px);
+    flex: 1;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     .adm-tabs-content{ 
       overflow: hidden;
       display: flex !important;
