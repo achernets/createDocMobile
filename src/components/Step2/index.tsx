@@ -4,12 +4,13 @@ import useAppStore from "../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
 import { FormStyled, TabsStyled } from "./styled";
 import { useForm } from "react-hook-form";
-import { AttachmentExtStatus, ContentHolder, ContentItemType } from "../../api/data";
+import { AttachmentExtStatus, ContentHolder } from "../../api/data";
 import UploadAttAndPatternTemplate from "../Form/UploadAttAndPatternTemplate";
 import Holder from "../Form/Holder";
 import TabInfo from "./components/TabInfo";
 import Stages from "./components/Stages";
-import { get, map, reduce, size, debounce, uniqBy, findIndex } from "lodash";
+import { map, reduce, size, debounce, uniqBy, findIndex } from "lodash";
+import { ContentItemExecScript } from "../../utils/document";
 
 const Step2 = (): JSX.Element => {
   const { docInfo, account, groupPattern, pattern } = useAppStore(
@@ -29,33 +30,15 @@ const Step2 = (): JSX.Element => {
   const [changes, setChanges] = useState([]);
   const [changesIsWork, setChangesIsWork] = useState(false);
 
-  const execFunc = (obj) => {
+  const execFunc = async(obj) => {
     const holder = getValues(obj.holderPath);
     const fn = new Function('Methods', `return (async () => {${obj.item.onChangeScript}})();`);
     console.log('start');
+    const getContentItem = (key: string) => getValues(`contentItems.${key}`);
     const getPathLinkByKey = (key) => {
       return `${obj.holderPath}.contentHolderLink.${findIndex(holder.contentHolderLink, { contentItem: { key: key } })}`
     };
-    fn({
-      getContentItemValue: (key) => {
-        const item = getValues(`contentItems.${key}`);
-        switch (item.type) {
-          case ContentItemType.CHECKBOX:
-            return get(item, `value.strValue`) === 'true';
-          default:
-            return get(item, `value.strValue`);
-        }
-      },
-      setContentItemValue: (key, value) => {
-        if (getValues(`contentItems.${key}.value.strValue`) !== value) {
-          setValue(`contentItems.${key}.value.strValue`, value);
-        }
-      },
-      setRequiredLink: (key, value) => {
-        const addressPath = getPathLinkByKey(key);
-        setValue(`${addressPath}.requared`, value);
-      }
-    }).then(() => {
+    await fn(ContentItemExecScript(setValue, getValues, getContentItem, getPathLinkByKey)).then(() => {
       console.log('end');
       setChanges(prev => prev.filter((_, i) => i !== 0));
       setChangesIsWork(false);

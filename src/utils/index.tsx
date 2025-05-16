@@ -143,7 +143,7 @@ export const getPortions = (size = 0, string = '') => {
   };
 };
 
-const getFio = (user: UserOrGroup) => {
+export const getFio = (user: UserOrGroup) => {
   if (user === null || user === undefined) return '';
   const { type = 0, nameGroup = '', userLastName = '', userFirstName = '', userMiddleName = '' } = user;
   if (type === UserOrGroupType.GROUP) {
