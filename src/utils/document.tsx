@@ -5,8 +5,7 @@ import dayjs from "dayjs";
 import { CalendarServiceClient, DepartmentServiceClient, HandBookServiceClient, UserManagementServiceClient } from "../api";
 import useAppStore from "../store/useAppStore";
 import { Space, Toast } from "antd-mobile";
-
-
+import numberToString from "./numberToString";
 
 const getItemValue = (item: ContentItem, language = 'ua', string = false) => {
   switch (item.type) {
@@ -55,7 +54,6 @@ export const ContentItemExecScript = (setValue, getValues, getContentItem, getPa
           id,
           ''
         );
-        console.log(result)
         //@ts-ignore
         obj = reduce(result?.holdersList, (hash, holder) => {
           map(holder?.contentHolderLink, item => {
@@ -262,7 +260,10 @@ export const ContentItemExecScript = (setValue, getValues, getContentItem, getPa
       }
     },
     getAllDepartmentsForUser: userId => {
-      return DepartmentServiceClient.getAllDepartmentsForUser(useAppStore.getState().token, userId, false, null);
+      return DepartmentServiceClient.getAllDepartmentsForUser(useAppStore.getState().token, userId, false, new KazFilter({
+        position: 0,
+        countFilter: 999
+      }));
     },
     showLoader: (timeout: number) => {
       Toast.clear();
@@ -369,7 +370,10 @@ export const ContentItemExecScript = (setValue, getValues, getContentItem, getPa
       setValue(`${addressPath}.readOnly`, readOnly);
     },
     currencyToWord: (value, params) => {
-
+      return numberToString(value, {
+        language: getCurrentLocale(),
+        ...params
+      });
     }
   };
 };
