@@ -7,7 +7,7 @@ import useAppStore from "../store/useAppStore";
 import { Space, Toast } from "antd-mobile";
 import numberToString from "./numberToString";
 
-const getItemValue = (item: ContentItem, language = 'ua', string = false) => {
+export const getItemValue = (item: ContentItem, language = getCurrentLocale(), string = false) => {
   switch (item.type) {
     case ContentItemType.USER_CHOICE:
       return string ? join(map(item.users, itm => getFio(itm)), ', ') : item.users;
