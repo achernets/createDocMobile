@@ -166,6 +166,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
           color={'primary'}
           block
           onClick={addChanges}
+          disabled={readOnlyItem}
         >
           {item.oName}
           <PlayOutline />

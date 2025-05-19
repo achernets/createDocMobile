@@ -27,7 +27,7 @@ const minutes = Array.from({ length: 60 }, (_, i) => ({
   value: i.toString().padStart(2, '0'),
 }));
 
-const DatePicker = ({ label, name, control, defaultValue = -1, time = false, formItemProps = {}, ...props }: DatePickerFProps): JSX.Element => {
+const DatePicker = ({ label, name, control, defaultValue = -1, time = false, disabled = false, formItemProps = {}, ...props }: DatePickerFProps): JSX.Element => {
   const { field: { value, onChange, ...field }, fieldState: { error } } = useController({
     name,
     control,
@@ -70,7 +70,7 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, for
         gap: 8
       }}>
         <InputWrapper
-          onClick={() => setVisible(true)}
+          onClick={() => disabled ? undefined : setVisible(true)}
         >
           <Input
             readOnly
@@ -82,7 +82,12 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, for
           </Button>
         </InputWrapper>
         {time && <InputWrapper
-          onClick={() => time && textInput !== undefined && setVisibleTimePicker(true)}
+          onClick={() => {
+            if (disabled) return;
+            if (time && textInput !== undefined) {
+              setVisibleTimePicker(true);
+            }
+          }}
           style={{ maxWidth: 90 }}
         >
           <Input

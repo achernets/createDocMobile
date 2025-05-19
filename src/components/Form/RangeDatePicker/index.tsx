@@ -17,7 +17,7 @@ type RangeDatePickerFProps = {
 } & Omit<CalendarProps, 'defaultValue' | 'onChange' | 'selectionMode' | 'value'>
 
 
-const RangeDatePicker = ({ label, name, control, defaultValue = -1, formItemProps = {}, ...props }: RangeDatePickerFProps): JSX.Element => {
+const RangeDatePicker = ({ label, name, control, defaultValue = -1, disabled = false, formItemProps = {}, ...props }: RangeDatePickerFProps): JSX.Element => {
   const { field: { value, onChange, ...field }, fieldState: { error } } = useController({
     name,
     control,
@@ -25,7 +25,7 @@ const RangeDatePicker = ({ label, name, control, defaultValue = -1, formItemProp
   });
   const [visible, setVisible] = useState<boolean>(false);
 
-  const val = useMemo(() => {
+  const val = useMemo(() => { 
     const v = [parseDate(value.strValue), parseDate(value.strValue2)];
 
     return v[0] === null && v[1] === null ? [] : [dayjs(parseDate(v[0])).toDate(), dayjs(parseDate(v[1])).toDate()];
@@ -50,7 +50,7 @@ const RangeDatePicker = ({ label, name, control, defaultValue = -1, formItemProp
         gap: 8
       }}>
         <InputWrapper
-          onClick={() => setVisible(true)}
+          onClick={() => disabled ? undefined : setVisible(true)}
         >
           <Input
             readOnly
