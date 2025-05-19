@@ -1314,6 +1314,7 @@ export class GetAllGroupedDeadlinesResult {
     public error?: __ROOT_NAMESPACE__.ServerException;
     constructor(args?: IGetAllGroupedDeadlinesResultArgs) {
         if (args != null && args.success != null) {
+            //@ts-ignore
             this.success = args.success;
         }
         if (args != null && args.validError != null) {

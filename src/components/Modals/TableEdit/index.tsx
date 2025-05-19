@@ -3,7 +3,7 @@ import { ModalTableEdit, useModalStore } from '../../../store/useModals';
 import { useCallback, useMemo, useState } from 'react';
 import { ModalStyled } from '../styled';;
 import { cloneDeep, compact, filter, findIndex, get, groupBy, map, maxBy, orderBy, reject, values } from 'lodash';
-import { getCurrentLocale, getHBValue, parseNumber } from '../../../utils';
+import { getCurrentLocale, parseNumber } from '../../../utils';
 import { AddCircleOutline, DeleteOutline, EditSOutline } from 'antd-mobile-icons';
 import { ContentItem, ContentTableDefinition } from '../../../api/data';
 import { useShallow } from 'zustand/shallow';
