@@ -134,7 +134,7 @@ const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }
     {accessWithPolicy(new DocumentAccessPolicy({
       type: DocumentAccessPolicyType.ACCESS
     }), 'USER_DOC_RELATIONS_UPDATE', 'ADMIN_DOC_RELATIONS_UPDATE') && <DocRelations
-        name={"controlUsers"}
+        name={"docRelations"}
         control={control}
         label={"Повязані документи"}
         documentId={document.id}

@@ -218,3 +218,19 @@ export const getContentItemOriginalKey = (contentItem: ContentItem) => {
   };
   return contentItem.key;
 };
+
+export const sendMessageMobile = (message, id: string | null) => {
+  //@ts-ignore
+  if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.callbackHandler) {
+    // iOS (WKWebView) 
+    //@ts-ignore
+    window.webkit.messageHandlers.callbackHandler.postMessage(message, id);
+    //@ts-ignore
+  } else if (window.Android && window.Android.showMessage) {
+    // Android (WebView)
+    //@ts-ignore
+    window.Android.showMessage(message, id);
+  } else {
+    console.log("No native interface found");
+  }
+}

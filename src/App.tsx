@@ -6,6 +6,7 @@ import Step1 from './components/Step1';
 import { CloseOutline, LeftOutline } from 'antd-mobile-icons';
 import Step2 from './components/Step2';
 import ModalManager from './components/ModalRenderer';
+import { sendMessageMobile } from './utils';
 
 const App = (): JSX.Element => {
   const { loadingApp, getInitialApp, step } = useAppStore(useShallow((state) => ({
@@ -61,6 +62,7 @@ const App = (): JSX.Element => {
           transform: 'translateY(-50%)'
         }}
         shape={'rounded'}
+        onClick={() => sendMessageMobile('close', null)}
       >
         <CloseOutline
           style={{
