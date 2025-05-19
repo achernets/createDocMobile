@@ -5,6 +5,7 @@ import { Button, FormItemProps, Toast } from "antd-mobile";
 import AttachmentView from "../../AttachmentView";
 import { createAttachmetFromFile } from "../../../utils";
 import { AttachmentExtStatus } from "../../../api/data";
+import classNames from "classnames";
 
 type AttachmentItemProps = {
   label?: string,
@@ -16,7 +17,7 @@ type AttachmentItemProps = {
 }
 
 const AttachmentItem = ({ label, name, control, defaultValue = null, formItemProps = {}, disabled = false }: AttachmentItemProps): JSX.Element => {
-  const { field: { value, onChange } } = useController({
+  const { field: { value, onChange }, fieldState: { error } } = useController({
     name,
     control,
     defaultValue
@@ -54,6 +55,7 @@ const AttachmentItem = ({ label, name, control, defaultValue = null, formItemPro
       {label}
       {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
     </>}
+    className={classNames({ 'error_item': formItemProps?.required && error })}
   >
     {value !== null && value !== undefined && <AttachmentView
       attachment={value}

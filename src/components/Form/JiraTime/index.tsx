@@ -3,6 +3,7 @@ import { JSX, useMemo } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
 import { getLetterJiraTime, getNumberJiraTime, JIRA_TIME } from "../../../utils";
+import classNames from "classnames";
 
 type JiraTimeFProps = {
   label?: string,
@@ -14,7 +15,7 @@ type JiraTimeFProps = {
 };
 
 const JiraTime = ({ label, name, control, defaultValue, formItemProps = {}, disabled = false }: JiraTimeFProps): JSX.Element => {
-  const { field: { value, onChange } } = useController({
+  const { field: { value, onChange }, fieldState: { error } } = useController({
     name,
     control,
     defaultValue
@@ -25,9 +26,9 @@ const JiraTime = ({ label, name, control, defaultValue, formItemProps = {}, disa
   const parseValue = useMemo(() => {
     return {
       count: getNumberJiraTime(value) || 0,
-      type: getLetterJiraTime(value)
+      type: getLetterJiraTime(value) || MIN_JIRA_TIME
     }
-  }, [value]);
+  }, [value, MIN_JIRA_TIME]);
 
   const optionsType = useMemo(() => JIRA_TIME.slice(JIRA_TIME.indexOf(getLetterJiraTime(MIN_JIRA_TIME))).map(itm => ({
     label: itm,
@@ -39,6 +40,7 @@ const JiraTime = ({ label, name, control, defaultValue, formItemProps = {}, disa
       {label}
       {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
     </>}
+    className={classNames({ 'error_item': formItemProps?.required && error })}
     {...formItemProps}
   >
     <Stepper

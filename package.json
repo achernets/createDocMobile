@@ -10,10 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.0.1",
     "@tanstack/react-query": "^5.76.0",
     "@types/thrift": "^0.10.17",
     "antd-mobile": "^5.39.0",
     "antd-mobile-icons": "^0.3.0",
+    "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
     "lodash": "^4.17.21",
     "node-int64": "^0.4.0",
@@ -27,6 +29,7 @@
     "thrift": "^0.21.0",
     "vite-plugin-node-polyfills": "^0.23.0",
     "vite-plugin-require": "^1.2.14",
+    "yup": "^1.6.1",
     "zustand": "^5.0.4"
   },
   "devDependencies": {

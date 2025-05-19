@@ -61,6 +61,7 @@ const Step1 = (): JSX.Element => {
               hash[itm.contentItem.key] = new ContentItem({
                 ...itm.contentItem,
                 id: null,
+                requared: hash[itm.contentItem.key]?.requared ? hash[itm.contentItem.key]?.requared : itm.contentItem.requared,
                 tableDefenition: itm.contentItem.type === ContentItemType.TABLE ? new ContentTableDefinition({
                   ...itm.contentItem?.tableDefenition,
                   columnDefenition: orderBy(itm.contentItem?.tableDefenition?.columnDefenition, ['order', 'oName']).map(it => new ContentItem(it))

@@ -4,10 +4,11 @@ import { ItemFullStyled, ListStyled, Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
 import { find, map, size } from "lodash";
 import { CheckOutline } from "antd-mobile-icons";
+import classNames from "classnames";
 
 type SelectorFProps = {
   label?: string,
-  defaultValue?: any[],
+  defaultValue?: string,
   name: string,
   control: Control<any>,
   formItemProps?: FormItemProps,
@@ -18,8 +19,8 @@ type SelectorFProps = {
   }[]
 }
 
-const Selector = ({ label, name, control, defaultValue = [], formItemProps = {}, disabled = false, options = [] }: SelectorFProps): JSX.Element => {
-  const { field: { value, ...field } } = useController({
+const Selector = ({ label, name, control, defaultValue = null, formItemProps = {}, disabled = false, options = [] }: SelectorFProps): JSX.Element => {
+  const { field: { value, ...field }, fieldState: { error } } = useController({
     name,
     control,
     defaultValue
@@ -36,7 +37,7 @@ const Selector = ({ label, name, control, defaultValue = [], formItemProps = {},
   }, [localValue]);
 
   useEffect(() => {
-    if(visible === false) {
+    if (visible === false) {
       setLocalValue(value);
     };
   }, [visible, value]);
@@ -49,6 +50,7 @@ const Selector = ({ label, name, control, defaultValue = [], formItemProps = {},
       </>}
       trigger='onConfirm'
       onClick={() => disabled ? undefined : setVisible(true)}
+      className={classNames({ 'error_item': formItemProps?.required && error })}
       {...formItemProps}
     >
       <Input
@@ -66,7 +68,7 @@ const Selector = ({ label, name, control, defaultValue = [], formItemProps = {},
       bodyStyle={{ maxHeight: '60vh' }}
       destroyOnClose
       afterClose={() => {
-        if(value !== localValue) { field.onChange(localValue); }
+        if (value !== localValue) { field.onChange(localValue); }
       }}
     >
       <ListStyled>

@@ -38,6 +38,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
     name: [`${pathAllItems}.${contentItemKey}`, `${pathLink}.readOnly`, `${pathLink}.requared`]
   });
 
+
   const renderItem = useCallback((item: ContentItem) => {
     switch (item.type) {
       case ContentItemType.TEXT_FIELD:
@@ -97,11 +98,14 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
           control={control}
           disabled={readOnlyItem}
           time={item.type === ContentItemType.DATE_TIME}
+          formItemProps={{
+            required: requiredItem
+          }}
         />;
       case ContentItemType.USER_CHOICE:
         return <Users
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.value.strValue`}
+          name={`${pathAllItems}.${item.key}.users`}
           control={control}
           disabled={readOnlyItem}
           changeProps={{
@@ -120,6 +124,9 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
             types: ['users', 'scs'],
             selected: item.users,
             maxSelected: item.maxUserCount
+          }}
+          formItemProps={{
+            required: requiredItem
           }}
         />;
       case ContentItemType.SWITCH_ITEM:
@@ -240,7 +247,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.JIRA_TIME:
         return <JiraTime
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.childItems`}
+          name={`${pathAllItems}.${item.key}.strValue`}
           control={control}
           disabled={readOnlyItem}
           formItemProps={{

@@ -5,6 +5,7 @@ import { Control, useController } from "react-hook-form";
 import Int64 from "node-int64";
 import { parseDate } from "../../../utils";
 import dayjs from "dayjs";
+import classNames from "classnames";
 
 type DatePickerFProps = {
   label?: string,
@@ -27,7 +28,7 @@ const minutes = Array.from({ length: 60 }, (_, i) => ({
 }));
 
 const DatePicker = ({ label, name, control, defaultValue = -1, time = false, formItemProps = {}, ...props }: DatePickerFProps): JSX.Element => {
-  const { field: { value, onChange, ...field } } = useController({
+  const { field: { value, onChange, ...field }, fieldState: { error } } = useController({
     name,
     control,
     defaultValue
@@ -61,6 +62,7 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, for
         {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
       </>}
       {...formItemProps}
+      className={classNames({ 'error_item': formItemProps?.required && error })}
     >
       <div style={{
         display: 'flex',

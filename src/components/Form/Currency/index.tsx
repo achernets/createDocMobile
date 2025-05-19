@@ -3,6 +3,7 @@ import React, { JSX } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
 import { NumericFormat } from 'react-number-format';
+import classNames from "classnames";
 
 type CurrencyProps = {
   label?: string,
@@ -21,7 +22,7 @@ const CustomStyledInput = React.forwardRef((props, ref) => {
 });
 
 const Currency = ({ label, name, control, defaultValue, formItemProps = {}, disabled = false, ...props }: CurrencyProps): JSX.Element => {
-  const { field: { ref, onChange, ...field } } = useController({
+  const { field: { ref, onChange, ...field }, fieldState: { error } } = useController({
     name,
     control,
     defaultValue
@@ -32,6 +33,7 @@ const Currency = ({ label, name, control, defaultValue, formItemProps = {}, disa
       {label}
       {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
     </>}
+    className={classNames({ 'error_item': formItemProps?.required && error })}
     {...formItemProps}
   >
     <NumericFormat

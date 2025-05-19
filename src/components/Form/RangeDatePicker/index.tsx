@@ -5,6 +5,7 @@ import { Control, useController } from "react-hook-form";
 import Int64 from "node-int64";
 import { parseDate } from "../../../utils";
 import dayjs from "dayjs";
+import classNames from "classnames";
 
 type RangeDatePickerFProps = {
   label?: string,
@@ -17,7 +18,7 @@ type RangeDatePickerFProps = {
 
 
 const RangeDatePicker = ({ label, name, control, defaultValue = -1, formItemProps = {}, ...props }: RangeDatePickerFProps): JSX.Element => {
-  const { field: { value, onChange, ...field } } = useController({
+  const { field: { value, onChange, ...field }, fieldState: { error } } = useController({
     name,
     control,
     defaultValue
@@ -41,6 +42,7 @@ const RangeDatePicker = ({ label, name, control, defaultValue = -1, formItemProp
         {label}
         {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
       </>}
+      className={classNames({ 'error_item': formItemProps?.required && error })}
     >
       <div style={{
         display: 'flex',

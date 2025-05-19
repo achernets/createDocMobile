@@ -11,6 +11,7 @@ import { useShallow } from "zustand/shallow";
 import { HandBookServiceClient } from "../../../api";
 import { FilterCondition, FilterFieldType, FilterItem, HandBook, HBColumnType, HBRow, KazFilter } from "../../../api/data";
 import { getFilterHBValueSearchWord, getHBValue } from "../../../utils";
+import classNames from "classnames";
 
 type HandBookItemProps = {
   label?: string,
@@ -24,7 +25,7 @@ type HandBookItemProps = {
 }
 
 const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps = {}, disabled = false, handBook, itemKey }: HandBookItemProps): JSX.Element => {
-  const { field: { value, onChange } } = useController({
+  const { field: { value, onChange }, fieldState: { error } } = useController({
     name,
     control,
     defaultValue
@@ -47,7 +48,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
     };
     return fColumn;
   }, [handBook, columnId]);
-  
+
 
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['getAllHandBookRows', 'contentItem', itemKey, columnId, debouncedSearch, debouncedDateSearch, token],
@@ -118,7 +119,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
     const v = getHBValue(value?.row?.values?.get(columnId), true);
     return v === null ? '' : v;
   }, [value, columnId]);
-  
+
   return <>
     <Wrapper
       label={<>
@@ -127,6 +128,8 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
       </>}
       trigger='onConfirm'
       onClick={() => disabled ? undefined : setVisible(true)}
+
+      className={classNames({ 'error_item': formItemProps?.required && error })}
       {...formItemProps}
     >
       <Input

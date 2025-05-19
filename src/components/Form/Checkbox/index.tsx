@@ -2,6 +2,7 @@ import { Checkbox as ACheckbox, CheckboxProps, FormItemProps } from "antd-mobile
 import { JSX } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
+import classNames from "classnames";
 
 type CheckboxFProps = {
   label?: string,
@@ -10,16 +11,19 @@ type CheckboxFProps = {
   control: Control<any>,
   isString?: boolean,
   formItemProps?: FormItemProps,
+  errorMessage?: string
 } & CheckboxProps
 
-const Checkbox = ({ label, name, control, defaultValue = '', isString = false, formItemProps = {}, ...props }: CheckboxFProps): JSX.Element => {
-  const { field: { value, ...field } } = useController({
+const Checkbox = ({ label, name, control, defaultValue = '', isString = false, errorMessage, formItemProps = {}, ...props }: CheckboxFProps): JSX.Element => {
+  const { field: { value, ...field }, fieldState: { error } } = useController({
     name,
     control,
     defaultValue
   });
 
-  return <Wrapper>
+  return <Wrapper
+    className={classNames({ 'error_item': errorMessage || error })}
+  >
     <ACheckbox
       checked={isString ? value === 'true' : value}
       {...field}

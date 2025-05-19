@@ -3,6 +3,7 @@ import { JSX } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
 import { LinkOutline } from "antd-mobile-icons";
+import classNames from "classnames";
 
 type InputUrlFProps = {
   label?: string,
@@ -13,7 +14,7 @@ type InputUrlFProps = {
 } & InputProps
 
 const InputUrl = ({ label, name, control, defaultValue, formItemProps = {}, ...props }: InputUrlFProps): JSX.Element => {
-  const { field } = useController({
+  const { field, fieldState: { error } } = useController({
     name,
     control,
     defaultValue
@@ -24,6 +25,7 @@ const InputUrl = ({ label, name, control, defaultValue, formItemProps = {}, ...p
       {label}
       {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
     </>}
+    className={classNames({ 'error_item': formItemProps?.required && error })}
     {...formItemProps}
   >
     <div className={'inputUrl'}>

@@ -3,6 +3,7 @@ import { JSX } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
 import { map, omit } from "lodash";
+import classNames from "classnames";
 
 type RadioGroupFProps = {
   label?: string,
@@ -18,7 +19,7 @@ type RadioGroupFProps = {
 } & RadioGroupProps
 
 const RadioGroup = ({ label, name, control, defaultValue, formItemProps = {}, options = [], ...props }: RadioGroupFProps): JSX.Element => {
-  const { field } = useController({
+  const { field, fieldState: { error } } = useController({
     name,
     control,
     defaultValue
@@ -29,6 +30,7 @@ const RadioGroup = ({ label, name, control, defaultValue, formItemProps = {}, op
       {label}
       {formItemProps?.required && <span className="adm-form-item-required-asterisk">*</span>}
     </>}
+    className={classNames({ 'error_item': formItemProps?.required && error })}
     {...formItemProps}
   >
     <Radio.Group

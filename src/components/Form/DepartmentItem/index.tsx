@@ -10,6 +10,7 @@ import useAppStore from "../../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
 import { DepartmentServiceClient } from "../../../api";
 import { Department, FilterCondition, FilterFieldType, FilterItem, KazFilter } from "../../../api/data";
+import classNames from "classnames";
 
 type DepartmentItemProps = {
   label?: string,
@@ -22,7 +23,7 @@ type DepartmentItemProps = {
 }
 
 const DepartmentItem = ({ label, name, control, defaultValue = null, formItemProps = {}, disabled = false, itemKey }: DepartmentItemProps): JSX.Element => {
-  const { field: { value, onChange } } = useController({
+  const { field: { value, onChange }, fieldState: { error } } = useController({
     name,
     control,
     defaultValue
@@ -95,6 +96,7 @@ const DepartmentItem = ({ label, name, control, defaultValue = null, formItemPro
       </>}
       trigger='onConfirm'
       onClick={() => disabled ? undefined : setVisible(true)}
+      className={classNames({ 'error_item': formItemProps?.required && error })}
       {...formItemProps}
     >
       <Input

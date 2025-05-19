@@ -4,6 +4,11 @@ import { CalendarOutline, ClockCircleOutline } from 'antd-mobile-icons'
 
 
 const Wrapper = styled(Form.Item)`
+  &.error_item{
+    .adm-form-item-label{
+      color: red;    
+    }
+  }
   .adm-list-item-content{
     border-bottom: var(--border-inner);
     .adm-list-item-content-arrow{
