@@ -26,7 +26,6 @@ const Users = ({ label, name, control, defaultValue = [], disabled = false, form
     defaultValue
   });
 
-  console.log(error, 'Users')
   const [visible, setVisible] = useState(false);
 
   return <Wrapper

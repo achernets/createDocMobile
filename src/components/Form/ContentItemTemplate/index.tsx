@@ -247,7 +247,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.JIRA_TIME:
         return <JiraTime
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.strValue`}
+          name={`${pathAllItems}.${item.key}.value.strValue`}
           control={control}
           disabled={readOnlyItem}
           formItemProps={{
