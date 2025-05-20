@@ -6,6 +6,7 @@ import { CalendarServiceClient, DepartmentServiceClient, HandBookServiceClient, 
 import useAppStore from "../store/useAppStore";
 import { Space, Toast } from "antd-mobile";
 import numberToString from "./numberToString";
+import * as yup from "yup"
 
 export const getItemValue = (item: ContentItem, language = getCurrentLocale(), string = false) => {
   switch (item.type) {
@@ -377,3 +378,87 @@ export const ContentItemExecScript = (setValue, getValues, getContentItem, getPa
     }
   };
 };
+
+
+export const contentItemSchema = (requared) => yup.object({
+  value: yup.object().when(['type', 'tMask'], ([type, tMask]) => {
+    switch (type) {
+      case ContentItemType.TEXT_FIELD:
+        if (tMask && tMask !== null) {
+          return yup.object({
+            strValue: requared ?
+              yup.string().nullable().required('form.required').matches(tMask, 'incorrect') :
+              yup.string().nullable().matches(tMask, {
+                message: 'incorrect',
+                name: 'incorrect',
+                excludeEmptyString: true
+              })
+          });
+        };
+        return yup.object({
+          strValue: requared ? yup.string().nullable().required('form.required') : yup.string().nullable()
+        });
+      case ContentItemType.CALENDAR:
+      case ContentItemType.DATE_TIME:
+        return yup.object({
+          strValue: requared ? yup.string().transform((v) => (v === -1 || v === '-1') ? null : v).nullable().required('form.required') : yup.string().nullable()
+        });
+      case ContentItemType.USER_CHOICE:
+      case ContentItemType.ATTACHMENT:
+      case ContentItemType.ORG_STRUCTURE:
+      case ContentItemType.TABLE:
+      case ContentItemType.SEPARATOR:
+      case ContentItemType.MARK:
+      case ContentItemType.CONTAINER:
+      case ContentItemType.BUTTON:
+        return yup.object().nullable();
+      case ContentItemType.CHECKBOX:
+        return yup.object({
+          //@ts-ignore
+          strValue: requared ? yup.string().oneOf([true, 'true']).required('form.required') : yup.string().nullable()
+        });
+      case ContentItemType.HAND_BOOK:
+        return yup.object({
+          hbValue: yup.object({
+            row: requared ? yup.object().nullable().required('form.required') : yup.object().nullable()
+          }).nullable()
+        });
+      default:
+        return yup.object({
+          strValue: requared ? yup.string().nullable().required('form.required') : yup.string().nullable()
+        });
+    };
+  }),
+  childItems: yup.array().when(['type'], ([type]) => {
+    switch (type) {
+      case ContentItemType.TABLE:
+        return yup.array().nullable().min(requared ? 1 : 0, 'form.required');
+      default:
+        return yup.array().nullable();
+    };
+  }),
+  users: yup.array().when(['type'], ([type]) => {
+    switch (type) {
+      case ContentItemType.USER_CHOICE:
+        return yup.array().nullable().min(requared ? 1 : 0, 'form.required');
+      default:
+        return yup.array().nullable();
+    };
+  }),
+  attachment: yup.object().when(['type'], ([type]) => {
+    switch (type) {
+      case ContentItemType.ATTACHMENT:
+        return requared ? yup.object().nullable().required('form.required') : yup.object().nullable();
+      default:
+        return yup.object().nullable();
+    };
+  }),
+  department: yup.object().when(['type'], ([type]) => {
+    switch (type) {
+      case ContentItemType.ORG_STRUCTURE:
+        return requared ? yup.object().nullable().required('form.required') : yup.object().nullable();
+      default:
+        return yup.object().nullable();
+    };
+  })
+});

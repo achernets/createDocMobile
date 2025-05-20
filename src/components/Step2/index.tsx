@@ -10,94 +10,12 @@ import Holder from "../Form/Holder";
 import TabInfo from "./components/TabInfo";
 import Stages from "./components/Stages";
 import { map, reduce, size, debounce, uniqBy, findIndex, filter, get, concat, find } from "lodash";
-import { ContentItemExecScript } from "../../utils/document";
+import { ContentItemExecScript, contentItemSchema } from "../../utils/document";
 import { DocumentServiceClient, FilledDocumentPatternServiceClient } from "../../api";
 import { getLetterJiraTime, getNumberJiraTime, parseDate, sendMessageMobile } from "../../utils";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 
-const valueSchema = (requared) => yup.object({
-  value: yup.object().when(['type', 'tMask'], ([type, tMask]) => {
-    switch (type) {
-      case ContentItemType.TEXT_FIELD:
-        if (tMask && tMask !== null) {
-          return yup.object({
-            strValue: requared ?
-              yup.string().nullable().required('form.required').matches(tMask, 'incorrect') :
-              yup.string().nullable().matches(tMask, {
-                message: 'incorrect',
-                name: 'incorrect',
-                excludeEmptyString: true
-              })
-          });
-        };
-        return yup.object({
-          strValue: requared ? yup.string().nullable().required('form.required') : yup.string().nullable()
-        });
-      case ContentItemType.CALENDAR:
-      case ContentItemType.DATE_TIME:
-        return yup.object({
-          strValue: requared ? yup.string().transform((v) => (v === -1 || v === '-1') ? null : v).nullable().required('form.required') : yup.string().nullable()
-        });
-      case ContentItemType.USER_CHOICE:
-      case ContentItemType.ATTACHMENT:
-      case ContentItemType.ORG_STRUCTURE:
-      case ContentItemType.TABLE:
-      case ContentItemType.SEPARATOR:
-      case ContentItemType.MARK:
-      case ContentItemType.CONTAINER:
-      case ContentItemType.BUTTON:
-        return yup.object().nullable();
-      case ContentItemType.CHECKBOX:
-        return yup.object({
-          //@ts-ignore
-          strValue: requared ? yup.string().oneOf([true, 'true']).required('form.required') : yup.string().nullable()
-        });
-      case ContentItemType.HAND_BOOK:
-        return yup.object({
-          hbValue: yup.object({
-            row: requared ? yup.object().nullable().required('form.required') : yup.object().nullable()
-          }).nullable()
-        });
-      default:
-        return yup.object({
-          strValue: requared ? yup.string().nullable().required('form.required') : yup.string().nullable()
-        });
-    };
-  }),
-  childItems: yup.array().when(['type'], ([type]) => {
-    switch (type) {
-      case ContentItemType.TABLE:
-        return yup.array().nullable().min(requared ? 1 : 0, 'form.required');
-      default:
-        return yup.array().nullable();
-    };
-  }),
-  users: yup.array().when(['type'], ([type]) => {
-    switch (type) {
-      case ContentItemType.USER_CHOICE:
-        return yup.array().nullable().min(requared ? 1 : 0, 'form.required');
-      default:
-        return yup.array().nullable();
-    };
-  }),
-  attachment: yup.object().when(['type'], ([type]) => {
-    switch (type) {
-      case ContentItemType.ATTACHMENT:
-        return requared ? yup.object().nullable().required('form.required') : yup.object().nullable();
-      default:
-        return yup.object().nullable();
-    };
-  }),
-  department: yup.object().when(['type'], ([type]) => {
-    switch (type) {
-      case ContentItemType.ORG_STRUCTURE:
-        return requared ? yup.object().nullable().required('form.required') : yup.object().nullable();
-      default:
-        return yup.object().nullable();
-    };
-  })
-});
 
 
 const Step2 = (): JSX.Element => {
@@ -274,7 +192,7 @@ const Step2 = (): JSX.Element => {
         }, undefined);
         try {
           //@ts-ignore
-          if (itm) valueSchema(true).validateSync(values?.contentItems[key], { abortEarly: false });
+          if (itm) contentItemSchema(true).validateSync(values?.contentItems[key], { abortEarly: false });
         } catch (err: any) {
           let path = `contentItems.${key}.`;
           switch (itm.type) {
@@ -370,9 +288,6 @@ const Step2 = (): JSX.Element => {
         const holders = getValues('holders');
         const links = reduce(holders, (hash, holder, index) => {
           map(holder.contentHolderLink, (itm, idx) => {
-            // if(itm.contentItem.key === paths[1]){
-            //   setValue(`holders.${index}.contentHolderLink.${idx}.contentItem`, getValues(`contentItems.${paths[1]}`))
-            // }
             if (itm.contentItem.key === paths[1] && itm.onChangeScript !== undefined && itm.onChangeScript !== null && itm.onChangeScript !== '') {
               hash.push({
                 holderPath: `holders.${index}`,

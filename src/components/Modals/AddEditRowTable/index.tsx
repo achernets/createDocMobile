@@ -1,19 +1,20 @@
 
 import { ModalAddEditRowTable, useModalStore } from '../../../store/useModals';
-import { Fragment, useCallback } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { ModalStyled } from '../styled';
 import { useForm } from "react-hook-form";
 import { Form } from 'antd-mobile';
-import { map, reduce, values } from 'lodash';
+import { debounce, map, reduce, size, uniqBy, values } from 'lodash';
 import { ContentItem } from '../../../api/data';
 import ContentItemTemplate from '../../Form/ContentItemTemplate';
+import { ContentItemExecScript } from '../../../utils/document';
 
 
 const AddEditRowTableModal = ({ id, params: { cb, items = [] } }: Omit<ModalAddEditRowTable, 'key'>) => {
 
   const closeModalById = useModalStore((state) => state.closeModalById);
 
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, getValues, setValue, watch } = useForm({
     defaultValues: {
       contentItems: reduce(items, (hash, itm) => {
         hash[itm.key] = itm;
@@ -35,6 +36,65 @@ const AddEditRowTableModal = ({ id, params: { cb, items = [] } }: Omit<ModalAddE
       console.log(error);
     }
   }, [cb, onClose]);
+
+  const [changes, setChanges] = useState([]);
+  const [changesIsWork, setChangesIsWork] = useState(false);
+
+  const execFunc = async (obj) => {
+    const fn = new Function('Methods', `return (async () => {${obj.item.onChangeScript}})();`);
+    console.log('start');
+    //@ts-ignore
+    const getContentItem = (key: string) => getValues(`contentItems.${key}`);
+    const getPathLinkByKey = () => {
+      return null;
+    };
+    await fn(ContentItemExecScript(setValue, getValues, getContentItem, getPathLinkByKey)).then(() => {
+      console.log('end');
+      setChanges(prev => prev.filter((_, i) => i !== 0));
+      setChangesIsWork(false);
+    }).catch((err) => {
+      console.log(`Script error contentItemKey=${obj.item.contentItem.key}`, err);
+      setChanges(prev => prev.filter((_, i) => i !== 0));
+      setChangesIsWork(false);
+    });
+  };
+
+  const debouncedExec = debounce((change) => {
+    execFunc(change);
+  }, 300);
+
+  useEffect(() => {
+    if (size(changes) === 0) return;
+    if (changesIsWork === false) {
+      setChangesIsWork(true);
+      debouncedExec(changes[0]);
+    }
+  }, [debouncedExec, changes, changesIsWork]);
+
+  useEffect(() => {
+    const { unsubscribe } = watch((_, { name }) => {
+      if (name?.startsWith('contentItems.')) {
+        const paths = name.split('.');
+        //@ts-ignore
+        const itm = getValues(`contentItems.${paths[1]}`);
+        //@ts-ignore
+        if (itm && itm?.onChangeScript && itm?.onChangeScript !== null && itm?.onChangeScript !== '') {
+          setChanges(prev => {
+            return uniqBy([
+              ...prev,
+              {
+                holderPath: null,
+                item: itm,
+                pathItem: name
+              }
+            ].reverse(), 'pathItem').reverse();
+          });
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, [watch, getValues]);
+
 
   return (
     <ModalStyled
