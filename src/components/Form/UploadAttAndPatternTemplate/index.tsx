@@ -6,7 +6,7 @@ import { createAttachmetFromFile } from "../../../utils";
 import { AddOutline, RightOutline } from "antd-mobile-icons";
 import useModalStore from "../../../store/useModals";
 import { useShallow } from "zustand/shallow";
-import { includes, invert } from "lodash";
+import { includes } from "lodash";
 import AttachmentView from "../../AttachmentView";
 import { useTranslation } from "react-i18next";
 
