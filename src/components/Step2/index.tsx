@@ -246,7 +246,7 @@ const Step2 = (): JSX.Element => {
       //@ts-ignore
       for (const key in values?.contentItems) {
         const itm = reduce(holders, (hash, itm) => {
-          const os = find(itm.contentHolderLink, { requared: true, contentItem: { key: key } });
+          const os = find(itm.contentHolderLink, { requared: true, visible: true, contentItem: { key: key } });
           if (os) hash = os.contentItem;
           return hash;
         }, undefined);
