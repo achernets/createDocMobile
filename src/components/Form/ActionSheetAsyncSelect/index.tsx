@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { ErrorBlock, Form, InfiniteScroll, Input, List, Popup, SearchBar, SpinLoading } from 'antd-mobile';
 import { JSX, useCallback, useMemo, useState } from 'react';
-import { compact, map, size } from 'lodash';
+import { compact, map, size, uniqBy } from 'lodash';
 import { ListStyled, ItemFullStyled } from './styled';
 import { CheckOutline } from 'antd-mobile-icons';
 import { searchFilter } from '../../../utils';
@@ -35,7 +35,7 @@ const ActionSheetAsyncSelect = ({ label, optionLabel = 'id', disabled = false,
       try {
         const r = await queryFn(new KazFilter({
           ...filter,
-          position: (pageParam - 1) * 25,
+          position: (pageParam - 1) * filter?.countFilter,
           items: compact([
             ...map(filter?.items),
             fieldSearch && debouncedSearch !== '' ? new FilterItem({
@@ -53,7 +53,7 @@ const ActionSheetAsyncSelect = ({ label, optionLabel = 'id', disabled = false,
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage, _, lastPageParam) => {
-      if (lastPage && lastPage.length < filter?.countFilter || 15) {
+      if (lastPage && lastPage.length < filter?.countFilter) {
         return undefined
       }
       return lastPageParam + 1;
@@ -87,8 +87,8 @@ const ActionSheetAsyncSelect = ({ label, optionLabel = 'id', disabled = false,
   }, [localValue]);
 
   const filterdData = useMemo(() => {
-    if (fieldSearch !== undefined) return data?.flatData || [];
-    return searchFilter(data?.flatData, [optionLabel], strSearch);
+    if (fieldSearch !== undefined) return uniqBy(data?.flatData, 'id') || [];
+    return searchFilter(uniqBy(data?.flatData, 'id'), [optionLabel], strSearch);
   }, [fieldSearch, data?.flatData, strSearch]);
 
   return <>
