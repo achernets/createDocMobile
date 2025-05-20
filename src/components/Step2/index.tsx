@@ -12,7 +12,7 @@ import Stages from "./components/Stages";
 import { map, reduce, size, debounce, uniqBy, findIndex, filter, get, concat, find } from "lodash";
 import { ContentItemExecScript } from "../../utils/document";
 import { DocumentServiceClient, FilledDocumentPatternServiceClient } from "../../api";
-import { sendMessageMobile } from "../../utils";
+import { getLetterJiraTime, getNumberJiraTime, parseDate, sendMessageMobile } from "../../utils";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 
@@ -228,12 +228,34 @@ const Step2 = (): JSX.Element => {
         startPeriod: yup.number().when('runPerriodicall', ([runPerriodicall]) => {
           return runPerriodicall ? yup.number().min(1, 'form.required').required('form.required') : yup.number().nullable();
         }),
-        // periodicJiraEndDate: yup.string().when(['runPerriodicall', 'typePeriod'], ([runPerriodicall, typePeriod]) => {
-        //   return runPerriodicall && typePeriod === 'jira' ? yup.string().nullable().required('form.required') : yup.string().nullable();
-        // }),
-        // periodicEndDate: yup.number().when(['runPerriodicall', 'typePeriod'], ([runPerriodicall, typePeriod]) => {
-        //   return runPerriodicall && typePeriod === 'calendar' ? yup.number().nullable().min(1, 'form.required').required('form.required') : yup.number().nullable();
-        // }),
+        periodicJiraEndDate: yup.string().nullable().test(
+          'periodicJiraEndDate-required',
+          'form.required',
+          function (value) {
+            const { runPerriodicall, periodicEndDate } = this.parent;
+            const hasData = parseDate(periodicEndDate);
+            const hasNumber = getNumberJiraTime(value) > 0;
+            const hasLetter = getLetterJiraTime(value).length > 0;
+            if (runPerriodicall && (hasData === null || hasData === undefined) && (hasNumber === false || hasLetter === false)) {
+              return this.createError({ message: 'form.required' });
+            }
+            return true;
+          }
+        ),
+        periodicEndDate: yup.number().nullable().test(
+          'periodicJiraEndDate-required',
+          'form.required',
+          function (value) {
+            const { runPerriodicall, periodicEndDate } = this.parent;
+            const hasData = parseDate(periodicEndDate);
+            const hasNumber = getNumberJiraTime(value) > 0;
+            const hasLetter = getLetterJiraTime(value).length > 0;
+            if (runPerriodicall && (hasData === null || hasData === undefined) && (hasNumber === false || hasLetter === false)) {
+              return this.createError({ message: 'form.required' });
+            }
+            return true;
+          }
+        ),
         nextStartPeriod: yup.string().when('runPerriodicall', ([runPerriodicall]) => {
           return runPerriodicall ? yup.string().nullable().required('form.required') : yup.string().nullable();
         }),
