@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import { parseDate } from "../../../utils";
 import { Button, Toast } from "antd-mobile";
 import { CheckCircleFill, CloseCircleFill, InformationCircleOutline } from "antd-mobile-icons";
+import { useTranslation } from "react-i18next";
 
 type InboxDocFProps = {
   name: string,
@@ -23,6 +24,9 @@ const InboxDoc = ({ name, control, documentId = null, required = false }: InboxD
   const token = useAppStore(useShallow((state => state.token)));
   const [findDocs, setFindDocs] = useState<ADocument[]>([]);
   const [isFind, setIsFind] = useState<boolean>(false);
+
+  const { t } = useTranslation();
+
   const [externalNumber, externalRegDate] = useWatch({
     control: control,
     name: [`${name}.externalNumber`, `${name}.externalRegDate`]
@@ -65,7 +69,7 @@ const InboxDoc = ({ name, control, documentId = null, required = false }: InboxD
       );
       Toast.show({
         icon: <InformationCircleOutline />,
-        content: `Знайдено ${size(result)} документ(ів)`,
+        content: t('MobileCreateDoc.findCountDocs', { count: size(result) }),
         //duration: 0
       });
       setFindDocs(result);
@@ -83,10 +87,10 @@ const InboxDoc = ({ name, control, documentId = null, required = false }: InboxD
     <Input
       name={`${name}.externalNumber`}
       control={control}
-      label={'Вихідний номер'}
+      label={t('MobileCreateDoc.externalNumber')}
       formItemProps={{
         required: required,
-        help: isFind && size(externalNumber) > 0 ? `За таким номером і датою знайдено ${size(findDocs)} документів` : undefined,
+        help: isFind && size(externalNumber) > 0 ?  t('MobileCreateDoc.findByNumberAndDateDocs', { count: size(findDocs) }) : undefined,
         helpIcon: isFind && size(findDocs) === 0 ? <CheckCircleFill style={{ color: 'green' }} /> : <CloseCircleFill style={{ color: 'red' }} />
       }}
 
@@ -94,10 +98,10 @@ const InboxDoc = ({ name, control, documentId = null, required = false }: InboxD
     <DatePicker
       name={`${name}.externalRegDate`}
       control={control}
-      label={'Вихідна реєстраційна дата'}
+      label={t('MobileCreateDoc.externalRegDate')}
       formItemProps={{
         required: required,
-        help: isFind &&  parseDate(externalRegDate) !== null ? `За таким номером і датою знайдено ${size(findDocs)} документів` : undefined,
+        help: isFind && parseDate(externalRegDate) !== null ? t('MobileCreateDoc.findByNumberAndDateDocs', { count: size(findDocs) })  : undefined,
         helpIcon: isFind && size(findDocs) === 0 ? <CheckCircleFill style={{ color: 'green' }} /> : <CloseCircleFill style={{ color: 'red' }} />
       }}
     />
@@ -106,7 +110,7 @@ const InboxDoc = ({ name, control, documentId = null, required = false }: InboxD
       type={'button'}
       block
     >
-      Знайти документ
+      {t('MobileCreateDoc.findDocs')}
     </Button>
   </div>
 };

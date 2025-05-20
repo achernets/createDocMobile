@@ -7,12 +7,15 @@ import { includes, map } from 'lodash';
 import { DocumentPatternServiceClient, DocumentServiceClient } from '../../../api';
 import useAppStore from '../../../store/useAppStore';
 import PatternAttachmentTemplateView from '../../AttachmentTemplateView';
+import { useTranslation } from 'react-i18next';
 
 const PatternAttachmentsModal = ({ id, params: { cb, patternId = null } }: Omit<ModalPatternAttachments, 'key'>) => {
   const token = useAppStore((state) => state.token);
   const closeModalById = useModalStore((state) => state.closeModalById);
   const [patternAttachments, setPatternAttachments] = useState<PatternAttachmentTemplate[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
+
+  const { t } = useTranslation();
 
   const defaultFiles = useMemo(() => {
     return [
@@ -56,14 +59,14 @@ const PatternAttachmentsModal = ({ id, params: { cb, patternId = null } }: Omit<
     closeModalById(id);
   }, [id]);
 
-  const onSuccess = useCallback(async() => {
+  const onSuccess = useCallback(async () => {
     try {
       const result = await DocumentServiceClient.createAttachmentFrom(
         token,
         "",
         "",
         new DocumentAccessPolicy(),
-        [...defaultFiles, ...patternAttachments].filter(itm=>includes(selected, itm.id)).map(itm=>new AttCreateInfo({
+        [...defaultFiles, ...patternAttachments].filter(itm => includes(selected, itm.id)).map(itm => new AttCreateInfo({
           attachmentTemplateId: itm.id,
           fileName: itm.oName,
           forDraft: true,
@@ -76,7 +79,7 @@ const PatternAttachmentsModal = ({ id, params: { cb, patternId = null } }: Omit<
     } catch (error) {
       console.log(error);
     }
-   
+
   }, [cb, onClose, token, selected, defaultFiles, patternAttachments]);
 
   const onSelectedHandler = useCallback((selected: boolean, id: string) => setSelected(prev => {
@@ -94,11 +97,11 @@ const PatternAttachmentsModal = ({ id, params: { cb, patternId = null } }: Omit<
         fontSize: 16,
         fontWeight: 600,
         lineHeight: '24px'
-      }}>{'Створити вкладення із шаблону'}</div>}
+      }}>{t('MobileCreateDoc.createAttFromPattern')}</div>}
       content={
         <Grid columns={1} gap={8}>
           <Grid.Item >
-            <AutoCenter>{'Новий документ'}</AutoCenter>
+            <AutoCenter>{t('MobileCreateDoc.newDoc')}</AutoCenter>
           </Grid.Item>
           {map(defaultFiles, (itm: PatternAttachmentTemplate) => <Grid.Item key={itm.id}>
             <PatternAttachmentTemplateView
@@ -108,7 +111,7 @@ const PatternAttachmentsModal = ({ id, params: { cb, patternId = null } }: Omit<
             />
           </Grid.Item>)}
           <Grid.Item >
-            <AutoCenter>{'З шаблону'}</AutoCenter>
+            <AutoCenter>{t('MobileCreateDoc.fromPattern')}</AutoCenter>
           </Grid.Item>
           {map(patternAttachments, itm => <Grid.Item key={itm.id}>
             <PatternAttachmentTemplateView
@@ -120,8 +123,8 @@ const PatternAttachmentsModal = ({ id, params: { cb, patternId = null } }: Omit<
         </Grid>
       }
       actions={[
-        { key: 'success', text: 'Готово', primary: true, onClick: onSuccess },
-        { key: 'cancel', text: 'Відмінити', onClick: onClose }
+        { key: 'success', text: t('MobileCreateDoc.ready'), primary: true, onClick: onSuccess },
+        { key: 'cancel', text: t('MobileCreateDoc.cancel'), onClick: onClose }
       ]}
       showCloseButton={true}
       destroyOnClose={true}

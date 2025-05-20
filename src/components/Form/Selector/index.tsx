@@ -5,6 +5,7 @@ import { Control, useController } from "react-hook-form";
 import { find, map, size } from "lodash";
 import { CheckOutline } from "antd-mobile-icons";
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 type SelectorFProps = {
   label?: string,
@@ -27,6 +28,8 @@ const Selector = ({ label, name, control, defaultValue = null, formItemProps = {
   });
   const [visible, setVisible] = useState<boolean>(false);
   const [localValue, setLocalValue] = useState<any>(value);
+
+  const { t } = useTranslation();
 
   const textInput = useMemo(() => {
     return find(options, { value: value })?.label || '';
@@ -55,7 +58,7 @@ const Selector = ({ label, name, control, defaultValue = null, formItemProps = {
     >
       <Input
         readOnly
-        placeholder={'Обрати'}
+        placeholder={t('MobileCreateDoc.select')}
         value={textInput}
       />
     </Wrapper>
@@ -88,7 +91,7 @@ const Selector = ({ label, name, control, defaultValue = null, formItemProps = {
         {size(options) === 0 && <ItemFullStyled>
           <ErrorBlock
             status='empty'
-            title={'Нічого не знайдено'}
+            title={t('MobileCreateDoc.emptyData')}
             description={null}
           />
         </ItemFullStyled>}

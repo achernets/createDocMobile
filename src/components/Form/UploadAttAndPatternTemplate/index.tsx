@@ -6,8 +6,9 @@ import { createAttachmetFromFile } from "../../../utils";
 import { AddOutline, RightOutline } from "antd-mobile-icons";
 import useModalStore from "../../../store/useModals";
 import { useShallow } from "zustand/shallow";
-import { includes } from "lodash";
+import { includes, invert } from "lodash";
 import AttachmentView from "../../AttachmentView";
+import { useTranslation } from "react-i18next";
 
 type UploadAttAndPatternTemplateProps = {
   label?: string,
@@ -24,6 +25,8 @@ const UploadAttAndPatternTemplate = ({ name, control, pattern, allowSubStatuses 
     openModal: state.openModal
   })));
 
+  const { t } = useTranslation();
+
   const { fields, append, update, remove } = useFieldArray({
     control,
     name,
@@ -39,7 +42,7 @@ const UploadAttAndPatternTemplate = ({ name, control, pattern, allowSubStatuses 
         toastHandler?.close();
         toastHandler = Toast.show({
           icon: 'loading',
-          content: `Завантаження: ${i + 1}/${files.length}`,
+          content: t('MobileCreateDoc.loadingAttachment', { current: i + 1, all: files.length }),
           duration: 0,
         });
         const att = await createAttachmetFromFile(files[i], allowSubStatuses[0]);
@@ -51,7 +54,7 @@ const UploadAttAndPatternTemplate = ({ name, control, pattern, allowSubStatuses 
     toastHandler?.close();
     Toast.show({
       icon: 'success',
-      content: 'Завершено!',
+      content: t('MobileCreateDoc.completed'),
       duration: 2000
     });
   }, [append]);
@@ -72,12 +75,12 @@ const UploadAttAndPatternTemplate = ({ name, control, pattern, allowSubStatuses 
       actions: [
         ...allowSubStatuses.filter(itm => itm !== att.attachmentExtStatus).map(extStatus => ({
           key: extStatus,
-          description: 'Тип вкладення',
-          text: `${AttachmentExtStatus[extStatus]}`
+          description: t('MobileCreateDoc.typeAttachments'),
+          text: t(`AttachmentExtStatus.${AttachmentExtStatus[extStatus]}`)
         })),
         {
           key: 'delete',
-          text: 'Видалити',
+          text: t('MobileCreateDoc.remove'),
           danger: true
         }
       ],
@@ -92,10 +95,10 @@ const UploadAttAndPatternTemplate = ({ name, control, pattern, allowSubStatuses 
           switch (action.key) {
             case 'delete':
               Dialog.confirm({
-                title: `Видалити вкладення ${att.fileName}`,
+                title: t('MobileCreateDoc.remove', { fileName: att.fileName }),
                 onConfirm: () => remove(index),
-                confirmText: 'Видалити',
-                cancelText: 'Відмінити'
+                confirmText: t('MobileCreateDoc.remove'),
+                cancelText: t('MobileCreateDoc.cancel')
               });
               break;
             default:
@@ -139,13 +142,13 @@ const UploadAttAndPatternTemplate = ({ name, control, pattern, allowSubStatuses 
       block={true}
       onClick={() => inputRef.current.click()}
     >
-      <AddOutline /> Дадати файл
+      <AddOutline /> {t('MobileCreateDoc.addFile')}
     </Button>
     <Button
       block={true}
       onClick={handlerPatternChange}
     >
-      <AddOutline /> Додати вкладення з шаблону
+      <AddOutline />{t('MobileCreateDoc.addAttachmentFromPattern')}
     </Button>
   </div>
 };

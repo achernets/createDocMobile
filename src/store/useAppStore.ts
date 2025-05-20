@@ -2,6 +2,9 @@ import { create } from 'zustand';
 import { AuthServiceClient, initClient, UserManagementServiceClient } from '../api';
 import { Account, UserOrGroup, DocumentPattern, DocumentPatternGroup, KazFilter, FilterItem, FilterFieldType, FilterCondition } from '../api/data';
 import { find } from 'lodash';
+import i18n from '../i18n';
+import { getCurrentLocale } from '../utils';
+import dayjs from 'dayjs';
 
 interface AppStore {
   accounts: Account[],
@@ -44,6 +47,9 @@ const useAppStore = create<AppStore>((set) => ({
       const result = await fetch('/web-config.json');
       const settings = await result.json();
       initClient('total.almexecm.com', 10443, true, 'kaz-server-dev1');
+      const locale = getCurrentLocale();
+      i18n.changeLanguage(locale);
+      dayjs.locale(locale);
       // const settingsBack = await AuthServiceClient.getSettings();
       // console.log(settingsBack.infoMap)
       const user = token === null ? null : await AuthServiceClient.refreshAuthSession(

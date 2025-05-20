@@ -1,4 +1,4 @@
-import { get, includes, isEmpty, reduce, replace, toLower, trim, values } from "lodash";
+import { get, includes, isEmpty, reduce, replace, split, toLower, trim, values } from "lodash";
 import { DocumentServiceClient } from "../api";
 import useAppStore from "../store/useAppStore";
 import { AttachmentEditMode, AttachmentExtStatus, ContentItem, DocumentAccessPolicy, DocumentAccessPolicyType, HBColumnType, HBColumnValue, UserOrGroup, UserOrGroupType } from "../api/data";
@@ -196,7 +196,12 @@ export const getFilterHBValueSearchWord = (column) => {
   };
 };
 
-export const getCurrentLocale = () => 'en';
+export const getCurrentLocale = () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get('token');
+  const splitToken = split(token, '_');
+  return splitToken[1] || 'en';
+};
 
 export const getNumberJiraTime = input => Number(trim(replace(input, /\D/g, '')));
 

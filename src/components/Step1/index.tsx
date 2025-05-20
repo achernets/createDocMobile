@@ -8,6 +8,7 @@ import ActionSheetAsyncSelect from '../Form/ActionSheetAsyncSelect';
 import { ADocument, AttachmentEditMode, AttachmentProcessingType, AttCreateInfo, ContentHolder, ContentItem, ContentItemType, ContentTableDefinition, DocPatternStageStatus, DocumentAccessPolicy, DocumentAccessPolicyType, FilterCondition, FilterFieldType, FilterItem } from '../../api/data/';
 import { compact, filter, find, get, map, orderBy, pick, reduce, reverse, size, sortBy } from 'lodash';
 import { FormStyled } from './styled';
+import { useTranslation } from 'react-i18next';
 
 const Step1 = (): JSX.Element => {
   const { token, clientInfo, account, groupPattern, pattern } = useAppStore(useShallow((state) => ({
@@ -18,10 +19,12 @@ const Step1 = (): JSX.Element => {
     clientInfo: state.clientInfo
   })));
 
+  const { t } = useTranslation();
+
   const getData = useCallback(async () => {
     const toast = Toast.show({
       icon: 'loading',
-      content: `Підготовка процесу`,
+      content: t('MobileCreateDoc.prepareDoc'),
       duration: 0
     });
     try {
@@ -84,7 +87,7 @@ const Step1 = (): JSX.Element => {
       toast.close();
       Toast.show({
         icon: 'fail',
-        content: 'Сталася помилка',
+        content: t('MobileCreateDoc.errorPrepareDoc'),
       })
     }
   }, [token, clientInfo, pattern]);
@@ -97,7 +100,7 @@ const Step1 = (): JSX.Element => {
         block
       >
         <Button style={{ minWidth: 100 }} size='large'>
-          Відмінити
+          {t('MobileCreateDoc.cancel')}
         </Button>
         <Button style={{ minWidth: 100 }}
           color='primary'
@@ -105,12 +108,12 @@ const Step1 = (): JSX.Element => {
           disabled={pattern === null}
           onClick={getData}
         >
-          Готово
+          {t('MobileCreateDoc.ready')}
         </Button>
       </Space>}
     >
       <ActionSheetAsyncSelect
-        label={'Акаунт'}
+        label={t('MobileCreateDoc.account')}
         queryKey={['getAccounts']}
         filter={new KazFilter({
           position: 0,
@@ -122,7 +125,7 @@ const Step1 = (): JSX.Element => {
         onChange={(val) => useAppStore.getState().setAccount(val)}
       />
       <ActionSheetAsyncSelect
-        label={'Группа'}
+        label={t('MobileCreateDoc.groupPattern')}
         queryKey={['getAllDocumentPatternGroups', account?.id || '']}
         filter={new KazFilter({
           position: 0,
@@ -164,7 +167,7 @@ const Step1 = (): JSX.Element => {
         }}
       />
       <ActionSheetAsyncSelect
-        label={'Тип документа'}
+        label={t('MobileCreateDoc.pattern')}
         disabled={groupPattern === null}
         queryKey={['getAllDocumentPatterns', account?.id || '', groupPattern?.id || '']}
         filter={new KazFilter({

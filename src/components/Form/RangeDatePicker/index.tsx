@@ -6,6 +6,7 @@ import Int64 from "node-int64";
 import { parseDate } from "../../../utils";
 import dayjs from "dayjs";
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 type RangeDatePickerFProps = {
   label?: string,
@@ -24,6 +25,8 @@ const RangeDatePicker = ({ label, name, control, defaultValue = -1, disabled = f
     defaultValue
   });
   const [visible, setVisible] = useState<boolean>(false);
+
+  const { t } = useTranslation();
 
   const val = useMemo(() => { 
     const v = [parseDate(value.strValue), parseDate(value.strValue2)];
@@ -54,7 +57,7 @@ const RangeDatePicker = ({ label, name, control, defaultValue = -1, disabled = f
         >
           <Input
             readOnly
-            placeholder={'Обрати дати'}
+            placeholder={t('MobileCreateDoc.selectDate')}
             value={textInput}
             style={{
               width: '100%'

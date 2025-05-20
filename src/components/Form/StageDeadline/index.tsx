@@ -8,6 +8,7 @@ import JiraTime from "../JiraTime";
 import useAppStore from "../../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
 import { get } from "lodash";
+import { useTranslation } from "react-i18next";
 
 type StageDeadlineFProps = {
   defaultValue?: boolean,
@@ -28,6 +29,7 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
   });
   const [visible, setVisible] = useState<boolean>(false);
 
+  const { t } = useTranslation();
 
   const runPerriodicall = useWatch({
     control,
@@ -41,7 +43,7 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
 
   return <Wrapper
     label={<>
-      {runPerriodicall ? 'Період' : 'Термін виконання'}
+      {runPerriodicall ?  t('MobileCreateDoc.period') : t('MobileCreateDoc.deadLine')}
     </>}
     trigger='onConfirm'
     onClick={() => disabled ? undefined : setVisible(true)}
@@ -66,14 +68,14 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
         {STAGE_PERIOD_OF_EXECUTION && <Switch
           name={`${name}.runPerriodicall`}
           control={control}
-          label={'Періодичне виконання'}
+          label={t('MobileCreateDoc.runPerriodicall')}
           disabled={disabled}
         />}
         {runPerriodicall ? <>
           <DatePicker
             name={`${name}.startPeriod`}
             control={control}
-            label={'Дата початку'}
+            label={t('MobileCreateDoc.startPeriod')}
             time={true}
             formItemProps={{
               required: true
@@ -83,7 +85,7 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
           <JiraTime
             name={`${name}.periodicJiraEndDate`}
             control={control}
-            label={'periodicJiraEndDate'}
+            label={t('MobileCreateDoc.periodicJiraEndDate')}
             formItemProps={{
               required: true
             }}
@@ -92,7 +94,7 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
           <DatePicker
             name={`${name}.periodicEndDate`}
             control={control}
-            label={'Дата закінчення циклу'}
+            label={t('MobileCreateDoc.periodicEndDate')}
             time={true}
             formItemProps={{
               required: true
@@ -103,7 +105,7 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
           <JiraTime
             name={`${name}.nextStartPeriod`}
             control={control}
-            label={'Період'}
+            label={t('MobileCreateDoc.nextStartPeriod')}
             formItemProps={{
               required: true
             }}
@@ -112,7 +114,7 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
           <JiraTime
             name={`${name}.cardActivityPeriod`}
             control={control}
-            label={'Час виконання'}
+            label={t('MobileCreateDoc.cardActivityPeriod')}
             formItemProps={{
               required: true
             }}
@@ -121,7 +123,7 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
         </> : <JiraTime
           name={`${name}.deadLine`}
           control={control}
-          label={'Термін виконання'}
+          label={t('MobileCreateDoc.deadLine')}
           formItemProps={{
             required: true
           }}

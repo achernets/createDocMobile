@@ -15,6 +15,7 @@ import { DocumentServiceClient, FilledDocumentPatternServiceClient } from "../..
 import { getLetterJiraTime, getNumberJiraTime, parseDate, sendMessageMobile } from "../../utils";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import { useTranslation } from "react-i18next";
 
 
 
@@ -31,6 +32,8 @@ const Step2 = (): JSX.Element => {
   );
 
   const docEdit = true;
+
+  const { t } = useTranslation();
 
   const { control, watch, setValue, getValues, handleSubmit } = useForm({
     defaultValues: docInfo,
@@ -319,7 +322,7 @@ const Step2 = (): JSX.Element => {
         toastHandler?.close();
         toastHandler = Toast.show({
           icon: 'loading',
-          content: `Створення ${isDraft ? 'чернетки' : 'документу'}`,
+          content: t(isDraft ? 'MobileCreateDoc.loaderCreateDraft' : 'MobileCreateDoc.loaderCreateDoc'),
           duration: 0,
         });
         const freezePattern = await FilledDocumentPatternServiceClient.createAndCheckFilledDocumentPattern(
@@ -436,7 +439,7 @@ const Step2 = (): JSX.Element => {
                 console.log(data)
               })}
             >
-              У чeрнетку
+              {t('MobileCreateDoc.toDraft')}
             </Button>
             <Button
               style={{ minWidth: 100 }}
@@ -446,7 +449,7 @@ const Step2 = (): JSX.Element => {
               data-action={false}
               onClick={handleSubmit(onSave, (data) => console.log(data))}
             >
-              Створити
+              {t('MobileCreateDoc.create')}
             </Button>
           </Space>
         }
@@ -464,7 +467,7 @@ const Step2 = (): JSX.Element => {
           <span style={{ color: "#000000" }}>{pattern?.nameDocPattern}</span>
         </div>
         <TabsStyled defaultActiveKey={"info"}>
-          <Tabs.Tab title="Відомості" key={"info"}>
+          <Tabs.Tab title={t('MobileCreateDoc.data')} key={"info"}>
             <TabInfo
               control={control}
               pattern={pattern}
@@ -487,7 +490,7 @@ const Step2 = (): JSX.Element => {
               </Tabs.Tab>}
             </Fragment>
           })}
-          <Tabs.Tab title="Вкладення" key={"atts"}>
+          <Tabs.Tab title={t('MobileCreateDoc.attachments')} key={"atts"}>
             <UploadAttAndPatternTemplate
               name={"attachments"}
               control={control}
@@ -496,7 +499,7 @@ const Step2 = (): JSX.Element => {
             />
           </Tabs.Tab>
 
-          <Tabs.Tab title="Хід виконання" key={"stages"}>
+          <Tabs.Tab title={t('MobileCreateDoc.stages')} key={"stages"}>
             <Stages
               name={"stages"}
               control={control}

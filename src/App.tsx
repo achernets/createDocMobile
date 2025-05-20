@@ -7,6 +7,8 @@ import { CloseOutline, LeftOutline } from 'antd-mobile-icons';
 import Step2 from './components/Step2';
 import ModalManager from './components/ModalRenderer';
 import { sendMessageMobile } from './utils';
+import './i18n';
+import { useTranslation } from 'react-i18next';
 
 const App = (): JSX.Element => {
   const { loadingApp, getInitialApp, step } = useAppStore(useShallow((state) => ({
@@ -14,6 +16,7 @@ const App = (): JSX.Element => {
     getInitialApp: state.getInitialApp,
     step: state.step
   })));
+  const { t } = useTranslation();
 
   useEffect(() => {
     getInitialApp();
@@ -52,7 +55,7 @@ const App = (): JSX.Element => {
         fontSize: 16,
         fontWeight: 600,
         lineHeight: '24px'
-      }}>Створити документ</div>
+      }}>{t('MobileCreateDoc.createDoc')}</div>
       <Button
         fill={'none'}
         style={{

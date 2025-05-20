@@ -1,9 +1,10 @@
-import { ErrorBlock, Form,  Input, List, Popup, SearchBar } from 'antd-mobile';
+import { ErrorBlock, Form, Input, List, Popup, SearchBar } from 'antd-mobile';
 import { JSX, useCallback, useMemo, useState } from 'react';
 import { find, map, size } from 'lodash';
 import { ListStyled, ItemFullStyled } from './styled';
 import { CheckOutline } from 'antd-mobile-icons';
 import { searchFilter } from '../../../utils';
+import { useTranslation } from 'react-i18next';
 
 type ActionSheetAsyncSelectProps = {
   label?: string,
@@ -22,6 +23,8 @@ const ActionSheetAsyncSelect = ({ label, value, disabled = false,
   const [visible, setVisible] = useState<boolean>(false);
   const [strSearch, setStrSearch] = useState<string>('');
   const [localValue, setLocalValue] = useState<any>(value);
+
+  const { t } = useTranslation();
 
   const textInput = useMemo(() => {
     return find(options, { value: value })?.label || '';
@@ -43,7 +46,7 @@ const ActionSheetAsyncSelect = ({ label, value, disabled = false,
     >
       <Input
         readOnly
-        placeholder={'Обрати'}
+        placeholder={t('MobileCreateDoc.select')}
         value={textInput}
       />
     </Form.Item>
@@ -60,7 +63,8 @@ const ActionSheetAsyncSelect = ({ label, value, disabled = false,
       <ListStyled
         header={<>
           <SearchBar
-            placeholder='Пошук' style={{ width: '100%' }}
+            placeholder={t('MobileCreateDoc.find')}
+            style={{ width: '100%' }}
             value={strSearch}
             onChange={(value) => setStrSearch(value)}
           />
@@ -82,7 +86,7 @@ const ActionSheetAsyncSelect = ({ label, value, disabled = false,
         {size(filterdData) === 0 && <ItemFullStyled>
           <ErrorBlock
             status='empty'
-            title={'Нічого не знайдено'}
+            title={t('MobileCreateDoc.emptyData')}
             description={null}
           />
         </ItemFullStyled>}

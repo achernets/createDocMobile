@@ -7,6 +7,7 @@ import StageDeadline from "../../Form/StageDeadline";
 import { compact, get } from "lodash";
 import useAppStore from "../../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
+import { useTranslation } from "react-i18next";
 
 type StageProps = {
   name: string,
@@ -20,6 +21,8 @@ const Stage = ({ name, pattern, control, scGrifs = [] }: StageProps): JSX.Elemen
     USE_BPM_ROLES: get(state, 'SETTINGS.USE_BPM_ROLES', true),
     HIDE_BLOCKED_USERS_IN_STAGE: get(state, 'SETTINGS.HIDE_BLOCKED_USERS_IN_STAGE', true),
   })));
+
+  const { t } = useTranslation();
 
 
   const [userOrGroups, maxSigner, actionType, changeOnDraft] = useWatch({
@@ -42,7 +45,7 @@ const Stage = ({ name, pattern, control, scGrifs = [] }: StageProps): JSX.Elemen
     <Users
       control={control}
       name={`${name}.userOrGroups`}
-      label={'Учасники'}
+      label={t('MobileCreateDoc.executors')}
       disabled={!changeOnDraft}
       changeProps={{
         useFavorite: true,

@@ -4,6 +4,7 @@ import { Button, Ellipsis, Image, Space } from "antd-mobile";
 import { getFileIcon } from "../../utils";
 import { invert } from "lodash";
 import { DeleteOutline } from "antd-mobile-icons";
+import { useTranslation } from "react-i18next";
 
 
 type AttachmentViewProps = {
@@ -13,6 +14,8 @@ type AttachmentViewProps = {
 }
 
 const AttachmentView = ({ attachment, remove, extStatusShow = false }: AttachmentViewProps): JSX.Element => {
+
+  const { t } = useTranslation();
 
   return <div style={{ position: 'relative' }}>
     <Space
@@ -31,7 +34,7 @@ const AttachmentView = ({ attachment, remove, extStatusShow = false }: Attachmen
       >
         <Ellipsis content={attachment.fileName} />
         {extStatusShow && <Ellipsis
-          content={`AttachmentExtStatus.${invert(AttachmentExtStatus)[attachment.attachmentExtStatus]}`}
+          content={t(`AttachmentExtStatus.${invert(AttachmentExtStatus)[attachment.attachmentExtStatus]}`)}
           style={{
             color: '#1890FF',
             fontSize: 14

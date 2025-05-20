@@ -11,6 +11,7 @@ import { DocumentServiceClient } from "../../../api";
 import { ADocument, DocRelationType, DocumentRelation, FilterCondition, FilterFieldType, FilterItem, KazFilter } from "../../../api/data";
 import { useDebounce } from "../../../hooks";
 import DocRelationView from "../../DocRelationView";
+import { useTranslation } from "react-i18next";
 
 type DocRelationsProps = {
   label?: string,
@@ -37,6 +38,8 @@ const DocRelations = ({ label, name, control, formItemProps = {}, disabled = fal
   const [visible, setVisible] = useState<boolean>(false);
   const [strSearch, setStrSearch] = useState<string>('');
   const debouncedSearch = useDebounce(strSearch, 500);
+
+  const { t } = useTranslation();
 
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['getTinyDocsByFilterNoPermission', debouncedSearch],
@@ -89,16 +92,16 @@ const DocRelations = ({ label, name, control, formItemProps = {}, disabled = fal
       actions: [
         ...['PARENT', 'CHILD', 'OTHER'].map((type: string) => ({
           key: type,
-          text: `DocRelationType.${type}`,
+          text: t(`DocRelationType.${type}`),
           disabled: doc.relationType === DocRelationType[type]
         })),
         {
           key: 'editComment',
-          text: 'Коментар'
+          text: t('MobileCreateDoc.comment')
         },
         {
           key: 'delete',
-          text: 'Видалити',
+          text: t('MobileCreateDoc.remove'),
           danger: true
         }
       ],
@@ -114,10 +117,10 @@ const DocRelations = ({ label, name, control, formItemProps = {}, disabled = fal
             case 'editComment':
               let comment = '';
               Dialog.confirm({
-                title: `Коментар до документу "${doc.doc2SystemNumber}"?`,
+                title: t('MobileCreateDoc.dialogComentToDoc', { doc: doc.doc2SystemNumber }),
                 content: <Input
                   defaultValue={doc.resolution || ''}
-                  placeholder={'Введіть коментар'}
+                  placeholder={t('MobileCreateDoc.enterComment')}
                   onChange={e => {
                     comment = e;
                   }}
@@ -131,16 +134,16 @@ const DocRelations = ({ label, name, control, formItemProps = {}, disabled = fal
                 onCancel: () => {
                   comment = '';
                 },
-                confirmText: 'Зберегти',
-                cancelText: 'Відмінити'
+                confirmText: t('MobileCreateDoc.save'),
+                cancelText: t('MobileCreateDoc.cancel')
               });
               break;
             case 'delete':
               Dialog.confirm({
-                title: `Видалити зв'язаний документ "${doc.doc2SystemNumber}"?`,
+                title: t('MobileCreateDoc.dialogRemoveDoc', { doc: doc.doc2SystemNumber }),
                 onConfirm: () => remove(index),
-                confirmText: 'Видалити',
-                cancelText: 'Відмінити'
+                confirmText: t('MobileCreateDoc.remove'),
+                cancelText: t('MobileCreateDoc.cancel')
               });
               break;
             default:
@@ -185,7 +188,7 @@ const DocRelations = ({ label, name, control, formItemProps = {}, disabled = fal
         {!disabled && <Button block
           disabled={disabled}
           onClick={() => setVisible(true)}
-        >Додати документ</Button>}
+        >{t('MobileCreateDoc.addDoc')}</Button>}
       </div>
     </Wrapper>
     <Popup
@@ -200,7 +203,8 @@ const DocRelations = ({ label, name, control, formItemProps = {}, disabled = fal
       <ListStyled
         header={<>
           <SearchBar
-            placeholder='Пошук' style={{ width: '100%' }}
+            placeholder={t('MobileCreateDoc.find')}
+            style={{ width: '100%' }}
             value={strSearch}
             onChange={(value) => setStrSearch(value)}
           />
@@ -239,14 +243,14 @@ const DocRelations = ({ label, name, control, formItemProps = {}, disabled = fal
         {strSearch === '' && <ItemFullStyled>
           <ErrorBlock
             status='default'
-            title={'Введіть номер документу'}
+            title={t('MobileCreateDoc.enterNumberDoc')}
             description={null}
           />
         </ItemFullStyled>}
         {isLoading === false && isFetching === false && size(data) === 0 && <ItemFullStyled>
           <ErrorBlock
             status='empty'
-            title={'Нічого не знайдено'}
+            title={t('MobileCreateDoc.emptyData')}
             description={null}
           />
         </ItemFullStyled>}

@@ -8,6 +8,7 @@ import { debounce, map, reduce, size, uniqBy, values } from 'lodash';
 import { ContentItem } from '../../../api/data';
 import ContentItemTemplate from '../../Form/ContentItemTemplate';
 import { ContentItemExecScript } from '../../../utils/document';
+import { useTranslation } from 'react-i18next';
 
 
 const AddEditRowTableModal = ({ id, params: { cb, items = [] } }: Omit<ModalAddEditRowTable, 'key'>) => {
@@ -23,6 +24,8 @@ const AddEditRowTableModal = ({ id, params: { cb, items = [] } }: Omit<ModalAddE
     },
     shouldUnregister: false
   });
+
+  const { t } = useTranslation();
 
   const onClose = useCallback(() => {
     closeModalById(id);
@@ -105,7 +108,7 @@ const AddEditRowTableModal = ({ id, params: { cb, items = [] } }: Omit<ModalAddE
         fontSize: 16,
         fontWeight: 600,
         lineHeight: '24px'
-      }}>Додавання/редагування рядка</div>}
+      }}>{t('MobileCreateDoc.addEditRow')}</div>}
       content={
         <Form
           name="add_edit_row"
@@ -135,8 +138,8 @@ const AddEditRowTableModal = ({ id, params: { cb, items = [] } }: Omit<ModalAddE
         </Form>
       }
       actions={[
-        { key: 'success', text: 'Готово', primary: true, onClick: handleSubmit(onSuccess) },
-        { key: 'cancel', text: 'Відмінити', onClick: onClose }
+        { key: 'success', text: t('MobileCreateDoc.ready'), primary: true, onClick: handleSubmit(onSuccess) },
+        { key: 'cancel', text: t('MobileCreateDoc.cancel'), onClick: onClose }
       ]}
       showCloseButton={true}
       destroyOnClose={true}

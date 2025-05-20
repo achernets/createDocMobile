@@ -12,6 +12,7 @@ import { HandBookServiceClient } from "../../../api";
 import { FilterCondition, FilterFieldType, FilterItem, HandBook, HBColumnType, HBRow, KazFilter } from "../../../api/data";
 import { getFilterHBValueSearchWord, getHBValue } from "../../../utils";
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 type HandBookItemProps = {
   label?: string,
@@ -36,6 +37,8 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
   const debouncedSearch = useDebounce(strSearch, 500);
   const [dateSearch] = useState<string>('');
   const debouncedDateSearch = useDebounce(dateSearch, 500);
+
+  const { t } = useTranslation();
 
   const columnId = useMemo(() => {
     return value?.column?.id;
@@ -134,7 +137,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
     >
       <Input
         readOnly
-        placeholder={'Обрати'}
+        placeholder={t('MobileCreateDoc.select')}
         value={textInput}
       />
     </Wrapper>
@@ -150,7 +153,8 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
       <ListStyled
         header={<>
           <SearchBar
-            placeholder='Пошук' style={{ width: '100%' }}
+            placeholder={t('MobileCreateDoc.find')}
+            style={{ width: '100%' }}
             value={strSearch}
             onChange={(value) => setStrSearch(value)}
           />
@@ -181,7 +185,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
         {isLoading === false && isFetching === false && size(data?.flatData) === 0 && <ItemFullStyled>
           <ErrorBlock
             status='empty'
-            title={'Нічого не знайдено'}
+            title={t('MobileCreateDoc.emptyData')}
             description={null}
           />
         </ItemFullStyled>}

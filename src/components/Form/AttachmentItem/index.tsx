@@ -6,6 +6,7 @@ import AttachmentView from "../../AttachmentView";
 import { createAttachmetFromFile } from "../../../utils";
 import { AttachmentExtStatus } from "../../../api/data";
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 type AttachmentItemProps = {
   label?: string,
@@ -23,6 +24,8 @@ const AttachmentItem = ({ label, name, control, defaultValue = null, formItemPro
     defaultValue
   });
 
+  const { t } = useTranslation();
+
   const inputRef = useRef(null);
 
   const handleFileChange = useCallback(async (event) => {
@@ -33,7 +36,7 @@ const AttachmentItem = ({ label, name, control, defaultValue = null, formItemPro
         toastHandler?.close();
         toastHandler = Toast.show({
           icon: 'loading',
-          content: `Завантаження: ${i + 1}/${files.length}`,
+          content: t('MobileCreateDoc.loadingAttachment', { current: i + 1, all: files.length }),
           duration: 0,
         });
         const att = await createAttachmetFromFile(files[i], AttachmentExtStatus.CONTENT);
@@ -45,7 +48,7 @@ const AttachmentItem = ({ label, name, control, defaultValue = null, formItemPro
     toastHandler?.close();
     Toast.show({
       icon: 'success',
-      content: 'Завершено!',
+      content: t('MobileCreateDoc.completed'),
       duration: 2000
     });
   }, [onChange]);
@@ -65,7 +68,7 @@ const AttachmentItem = ({ label, name, control, defaultValue = null, formItemPro
       <Button block
         onClick={() => inputRef.current.click()}
       >
-        Додати вкладення
+        {t('MobileCreateDoc.addAttachment')}
       </Button>
       <input
         type="file"

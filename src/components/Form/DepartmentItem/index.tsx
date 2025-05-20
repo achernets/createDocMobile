@@ -11,6 +11,7 @@ import { useShallow } from "zustand/shallow";
 import { DepartmentServiceClient } from "../../../api";
 import { Department, FilterCondition, FilterFieldType, FilterItem, KazFilter } from "../../../api/data";
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 type DepartmentItemProps = {
   label?: string,
@@ -32,6 +33,8 @@ const DepartmentItem = ({ label, name, control, defaultValue = null, formItemPro
   const [visible, setVisible] = useState<boolean>(false);
   const [strSearch, setStrSearch] = useState<string>('');
   const debouncedSearch = useDebounce(strSearch, 500);
+
+  const { t } = useTranslation();
 
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: ['getAllOrgStructure', 'contentItem', debouncedSearch, token, itemKey],
@@ -101,7 +104,7 @@ const DepartmentItem = ({ label, name, control, defaultValue = null, formItemPro
     >
       <Input
         readOnly
-        placeholder={'Обрати'}
+        placeholder={t('MobileCreateDoc.select')}
         value={get(value, 'name', '')}
       />
 
@@ -118,7 +121,8 @@ const DepartmentItem = ({ label, name, control, defaultValue = null, formItemPro
       <ListStyled
         header={<>
           <SearchBar
-            placeholder='Пошук' style={{ width: '100%' }}
+            placeholder={t('MobileCreateDoc.find')}
+            style={{ width: '100%' }}
             value={strSearch}
             onChange={(value) => setStrSearch(value)}
           />
@@ -144,7 +148,7 @@ const DepartmentItem = ({ label, name, control, defaultValue = null, formItemPro
         {isLoading === false && isFetching === false && size(data?.flatData) === 0 && <ItemFullStyled>
           <ErrorBlock
             status='empty'
-            title={'Нічого не знайдено'}
+            title={t('MobileCreateDoc.emptyData')}
             description={null}
           />
         </ItemFullStyled>}

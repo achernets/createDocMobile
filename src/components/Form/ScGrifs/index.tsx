@@ -10,6 +10,7 @@ import { useShallow } from "zustand/shallow";
 import { SecurityClassificationServiceClient } from "../../../api";
 import { KazFilter, SecurityClassification } from "../../../api/data";
 import { searchFilter } from "../../../utils";
+import { useTranslation } from "react-i18next";
 
 type ScGrifsProps = {
   label?: string,
@@ -33,6 +34,8 @@ const ScGrifs = ({ label, name, control, defaultValue = null, formItemProps = {}
   })));
   const [visible, setVisible] = useState<boolean>(false);
   const [strSearch, setStrSearch] = useState<string>('');
+
+  const { t } = useTranslation();
 
   const { data, isLoading, isFetching } = useQuery({
     queryKey: ['getAllSecurityClassificationsByUserOrGroup', strSearch, clientInfo?.id],
@@ -84,7 +87,7 @@ const ScGrifs = ({ label, name, control, defaultValue = null, formItemProps = {}
     >
       <Input
         readOnly
-        placeholder={'Обрати'}
+        placeholder={t('MobileCreateDoc.select')}
         value={join(map(value, itm => itm.gname), ', ')}
       />
     </Wrapper>
@@ -100,7 +103,8 @@ const ScGrifs = ({ label, name, control, defaultValue = null, formItemProps = {}
       <ListStyled
         header={<>
           <SearchBar
-            placeholder='Пошук' style={{ width: '100%' }}
+            placeholder={t('MobileCreateDoc.find')}
+            style={{ width: '100%' }}
             value={strSearch}
             onChange={(value) => setStrSearch(value)}
           />
@@ -130,7 +134,7 @@ const ScGrifs = ({ label, name, control, defaultValue = null, formItemProps = {}
         {isLoading === false && isFetching === false && size(data) === 0 && <ItemFullStyled>
           <ErrorBlock
             status='empty'
-            title={'Нічого не знайдено'}
+            title={t('MobileCreateDoc.emptyData')}
             description={null}
           />
         </ItemFullStyled>}

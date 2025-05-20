@@ -6,6 +6,7 @@ import Int64 from "node-int64";
 import { parseDate } from "../../../utils";
 import dayjs from "dayjs";
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 type DatePickerFProps = {
   label?: string,
@@ -35,6 +36,8 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, dis
   });
   const [visible, setVisible] = useState<boolean>(false);
   const [visibleTimePicker, setVisibleTimePicker] = useState<boolean>(false);
+
+  const { t } = useTranslation();
 
   const val = useMemo(() => {
     const v = parseDate(value);
@@ -74,7 +77,7 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, dis
         >
           <Input
             readOnly
-            placeholder={'Обрати дати'}
+            placeholder={t('MobileCreateDoc.selectDate')}
             value={textInput}
           />
           <Button fill={'none'}>
@@ -92,7 +95,7 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, dis
         >
           <Input
             readOnly
-            placeholder={'Обрати час'}
+            placeholder={t('MobileCreateDoc.selectTime')}
             value={timeValue.join(":")}
             disabled={textInput === undefined}
           />
@@ -130,10 +133,11 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, dis
       onConfirm={(values) => {
         onChange(dayjs(val).set('hours', Number(values[0])).set('minutes', Number(values[1])).set('seconds', 0).valueOf())
       }}
-      title="Оберіть час"
+      title={t('MobileCreateDoc.selectTime')}
+      confirmText={t('MobileCreateDoc.confirmText')}
+      cancelText={t('MobileCreateDoc.cancel')}
     />
-  </>
-
+  </>;
 };
 
 

@@ -3,6 +3,7 @@ import { JSX, useMemo } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 type InputFProps = {
   label?: string,
@@ -18,6 +19,8 @@ const Input = ({ label, name, control, defaultValue, formItemProps = {}, ...prop
     control,
     defaultValue
   });
+
+  const { t } = useTranslation();
 
   const val = useMemo(() => {
     if (!value || value === null) return '';
@@ -36,7 +39,7 @@ const Input = ({ label, name, control, defaultValue, formItemProps = {}, ...prop
     <AInput
       {...field}
       value={val}
-      placeholder="Ввести"
+      placeholder={t('MobileCreateDoc.enterText')}
       {...props}
     />
   </Wrapper>

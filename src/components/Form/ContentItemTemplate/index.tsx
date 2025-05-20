@@ -46,7 +46,6 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
           label={item.oName}
           name={`${pathAllItems}.${item.key}.value.strValue`}
           control={control}
-          placeholder="Ввести"
           readOnly={readOnlyItem}
           formItemProps={{
             required: requiredItem
@@ -59,7 +58,6 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
           control={control}
           showCount
           maxLength={2000}
-          placeholder="Ввести"
           readOnly={readOnlyItem}
           formItemProps={{
             required: requiredItem
@@ -149,7 +147,6 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
           label={item.oName}
           name={`${pathAllItems}.${item.key}.value.strValue`}
           control={control}
-          placeholder="Ввести"
           readOnly={readOnlyItem}
           formItemProps={{
             required: requiredItem

@@ -7,6 +7,7 @@ import { CheckOutline } from 'antd-mobile-icons';
 import { searchFilter } from '../../../utils';
 import { FilterCondition, FilterFieldType, FilterItem, KazFilter } from '../../../api/data/';
 import { useDebounce } from '../../../hooks';
+import { useTranslation } from 'react-i18next';
 
 type ActionSheetAsyncSelectProps = {
   label?: string,
@@ -28,6 +29,8 @@ const ActionSheetAsyncSelect = ({ label, optionLabel = 'id', disabled = false,
   const [strSearch, setStrSearch] = useState<string>('');
   const [localValue, setLocalValue] = useState<any>(value);
   const debouncedSearch = useDebounce(strSearch, 500);
+
+  const { t } = useTranslation();
 
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage } = useInfiniteQuery({
     queryKey: fieldSearch ? [...queryKey, debouncedSearch] : queryKey,
@@ -99,7 +102,7 @@ const ActionSheetAsyncSelect = ({ label, optionLabel = 'id', disabled = false,
     >
       <Input
         readOnly
-        placeholder={'Обрати'}
+        placeholder={t('MobileCreateDoc.select')}
         value={textInput}
       />
     </Form.Item>
@@ -116,7 +119,8 @@ const ActionSheetAsyncSelect = ({ label, optionLabel = 'id', disabled = false,
       <ListStyled
         header={<>
           <SearchBar
-            placeholder='Пошук' style={{ width: '100%' }}
+            placeholder={t('MobileCreateDoc.find')}
+            style={{ width: '100%' }}
             value={strSearch}
             onChange={(value) => setStrSearch(value)}
           />
@@ -141,7 +145,7 @@ const ActionSheetAsyncSelect = ({ label, optionLabel = 'id', disabled = false,
         {isLoading === false && isFetching === false && size(filterdData) === 0 && <ItemFullStyled>
           <ErrorBlock
             status='empty'
-            title={'Нічого не знайдено'}
+            title={t('MobileCreateDoc.emptyData')}
             description={null}
           />
         </ItemFullStyled>}

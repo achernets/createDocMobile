@@ -8,6 +8,7 @@ import { AddCircleOutline, DeleteOutline, EditSOutline } from 'antd-mobile-icons
 import { ContentItem, ContentTableDefinition } from '../../../api/data';
 import { useShallow } from 'zustand/shallow';
 import { getItemValue } from '../../../utils/document';
+import { useTranslation } from 'react-i18next';
 
 const cellStyle: React.CSSProperties = {
   minWidth: 50,
@@ -34,6 +35,8 @@ const TableEditModal = ({ id, params: { cb, contentItem = new ContentItem({
 
   const [items, setItems] = useState<ContentItem[]>(contentItem.childItems || []);
   const [removeItems, setRemoveItems] = useState<string[]>(contentItem.tableChildContentsToRemove || []);
+
+  const { t } = useTranslation();
 
   const onClose = useCallback(() => {
     closeModalById(id);
@@ -162,8 +165,8 @@ const TableEditModal = ({ id, params: { cb, contentItem = new ContentItem({
         </div>
       }
       actions={[
-        { key: 'success', text: 'Готово', primary: true, onClick: onSuccess },
-        { key: 'cancel', text: 'Відмінити', onClick: onClose }
+        { key: 'success', text: t('MobileCreateDoc.ready'), primary: true, onClick: onSuccess },
+        { key: 'cancel', text: t('MobileCreateDoc.cancel'), onClick: onClose }
       ]}
       showCloseButton={true}
       destroyOnClose={true}

@@ -3,6 +3,7 @@ import { JSX } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
 import classNames from "classnames";
+import { useTranslation } from "react-i18next";
 
 type TextAreaFProps = {
   label?: string,
@@ -18,6 +19,9 @@ const TextArea = ({ label, name, control, defaultValue, formItemProps = {}, ...p
     control,
     defaultValue
   });
+
+  const { t } = useTranslation();
+
   return <Wrapper
     label={<>
       {label}
@@ -28,6 +32,7 @@ const TextArea = ({ label, name, control, defaultValue, formItemProps = {}, ...p
   >
     <ATextArea
       {...field}
+      placeholder={t('MobileCreateDoc.enterText')}
       {...props}
     />
   </Wrapper>

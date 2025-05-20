@@ -11,6 +11,7 @@ import { compact, filter, find, includes, size } from "lodash";
 import { useDebounce } from "../../hooks";
 import { DocumentPatternServiceClient, UserManagementServiceClient } from "../../api";
 import UserView from "../UserView";
+import { useTranslation } from "react-i18next";
 
 const TYPES_FILTERS = ['users', 'groups', 'scs', 'roles'] as const;
 
@@ -49,6 +50,8 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
   const [selectedUsers, setSelectedUsers] = useState<UserOrGroup[]>(selected);
 
   const debouncedSearch = useDebounce(strSearch, 500);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (visible) {
@@ -150,15 +153,15 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
   const typesMenu = useMemo(() => {
     return compact([
       includes(types, 'users') ? {
-        label: 'По користувачам',
+        label: t('MobileCreateDoc.findByUsers'),
         value: 'users'
       } : null,
       includes(types, 'groups') ? {
-        label: 'По групам',
+        label: t('MobileCreateDoc.findByUsers'),
         value: 'groups'
       } : null,
       includes(types, 'roles') ? {
-        label: 'По процесним ролям',
+        label: t('MobileCreateDoc.findByProcessRoles'),
         value: 'roles'
       } : null
       // {
@@ -202,7 +205,7 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
         lineHeight: '24px',
         fontWeight: 600
       }}
-        content="Редагувати користувачів/групи"
+        content={t('MobileCreateDoc.selectUserOtGroup')}
       />
       <Button style={{
         gridColumn: 3,
@@ -217,7 +220,7 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
     </div>
     <TabsStyled>
       <Tabs.Tab
-        title='Додати'
+        title={t('MobileCreateDoc.add')}
         key={'info'}
         destroyOnClose={true}
       >
@@ -225,13 +228,13 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
           padding: '0px 16px'
         }}>
           {size(typesMenu) > 1 && <ActionSheetSelect
-            label={'Фільтр'}
+            label={t('MobileCreateDoc.filter')}
             value={filterType}
             options={typesMenu}
             onChange={(val) => setFilterType(val)}
           />}
           {size(accounts) > 1 && <ActionSheetSelect
-            label={'Аккаунт'}
+            label={t('MobileCreateDoc.account')}
             value={account?.id || null}
             options={accounts.map(item => ({
               label: item.accountName,
@@ -240,10 +243,10 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
             onChange={(val) => setAccount(find(accounts, { id: val }) || null)}
           />}
           <Form.Item
-            label={'Назва'}
+            label={t('MobileCreateDoc.name')}
           >
             <Input
-              placeholder={'Введіть назву'}
+              placeholder={t('MobileCreateDoc.enterName')}
               value={strSearch}
               onChange={(val) => setStrSearch(val)}
             />
@@ -260,7 +263,7 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
                 if (!isSelected && selectedUsers.length + 1 > maxSelected && maxSelected > 0) {
                   Toast.show({
                     icon: 'fail',
-                    content: `Можна додати лише ${maxSelected} користувачів/груп`
+                    content: t('MobileCreateDoc.errorMaxSelectedUsers', { count: maxSelected })
                   });
                 } else {
                   setSelectedUsers(prev => isSelected ? prev.filter(itm => itm?.id !== item?.id) : [...prev, item])
@@ -274,7 +277,7 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
         </List>
       </Tabs.Tab>
       <Tabs.Tab
-        title='Видалити'
+        title={t('MobileCreateDoc.remove')}
         key={'remove'}
         destroyOnClose={true}
       >
@@ -304,14 +307,14 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
         size='large'
         onClick={onHideHandler}
       >
-        Відмінити
+        {t('MobileCreateDoc.cancel')}
       </Button>
       <Button style={{ minWidth: 100 }}
         color='primary'
         size='large'
         onClick={onSubmitHandler}
       >
-        Готово
+        {t('MobileCreateDoc.ready')}
       </Button>
     </Space>
   </Popup>
