@@ -9,6 +9,7 @@ import { ADocument, AttachmentEditMode, AttachmentProcessingType, AttCreateInfo,
 import { compact, filter, find, get, map, orderBy, pick, reduce, reverse, size, sortBy } from 'lodash';
 import { FormStyled } from './styled';
 import { useTranslation } from 'react-i18next';
+import { sendMessageMobile } from '../../utils';
 
 const Step1 = (): JSX.Element => {
   const { token, clientInfo, account, groupPattern, pattern } = useAppStore(useShallow((state) => ({
@@ -99,7 +100,9 @@ const Step1 = (): JSX.Element => {
         justify={'between'}
         block
       >
-        <Button style={{ minWidth: 100 }} size='large'>
+        <Button style={{ minWidth: 100 }} size='large'
+          onClick={() => sendMessageMobile('close', null)}
+        >
           {t('MobileCreateDoc.cancel')}
         </Button>
         <Button style={{ minWidth: 100 }}
