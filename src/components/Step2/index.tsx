@@ -9,7 +9,7 @@ import UploadAttAndPatternTemplate from "../Form/UploadAttAndPatternTemplate";
 import Holder from "../Form/Holder";
 import TabInfo from "./components/TabInfo";
 import Stages from "./components/Stages";
-import { map, reduce, size, debounce, uniqBy, findIndex, filter, get, concat, find, compact } from "lodash";
+import { map, reduce, size, debounce, uniqBy, findIndex, filter, get, concat, find } from "lodash";
 import { ContentItemExecScript, contentItemSchema } from "../../utils/document";
 import { DocumentServiceClient, FilledDocumentPatternServiceClient } from "../../api";
 import { getLetterJiraTime, getNumberJiraTime, parseDate, sendMessageMobile } from "../../utils";
