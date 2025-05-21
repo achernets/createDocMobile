@@ -135,7 +135,7 @@ service AuthService {
    * Чтобы воспользоваться безопасной передачей пароля, нужно вызвать метод getInfo(), в ответе взять ключ SERVER_PUBLIC_RSA_KEY,
    * который использовать для шифрования пароля пользователя.
  **/
-  AuthSession authenticate(1: string login; 2: string password, 3: Device device, 4: string ip, 5: bool findOpened, 6: string langCode, 7: i32 cacheVersion, 8: string frontThriftVersion) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  AuthSession authenticate(1: string login; 2: string password, 3: Device device, 4: string ip, 5: bool findOpened, 6: string langCode, 7: i32 cacheVersion) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Авторизация в системе */
   AuthSession authenticateGuest(1: common.ID guestId, 2: string password, 3: string ip, 4: string langCode) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Расширенная авторизация */

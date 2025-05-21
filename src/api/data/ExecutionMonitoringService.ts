@@ -11,10 +11,6 @@ import * as ObserverDocument from "./ObserverDocument";
 import * as ObserverCard from "./ObserverCard";
 import * as ObserverCardStatus from "./ObserverCardStatus";
 import * as ObserverCardComment from "./ObserverCardComment";
-import * as MailingUser from "./MailingUser";
-import * as MailDocPatGroup from "./MailDocPatGroup";
-import * as MailingPeriods from "./MailingPeriods";
-import * as MailSettings from "./MailSettings";
 export interface IUpdateObservedUsersArgsArgs {
     token: string;
     userId: string;
@@ -1631,720 +1627,6 @@ export class ExtendCardDeadlineArgs {
         }
     }
 }
-export interface IGetMailingUsersArgsArgs {
-    token: string;
-    filter: __ROOT_NAMESPACE__.KazFilter;
-}
-export class GetMailingUsersArgs {
-    public token: string;
-    public filter: __ROOT_NAMESPACE__.KazFilter;
-    constructor(args: IGetMailingUsersArgsArgs) {
-        if (args != null && args.token != null) {
-            this.token = args.token;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[token] is unset!");
-        }
-        if (args != null && args.filter != null) {
-            this.filter = args.filter;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[filter] is unset!");
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("GetMailingUsersArgs");
-        if (this.token != null) {
-            output.writeFieldBegin("token", thrift.Thrift.Type.STRING, 1);
-            output.writeString(this.token);
-            output.writeFieldEnd();
-        }
-        if (this.filter != null) {
-            output.writeFieldBegin("filter", thrift.Thrift.Type.STRUCT, 2);
-            this.filter.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): GetMailingUsersArgs {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_52: string = input.readString();
-                        _args.token = value_52;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_53: __ROOT_NAMESPACE__.KazFilter = __ROOT_NAMESPACE__.KazFilter.read(input);
-                        _args.filter = value_53;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        if (_args.token !== undefined && _args.filter !== undefined) {
-            return new GetMailingUsersArgs(_args);
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Unable to read GetMailingUsersArgs from input");
-        }
-    }
-}
-export interface IChangeMailingUserArgsArgs {
-    token: string;
-    toAdd: Array<MailingUser.MailingUser>;
-    toRemove: Array<string>;
-}
-export class ChangeMailingUserArgs {
-    public token: string;
-    public toAdd: Array<MailingUser.MailingUser>;
-    public toRemove: Array<string>;
-    constructor(args: IChangeMailingUserArgsArgs) {
-        if (args != null && args.token != null) {
-            this.token = args.token;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[token] is unset!");
-        }
-        if (args != null && args.toAdd != null) {
-            this.toAdd = args.toAdd;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[toAdd] is unset!");
-        }
-        if (args != null && args.toRemove != null) {
-            this.toRemove = args.toRemove;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[toRemove] is unset!");
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("ChangeMailingUserArgs");
-        if (this.token != null) {
-            output.writeFieldBegin("token", thrift.Thrift.Type.STRING, 1);
-            output.writeString(this.token);
-            output.writeFieldEnd();
-        }
-        if (this.toAdd != null) {
-            output.writeFieldBegin("toAdd", thrift.Thrift.Type.LIST, 2);
-            output.writeListBegin(thrift.Thrift.Type.STRUCT, this.toAdd.length);
-            this.toAdd.forEach((value_54: MailingUser.MailingUser): void => {
-                value_54.write(output);
-            });
-            output.writeListEnd();
-            output.writeFieldEnd();
-        }
-        if (this.toRemove != null) {
-            output.writeFieldBegin("toRemove", thrift.Thrift.Type.LIST, 3);
-            output.writeListBegin(thrift.Thrift.Type.STRING, this.toRemove.length);
-            this.toRemove.forEach((value_55: string): void => {
-                output.writeString(value_55);
-            });
-            output.writeListEnd();
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): ChangeMailingUserArgs {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_56: string = input.readString();
-                        _args.token = value_56;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_57: Array<MailingUser.MailingUser> = new Array<MailingUser.MailingUser>();
-                        const metadata_3: thrift.TList = input.readListBegin();
-                        const size_3: number = metadata_3.size;
-                        for (let i_3: number = 0; i_3 < size_3; i_3++) {
-                            const value_58: MailingUser.MailingUser = MailingUser.MailingUser.read(input);
-                            value_57.push(value_58);
-                        }
-                        input.readListEnd();
-                        _args.toAdd = value_57;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 3:
-                    if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_59: Array<string> = new Array<string>();
-                        const metadata_4: thrift.TList = input.readListBegin();
-                        const size_4: number = metadata_4.size;
-                        for (let i_4: number = 0; i_4 < size_4; i_4++) {
-                            const value_60: string = input.readString();
-                            value_59.push(value_60);
-                        }
-                        input.readListEnd();
-                        _args.toRemove = value_59;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        if (_args.token !== undefined && _args.toAdd !== undefined && _args.toRemove !== undefined) {
-            return new ChangeMailingUserArgs(_args);
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Unable to read ChangeMailingUserArgs from input");
-        }
-    }
-}
-export interface IGetMailDocGroupsArgsArgs {
-    token: string;
-    filter: __ROOT_NAMESPACE__.KazFilter;
-}
-export class GetMailDocGroupsArgs {
-    public token: string;
-    public filter: __ROOT_NAMESPACE__.KazFilter;
-    constructor(args: IGetMailDocGroupsArgsArgs) {
-        if (args != null && args.token != null) {
-            this.token = args.token;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[token] is unset!");
-        }
-        if (args != null && args.filter != null) {
-            this.filter = args.filter;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[filter] is unset!");
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("GetMailDocGroupsArgs");
-        if (this.token != null) {
-            output.writeFieldBegin("token", thrift.Thrift.Type.STRING, 1);
-            output.writeString(this.token);
-            output.writeFieldEnd();
-        }
-        if (this.filter != null) {
-            output.writeFieldBegin("filter", thrift.Thrift.Type.STRUCT, 2);
-            this.filter.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): GetMailDocGroupsArgs {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_61: string = input.readString();
-                        _args.token = value_61;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_62: __ROOT_NAMESPACE__.KazFilter = __ROOT_NAMESPACE__.KazFilter.read(input);
-                        _args.filter = value_62;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        if (_args.token !== undefined && _args.filter !== undefined) {
-            return new GetMailDocGroupsArgs(_args);
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Unable to read GetMailDocGroupsArgs from input");
-        }
-    }
-}
-export interface IChangeMailDocGroupArgsArgs {
-    token: string;
-    docPatGroups: Array<MailDocPatGroup.MailDocPatGroup>;
-    toRemove: Array<MailDocPatGroup.MailDocPatGroup>;
-}
-export class ChangeMailDocGroupArgs {
-    public token: string;
-    public docPatGroups: Array<MailDocPatGroup.MailDocPatGroup>;
-    public toRemove: Array<MailDocPatGroup.MailDocPatGroup>;
-    constructor(args: IChangeMailDocGroupArgsArgs) {
-        if (args != null && args.token != null) {
-            this.token = args.token;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[token] is unset!");
-        }
-        if (args != null && args.docPatGroups != null) {
-            this.docPatGroups = args.docPatGroups;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[docPatGroups] is unset!");
-        }
-        if (args != null && args.toRemove != null) {
-            this.toRemove = args.toRemove;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[toRemove] is unset!");
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("ChangeMailDocGroupArgs");
-        if (this.token != null) {
-            output.writeFieldBegin("token", thrift.Thrift.Type.STRING, 1);
-            output.writeString(this.token);
-            output.writeFieldEnd();
-        }
-        if (this.docPatGroups != null) {
-            output.writeFieldBegin("docPatGroups", thrift.Thrift.Type.LIST, 2);
-            output.writeListBegin(thrift.Thrift.Type.STRUCT, this.docPatGroups.length);
-            this.docPatGroups.forEach((value_63: MailDocPatGroup.MailDocPatGroup): void => {
-                value_63.write(output);
-            });
-            output.writeListEnd();
-            output.writeFieldEnd();
-        }
-        if (this.toRemove != null) {
-            output.writeFieldBegin("toRemove", thrift.Thrift.Type.LIST, 3);
-            output.writeListBegin(thrift.Thrift.Type.STRUCT, this.toRemove.length);
-            this.toRemove.forEach((value_64: MailDocPatGroup.MailDocPatGroup): void => {
-                value_64.write(output);
-            });
-            output.writeListEnd();
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): ChangeMailDocGroupArgs {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_65: string = input.readString();
-                        _args.token = value_65;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_66: Array<MailDocPatGroup.MailDocPatGroup> = new Array<MailDocPatGroup.MailDocPatGroup>();
-                        const metadata_5: thrift.TList = input.readListBegin();
-                        const size_5: number = metadata_5.size;
-                        for (let i_5: number = 0; i_5 < size_5; i_5++) {
-                            const value_67: MailDocPatGroup.MailDocPatGroup = MailDocPatGroup.MailDocPatGroup.read(input);
-                            value_66.push(value_67);
-                        }
-                        input.readListEnd();
-                        _args.docPatGroups = value_66;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 3:
-                    if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_68: Array<MailDocPatGroup.MailDocPatGroup> = new Array<MailDocPatGroup.MailDocPatGroup>();
-                        const metadata_6: thrift.TList = input.readListBegin();
-                        const size_6: number = metadata_6.size;
-                        for (let i_6: number = 0; i_6 < size_6; i_6++) {
-                            const value_69: MailDocPatGroup.MailDocPatGroup = MailDocPatGroup.MailDocPatGroup.read(input);
-                            value_68.push(value_69);
-                        }
-                        input.readListEnd();
-                        _args.toRemove = value_68;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        if (_args.token !== undefined && _args.docPatGroups !== undefined && _args.toRemove !== undefined) {
-            return new ChangeMailDocGroupArgs(_args);
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Unable to read ChangeMailDocGroupArgs from input");
-        }
-    }
-}
-export interface IGetMailingPeriodArgsArgs {
-    token: string;
-}
-export class GetMailingPeriodArgs {
-    public token: string;
-    constructor(args: IGetMailingPeriodArgsArgs) {
-        if (args != null && args.token != null) {
-            this.token = args.token;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[token] is unset!");
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("GetMailingPeriodArgs");
-        if (this.token != null) {
-            output.writeFieldBegin("token", thrift.Thrift.Type.STRING, 1);
-            output.writeString(this.token);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): GetMailingPeriodArgs {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_70: string = input.readString();
-                        _args.token = value_70;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        if (_args.token !== undefined) {
-            return new GetMailingPeriodArgs(_args);
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Unable to read GetMailingPeriodArgs from input");
-        }
-    }
-}
-export interface ISetMailingPeriodArgsArgs {
-    token: string;
-    mailingPeriods: MailingPeriods.MailingPeriods;
-}
-export class SetMailingPeriodArgs {
-    public token: string;
-    public mailingPeriods: MailingPeriods.MailingPeriods;
-    constructor(args: ISetMailingPeriodArgsArgs) {
-        if (args != null && args.token != null) {
-            this.token = args.token;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[token] is unset!");
-        }
-        if (args != null && args.mailingPeriods != null) {
-            this.mailingPeriods = args.mailingPeriods;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[mailingPeriods] is unset!");
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("SetMailingPeriodArgs");
-        if (this.token != null) {
-            output.writeFieldBegin("token", thrift.Thrift.Type.STRING, 1);
-            output.writeString(this.token);
-            output.writeFieldEnd();
-        }
-        if (this.mailingPeriods != null) {
-            output.writeFieldBegin("mailingPeriods", thrift.Thrift.Type.STRUCT, 2);
-            this.mailingPeriods.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): SetMailingPeriodArgs {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_71: string = input.readString();
-                        _args.token = value_71;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_72: MailingPeriods.MailingPeriods = MailingPeriods.MailingPeriods.read(input);
-                        _args.mailingPeriods = value_72;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        if (_args.token !== undefined && _args.mailingPeriods !== undefined) {
-            return new SetMailingPeriodArgs(_args);
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Unable to read SetMailingPeriodArgs from input");
-        }
-    }
-}
-export interface IGetMailSettingsArgsArgs {
-    token: string;
-    userId: string;
-}
-export class GetMailSettingsArgs {
-    public token: string;
-    public userId: string;
-    constructor(args: IGetMailSettingsArgsArgs) {
-        if (args != null && args.token != null) {
-            this.token = args.token;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[token] is unset!");
-        }
-        if (args != null && args.userId != null) {
-            this.userId = args.userId;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[userId] is unset!");
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("GetMailSettingsArgs");
-        if (this.token != null) {
-            output.writeFieldBegin("token", thrift.Thrift.Type.STRING, 1);
-            output.writeString(this.token);
-            output.writeFieldEnd();
-        }
-        if (this.userId != null) {
-            output.writeFieldBegin("userId", thrift.Thrift.Type.STRING, 2);
-            output.writeString(this.userId);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): GetMailSettingsArgs {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_73: string = input.readString();
-                        _args.token = value_73;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_74: string = input.readString();
-                        _args.userId = value_74;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        if (_args.token !== undefined && _args.userId !== undefined) {
-            return new GetMailSettingsArgs(_args);
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Unable to read GetMailSettingsArgs from input");
-        }
-    }
-}
-export interface ISetMailSettingsArgsArgs {
-    token: string;
-    mailSettings: MailSettings.MailSettings;
-}
-export class SetMailSettingsArgs {
-    public token: string;
-    public mailSettings: MailSettings.MailSettings;
-    constructor(args: ISetMailSettingsArgsArgs) {
-        if (args != null && args.token != null) {
-            this.token = args.token;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[token] is unset!");
-        }
-        if (args != null && args.mailSettings != null) {
-            this.mailSettings = args.mailSettings;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[mailSettings] is unset!");
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("SetMailSettingsArgs");
-        if (this.token != null) {
-            output.writeFieldBegin("token", thrift.Thrift.Type.STRING, 1);
-            output.writeString(this.token);
-            output.writeFieldEnd();
-        }
-        if (this.mailSettings != null) {
-            output.writeFieldBegin("mailSettings", thrift.Thrift.Type.STRUCT, 2);
-            this.mailSettings.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): SetMailSettingsArgs {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_75: string = input.readString();
-                        _args.token = value_75;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_76: MailSettings.MailSettings = MailSettings.MailSettings.read(input);
-                        _args.mailSettings = value_76;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        if (_args.token !== undefined && _args.mailSettings !== undefined) {
-            return new SetMailSettingsArgs(_args);
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Unable to read SetMailSettingsArgs from input");
-        }
-    }
-}
 export interface IUpdateObservedUsersResultArgs {
     success?: boolean;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
@@ -2399,8 +1681,8 @@ export class UpdateObservedUsersResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_77: boolean = input.readBool();
-                        _args.success = value_77;
+                        const value_52: boolean = input.readBool();
+                        _args.success = value_52;
                     }
                     else {
                         input.skip(fieldType);
@@ -2408,8 +1690,8 @@ export class UpdateObservedUsersResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_78: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_78;
+                        const value_53: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_53;
                     }
                     else {
                         input.skip(fieldType);
@@ -2417,8 +1699,8 @@ export class UpdateObservedUsersResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_79: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_79;
+                        const value_54: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_54;
                     }
                     else {
                         input.skip(fieldType);
@@ -2459,8 +1741,8 @@ export class GetAllObservedUsersResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_80: __ROOT_NAMESPACE__.UserOrGroup): void => {
-                value_80.write(output);
+            this.success.forEach((value_55: __ROOT_NAMESPACE__.UserOrGroup): void => {
+                value_55.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -2492,15 +1774,15 @@ export class GetAllObservedUsersResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_81: Array<__ROOT_NAMESPACE__.UserOrGroup> = new Array<__ROOT_NAMESPACE__.UserOrGroup>();
-                        const metadata_7: thrift.TList = input.readListBegin();
-                        const size_7: number = metadata_7.size;
-                        for (let i_7: number = 0; i_7 < size_7; i_7++) {
-                            const value_82: __ROOT_NAMESPACE__.UserOrGroup = __ROOT_NAMESPACE__.UserOrGroup.read(input);
-                            value_81.push(value_82);
+                        const value_56: Array<__ROOT_NAMESPACE__.UserOrGroup> = new Array<__ROOT_NAMESPACE__.UserOrGroup>();
+                        const metadata_3: thrift.TList = input.readListBegin();
+                        const size_3: number = metadata_3.size;
+                        for (let i_3: number = 0; i_3 < size_3; i_3++) {
+                            const value_57: __ROOT_NAMESPACE__.UserOrGroup = __ROOT_NAMESPACE__.UserOrGroup.read(input);
+                            value_56.push(value_57);
                         }
                         input.readListEnd();
-                        _args.success = value_81;
+                        _args.success = value_56;
                     }
                     else {
                         input.skip(fieldType);
@@ -2508,8 +1790,8 @@ export class GetAllObservedUsersResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_83: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_83;
+                        const value_58: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_58;
                     }
                     else {
                         input.skip(fieldType);
@@ -2517,8 +1799,8 @@ export class GetAllObservedUsersResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_84: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_84;
+                        const value_59: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_59;
                     }
                     else {
                         input.skip(fieldType);
@@ -2588,8 +1870,8 @@ export class GetCountObservedUsersResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_85: number = input.readI32();
-                        _args.success = value_85;
+                        const value_60: number = input.readI32();
+                        _args.success = value_60;
                     }
                     else {
                         input.skip(fieldType);
@@ -2597,8 +1879,8 @@ export class GetCountObservedUsersResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_86: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_86;
+                        const value_61: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_61;
                     }
                     else {
                         input.skip(fieldType);
@@ -2606,8 +1888,8 @@ export class GetCountObservedUsersResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_87: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_87;
+                        const value_62: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_62;
                     }
                     else {
                         input.skip(fieldType);
@@ -2648,8 +1930,8 @@ export class GetAllObservedDocumentsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_88: ObserverDocument.ObserverDocument): void => {
-                value_88.write(output);
+            this.success.forEach((value_63: ObserverDocument.ObserverDocument): void => {
+                value_63.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -2681,15 +1963,15 @@ export class GetAllObservedDocumentsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_89: Array<ObserverDocument.ObserverDocument> = new Array<ObserverDocument.ObserverDocument>();
-                        const metadata_8: thrift.TList = input.readListBegin();
-                        const size_8: number = metadata_8.size;
-                        for (let i_8: number = 0; i_8 < size_8; i_8++) {
-                            const value_90: ObserverDocument.ObserverDocument = ObserverDocument.ObserverDocument.read(input);
-                            value_89.push(value_90);
+                        const value_64: Array<ObserverDocument.ObserverDocument> = new Array<ObserverDocument.ObserverDocument>();
+                        const metadata_4: thrift.TList = input.readListBegin();
+                        const size_4: number = metadata_4.size;
+                        for (let i_4: number = 0; i_4 < size_4; i_4++) {
+                            const value_65: ObserverDocument.ObserverDocument = ObserverDocument.ObserverDocument.read(input);
+                            value_64.push(value_65);
                         }
                         input.readListEnd();
-                        _args.success = value_89;
+                        _args.success = value_64;
                     }
                     else {
                         input.skip(fieldType);
@@ -2697,8 +1979,8 @@ export class GetAllObservedDocumentsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_91: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_91;
+                        const value_66: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_66;
                     }
                     else {
                         input.skip(fieldType);
@@ -2706,8 +1988,8 @@ export class GetAllObservedDocumentsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_92: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_92;
+                        const value_67: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_67;
                     }
                     else {
                         input.skip(fieldType);
@@ -2777,8 +2059,8 @@ export class GetCountObservedDocumentsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_93: number = input.readI32();
-                        _args.success = value_93;
+                        const value_68: number = input.readI32();
+                        _args.success = value_68;
                     }
                     else {
                         input.skip(fieldType);
@@ -2786,8 +2068,8 @@ export class GetCountObservedDocumentsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_94: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_94;
+                        const value_69: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_69;
                     }
                     else {
                         input.skip(fieldType);
@@ -2795,8 +2077,8 @@ export class GetCountObservedDocumentsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_95: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_95;
+                        const value_70: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_70;
                     }
                     else {
                         input.skip(fieldType);
@@ -2837,8 +2119,8 @@ export class GetAllObservedCardsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_96: ObserverCard.ObserverCard): void => {
-                value_96.write(output);
+            this.success.forEach((value_71: ObserverCard.ObserverCard): void => {
+                value_71.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -2870,15 +2152,15 @@ export class GetAllObservedCardsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_97: Array<ObserverCard.ObserverCard> = new Array<ObserverCard.ObserverCard>();
-                        const metadata_9: thrift.TList = input.readListBegin();
-                        const size_9: number = metadata_9.size;
-                        for (let i_9: number = 0; i_9 < size_9; i_9++) {
-                            const value_98: ObserverCard.ObserverCard = ObserverCard.ObserverCard.read(input);
-                            value_97.push(value_98);
+                        const value_72: Array<ObserverCard.ObserverCard> = new Array<ObserverCard.ObserverCard>();
+                        const metadata_5: thrift.TList = input.readListBegin();
+                        const size_5: number = metadata_5.size;
+                        for (let i_5: number = 0; i_5 < size_5; i_5++) {
+                            const value_73: ObserverCard.ObserverCard = ObserverCard.ObserverCard.read(input);
+                            value_72.push(value_73);
                         }
                         input.readListEnd();
-                        _args.success = value_97;
+                        _args.success = value_72;
                     }
                     else {
                         input.skip(fieldType);
@@ -2886,8 +2168,8 @@ export class GetAllObservedCardsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_99: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_99;
+                        const value_74: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_74;
                     }
                     else {
                         input.skip(fieldType);
@@ -2895,8 +2177,8 @@ export class GetAllObservedCardsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_100: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_100;
+                        const value_75: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_75;
                     }
                     else {
                         input.skip(fieldType);
@@ -2966,8 +2248,8 @@ export class GetCountObservedCardsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_101: number = input.readI32();
-                        _args.success = value_101;
+                        const value_76: number = input.readI32();
+                        _args.success = value_76;
                     }
                     else {
                         input.skip(fieldType);
@@ -2975,8 +2257,8 @@ export class GetCountObservedCardsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_102: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_102;
+                        const value_77: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_77;
                     }
                     else {
                         input.skip(fieldType);
@@ -2984,8 +2266,8 @@ export class GetCountObservedCardsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_103: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_103;
+                        const value_78: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_78;
                     }
                     else {
                         input.skip(fieldType);
@@ -3055,8 +2337,8 @@ export class GetObservedDocumentAccessPolicyResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_104: __ROOT_NAMESPACE__.DocumentAccessPolicy = __ROOT_NAMESPACE__.DocumentAccessPolicy.read(input);
-                        _args.success = value_104;
+                        const value_79: __ROOT_NAMESPACE__.DocumentAccessPolicy = __ROOT_NAMESPACE__.DocumentAccessPolicy.read(input);
+                        _args.success = value_79;
                     }
                     else {
                         input.skip(fieldType);
@@ -3064,8 +2346,8 @@ export class GetObservedDocumentAccessPolicyResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_105: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_105;
+                        const value_80: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_80;
                     }
                     else {
                         input.skip(fieldType);
@@ -3073,8 +2355,8 @@ export class GetObservedDocumentAccessPolicyResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_106: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_106;
+                        const value_81: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_81;
                     }
                     else {
                         input.skip(fieldType);
@@ -3144,8 +2426,8 @@ export class ChangeObservedCardStatusResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_107: boolean = input.readBool();
-                        _args.success = value_107;
+                        const value_82: boolean = input.readBool();
+                        _args.success = value_82;
                     }
                     else {
                         input.skip(fieldType);
@@ -3153,8 +2435,8 @@ export class ChangeObservedCardStatusResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_108: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_108;
+                        const value_83: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_83;
                     }
                     else {
                         input.skip(fieldType);
@@ -3162,8 +2444,8 @@ export class ChangeObservedCardStatusResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_109: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_109;
+                        const value_84: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_84;
                     }
                     else {
                         input.skip(fieldType);
@@ -3233,8 +2515,8 @@ export class ReverseObservedCardStatusResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_110: boolean = input.readBool();
-                        _args.success = value_110;
+                        const value_85: boolean = input.readBool();
+                        _args.success = value_85;
                     }
                     else {
                         input.skip(fieldType);
@@ -3242,8 +2524,8 @@ export class ReverseObservedCardStatusResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_111: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_111;
+                        const value_86: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_86;
                     }
                     else {
                         input.skip(fieldType);
@@ -3251,8 +2533,8 @@ export class ReverseObservedCardStatusResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_112: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_112;
+                        const value_87: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_87;
                     }
                     else {
                         input.skip(fieldType);
@@ -3322,8 +2604,8 @@ export class CreateOrUpdateObserverCommentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_113: ObserverCardComment.ObserverCardComment = ObserverCardComment.ObserverCardComment.read(input);
-                        _args.success = value_113;
+                        const value_88: ObserverCardComment.ObserverCardComment = ObserverCardComment.ObserverCardComment.read(input);
+                        _args.success = value_88;
                     }
                     else {
                         input.skip(fieldType);
@@ -3331,8 +2613,8 @@ export class CreateOrUpdateObserverCommentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_114: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_114;
+                        const value_89: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_89;
                     }
                     else {
                         input.skip(fieldType);
@@ -3340,8 +2622,8 @@ export class CreateOrUpdateObserverCommentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_115: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_115;
+                        const value_90: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_90;
                     }
                     else {
                         input.skip(fieldType);
@@ -3411,8 +2693,8 @@ export class DeleteObserverCommentResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_116: boolean = input.readBool();
-                        _args.success = value_116;
+                        const value_91: boolean = input.readBool();
+                        _args.success = value_91;
                     }
                     else {
                         input.skip(fieldType);
@@ -3420,8 +2702,8 @@ export class DeleteObserverCommentResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_117: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_117;
+                        const value_92: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_92;
                     }
                     else {
                         input.skip(fieldType);
@@ -3429,8 +2711,8 @@ export class DeleteObserverCommentResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_118: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_118;
+                        const value_93: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_93;
                     }
                     else {
                         input.skip(fieldType);
@@ -3500,8 +2782,8 @@ export class ExportDocumentsListToExcelResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_119: Buffer = input.readBinary();
-                        _args.success = value_119;
+                        const value_94: Buffer = input.readBinary();
+                        _args.success = value_94;
                     }
                     else {
                         input.skip(fieldType);
@@ -3509,8 +2791,8 @@ export class ExportDocumentsListToExcelResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_120: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_120;
+                        const value_95: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_95;
                     }
                     else {
                         input.skip(fieldType);
@@ -3518,8 +2800,8 @@ export class ExportDocumentsListToExcelResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_121: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_121;
+                        const value_96: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_96;
                     }
                     else {
                         input.skip(fieldType);
@@ -3589,8 +2871,8 @@ export class ExportCardsListToExcelResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_122: Buffer = input.readBinary();
-                        _args.success = value_122;
+                        const value_97: Buffer = input.readBinary();
+                        _args.success = value_97;
                     }
                     else {
                         input.skip(fieldType);
@@ -3598,8 +2880,8 @@ export class ExportCardsListToExcelResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_123: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_123;
+                        const value_98: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_98;
                     }
                     else {
                         input.skip(fieldType);
@@ -3607,8 +2889,8 @@ export class ExportCardsListToExcelResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_124: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_124;
+                        const value_99: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_99;
                     }
                     else {
                         input.skip(fieldType);
@@ -3678,8 +2960,8 @@ export class ExtendCardDeadlineResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_125: boolean = input.readBool();
-                        _args.success = value_125;
+                        const value_100: boolean = input.readBool();
+                        _args.success = value_100;
                     }
                     else {
                         input.skip(fieldType);
@@ -3687,8 +2969,8 @@ export class ExtendCardDeadlineResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_126: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_126;
+                        const value_101: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_101;
                     }
                     else {
                         input.skip(fieldType);
@@ -3696,8 +2978,8 @@ export class ExtendCardDeadlineResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_127: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_127;
+                        const value_102: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_102;
                     }
                     else {
                         input.skip(fieldType);
@@ -3711,762 +2993,6 @@ export class ExtendCardDeadlineResult {
         }
         input.readStructEnd();
         return new ExtendCardDeadlineResult(_args);
-    }
-}
-export interface IGetMailingUsersResultArgs {
-    success?: Array<MailingUser.MailingUser>;
-    validError?: __ROOT_NAMESPACE__.PreconditionException;
-    error?: __ROOT_NAMESPACE__.ServerException;
-}
-export class GetMailingUsersResult {
-    public success?: Array<MailingUser.MailingUser>;
-    public validError?: __ROOT_NAMESPACE__.PreconditionException;
-    public error?: __ROOT_NAMESPACE__.ServerException;
-    constructor(args?: IGetMailingUsersResultArgs) {
-        if (args != null && args.success != null) {
-            this.success = args.success;
-        }
-        if (args != null && args.validError != null) {
-            this.validError = args.validError;
-        }
-        if (args != null && args.error != null) {
-            this.error = args.error;
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("GetMailingUsersResult");
-        if (this.success != null) {
-            output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
-            output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_128: MailingUser.MailingUser): void => {
-                value_128.write(output);
-            });
-            output.writeListEnd();
-            output.writeFieldEnd();
-        }
-        if (this.validError != null) {
-            output.writeFieldBegin("validError", thrift.Thrift.Type.STRUCT, 1);
-            this.validError.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.error != null) {
-            output.writeFieldBegin("error", thrift.Thrift.Type.STRUCT, 2);
-            this.error.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): GetMailingUsersResult {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 0:
-                    if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_129: Array<MailingUser.MailingUser> = new Array<MailingUser.MailingUser>();
-                        const metadata_10: thrift.TList = input.readListBegin();
-                        const size_10: number = metadata_10.size;
-                        for (let i_10: number = 0; i_10 < size_10; i_10++) {
-                            const value_130: MailingUser.MailingUser = MailingUser.MailingUser.read(input);
-                            value_129.push(value_130);
-                        }
-                        input.readListEnd();
-                        _args.success = value_129;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_131: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_131;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_132: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_132;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        return new GetMailingUsersResult(_args);
-    }
-}
-export interface IChangeMailingUserResultArgs {
-    success?: Array<MailingUser.MailingUser>;
-    validError?: __ROOT_NAMESPACE__.PreconditionException;
-    error?: __ROOT_NAMESPACE__.ServerException;
-}
-export class ChangeMailingUserResult {
-    public success?: Array<MailingUser.MailingUser>;
-    public validError?: __ROOT_NAMESPACE__.PreconditionException;
-    public error?: __ROOT_NAMESPACE__.ServerException;
-    constructor(args?: IChangeMailingUserResultArgs) {
-        if (args != null && args.success != null) {
-            this.success = args.success;
-        }
-        if (args != null && args.validError != null) {
-            this.validError = args.validError;
-        }
-        if (args != null && args.error != null) {
-            this.error = args.error;
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("ChangeMailingUserResult");
-        if (this.success != null) {
-            output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
-            output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_133: MailingUser.MailingUser): void => {
-                value_133.write(output);
-            });
-            output.writeListEnd();
-            output.writeFieldEnd();
-        }
-        if (this.validError != null) {
-            output.writeFieldBegin("validError", thrift.Thrift.Type.STRUCT, 1);
-            this.validError.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.error != null) {
-            output.writeFieldBegin("error", thrift.Thrift.Type.STRUCT, 2);
-            this.error.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): ChangeMailingUserResult {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 0:
-                    if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_134: Array<MailingUser.MailingUser> = new Array<MailingUser.MailingUser>();
-                        const metadata_11: thrift.TList = input.readListBegin();
-                        const size_11: number = metadata_11.size;
-                        for (let i_11: number = 0; i_11 < size_11; i_11++) {
-                            const value_135: MailingUser.MailingUser = MailingUser.MailingUser.read(input);
-                            value_134.push(value_135);
-                        }
-                        input.readListEnd();
-                        _args.success = value_134;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_136: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_136;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_137: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_137;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        return new ChangeMailingUserResult(_args);
-    }
-}
-export interface IGetMailDocGroupsResultArgs {
-    success?: Array<MailDocPatGroup.MailDocPatGroup>;
-    validError?: __ROOT_NAMESPACE__.PreconditionException;
-    error?: __ROOT_NAMESPACE__.ServerException;
-}
-export class GetMailDocGroupsResult {
-    public success?: Array<MailDocPatGroup.MailDocPatGroup>;
-    public validError?: __ROOT_NAMESPACE__.PreconditionException;
-    public error?: __ROOT_NAMESPACE__.ServerException;
-    constructor(args?: IGetMailDocGroupsResultArgs) {
-        if (args != null && args.success != null) {
-            this.success = args.success;
-        }
-        if (args != null && args.validError != null) {
-            this.validError = args.validError;
-        }
-        if (args != null && args.error != null) {
-            this.error = args.error;
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("GetMailDocGroupsResult");
-        if (this.success != null) {
-            output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
-            output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_138: MailDocPatGroup.MailDocPatGroup): void => {
-                value_138.write(output);
-            });
-            output.writeListEnd();
-            output.writeFieldEnd();
-        }
-        if (this.validError != null) {
-            output.writeFieldBegin("validError", thrift.Thrift.Type.STRUCT, 1);
-            this.validError.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.error != null) {
-            output.writeFieldBegin("error", thrift.Thrift.Type.STRUCT, 2);
-            this.error.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): GetMailDocGroupsResult {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 0:
-                    if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_139: Array<MailDocPatGroup.MailDocPatGroup> = new Array<MailDocPatGroup.MailDocPatGroup>();
-                        const metadata_12: thrift.TList = input.readListBegin();
-                        const size_12: number = metadata_12.size;
-                        for (let i_12: number = 0; i_12 < size_12; i_12++) {
-                            const value_140: MailDocPatGroup.MailDocPatGroup = MailDocPatGroup.MailDocPatGroup.read(input);
-                            value_139.push(value_140);
-                        }
-                        input.readListEnd();
-                        _args.success = value_139;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_141: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_141;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_142: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_142;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        return new GetMailDocGroupsResult(_args);
-    }
-}
-export interface IChangeMailDocGroupResultArgs {
-    success?: Array<MailDocPatGroup.MailDocPatGroup>;
-    validError?: __ROOT_NAMESPACE__.PreconditionException;
-    error?: __ROOT_NAMESPACE__.ServerException;
-}
-export class ChangeMailDocGroupResult {
-    public success?: Array<MailDocPatGroup.MailDocPatGroup>;
-    public validError?: __ROOT_NAMESPACE__.PreconditionException;
-    public error?: __ROOT_NAMESPACE__.ServerException;
-    constructor(args?: IChangeMailDocGroupResultArgs) {
-        if (args != null && args.success != null) {
-            this.success = args.success;
-        }
-        if (args != null && args.validError != null) {
-            this.validError = args.validError;
-        }
-        if (args != null && args.error != null) {
-            this.error = args.error;
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("ChangeMailDocGroupResult");
-        if (this.success != null) {
-            output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
-            output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_143: MailDocPatGroup.MailDocPatGroup): void => {
-                value_143.write(output);
-            });
-            output.writeListEnd();
-            output.writeFieldEnd();
-        }
-        if (this.validError != null) {
-            output.writeFieldBegin("validError", thrift.Thrift.Type.STRUCT, 1);
-            this.validError.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.error != null) {
-            output.writeFieldBegin("error", thrift.Thrift.Type.STRUCT, 2);
-            this.error.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): ChangeMailDocGroupResult {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 0:
-                    if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_144: Array<MailDocPatGroup.MailDocPatGroup> = new Array<MailDocPatGroup.MailDocPatGroup>();
-                        const metadata_13: thrift.TList = input.readListBegin();
-                        const size_13: number = metadata_13.size;
-                        for (let i_13: number = 0; i_13 < size_13; i_13++) {
-                            const value_145: MailDocPatGroup.MailDocPatGroup = MailDocPatGroup.MailDocPatGroup.read(input);
-                            value_144.push(value_145);
-                        }
-                        input.readListEnd();
-                        _args.success = value_144;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_146: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_146;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_147: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_147;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        return new ChangeMailDocGroupResult(_args);
-    }
-}
-export interface IGetMailingPeriodResultArgs {
-    success?: MailingPeriods.MailingPeriods;
-    validError?: __ROOT_NAMESPACE__.PreconditionException;
-    error?: __ROOT_NAMESPACE__.ServerException;
-}
-export class GetMailingPeriodResult {
-    public success?: MailingPeriods.MailingPeriods;
-    public validError?: __ROOT_NAMESPACE__.PreconditionException;
-    public error?: __ROOT_NAMESPACE__.ServerException;
-    constructor(args?: IGetMailingPeriodResultArgs) {
-        if (args != null && args.success != null) {
-            this.success = args.success;
-        }
-        if (args != null && args.validError != null) {
-            this.validError = args.validError;
-        }
-        if (args != null && args.error != null) {
-            this.error = args.error;
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("GetMailingPeriodResult");
-        if (this.success != null) {
-            output.writeFieldBegin("success", thrift.Thrift.Type.STRUCT, 0);
-            this.success.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.validError != null) {
-            output.writeFieldBegin("validError", thrift.Thrift.Type.STRUCT, 1);
-            this.validError.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.error != null) {
-            output.writeFieldBegin("error", thrift.Thrift.Type.STRUCT, 2);
-            this.error.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): GetMailingPeriodResult {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 0:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_148: MailingPeriods.MailingPeriods = MailingPeriods.MailingPeriods.read(input);
-                        _args.success = value_148;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_149: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_149;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_150: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_150;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        return new GetMailingPeriodResult(_args);
-    }
-}
-export interface ISetMailingPeriodResultArgs {
-    success?: boolean;
-    validError?: __ROOT_NAMESPACE__.PreconditionException;
-    error?: __ROOT_NAMESPACE__.ServerException;
-}
-export class SetMailingPeriodResult {
-    public success?: boolean;
-    public validError?: __ROOT_NAMESPACE__.PreconditionException;
-    public error?: __ROOT_NAMESPACE__.ServerException;
-    constructor(args?: ISetMailingPeriodResultArgs) {
-        if (args != null && args.success != null) {
-            this.success = args.success;
-        }
-        if (args != null && args.validError != null) {
-            this.validError = args.validError;
-        }
-        if (args != null && args.error != null) {
-            this.error = args.error;
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("SetMailingPeriodResult");
-        if (this.success != null) {
-            output.writeFieldBegin("success", thrift.Thrift.Type.BOOL, 0);
-            output.writeBool(this.success);
-            output.writeFieldEnd();
-        }
-        if (this.validError != null) {
-            output.writeFieldBegin("validError", thrift.Thrift.Type.STRUCT, 1);
-            this.validError.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.error != null) {
-            output.writeFieldBegin("error", thrift.Thrift.Type.STRUCT, 2);
-            this.error.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): SetMailingPeriodResult {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 0:
-                    if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_151: boolean = input.readBool();
-                        _args.success = value_151;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_152: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_152;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_153: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_153;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        return new SetMailingPeriodResult(_args);
-    }
-}
-export interface IGetMailSettingsResultArgs {
-    success?: MailSettings.MailSettings;
-    validError?: __ROOT_NAMESPACE__.PreconditionException;
-    error?: __ROOT_NAMESPACE__.ServerException;
-}
-export class GetMailSettingsResult {
-    public success?: MailSettings.MailSettings;
-    public validError?: __ROOT_NAMESPACE__.PreconditionException;
-    public error?: __ROOT_NAMESPACE__.ServerException;
-    constructor(args?: IGetMailSettingsResultArgs) {
-        if (args != null && args.success != null) {
-            this.success = args.success;
-        }
-        if (args != null && args.validError != null) {
-            this.validError = args.validError;
-        }
-        if (args != null && args.error != null) {
-            this.error = args.error;
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("GetMailSettingsResult");
-        if (this.success != null) {
-            output.writeFieldBegin("success", thrift.Thrift.Type.STRUCT, 0);
-            this.success.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.validError != null) {
-            output.writeFieldBegin("validError", thrift.Thrift.Type.STRUCT, 1);
-            this.validError.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.error != null) {
-            output.writeFieldBegin("error", thrift.Thrift.Type.STRUCT, 2);
-            this.error.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): GetMailSettingsResult {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 0:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_154: MailSettings.MailSettings = MailSettings.MailSettings.read(input);
-                        _args.success = value_154;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_155: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_155;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_156: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_156;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        return new GetMailSettingsResult(_args);
-    }
-}
-export interface ISetMailSettingsResultArgs {
-    success?: boolean;
-    validError?: __ROOT_NAMESPACE__.PreconditionException;
-    error?: __ROOT_NAMESPACE__.ServerException;
-}
-export class SetMailSettingsResult {
-    public success?: boolean;
-    public validError?: __ROOT_NAMESPACE__.PreconditionException;
-    public error?: __ROOT_NAMESPACE__.ServerException;
-    constructor(args?: ISetMailSettingsResultArgs) {
-        if (args != null && args.success != null) {
-            this.success = args.success;
-        }
-        if (args != null && args.validError != null) {
-            this.validError = args.validError;
-        }
-        if (args != null && args.error != null) {
-            this.error = args.error;
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("SetMailSettingsResult");
-        if (this.success != null) {
-            output.writeFieldBegin("success", thrift.Thrift.Type.BOOL, 0);
-            output.writeBool(this.success);
-            output.writeFieldEnd();
-        }
-        if (this.validError != null) {
-            output.writeFieldBegin("validError", thrift.Thrift.Type.STRUCT, 1);
-            this.validError.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.error != null) {
-            output.writeFieldBegin("error", thrift.Thrift.Type.STRUCT, 2);
-            this.error.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): SetMailSettingsResult {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 0:
-                    if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_157: boolean = input.readBool();
-                        _args.success = value_157;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_158: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_158;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_159: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_159;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        return new SetMailSettingsResult(_args);
     }
 }
 export class Client {
@@ -4710,126 +3236,6 @@ export class Client {
             this.send_extendCardDeadline(token, userId, cardId, newDeadlineDate, requestId);
         });
     }
-    public getMailingUsers(token: string, filter: __ROOT_NAMESPACE__.KazFilter): Promise<Array<MailingUser.MailingUser>> {
-        const requestId: number = this.incrementSeqId();
-        return new Promise<Array<MailingUser.MailingUser>>((resolve, reject): void => {
-            this._reqs[requestId] = (error, result) => {
-                delete this._reqs[requestId];
-                if (error != null) {
-                    reject(error);
-                }
-                else {
-                    resolve(result);
-                }
-            };
-            this.send_getMailingUsers(token, filter, requestId);
-        });
-    }
-    public changeMailingUser(token: string, toAdd: Array<MailingUser.MailingUser>, toRemove: Array<string>): Promise<Array<MailingUser.MailingUser>> {
-        const requestId: number = this.incrementSeqId();
-        return new Promise<Array<MailingUser.MailingUser>>((resolve, reject): void => {
-            this._reqs[requestId] = (error, result) => {
-                delete this._reqs[requestId];
-                if (error != null) {
-                    reject(error);
-                }
-                else {
-                    resolve(result);
-                }
-            };
-            this.send_changeMailingUser(token, toAdd, toRemove, requestId);
-        });
-    }
-    public getMailDocGroups(token: string, filter: __ROOT_NAMESPACE__.KazFilter): Promise<Array<MailDocPatGroup.MailDocPatGroup>> {
-        const requestId: number = this.incrementSeqId();
-        return new Promise<Array<MailDocPatGroup.MailDocPatGroup>>((resolve, reject): void => {
-            this._reqs[requestId] = (error, result) => {
-                delete this._reqs[requestId];
-                if (error != null) {
-                    reject(error);
-                }
-                else {
-                    resolve(result);
-                }
-            };
-            this.send_getMailDocGroups(token, filter, requestId);
-        });
-    }
-    public changeMailDocGroup(token: string, docPatGroups: Array<MailDocPatGroup.MailDocPatGroup>, toRemove: Array<MailDocPatGroup.MailDocPatGroup>): Promise<Array<MailDocPatGroup.MailDocPatGroup>> {
-        const requestId: number = this.incrementSeqId();
-        return new Promise<Array<MailDocPatGroup.MailDocPatGroup>>((resolve, reject): void => {
-            this._reqs[requestId] = (error, result) => {
-                delete this._reqs[requestId];
-                if (error != null) {
-                    reject(error);
-                }
-                else {
-                    resolve(result);
-                }
-            };
-            this.send_changeMailDocGroup(token, docPatGroups, toRemove, requestId);
-        });
-    }
-    public getMailingPeriod(token: string): Promise<MailingPeriods.MailingPeriods> {
-        const requestId: number = this.incrementSeqId();
-        return new Promise<MailingPeriods.MailingPeriods>((resolve, reject): void => {
-            this._reqs[requestId] = (error, result) => {
-                delete this._reqs[requestId];
-                if (error != null) {
-                    reject(error);
-                }
-                else {
-                    resolve(result);
-                }
-            };
-            this.send_getMailingPeriod(token, requestId);
-        });
-    }
-    public setMailingPeriod(token: string, mailingPeriods: MailingPeriods.MailingPeriods): Promise<boolean> {
-        const requestId: number = this.incrementSeqId();
-        return new Promise<boolean>((resolve, reject): void => {
-            this._reqs[requestId] = (error, result) => {
-                delete this._reqs[requestId];
-                if (error != null) {
-                    reject(error);
-                }
-                else {
-                    resolve(result);
-                }
-            };
-            this.send_setMailingPeriod(token, mailingPeriods, requestId);
-        });
-    }
-    public getMailSettings(token: string, userId: string): Promise<MailSettings.MailSettings> {
-        const requestId: number = this.incrementSeqId();
-        return new Promise<MailSettings.MailSettings>((resolve, reject): void => {
-            this._reqs[requestId] = (error, result) => {
-                delete this._reqs[requestId];
-                if (error != null) {
-                    reject(error);
-                }
-                else {
-                    resolve(result);
-                }
-            };
-            this.send_getMailSettings(token, userId, requestId);
-        });
-    }
-    public setMailSettings(token: string, mailSettings: MailSettings.MailSettings): Promise<boolean> {
-        const requestId: number = this.incrementSeqId();
-        return new Promise<boolean>((resolve, reject): void => {
-            this._reqs[requestId] = (error, result) => {
-                delete this._reqs[requestId];
-                if (error != null) {
-                    reject(error);
-                }
-                else {
-                    resolve(result);
-                }
-            };
-            this.send_setMailSettings(token, mailSettings, requestId);
-        });
-    }
     public send_updateObservedUsers(token: string, userId: string, toAdd: Array<__ROOT_NAMESPACE__.UserOrGroup>, toRemove: Array<__ROOT_NAMESPACE__.UserOrGroup>, requestId: number): void {
         const output: thrift.TProtocol = new this.protocol(this.output);
         output.writeMessageBegin("updateObservedUsers", thrift.Thrift.MessageType.CALL, requestId);
@@ -4960,78 +3366,6 @@ export class Client {
         const output: thrift.TProtocol = new this.protocol(this.output);
         output.writeMessageBegin("extendCardDeadline", thrift.Thrift.MessageType.CALL, requestId);
         const args: ExtendCardDeadlineArgs = new ExtendCardDeadlineArgs({ token, userId, cardId, newDeadlineDate });
-        args.write(output);
-        output.writeMessageEnd();
-        this.output.flush();
-        return;
-    }
-    public send_getMailingUsers(token: string, filter: __ROOT_NAMESPACE__.KazFilter, requestId: number): void {
-        const output: thrift.TProtocol = new this.protocol(this.output);
-        output.writeMessageBegin("getMailingUsers", thrift.Thrift.MessageType.CALL, requestId);
-        const args: GetMailingUsersArgs = new GetMailingUsersArgs({ token, filter });
-        args.write(output);
-        output.writeMessageEnd();
-        this.output.flush();
-        return;
-    }
-    public send_changeMailingUser(token: string, toAdd: Array<MailingUser.MailingUser>, toRemove: Array<string>, requestId: number): void {
-        const output: thrift.TProtocol = new this.protocol(this.output);
-        output.writeMessageBegin("changeMailingUser", thrift.Thrift.MessageType.CALL, requestId);
-        const args: ChangeMailingUserArgs = new ChangeMailingUserArgs({ token, toAdd, toRemove });
-        args.write(output);
-        output.writeMessageEnd();
-        this.output.flush();
-        return;
-    }
-    public send_getMailDocGroups(token: string, filter: __ROOT_NAMESPACE__.KazFilter, requestId: number): void {
-        const output: thrift.TProtocol = new this.protocol(this.output);
-        output.writeMessageBegin("getMailDocGroups", thrift.Thrift.MessageType.CALL, requestId);
-        const args: GetMailDocGroupsArgs = new GetMailDocGroupsArgs({ token, filter });
-        args.write(output);
-        output.writeMessageEnd();
-        this.output.flush();
-        return;
-    }
-    public send_changeMailDocGroup(token: string, docPatGroups: Array<MailDocPatGroup.MailDocPatGroup>, toRemove: Array<MailDocPatGroup.MailDocPatGroup>, requestId: number): void {
-        const output: thrift.TProtocol = new this.protocol(this.output);
-        output.writeMessageBegin("changeMailDocGroup", thrift.Thrift.MessageType.CALL, requestId);
-        const args: ChangeMailDocGroupArgs = new ChangeMailDocGroupArgs({ token, docPatGroups, toRemove });
-        args.write(output);
-        output.writeMessageEnd();
-        this.output.flush();
-        return;
-    }
-    public send_getMailingPeriod(token: string, requestId: number): void {
-        const output: thrift.TProtocol = new this.protocol(this.output);
-        output.writeMessageBegin("getMailingPeriod", thrift.Thrift.MessageType.CALL, requestId);
-        const args: GetMailingPeriodArgs = new GetMailingPeriodArgs({ token });
-        args.write(output);
-        output.writeMessageEnd();
-        this.output.flush();
-        return;
-    }
-    public send_setMailingPeriod(token: string, mailingPeriods: MailingPeriods.MailingPeriods, requestId: number): void {
-        const output: thrift.TProtocol = new this.protocol(this.output);
-        output.writeMessageBegin("setMailingPeriod", thrift.Thrift.MessageType.CALL, requestId);
-        const args: SetMailingPeriodArgs = new SetMailingPeriodArgs({ token, mailingPeriods });
-        args.write(output);
-        output.writeMessageEnd();
-        this.output.flush();
-        return;
-    }
-    public send_getMailSettings(token: string, userId: string, requestId: number): void {
-        const output: thrift.TProtocol = new this.protocol(this.output);
-        output.writeMessageBegin("getMailSettings", thrift.Thrift.MessageType.CALL, requestId);
-        const args: GetMailSettingsArgs = new GetMailSettingsArgs({ token, userId });
-        args.write(output);
-        output.writeMessageEnd();
-        this.output.flush();
-        return;
-    }
-    public send_setMailSettings(token: string, mailSettings: MailSettings.MailSettings, requestId: number): void {
-        const output: thrift.TProtocol = new this.protocol(this.output);
-        output.writeMessageBegin("setMailSettings", thrift.Thrift.MessageType.CALL, requestId);
-        const args: SetMailSettingsArgs = new SetMailSettingsArgs({ token, mailSettings });
         args.write(output);
         output.writeMessageEnd();
         this.output.flush();
@@ -5457,230 +3791,6 @@ export class Client {
             }
         }
     }
-    public recv_getMailingUsers(input: thrift.TProtocol, mtype: thrift.Thrift.MessageType, requestId: number): void {
-        const noop = (): any => null;
-        const callback = this._reqs[requestId] || noop;
-        if (mtype === thrift.Thrift.MessageType.EXCEPTION) {
-            const x: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException();
-            x.read(input);
-            input.readMessageEnd();
-            return callback(x);
-        }
-        else {
-            const result: GetMailingUsersResult = GetMailingUsersResult.read(input);
-            input.readMessageEnd();
-            if (result.validError != null) {
-                return callback(result.validError);
-            }
-            else if (result.error != null) {
-                return callback(result.error);
-            }
-            else {
-                if (result.success != null) {
-                    return callback(undefined, result.success);
-                }
-                else {
-                    return callback(new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, "getMailingUsers failed: unknown result"));
-                }
-            }
-        }
-    }
-    public recv_changeMailingUser(input: thrift.TProtocol, mtype: thrift.Thrift.MessageType, requestId: number): void {
-        const noop = (): any => null;
-        const callback = this._reqs[requestId] || noop;
-        if (mtype === thrift.Thrift.MessageType.EXCEPTION) {
-            const x: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException();
-            x.read(input);
-            input.readMessageEnd();
-            return callback(x);
-        }
-        else {
-            const result: ChangeMailingUserResult = ChangeMailingUserResult.read(input);
-            input.readMessageEnd();
-            if (result.validError != null) {
-                return callback(result.validError);
-            }
-            else if (result.error != null) {
-                return callback(result.error);
-            }
-            else {
-                if (result.success != null) {
-                    return callback(undefined, result.success);
-                }
-                else {
-                    return callback(new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, "changeMailingUser failed: unknown result"));
-                }
-            }
-        }
-    }
-    public recv_getMailDocGroups(input: thrift.TProtocol, mtype: thrift.Thrift.MessageType, requestId: number): void {
-        const noop = (): any => null;
-        const callback = this._reqs[requestId] || noop;
-        if (mtype === thrift.Thrift.MessageType.EXCEPTION) {
-            const x: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException();
-            x.read(input);
-            input.readMessageEnd();
-            return callback(x);
-        }
-        else {
-            const result: GetMailDocGroupsResult = GetMailDocGroupsResult.read(input);
-            input.readMessageEnd();
-            if (result.validError != null) {
-                return callback(result.validError);
-            }
-            else if (result.error != null) {
-                return callback(result.error);
-            }
-            else {
-                if (result.success != null) {
-                    return callback(undefined, result.success);
-                }
-                else {
-                    return callback(new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, "getMailDocGroups failed: unknown result"));
-                }
-            }
-        }
-    }
-    public recv_changeMailDocGroup(input: thrift.TProtocol, mtype: thrift.Thrift.MessageType, requestId: number): void {
-        const noop = (): any => null;
-        const callback = this._reqs[requestId] || noop;
-        if (mtype === thrift.Thrift.MessageType.EXCEPTION) {
-            const x: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException();
-            x.read(input);
-            input.readMessageEnd();
-            return callback(x);
-        }
-        else {
-            const result: ChangeMailDocGroupResult = ChangeMailDocGroupResult.read(input);
-            input.readMessageEnd();
-            if (result.validError != null) {
-                return callback(result.validError);
-            }
-            else if (result.error != null) {
-                return callback(result.error);
-            }
-            else {
-                if (result.success != null) {
-                    return callback(undefined, result.success);
-                }
-                else {
-                    return callback(new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, "changeMailDocGroup failed: unknown result"));
-                }
-            }
-        }
-    }
-    public recv_getMailingPeriod(input: thrift.TProtocol, mtype: thrift.Thrift.MessageType, requestId: number): void {
-        const noop = (): any => null;
-        const callback = this._reqs[requestId] || noop;
-        if (mtype === thrift.Thrift.MessageType.EXCEPTION) {
-            const x: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException();
-            x.read(input);
-            input.readMessageEnd();
-            return callback(x);
-        }
-        else {
-            const result: GetMailingPeriodResult = GetMailingPeriodResult.read(input);
-            input.readMessageEnd();
-            if (result.validError != null) {
-                return callback(result.validError);
-            }
-            else if (result.error != null) {
-                return callback(result.error);
-            }
-            else {
-                if (result.success != null) {
-                    return callback(undefined, result.success);
-                }
-                else {
-                    return callback(new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, "getMailingPeriod failed: unknown result"));
-                }
-            }
-        }
-    }
-    public recv_setMailingPeriod(input: thrift.TProtocol, mtype: thrift.Thrift.MessageType, requestId: number): void {
-        const noop = (): any => null;
-        const callback = this._reqs[requestId] || noop;
-        if (mtype === thrift.Thrift.MessageType.EXCEPTION) {
-            const x: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException();
-            x.read(input);
-            input.readMessageEnd();
-            return callback(x);
-        }
-        else {
-            const result: SetMailingPeriodResult = SetMailingPeriodResult.read(input);
-            input.readMessageEnd();
-            if (result.validError != null) {
-                return callback(result.validError);
-            }
-            else if (result.error != null) {
-                return callback(result.error);
-            }
-            else {
-                if (result.success != null) {
-                    return callback(undefined, result.success);
-                }
-                else {
-                    return callback(new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, "setMailingPeriod failed: unknown result"));
-                }
-            }
-        }
-    }
-    public recv_getMailSettings(input: thrift.TProtocol, mtype: thrift.Thrift.MessageType, requestId: number): void {
-        const noop = (): any => null;
-        const callback = this._reqs[requestId] || noop;
-        if (mtype === thrift.Thrift.MessageType.EXCEPTION) {
-            const x: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException();
-            x.read(input);
-            input.readMessageEnd();
-            return callback(x);
-        }
-        else {
-            const result: GetMailSettingsResult = GetMailSettingsResult.read(input);
-            input.readMessageEnd();
-            if (result.validError != null) {
-                return callback(result.validError);
-            }
-            else if (result.error != null) {
-                return callback(result.error);
-            }
-            else {
-                if (result.success != null) {
-                    return callback(undefined, result.success);
-                }
-                else {
-                    return callback(new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, "getMailSettings failed: unknown result"));
-                }
-            }
-        }
-    }
-    public recv_setMailSettings(input: thrift.TProtocol, mtype: thrift.Thrift.MessageType, requestId: number): void {
-        const noop = (): any => null;
-        const callback = this._reqs[requestId] || noop;
-        if (mtype === thrift.Thrift.MessageType.EXCEPTION) {
-            const x: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException();
-            x.read(input);
-            input.readMessageEnd();
-            return callback(x);
-        }
-        else {
-            const result: SetMailSettingsResult = SetMailSettingsResult.read(input);
-            input.readMessageEnd();
-            if (result.validError != null) {
-                return callback(result.validError);
-            }
-            else if (result.error != null) {
-                return callback(result.error);
-            }
-            else {
-                if (result.success != null) {
-                    return callback(undefined, result.success);
-                }
-                else {
-                    return callback(new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, "setMailSettings failed: unknown result"));
-                }
-            }
-        }
-    }
 }
 export interface IHandler {
     updateObservedUsers(token: string, userId: string, toAdd: Array<__ROOT_NAMESPACE__.UserOrGroup>, toRemove: Array<__ROOT_NAMESPACE__.UserOrGroup>): boolean | Promise<boolean>;
@@ -5698,14 +3808,6 @@ export interface IHandler {
     exportDocumentsListToExcel(token: string, userId: string, filter: __ROOT_NAMESPACE__.KazFilter): Buffer | Promise<Buffer>;
     exportCardsListToExcel(token: string, userId: string, filter: __ROOT_NAMESPACE__.KazFilter): Buffer | Promise<Buffer>;
     extendCardDeadline(token: string, userId: string, cardId: string, newDeadlineDate: Int64): boolean | Promise<boolean>;
-    getMailingUsers(token: string, filter: __ROOT_NAMESPACE__.KazFilter): Array<MailingUser.MailingUser> | Promise<Array<MailingUser.MailingUser>>;
-    changeMailingUser(token: string, toAdd: Array<MailingUser.MailingUser>, toRemove: Array<string>): Array<MailingUser.MailingUser> | Promise<Array<MailingUser.MailingUser>>;
-    getMailDocGroups(token: string, filter: __ROOT_NAMESPACE__.KazFilter): Array<MailDocPatGroup.MailDocPatGroup> | Promise<Array<MailDocPatGroup.MailDocPatGroup>>;
-    changeMailDocGroup(token: string, docPatGroups: Array<MailDocPatGroup.MailDocPatGroup>, toRemove: Array<MailDocPatGroup.MailDocPatGroup>): Array<MailDocPatGroup.MailDocPatGroup> | Promise<Array<MailDocPatGroup.MailDocPatGroup>>;
-    getMailingPeriod(token: string): MailingPeriods.MailingPeriods | Promise<MailingPeriods.MailingPeriods>;
-    setMailingPeriod(token: string, mailingPeriods: MailingPeriods.MailingPeriods): boolean | Promise<boolean>;
-    getMailSettings(token: string, userId: string): MailSettings.MailSettings | Promise<MailSettings.MailSettings>;
-    setMailSettings(token: string, mailSettings: MailSettings.MailSettings): boolean | Promise<boolean>;
 }
 export class Processor {
     public _handler: IHandler;
@@ -5776,38 +3878,6 @@ export class Processor {
             }
             case "process_extendCardDeadline": {
                 this.process_extendCardDeadline(requestId, input, output);
-                return;
-            }
-            case "process_getMailingUsers": {
-                this.process_getMailingUsers(requestId, input, output);
-                return;
-            }
-            case "process_changeMailingUser": {
-                this.process_changeMailingUser(requestId, input, output);
-                return;
-            }
-            case "process_getMailDocGroups": {
-                this.process_getMailDocGroups(requestId, input, output);
-                return;
-            }
-            case "process_changeMailDocGroup": {
-                this.process_changeMailDocGroup(requestId, input, output);
-                return;
-            }
-            case "process_getMailingPeriod": {
-                this.process_getMailingPeriod(requestId, input, output);
-                return;
-            }
-            case "process_setMailingPeriod": {
-                this.process_setMailingPeriod(requestId, input, output);
-                return;
-            }
-            case "process_getMailSettings": {
-                this.process_getMailSettings(requestId, input, output);
-                return;
-            }
-            case "process_setMailSettings": {
-                this.process_setMailSettings(requestId, input, output);
                 return;
             }
             default: {
@@ -6476,358 +4546,6 @@ export class Processor {
             else {
                 const result: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, err.message);
                 output.writeMessageBegin("extendCardDeadline", thrift.Thrift.MessageType.EXCEPTION, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-        });
-    }
-    public process_getMailingUsers(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Array<MailingUser.MailingUser>>((resolve, reject): void => {
-            try {
-                const args: GetMailingUsersArgs = GetMailingUsersArgs.read(input);
-                input.readMessageEnd();
-                resolve(this._handler.getMailingUsers(args.token, args.filter));
-            }
-            catch (err) {
-                reject(err);
-            }
-        }).then((data: Array<MailingUser.MailingUser>): void => {
-            const result: GetMailingUsersResult = new GetMailingUsersResult({ success: data });
-            output.writeMessageBegin("getMailingUsers", thrift.Thrift.MessageType.REPLY, requestId);
-            result.write(output);
-            output.writeMessageEnd();
-            output.flush();
-            return;
-        }).catch((err: Error): void => {
-            if (err instanceof __ROOT_NAMESPACE__.PreconditionException) {
-                const result: GetMailingUsersResult = new GetMailingUsersResult({ validError: err });
-                output.writeMessageBegin("getMailingUsers", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else if (err instanceof __ROOT_NAMESPACE__.ServerException) {
-                const result: GetMailingUsersResult = new GetMailingUsersResult({ error: err });
-                output.writeMessageBegin("getMailingUsers", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else {
-                const result: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-                output.writeMessageBegin("getMailingUsers", thrift.Thrift.MessageType.EXCEPTION, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-        });
-    }
-    public process_changeMailingUser(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Array<MailingUser.MailingUser>>((resolve, reject): void => {
-            try {
-                const args: ChangeMailingUserArgs = ChangeMailingUserArgs.read(input);
-                input.readMessageEnd();
-                resolve(this._handler.changeMailingUser(args.token, args.toAdd, args.toRemove));
-            }
-            catch (err) {
-                reject(err);
-            }
-        }).then((data: Array<MailingUser.MailingUser>): void => {
-            const result: ChangeMailingUserResult = new ChangeMailingUserResult({ success: data });
-            output.writeMessageBegin("changeMailingUser", thrift.Thrift.MessageType.REPLY, requestId);
-            result.write(output);
-            output.writeMessageEnd();
-            output.flush();
-            return;
-        }).catch((err: Error): void => {
-            if (err instanceof __ROOT_NAMESPACE__.PreconditionException) {
-                const result: ChangeMailingUserResult = new ChangeMailingUserResult({ validError: err });
-                output.writeMessageBegin("changeMailingUser", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else if (err instanceof __ROOT_NAMESPACE__.ServerException) {
-                const result: ChangeMailingUserResult = new ChangeMailingUserResult({ error: err });
-                output.writeMessageBegin("changeMailingUser", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else {
-                const result: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-                output.writeMessageBegin("changeMailingUser", thrift.Thrift.MessageType.EXCEPTION, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-        });
-    }
-    public process_getMailDocGroups(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Array<MailDocPatGroup.MailDocPatGroup>>((resolve, reject): void => {
-            try {
-                const args: GetMailDocGroupsArgs = GetMailDocGroupsArgs.read(input);
-                input.readMessageEnd();
-                resolve(this._handler.getMailDocGroups(args.token, args.filter));
-            }
-            catch (err) {
-                reject(err);
-            }
-        }).then((data: Array<MailDocPatGroup.MailDocPatGroup>): void => {
-            const result: GetMailDocGroupsResult = new GetMailDocGroupsResult({ success: data });
-            output.writeMessageBegin("getMailDocGroups", thrift.Thrift.MessageType.REPLY, requestId);
-            result.write(output);
-            output.writeMessageEnd();
-            output.flush();
-            return;
-        }).catch((err: Error): void => {
-            if (err instanceof __ROOT_NAMESPACE__.PreconditionException) {
-                const result: GetMailDocGroupsResult = new GetMailDocGroupsResult({ validError: err });
-                output.writeMessageBegin("getMailDocGroups", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else if (err instanceof __ROOT_NAMESPACE__.ServerException) {
-                const result: GetMailDocGroupsResult = new GetMailDocGroupsResult({ error: err });
-                output.writeMessageBegin("getMailDocGroups", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else {
-                const result: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-                output.writeMessageBegin("getMailDocGroups", thrift.Thrift.MessageType.EXCEPTION, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-        });
-    }
-    public process_changeMailDocGroup(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<Array<MailDocPatGroup.MailDocPatGroup>>((resolve, reject): void => {
-            try {
-                const args: ChangeMailDocGroupArgs = ChangeMailDocGroupArgs.read(input);
-                input.readMessageEnd();
-                resolve(this._handler.changeMailDocGroup(args.token, args.docPatGroups, args.toRemove));
-            }
-            catch (err) {
-                reject(err);
-            }
-        }).then((data: Array<MailDocPatGroup.MailDocPatGroup>): void => {
-            const result: ChangeMailDocGroupResult = new ChangeMailDocGroupResult({ success: data });
-            output.writeMessageBegin("changeMailDocGroup", thrift.Thrift.MessageType.REPLY, requestId);
-            result.write(output);
-            output.writeMessageEnd();
-            output.flush();
-            return;
-        }).catch((err: Error): void => {
-            if (err instanceof __ROOT_NAMESPACE__.PreconditionException) {
-                const result: ChangeMailDocGroupResult = new ChangeMailDocGroupResult({ validError: err });
-                output.writeMessageBegin("changeMailDocGroup", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else if (err instanceof __ROOT_NAMESPACE__.ServerException) {
-                const result: ChangeMailDocGroupResult = new ChangeMailDocGroupResult({ error: err });
-                output.writeMessageBegin("changeMailDocGroup", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else {
-                const result: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-                output.writeMessageBegin("changeMailDocGroup", thrift.Thrift.MessageType.EXCEPTION, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-        });
-    }
-    public process_getMailingPeriod(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<MailingPeriods.MailingPeriods>((resolve, reject): void => {
-            try {
-                const args: GetMailingPeriodArgs = GetMailingPeriodArgs.read(input);
-                input.readMessageEnd();
-                resolve(this._handler.getMailingPeriod(args.token));
-            }
-            catch (err) {
-                reject(err);
-            }
-        }).then((data: MailingPeriods.MailingPeriods): void => {
-            const result: GetMailingPeriodResult = new GetMailingPeriodResult({ success: data });
-            output.writeMessageBegin("getMailingPeriod", thrift.Thrift.MessageType.REPLY, requestId);
-            result.write(output);
-            output.writeMessageEnd();
-            output.flush();
-            return;
-        }).catch((err: Error): void => {
-            if (err instanceof __ROOT_NAMESPACE__.PreconditionException) {
-                const result: GetMailingPeriodResult = new GetMailingPeriodResult({ validError: err });
-                output.writeMessageBegin("getMailingPeriod", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else if (err instanceof __ROOT_NAMESPACE__.ServerException) {
-                const result: GetMailingPeriodResult = new GetMailingPeriodResult({ error: err });
-                output.writeMessageBegin("getMailingPeriod", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else {
-                const result: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-                output.writeMessageBegin("getMailingPeriod", thrift.Thrift.MessageType.EXCEPTION, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-        });
-    }
-    public process_setMailingPeriod(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<boolean>((resolve, reject): void => {
-            try {
-                const args: SetMailingPeriodArgs = SetMailingPeriodArgs.read(input);
-                input.readMessageEnd();
-                resolve(this._handler.setMailingPeriod(args.token, args.mailingPeriods));
-            }
-            catch (err) {
-                reject(err);
-            }
-        }).then((data: boolean): void => {
-            const result: SetMailingPeriodResult = new SetMailingPeriodResult({ success: data });
-            output.writeMessageBegin("setMailingPeriod", thrift.Thrift.MessageType.REPLY, requestId);
-            result.write(output);
-            output.writeMessageEnd();
-            output.flush();
-            return;
-        }).catch((err: Error): void => {
-            if (err instanceof __ROOT_NAMESPACE__.PreconditionException) {
-                const result: SetMailingPeriodResult = new SetMailingPeriodResult({ validError: err });
-                output.writeMessageBegin("setMailingPeriod", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else if (err instanceof __ROOT_NAMESPACE__.ServerException) {
-                const result: SetMailingPeriodResult = new SetMailingPeriodResult({ error: err });
-                output.writeMessageBegin("setMailingPeriod", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else {
-                const result: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-                output.writeMessageBegin("setMailingPeriod", thrift.Thrift.MessageType.EXCEPTION, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-        });
-    }
-    public process_getMailSettings(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<MailSettings.MailSettings>((resolve, reject): void => {
-            try {
-                const args: GetMailSettingsArgs = GetMailSettingsArgs.read(input);
-                input.readMessageEnd();
-                resolve(this._handler.getMailSettings(args.token, args.userId));
-            }
-            catch (err) {
-                reject(err);
-            }
-        }).then((data: MailSettings.MailSettings): void => {
-            const result: GetMailSettingsResult = new GetMailSettingsResult({ success: data });
-            output.writeMessageBegin("getMailSettings", thrift.Thrift.MessageType.REPLY, requestId);
-            result.write(output);
-            output.writeMessageEnd();
-            output.flush();
-            return;
-        }).catch((err: Error): void => {
-            if (err instanceof __ROOT_NAMESPACE__.PreconditionException) {
-                const result: GetMailSettingsResult = new GetMailSettingsResult({ validError: err });
-                output.writeMessageBegin("getMailSettings", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else if (err instanceof __ROOT_NAMESPACE__.ServerException) {
-                const result: GetMailSettingsResult = new GetMailSettingsResult({ error: err });
-                output.writeMessageBegin("getMailSettings", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else {
-                const result: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-                output.writeMessageBegin("getMailSettings", thrift.Thrift.MessageType.EXCEPTION, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-        });
-    }
-    public process_setMailSettings(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<boolean>((resolve, reject): void => {
-            try {
-                const args: SetMailSettingsArgs = SetMailSettingsArgs.read(input);
-                input.readMessageEnd();
-                resolve(this._handler.setMailSettings(args.token, args.mailSettings));
-            }
-            catch (err) {
-                reject(err);
-            }
-        }).then((data: boolean): void => {
-            const result: SetMailSettingsResult = new SetMailSettingsResult({ success: data });
-            output.writeMessageBegin("setMailSettings", thrift.Thrift.MessageType.REPLY, requestId);
-            result.write(output);
-            output.writeMessageEnd();
-            output.flush();
-            return;
-        }).catch((err: Error): void => {
-            if (err instanceof __ROOT_NAMESPACE__.PreconditionException) {
-                const result: SetMailSettingsResult = new SetMailSettingsResult({ validError: err });
-                output.writeMessageBegin("setMailSettings", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else if (err instanceof __ROOT_NAMESPACE__.ServerException) {
-                const result: SetMailSettingsResult = new SetMailSettingsResult({ error: err });
-                output.writeMessageBegin("setMailSettings", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else {
-                const result: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-                output.writeMessageBegin("setMailSettings", thrift.Thrift.MessageType.EXCEPTION, requestId);
                 result.write(output);
                 output.writeMessageEnd();
                 output.flush();

@@ -68,8 +68,6 @@ enum AttachmentProcessingStatus {
   PROCESSED,
   /** Сконвертирован с ошибкой */
   FAIL
-  /** Статус меняется через API */
-  MANUAL
 }
 
 /** Deprecated: Статус загрузки вложения */

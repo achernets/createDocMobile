@@ -11,7 +11,6 @@ import * as AccessRule from "./AccessRule";
 import * as AttachmentAction from "./AttachmentAction";
 import * as CloseWindowType from "./CloseWindowType";
 import * as ContentHolder from "./ContentHolder";
-import * as AvailableAction from "./AvailableAction";
 export interface IDocumentPatternStagesLinkArgs {
     id?: string;
     parentStageId?: string;
@@ -48,7 +47,6 @@ export interface IDocumentPatternStagesLinkArgs {
     fastDecision?: boolean;
     requiredDocAttachment?: boolean;
     requiredSignAttachment?: __ROOT_NAMESPACE__.DocPatternStageRequirement;
-    availableAction?: AvailableAction.AvailableAction;
 }
 export class DocumentPatternStagesLink {
     public id?: string;
@@ -86,7 +84,6 @@ export class DocumentPatternStagesLink {
     public fastDecision?: boolean;
     public requiredDocAttachment?: boolean;
     public requiredSignAttachment?: __ROOT_NAMESPACE__.DocPatternStageRequirement;
-    public availableAction?: AvailableAction.AvailableAction;
     constructor(args?: IDocumentPatternStagesLinkArgs) {
         if (args != null && args.id != null) {
             this.id = args.id;
@@ -192,9 +189,6 @@ export class DocumentPatternStagesLink {
         }
         if (args != null && args.requiredSignAttachment != null) {
             this.requiredSignAttachment = args.requiredSignAttachment;
-        }
-        if (args != null && args.availableAction != null) {
-            this.availableAction = args.availableAction;
         }
     }
     public write(output: thrift.TProtocol): void {
@@ -386,11 +380,6 @@ export class DocumentPatternStagesLink {
         if (this.requiredSignAttachment != null) {
             output.writeFieldBegin("requiredSignAttachment", thrift.Thrift.Type.I32, 35);
             output.writeI32(this.requiredSignAttachment);
-            output.writeFieldEnd();
-        }
-        if (this.availableAction != null) {
-            output.writeFieldBegin("availableAction", thrift.Thrift.Type.STRUCT, 36);
-            this.availableAction.write(output);
             output.writeFieldEnd();
         }
         output.writeFieldStop();
@@ -741,15 +730,6 @@ export class DocumentPatternStagesLink {
                     if (fieldType === thrift.Thrift.Type.I32) {
                         const value_41: __ROOT_NAMESPACE__.DocPatternStageRequirement = input.readI32();
                         _args.requiredSignAttachment = value_41;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 36:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_42: AvailableAction.AvailableAction = AvailableAction.AvailableAction.read(input);
-                        _args.availableAction = value_42;
                     }
                     else {
                         input.skip(fieldType);

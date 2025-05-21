@@ -46,7 +46,8 @@ const useAppStore = create<AppStore>((set) => ({
       const token = urlParams.get('token');
       const result = await fetch('/web-config.json');
       const settings = await result.json();
-      initClient('total.almexecm.com', 10443, true, 'kaz-server-dev1');
+      const parsed = new URL(settings.THRIFT.URL);
+      initClient(parsed.hostname,(parsed.port !== "" ?  Number(parsed.port) : (parsed.protocol === "https:" ? 443 : 80)), parsed.protocol === "https:", settings.THRIFT.CORE);
       const locale = getCurrentLocale();
       i18n.changeLanguage(locale);
       dayjs.locale(locale);

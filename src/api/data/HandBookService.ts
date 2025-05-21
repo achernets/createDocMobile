@@ -1019,142 +1019,6 @@ export class RemoveHandBookRowArgs {
         }
     }
 }
-export interface IExcelImportArgsArgs {
-    token: string;
-    hbId: string;
-    rows: Array<__ROOT_NAMESPACE__.HBRow>;
-    cleanBefore: boolean;
-}
-export class ExcelImportArgs {
-    public token: string;
-    public hbId: string;
-    public rows: Array<__ROOT_NAMESPACE__.HBRow>;
-    public cleanBefore: boolean;
-    constructor(args: IExcelImportArgsArgs) {
-        if (args != null && args.token != null) {
-            this.token = args.token;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[token] is unset!");
-        }
-        if (args != null && args.hbId != null) {
-            this.hbId = args.hbId;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[hbId] is unset!");
-        }
-        if (args != null && args.rows != null) {
-            this.rows = args.rows;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[rows] is unset!");
-        }
-        if (args != null && args.cleanBefore != null) {
-            this.cleanBefore = args.cleanBefore;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[cleanBefore] is unset!");
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("ExcelImportArgs");
-        if (this.token != null) {
-            output.writeFieldBegin("token", thrift.Thrift.Type.STRING, 1);
-            output.writeString(this.token);
-            output.writeFieldEnd();
-        }
-        if (this.hbId != null) {
-            output.writeFieldBegin("hbId", thrift.Thrift.Type.STRING, 2);
-            output.writeString(this.hbId);
-            output.writeFieldEnd();
-        }
-        if (this.rows != null) {
-            output.writeFieldBegin("rows", thrift.Thrift.Type.LIST, 3);
-            output.writeListBegin(thrift.Thrift.Type.STRUCT, this.rows.length);
-            this.rows.forEach((value_30: __ROOT_NAMESPACE__.HBRow): void => {
-                value_30.write(output);
-            });
-            output.writeListEnd();
-            output.writeFieldEnd();
-        }
-        if (this.cleanBefore != null) {
-            output.writeFieldBegin("cleanBefore", thrift.Thrift.Type.BOOL, 4);
-            output.writeBool(this.cleanBefore);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): ExcelImportArgs {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_31: string = input.readString();
-                        _args.token = value_31;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_32: string = input.readString();
-                        _args.hbId = value_32;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 3:
-                    if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_33: Array<__ROOT_NAMESPACE__.HBRow> = new Array<__ROOT_NAMESPACE__.HBRow>();
-                        const metadata_2: thrift.TList = input.readListBegin();
-                        const size_2: number = metadata_2.size;
-                        for (let i_2: number = 0; i_2 < size_2; i_2++) {
-                            const value_34: __ROOT_NAMESPACE__.HBRow = __ROOT_NAMESPACE__.HBRow.read(input);
-                            value_33.push(value_34);
-                        }
-                        input.readListEnd();
-                        _args.rows = value_33;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 4:
-                    if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_35: boolean = input.readBool();
-                        _args.cleanBefore = value_35;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        if (_args.token !== undefined && _args.hbId !== undefined && _args.rows !== undefined && _args.cleanBefore !== undefined) {
-            return new ExcelImportArgs(_args);
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Unable to read ExcelImportArgs from input");
-        }
-    }
-}
 export interface IGetAllHandBooksResultArgs {
     success?: Array<__ROOT_NAMESPACE__.HandBook>;
     validError?: __ROOT_NAMESPACE__.PreconditionException;
@@ -1180,8 +1044,8 @@ export class GetAllHandBooksResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_36: __ROOT_NAMESPACE__.HandBook): void => {
-                value_36.write(output);
+            this.success.forEach((value_30: __ROOT_NAMESPACE__.HandBook): void => {
+                value_30.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -1213,15 +1077,15 @@ export class GetAllHandBooksResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_37: Array<__ROOT_NAMESPACE__.HandBook> = new Array<__ROOT_NAMESPACE__.HandBook>();
-                        const metadata_3: thrift.TList = input.readListBegin();
-                        const size_3: number = metadata_3.size;
-                        for (let i_3: number = 0; i_3 < size_3; i_3++) {
-                            const value_38: __ROOT_NAMESPACE__.HandBook = __ROOT_NAMESPACE__.HandBook.read(input);
-                            value_37.push(value_38);
+                        const value_31: Array<__ROOT_NAMESPACE__.HandBook> = new Array<__ROOT_NAMESPACE__.HandBook>();
+                        const metadata_2: thrift.TList = input.readListBegin();
+                        const size_2: number = metadata_2.size;
+                        for (let i_2: number = 0; i_2 < size_2; i_2++) {
+                            const value_32: __ROOT_NAMESPACE__.HandBook = __ROOT_NAMESPACE__.HandBook.read(input);
+                            value_31.push(value_32);
                         }
                         input.readListEnd();
-                        _args.success = value_37;
+                        _args.success = value_31;
                     }
                     else {
                         input.skip(fieldType);
@@ -1229,8 +1093,8 @@ export class GetAllHandBooksResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_39: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_39;
+                        const value_33: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_33;
                     }
                     else {
                         input.skip(fieldType);
@@ -1238,8 +1102,8 @@ export class GetAllHandBooksResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_40: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_40;
+                        const value_34: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_34;
                     }
                     else {
                         input.skip(fieldType);
@@ -1309,8 +1173,8 @@ export class GetCountAllHandBooksResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_41: number = input.readI32();
-                        _args.success = value_41;
+                        const value_35: number = input.readI32();
+                        _args.success = value_35;
                     }
                     else {
                         input.skip(fieldType);
@@ -1318,8 +1182,8 @@ export class GetCountAllHandBooksResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_42: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_42;
+                        const value_36: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_36;
                     }
                     else {
                         input.skip(fieldType);
@@ -1327,8 +1191,8 @@ export class GetCountAllHandBooksResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_43: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_43;
+                        const value_37: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_37;
                     }
                     else {
                         input.skip(fieldType);
@@ -1398,8 +1262,8 @@ export class GetHandBookByIdResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_44: __ROOT_NAMESPACE__.HandBook = __ROOT_NAMESPACE__.HandBook.read(input);
-                        _args.success = value_44;
+                        const value_38: __ROOT_NAMESPACE__.HandBook = __ROOT_NAMESPACE__.HandBook.read(input);
+                        _args.success = value_38;
                     }
                     else {
                         input.skip(fieldType);
@@ -1407,8 +1271,8 @@ export class GetHandBookByIdResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_45: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_45;
+                        const value_39: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_39;
                     }
                     else {
                         input.skip(fieldType);
@@ -1416,8 +1280,8 @@ export class GetHandBookByIdResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_46: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_46;
+                        const value_40: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_40;
                     }
                     else {
                         input.skip(fieldType);
@@ -1487,8 +1351,8 @@ export class CreateOrUpdateHandBookResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_47: __ROOT_NAMESPACE__.HandBook = __ROOT_NAMESPACE__.HandBook.read(input);
-                        _args.success = value_47;
+                        const value_41: __ROOT_NAMESPACE__.HandBook = __ROOT_NAMESPACE__.HandBook.read(input);
+                        _args.success = value_41;
                     }
                     else {
                         input.skip(fieldType);
@@ -1496,8 +1360,8 @@ export class CreateOrUpdateHandBookResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_48: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_48;
+                        const value_42: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_42;
                     }
                     else {
                         input.skip(fieldType);
@@ -1505,8 +1369,8 @@ export class CreateOrUpdateHandBookResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_49: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_49;
+                        const value_43: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_43;
                     }
                     else {
                         input.skip(fieldType);
@@ -1547,11 +1411,11 @@ export class RefreshHandBookStructureResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.MAP, 0);
             output.writeMapBegin(thrift.Thrift.Type.STRING, thrift.Thrift.Type.LIST, this.success.size);
-            this.success.forEach((value_50: Array<__ROOT_NAMESPACE__.HBColumn>, key_1: string): void => {
+            this.success.forEach((value_44: Array<__ROOT_NAMESPACE__.HBColumn>, key_1: string): void => {
                 output.writeString(key_1);
-                output.writeListBegin(thrift.Thrift.Type.STRUCT, value_50.length);
-                value_50.forEach((value_51: __ROOT_NAMESPACE__.HBColumn): void => {
-                    value_51.write(output);
+                output.writeListBegin(thrift.Thrift.Type.STRUCT, value_44.length);
+                value_44.forEach((value_45: __ROOT_NAMESPACE__.HBColumn): void => {
+                    value_45.write(output);
                 });
                 output.writeListEnd();
             });
@@ -1585,23 +1449,23 @@ export class RefreshHandBookStructureResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.MAP) {
-                        const value_52: Map<string, Array<__ROOT_NAMESPACE__.HBColumn>> = new Map<string, Array<__ROOT_NAMESPACE__.HBColumn>>();
-                        const metadata_4: thrift.TMap = input.readMapBegin();
-                        const size_4: number = metadata_4.size;
-                        for (let i_4: number = 0; i_4 < size_4; i_4++) {
+                        const value_46: Map<string, Array<__ROOT_NAMESPACE__.HBColumn>> = new Map<string, Array<__ROOT_NAMESPACE__.HBColumn>>();
+                        const metadata_3: thrift.TMap = input.readMapBegin();
+                        const size_3: number = metadata_3.size;
+                        for (let i_3: number = 0; i_3 < size_3; i_3++) {
                             const key_2: string = input.readString();
-                            const value_53: Array<__ROOT_NAMESPACE__.HBColumn> = new Array<__ROOT_NAMESPACE__.HBColumn>();
-                            const metadata_5: thrift.TList = input.readListBegin();
-                            const size_5: number = metadata_5.size;
-                            for (let i_5: number = 0; i_5 < size_5; i_5++) {
-                                const value_54: __ROOT_NAMESPACE__.HBColumn = __ROOT_NAMESPACE__.HBColumn.read(input);
-                                value_53.push(value_54);
+                            const value_47: Array<__ROOT_NAMESPACE__.HBColumn> = new Array<__ROOT_NAMESPACE__.HBColumn>();
+                            const metadata_4: thrift.TList = input.readListBegin();
+                            const size_4: number = metadata_4.size;
+                            for (let i_4: number = 0; i_4 < size_4; i_4++) {
+                                const value_48: __ROOT_NAMESPACE__.HBColumn = __ROOT_NAMESPACE__.HBColumn.read(input);
+                                value_47.push(value_48);
                             }
                             input.readListEnd();
-                            value_52.set(key_2, value_53);
+                            value_46.set(key_2, value_47);
                         }
                         input.readMapEnd();
-                        _args.success = value_52;
+                        _args.success = value_46;
                     }
                     else {
                         input.skip(fieldType);
@@ -1609,8 +1473,8 @@ export class RefreshHandBookStructureResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_55: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_55;
+                        const value_49: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_49;
                     }
                     else {
                         input.skip(fieldType);
@@ -1618,8 +1482,8 @@ export class RefreshHandBookStructureResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_56: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_56;
+                        const value_50: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_50;
                     }
                     else {
                         input.skip(fieldType);
@@ -1692,8 +1556,8 @@ export class CreateOrUpdateHBRowsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_57: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_57;
+                        const value_51: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_51;
                     }
                     else {
                         input.skip(fieldType);
@@ -1701,8 +1565,8 @@ export class CreateOrUpdateHBRowsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_58: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_58;
+                        const value_52: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_52;
                     }
                     else {
                         input.skip(fieldType);
@@ -1743,8 +1607,8 @@ export class GetAllHandBookRowsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_59: __ROOT_NAMESPACE__.HBRow): void => {
-                value_59.write(output);
+            this.success.forEach((value_53: __ROOT_NAMESPACE__.HBRow): void => {
+                value_53.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -1776,15 +1640,15 @@ export class GetAllHandBookRowsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_60: Array<__ROOT_NAMESPACE__.HBRow> = new Array<__ROOT_NAMESPACE__.HBRow>();
-                        const metadata_6: thrift.TList = input.readListBegin();
-                        const size_6: number = metadata_6.size;
-                        for (let i_6: number = 0; i_6 < size_6; i_6++) {
-                            const value_61: __ROOT_NAMESPACE__.HBRow = __ROOT_NAMESPACE__.HBRow.read(input);
-                            value_60.push(value_61);
+                        const value_54: Array<__ROOT_NAMESPACE__.HBRow> = new Array<__ROOT_NAMESPACE__.HBRow>();
+                        const metadata_5: thrift.TList = input.readListBegin();
+                        const size_5: number = metadata_5.size;
+                        for (let i_5: number = 0; i_5 < size_5; i_5++) {
+                            const value_55: __ROOT_NAMESPACE__.HBRow = __ROOT_NAMESPACE__.HBRow.read(input);
+                            value_54.push(value_55);
                         }
                         input.readListEnd();
-                        _args.success = value_60;
+                        _args.success = value_54;
                     }
                     else {
                         input.skip(fieldType);
@@ -1792,8 +1656,8 @@ export class GetAllHandBookRowsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_62: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_62;
+                        const value_56: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_56;
                     }
                     else {
                         input.skip(fieldType);
@@ -1801,8 +1665,8 @@ export class GetAllHandBookRowsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_63: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_63;
+                        const value_57: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_57;
                     }
                     else {
                         input.skip(fieldType);
@@ -1877,8 +1741,8 @@ export class GetAllHandBookRowsCountResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.I64) {
-                        const value_64: Int64 = input.readI64();
-                        _args.success = value_64;
+                        const value_58: Int64 = input.readI64();
+                        _args.success = value_58;
                     }
                     else {
                         input.skip(fieldType);
@@ -1886,8 +1750,8 @@ export class GetAllHandBookRowsCountResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_65: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_65;
+                        const value_59: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_59;
                     }
                     else {
                         input.skip(fieldType);
@@ -1895,8 +1759,8 @@ export class GetAllHandBookRowsCountResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_66: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_66;
+                        const value_60: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_60;
                     }
                     else {
                         input.skip(fieldType);
@@ -1937,8 +1801,8 @@ export class GetHandBookValuesResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_67: __ROOT_NAMESPACE__.HBValue): void => {
-                value_67.write(output);
+            this.success.forEach((value_61: __ROOT_NAMESPACE__.HBValue): void => {
+                value_61.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -1970,15 +1834,15 @@ export class GetHandBookValuesResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_68: Array<__ROOT_NAMESPACE__.HBValue> = new Array<__ROOT_NAMESPACE__.HBValue>();
-                        const metadata_7: thrift.TList = input.readListBegin();
-                        const size_7: number = metadata_7.size;
-                        for (let i_7: number = 0; i_7 < size_7; i_7++) {
-                            const value_69: __ROOT_NAMESPACE__.HBValue = __ROOT_NAMESPACE__.HBValue.read(input);
-                            value_68.push(value_69);
+                        const value_62: Array<__ROOT_NAMESPACE__.HBValue> = new Array<__ROOT_NAMESPACE__.HBValue>();
+                        const metadata_6: thrift.TList = input.readListBegin();
+                        const size_6: number = metadata_6.size;
+                        for (let i_6: number = 0; i_6 < size_6; i_6++) {
+                            const value_63: __ROOT_NAMESPACE__.HBValue = __ROOT_NAMESPACE__.HBValue.read(input);
+                            value_62.push(value_63);
                         }
                         input.readListEnd();
-                        _args.success = value_68;
+                        _args.success = value_62;
                     }
                     else {
                         input.skip(fieldType);
@@ -1986,8 +1850,8 @@ export class GetHandBookValuesResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_70: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_70;
+                        const value_64: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_64;
                     }
                     else {
                         input.skip(fieldType);
@@ -1995,8 +1859,8 @@ export class GetHandBookValuesResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_71: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_71;
+                        const value_65: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_65;
                     }
                     else {
                         input.skip(fieldType);
@@ -2066,8 +1930,8 @@ export class RemoveHandBookResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_72: boolean = input.readBool();
-                        _args.success = value_72;
+                        const value_66: boolean = input.readBool();
+                        _args.success = value_66;
                     }
                     else {
                         input.skip(fieldType);
@@ -2075,8 +1939,8 @@ export class RemoveHandBookResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_73: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_73;
+                        const value_67: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_67;
                     }
                     else {
                         input.skip(fieldType);
@@ -2084,8 +1948,8 @@ export class RemoveHandBookResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_74: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_74;
+                        const value_68: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_68;
                     }
                     else {
                         input.skip(fieldType);
@@ -2155,8 +2019,8 @@ export class RemoveHandBookRowResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_75: boolean = input.readBool();
-                        _args.success = value_75;
+                        const value_69: boolean = input.readBool();
+                        _args.success = value_69;
                     }
                     else {
                         input.skip(fieldType);
@@ -2164,8 +2028,8 @@ export class RemoveHandBookRowResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_76: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_76;
+                        const value_70: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_70;
                     }
                     else {
                         input.skip(fieldType);
@@ -2173,8 +2037,8 @@ export class RemoveHandBookRowResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_77: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_77;
+                        const value_71: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_71;
                     }
                     else {
                         input.skip(fieldType);
@@ -2188,95 +2052,6 @@ export class RemoveHandBookRowResult {
         }
         input.readStructEnd();
         return new RemoveHandBookRowResult(_args);
-    }
-}
-export interface IExcelImportResultArgs {
-    success?: number;
-    validError?: __ROOT_NAMESPACE__.PreconditionException;
-    error?: __ROOT_NAMESPACE__.ServerException;
-}
-export class ExcelImportResult {
-    public success?: number;
-    public validError?: __ROOT_NAMESPACE__.PreconditionException;
-    public error?: __ROOT_NAMESPACE__.ServerException;
-    constructor(args?: IExcelImportResultArgs) {
-        if (args != null && args.success != null) {
-            this.success = args.success;
-        }
-        if (args != null && args.validError != null) {
-            this.validError = args.validError;
-        }
-        if (args != null && args.error != null) {
-            this.error = args.error;
-        }
-    }
-    public write(output: thrift.TProtocol): void {
-        output.writeStructBegin("ExcelImportResult");
-        if (this.success != null) {
-            output.writeFieldBegin("success", thrift.Thrift.Type.I32, 0);
-            output.writeI32(this.success);
-            output.writeFieldEnd();
-        }
-        if (this.validError != null) {
-            output.writeFieldBegin("validError", thrift.Thrift.Type.STRUCT, 1);
-            this.validError.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.error != null) {
-            output.writeFieldBegin("error", thrift.Thrift.Type.STRUCT, 2);
-            this.error.write(output);
-            output.writeFieldEnd();
-        }
-        output.writeFieldStop();
-        output.writeStructEnd();
-        return;
-    }
-    public static read(input: thrift.TProtocol): ExcelImportResult {
-        input.readStructBegin();
-        let _args: any = {};
-        while (true) {
-            const ret: thrift.TField = input.readFieldBegin();
-            const fieldType: thrift.Thrift.Type = ret.ftype;
-            const fieldId: number = ret.fid;
-            if (fieldType === thrift.Thrift.Type.STOP) {
-                break;
-            }
-            switch (fieldId) {
-                case 0:
-                    if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_78: number = input.readI32();
-                        _args.success = value_78;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 1:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_79: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_79;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 2:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_80: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_80;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                default: {
-                    input.skip(fieldType);
-                }
-            }
-            input.readFieldEnd();
-        }
-        input.readStructEnd();
-        return new ExcelImportResult(_args);
     }
 }
 export class Client {
@@ -2460,21 +2235,6 @@ export class Client {
             this.send_removeHandBookRow(token, hbId, rowId, requestId);
         });
     }
-    public excelImport(token: string, hbId: string, rows: Array<__ROOT_NAMESPACE__.HBRow>, cleanBefore: boolean): Promise<number> {
-        const requestId: number = this.incrementSeqId();
-        return new Promise<number>((resolve, reject): void => {
-            this._reqs[requestId] = (error, result) => {
-                delete this._reqs[requestId];
-                if (error != null) {
-                    reject(error);
-                }
-                else {
-                    resolve(result);
-                }
-            };
-            this.send_excelImport(token, hbId, rows, cleanBefore, requestId);
-        });
-    }
     public send_getAllHandBooks(token: string, filter: __ROOT_NAMESPACE__.KazFilter, requestId: number): void {
         const output: thrift.TProtocol = new this.protocol(this.output);
         output.writeMessageBegin("getAllHandBooks", thrift.Thrift.MessageType.CALL, requestId);
@@ -2569,15 +2329,6 @@ export class Client {
         const output: thrift.TProtocol = new this.protocol(this.output);
         output.writeMessageBegin("removeHandBookRow", thrift.Thrift.MessageType.CALL, requestId);
         const args: RemoveHandBookRowArgs = new RemoveHandBookRowArgs({ token, hbId, rowId });
-        args.write(output);
-        output.writeMessageEnd();
-        this.output.flush();
-        return;
-    }
-    public send_excelImport(token: string, hbId: string, rows: Array<__ROOT_NAMESPACE__.HBRow>, cleanBefore: boolean, requestId: number): void {
-        const output: thrift.TProtocol = new this.protocol(this.output);
-        output.writeMessageBegin("excelImport", thrift.Thrift.MessageType.CALL, requestId);
-        const args: ExcelImportArgs = new ExcelImportArgs({ token, hbId, rows, cleanBefore });
         args.write(output);
         output.writeMessageEnd();
         this.output.flush();
@@ -2886,34 +2637,6 @@ export class Client {
             }
         }
     }
-    public recv_excelImport(input: thrift.TProtocol, mtype: thrift.Thrift.MessageType, requestId: number): void {
-        const noop = (): any => null;
-        const callback = this._reqs[requestId] || noop;
-        if (mtype === thrift.Thrift.MessageType.EXCEPTION) {
-            const x: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException();
-            x.read(input);
-            input.readMessageEnd();
-            return callback(x);
-        }
-        else {
-            const result: ExcelImportResult = ExcelImportResult.read(input);
-            input.readMessageEnd();
-            if (result.validError != null) {
-                return callback(result.validError);
-            }
-            else if (result.error != null) {
-                return callback(result.error);
-            }
-            else {
-                if (result.success != null) {
-                    return callback(undefined, result.success);
-                }
-                else {
-                    return callback(new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, "excelImport failed: unknown result"));
-                }
-            }
-        }
-    }
 }
 export interface IHandler {
     getAllHandBooks(token: string, filter: __ROOT_NAMESPACE__.KazFilter): Array<__ROOT_NAMESPACE__.HandBook> | Promise<Array<__ROOT_NAMESPACE__.HandBook>>;
@@ -2927,7 +2650,6 @@ export interface IHandler {
     getHandBookValues(token: string, filter: __ROOT_NAMESPACE__.KazFilter): Array<__ROOT_NAMESPACE__.HBValue> | Promise<Array<__ROOT_NAMESPACE__.HBValue>>;
     removeHandBook(token: string, hbId: string): boolean | Promise<boolean>;
     removeHandBookRow(token: string, hbId: string, rowId: string): boolean | Promise<boolean>;
-    excelImport(token: string, hbId: string, rows: Array<__ROOT_NAMESPACE__.HBRow>, cleanBefore: boolean): number | Promise<number>;
 }
 export class Processor {
     public _handler: IHandler;
@@ -2982,10 +2704,6 @@ export class Processor {
             }
             case "process_removeHandBookRow": {
                 this.process_removeHandBookRow(requestId, input, output);
-                return;
-            }
-            case "process_excelImport": {
-                this.process_excelImport(requestId, input, output);
                 return;
             }
             default: {
@@ -3478,50 +3196,6 @@ export class Processor {
             else {
                 const result: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, err.message);
                 output.writeMessageBegin("removeHandBookRow", thrift.Thrift.MessageType.EXCEPTION, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-        });
-    }
-    public process_excelImport(requestId: number, input: thrift.TProtocol, output: thrift.TProtocol): void {
-        new Promise<number>((resolve, reject): void => {
-            try {
-                const args: ExcelImportArgs = ExcelImportArgs.read(input);
-                input.readMessageEnd();
-                resolve(this._handler.excelImport(args.token, args.hbId, args.rows, args.cleanBefore));
-            }
-            catch (err) {
-                reject(err);
-            }
-        }).then((data: number): void => {
-            const result: ExcelImportResult = new ExcelImportResult({ success: data });
-            output.writeMessageBegin("excelImport", thrift.Thrift.MessageType.REPLY, requestId);
-            result.write(output);
-            output.writeMessageEnd();
-            output.flush();
-            return;
-        }).catch((err: Error): void => {
-            if (err instanceof __ROOT_NAMESPACE__.PreconditionException) {
-                const result: ExcelImportResult = new ExcelImportResult({ validError: err });
-                output.writeMessageBegin("excelImport", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else if (err instanceof __ROOT_NAMESPACE__.ServerException) {
-                const result: ExcelImportResult = new ExcelImportResult({ error: err });
-                output.writeMessageBegin("excelImport", thrift.Thrift.MessageType.REPLY, requestId);
-                result.write(output);
-                output.writeMessageEnd();
-                output.flush();
-                return;
-            }
-            else {
-                const result: thrift.Thrift.TApplicationException = new thrift.Thrift.TApplicationException(thrift.Thrift.TApplicationExceptionType.UNKNOWN, err.message);
-                output.writeMessageBegin("excelImport", thrift.Thrift.MessageType.EXCEPTION, requestId);
                 result.write(output);
                 output.writeMessageEnd();
                 output.flush();

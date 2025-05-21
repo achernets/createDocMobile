@@ -130,7 +130,14 @@ const AddEditRowTableModal = ({ id, params: { cb, items = [] } }: Omit<ModalAddE
                   pathAllItems='contentItems'
                   pathLink={`contentItems.${contentItem.key}`}
                   //@ts-ignore
-                  addChanges={() => console.log('s1')}
+                  addChanges={() => setChanges(prev => [
+                    ...prev,
+                    {
+                      holderPath: null,
+                      pathItem: `contentItems.${contentItem.key}`,
+                      item: contentItem
+                    }
+                  ])}
                 />
               </Fragment>
             })}

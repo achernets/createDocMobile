@@ -20,7 +20,6 @@ export interface IAuthenticateArgsArgs {
     findOpened: boolean;
     langCode: string;
     cacheVersion: number;
-    frontThriftVersion: string;
 }
 export class AuthenticateArgs {
     public login: string;
@@ -30,7 +29,6 @@ export class AuthenticateArgs {
     public findOpened: boolean;
     public langCode: string;
     public cacheVersion: number;
-    public frontThriftVersion: string;
     constructor(args: IAuthenticateArgsArgs) {
         if (args != null && args.login != null) {
             this.login = args.login;
@@ -74,12 +72,6 @@ export class AuthenticateArgs {
         else {
             throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[cacheVersion] is unset!");
         }
-        if (args != null && args.frontThriftVersion != null) {
-            this.frontThriftVersion = args.frontThriftVersion;
-        }
-        else {
-            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[frontThriftVersion] is unset!");
-        }
     }
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("AuthenticateArgs");
@@ -116,11 +108,6 @@ export class AuthenticateArgs {
         if (this.cacheVersion != null) {
             output.writeFieldBegin("cacheVersion", thrift.Thrift.Type.I32, 7);
             output.writeI32(this.cacheVersion);
-            output.writeFieldEnd();
-        }
-        if (this.frontThriftVersion != null) {
-            output.writeFieldBegin("frontThriftVersion", thrift.Thrift.Type.STRING, 8);
-            output.writeString(this.frontThriftVersion);
             output.writeFieldEnd();
         }
         output.writeFieldStop();
@@ -201,15 +188,6 @@ export class AuthenticateArgs {
                         input.skip(fieldType);
                     }
                     break;
-                case 8:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_8: string = input.readString();
-                        _args.frontThriftVersion = value_8;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
                 default: {
                     input.skip(fieldType);
                 }
@@ -217,7 +195,7 @@ export class AuthenticateArgs {
             input.readFieldEnd();
         }
         input.readStructEnd();
-        if (_args.login !== undefined && _args.password !== undefined && _args.device !== undefined && _args.ip !== undefined && _args.findOpened !== undefined && _args.langCode !== undefined && _args.cacheVersion !== undefined && _args.frontThriftVersion !== undefined) {
+        if (_args.login !== undefined && _args.password !== undefined && _args.device !== undefined && _args.ip !== undefined && _args.findOpened !== undefined && _args.langCode !== undefined && _args.cacheVersion !== undefined) {
             return new AuthenticateArgs(_args);
         }
         else {
@@ -301,8 +279,8 @@ export class AuthenticateGuestArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_9: string = input.readString();
-                        _args.guestId = value_9;
+                        const value_8: string = input.readString();
+                        _args.guestId = value_8;
                     }
                     else {
                         input.skip(fieldType);
@@ -310,8 +288,8 @@ export class AuthenticateGuestArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_10: string = input.readString();
-                        _args.password = value_10;
+                        const value_9: string = input.readString();
+                        _args.password = value_9;
                     }
                     else {
                         input.skip(fieldType);
@@ -319,8 +297,8 @@ export class AuthenticateGuestArgs {
                     break;
                 case 3:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_11: string = input.readString();
-                        _args.ip = value_11;
+                        const value_10: string = input.readString();
+                        _args.ip = value_10;
                     }
                     else {
                         input.skip(fieldType);
@@ -328,8 +306,8 @@ export class AuthenticateGuestArgs {
                     break;
                 case 4:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_12: string = input.readString();
-                        _args.langCode = value_12;
+                        const value_11: string = input.readString();
+                        _args.langCode = value_11;
                     }
                     else {
                         input.skip(fieldType);
@@ -452,8 +430,8 @@ export class AuthenticateExtendedArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_13: AuthCreds.AuthCreds = AuthCreds.AuthCreds.read(input);
-                        _args.authCreds = value_13;
+                        const value_12: AuthCreds.AuthCreds = AuthCreds.AuthCreds.read(input);
+                        _args.authCreds = value_12;
                     }
                     else {
                         input.skip(fieldType);
@@ -461,8 +439,8 @@ export class AuthenticateExtendedArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_14: Device.Device = Device.Device.read(input);
-                        _args.device = value_14;
+                        const value_13: Device.Device = Device.Device.read(input);
+                        _args.device = value_13;
                     }
                     else {
                         input.skip(fieldType);
@@ -470,8 +448,8 @@ export class AuthenticateExtendedArgs {
                     break;
                 case 3:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_15: string = input.readString();
-                        _args.ip = value_15;
+                        const value_14: string = input.readString();
+                        _args.ip = value_14;
                     }
                     else {
                         input.skip(fieldType);
@@ -479,8 +457,8 @@ export class AuthenticateExtendedArgs {
                     break;
                 case 4:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_16: boolean = input.readBool();
-                        _args.findOpened = value_16;
+                        const value_15: boolean = input.readBool();
+                        _args.findOpened = value_15;
                     }
                     else {
                         input.skip(fieldType);
@@ -488,8 +466,8 @@ export class AuthenticateExtendedArgs {
                     break;
                 case 5:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_17: string = input.readString();
-                        _args.langCode = value_17;
+                        const value_16: string = input.readString();
+                        _args.langCode = value_16;
                     }
                     else {
                         input.skip(fieldType);
@@ -497,8 +475,8 @@ export class AuthenticateExtendedArgs {
                     break;
                 case 6:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_18: number = input.readI32();
-                        _args.cacheVersion = value_18;
+                        const value_17: number = input.readI32();
+                        _args.cacheVersion = value_17;
                     }
                     else {
                         input.skip(fieldType);
@@ -569,8 +547,8 @@ export class CheckOTPArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_19: string = input.readString();
-                        _args.token = value_19;
+                        const value_18: string = input.readString();
+                        _args.token = value_18;
                     }
                     else {
                         input.skip(fieldType);
@@ -578,8 +556,8 @@ export class CheckOTPArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_20: string = input.readString();
-                        _args.otp = value_20;
+                        const value_19: string = input.readString();
+                        _args.otp = value_19;
                     }
                     else {
                         input.skip(fieldType);
@@ -650,8 +628,8 @@ export class ResendOTPArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_21: string = input.readString();
-                        _args.token = value_21;
+                        const value_20: string = input.readString();
+                        _args.token = value_20;
                     }
                     else {
                         input.skip(fieldType);
@@ -659,8 +637,8 @@ export class ResendOTPArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_22: OtpSendChannelType.OtpSendChannelType = input.readI32();
-                        _args.sendChannelType = value_22;
+                        const value_21: OtpSendChannelType.OtpSendChannelType = input.readI32();
+                        _args.sendChannelType = value_21;
                     }
                     else {
                         input.skip(fieldType);
@@ -718,8 +696,8 @@ export class RefreshAuthSessionArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_23: string = input.readString();
-                        _args.token = value_23;
+                        const value_22: string = input.readString();
+                        _args.token = value_22;
                     }
                     else {
                         input.skip(fieldType);
@@ -777,8 +755,8 @@ export class IsAuthSessionExpiredArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_24: string = input.readString();
-                        _args.token = value_24;
+                        const value_23: string = input.readString();
+                        _args.token = value_23;
                     }
                     else {
                         input.skip(fieldType);
@@ -875,8 +853,8 @@ export class ChangePasswordArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_25: string = input.readString();
-                        _args.token = value_25;
+                        const value_24: string = input.readString();
+                        _args.token = value_24;
                     }
                     else {
                         input.skip(fieldType);
@@ -884,8 +862,8 @@ export class ChangePasswordArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_26: string = input.readString();
-                        _args.oldPassword = value_26;
+                        const value_25: string = input.readString();
+                        _args.oldPassword = value_25;
                     }
                     else {
                         input.skip(fieldType);
@@ -893,8 +871,8 @@ export class ChangePasswordArgs {
                     break;
                 case 3:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_27: string = input.readString();
-                        _args.password = value_27;
+                        const value_26: string = input.readString();
+                        _args.password = value_26;
                     }
                     else {
                         input.skip(fieldType);
@@ -902,8 +880,8 @@ export class ChangePasswordArgs {
                     break;
                 case 4:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_28: string = input.readString();
-                        _args.confirmation = value_28;
+                        const value_27: string = input.readString();
+                        _args.confirmation = value_27;
                     }
                     else {
                         input.skip(fieldType);
@@ -974,8 +952,8 @@ export class RequestResetPasswordArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_29: string = input.readString();
-                        _args.token = value_29;
+                        const value_28: string = input.readString();
+                        _args.token = value_28;
                     }
                     else {
                         input.skip(fieldType);
@@ -983,8 +961,8 @@ export class RequestResetPasswordArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_30: string = input.readString();
-                        _args.login = value_30;
+                        const value_29: string = input.readString();
+                        _args.login = value_29;
                     }
                     else {
                         input.skip(fieldType);
@@ -1094,8 +1072,8 @@ export class FinishResetPasswordArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_31: string = input.readString();
-                        _args.login = value_31;
+                        const value_30: string = input.readString();
+                        _args.login = value_30;
                     }
                     else {
                         input.skip(fieldType);
@@ -1103,8 +1081,8 @@ export class FinishResetPasswordArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_32: string = input.readString();
-                        _args.confirmationCode = value_32;
+                        const value_31: string = input.readString();
+                        _args.confirmationCode = value_31;
                     }
                     else {
                         input.skip(fieldType);
@@ -1112,8 +1090,8 @@ export class FinishResetPasswordArgs {
                     break;
                 case 3:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_33: string = input.readString();
-                        _args.password = value_33;
+                        const value_32: string = input.readString();
+                        _args.password = value_32;
                     }
                     else {
                         input.skip(fieldType);
@@ -1121,8 +1099,8 @@ export class FinishResetPasswordArgs {
                     break;
                 case 4:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_34: string = input.readString();
-                        _args.confirmation = value_34;
+                        const value_33: string = input.readString();
+                        _args.confirmation = value_33;
                     }
                     else {
                         input.skip(fieldType);
@@ -1130,8 +1108,8 @@ export class FinishResetPasswordArgs {
                     break;
                 case 5:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_35: string = input.readString();
-                        _args.langCode = value_35;
+                        const value_34: string = input.readString();
+                        _args.langCode = value_34;
                     }
                     else {
                         input.skip(fieldType);
@@ -1189,8 +1167,8 @@ export class LogoutArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_36: string = input.readString();
-                        _args.token = value_36;
+                        const value_35: string = input.readString();
+                        _args.token = value_35;
                     }
                     else {
                         input.skip(fieldType);
@@ -1261,8 +1239,8 @@ export class AuthenticateAsArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_37: string = input.readString();
-                        _args.token = value_37;
+                        const value_36: string = input.readString();
+                        _args.token = value_36;
                     }
                     else {
                         input.skip(fieldType);
@@ -1270,8 +1248,8 @@ export class AuthenticateAsArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_38: string = input.readString();
-                        _args.toUserId = value_38;
+                        const value_37: string = input.readString();
+                        _args.toUserId = value_37;
                     }
                     else {
                         input.skip(fieldType);
@@ -1404,8 +1382,8 @@ export class ExtendSessionArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_39: string = input.readString();
-                        _args.token = value_39;
+                        const value_38: string = input.readString();
+                        _args.token = value_38;
                     }
                     else {
                         input.skip(fieldType);
@@ -1413,8 +1391,8 @@ export class ExtendSessionArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_40: string = input.readString();
-                        _args.keyword = value_40;
+                        const value_39: string = input.readString();
+                        _args.keyword = value_39;
                     }
                     else {
                         input.skip(fieldType);
@@ -1516,8 +1494,8 @@ export class GenerateNewTokenForLangArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_41: string = input.readString();
-                        _args.token = value_41;
+                        const value_40: string = input.readString();
+                        _args.token = value_40;
                     }
                     else {
                         input.skip(fieldType);
@@ -1525,8 +1503,8 @@ export class GenerateNewTokenForLangArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_42: string = input.readString();
-                        _args.newLang = value_42;
+                        const value_41: string = input.readString();
+                        _args.newLang = value_41;
                     }
                     else {
                         input.skip(fieldType);
@@ -1584,8 +1562,8 @@ export class GetAllCustomTranslateArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_43: string = input.readString();
-                        _args.langCode = value_43;
+                        const value_42: string = input.readString();
+                        _args.langCode = value_42;
                     }
                     else {
                         input.skip(fieldType);
@@ -1643,8 +1621,8 @@ export class GetExtendedInfoArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_44: string = input.readString();
-                        _args.token = value_44;
+                        const value_43: string = input.readString();
+                        _args.token = value_43;
                     }
                     else {
                         input.skip(fieldType);
@@ -1702,8 +1680,8 @@ export class IsModuleAllowedArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_45: string = input.readString();
-                        _args.param = value_45;
+                        const value_44: string = input.readString();
+                        _args.param = value_44;
                     }
                     else {
                         input.skip(fieldType);
@@ -1761,8 +1739,8 @@ export class GetOTPForSocketRegistrationArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_46: string = input.readString();
-                        _args.token = value_46;
+                        const value_45: string = input.readString();
+                        _args.token = value_45;
                     }
                     else {
                         input.skip(fieldType);
@@ -1820,8 +1798,8 @@ export class GetOtpSendChannelsArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_47: string = input.readString();
-                        _args.token = value_47;
+                        const value_46: string = input.readString();
+                        _args.token = value_46;
                     }
                     else {
                         input.skip(fieldType);
@@ -1896,8 +1874,8 @@ export class AuthenticateResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_48: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
-                        _args.success = value_48;
+                        const value_47: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
+                        _args.success = value_47;
                     }
                     else {
                         input.skip(fieldType);
@@ -1905,8 +1883,8 @@ export class AuthenticateResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_49: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_49;
+                        const value_48: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_48;
                     }
                     else {
                         input.skip(fieldType);
@@ -1914,8 +1892,8 @@ export class AuthenticateResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_50: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_50;
+                        const value_49: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_49;
                     }
                     else {
                         input.skip(fieldType);
@@ -1985,8 +1963,8 @@ export class AuthenticateGuestResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_51: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
-                        _args.success = value_51;
+                        const value_50: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
+                        _args.success = value_50;
                     }
                     else {
                         input.skip(fieldType);
@@ -1994,8 +1972,8 @@ export class AuthenticateGuestResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_52: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_52;
+                        const value_51: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_51;
                     }
                     else {
                         input.skip(fieldType);
@@ -2003,8 +1981,8 @@ export class AuthenticateGuestResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_53: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_53;
+                        const value_52: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_52;
                     }
                     else {
                         input.skip(fieldType);
@@ -2074,8 +2052,8 @@ export class AuthenticateExtendedResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_54: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
-                        _args.success = value_54;
+                        const value_53: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
+                        _args.success = value_53;
                     }
                     else {
                         input.skip(fieldType);
@@ -2083,8 +2061,8 @@ export class AuthenticateExtendedResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_55: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_55;
+                        const value_54: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_54;
                     }
                     else {
                         input.skip(fieldType);
@@ -2092,8 +2070,8 @@ export class AuthenticateExtendedResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_56: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_56;
+                        const value_55: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_55;
                     }
                     else {
                         input.skip(fieldType);
@@ -2163,8 +2141,8 @@ export class CheckOTPResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_57: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
-                        _args.success = value_57;
+                        const value_56: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
+                        _args.success = value_56;
                     }
                     else {
                         input.skip(fieldType);
@@ -2172,8 +2150,8 @@ export class CheckOTPResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_58: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_58;
+                        const value_57: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_57;
                     }
                     else {
                         input.skip(fieldType);
@@ -2181,8 +2159,8 @@ export class CheckOTPResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_59: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_59;
+                        const value_58: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_58;
                     }
                     else {
                         input.skip(fieldType);
@@ -2252,8 +2230,8 @@ export class ResendOTPResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_60: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
-                        _args.success = value_60;
+                        const value_59: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
+                        _args.success = value_59;
                     }
                     else {
                         input.skip(fieldType);
@@ -2261,8 +2239,8 @@ export class ResendOTPResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_61: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_61;
+                        const value_60: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_60;
                     }
                     else {
                         input.skip(fieldType);
@@ -2270,8 +2248,8 @@ export class ResendOTPResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_62: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_62;
+                        const value_61: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_61;
                     }
                     else {
                         input.skip(fieldType);
@@ -2341,8 +2319,8 @@ export class RefreshAuthSessionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_63: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
-                        _args.success = value_63;
+                        const value_62: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
+                        _args.success = value_62;
                     }
                     else {
                         input.skip(fieldType);
@@ -2350,8 +2328,8 @@ export class RefreshAuthSessionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_64: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_64;
+                        const value_63: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_63;
                     }
                     else {
                         input.skip(fieldType);
@@ -2359,8 +2337,8 @@ export class RefreshAuthSessionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_65: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_65;
+                        const value_64: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_64;
                     }
                     else {
                         input.skip(fieldType);
@@ -2430,8 +2408,8 @@ export class IsAuthSessionExpiredResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_66: boolean = input.readBool();
-                        _args.success = value_66;
+                        const value_65: boolean = input.readBool();
+                        _args.success = value_65;
                     }
                     else {
                         input.skip(fieldType);
@@ -2439,8 +2417,8 @@ export class IsAuthSessionExpiredResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_67: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_67;
+                        const value_66: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_66;
                     }
                     else {
                         input.skip(fieldType);
@@ -2448,8 +2426,8 @@ export class IsAuthSessionExpiredResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_68: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_68;
+                        const value_67: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_67;
                     }
                     else {
                         input.skip(fieldType);
@@ -2519,8 +2497,8 @@ export class ChangePasswordResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_69: boolean = input.readBool();
-                        _args.success = value_69;
+                        const value_68: boolean = input.readBool();
+                        _args.success = value_68;
                     }
                     else {
                         input.skip(fieldType);
@@ -2528,8 +2506,8 @@ export class ChangePasswordResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_70: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_70;
+                        const value_69: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_69;
                     }
                     else {
                         input.skip(fieldType);
@@ -2537,8 +2515,8 @@ export class ChangePasswordResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_71: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_71;
+                        const value_70: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_70;
                     }
                     else {
                         input.skip(fieldType);
@@ -2608,8 +2586,8 @@ export class RequestResetPasswordResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_72: boolean = input.readBool();
-                        _args.success = value_72;
+                        const value_71: boolean = input.readBool();
+                        _args.success = value_71;
                     }
                     else {
                         input.skip(fieldType);
@@ -2617,8 +2595,8 @@ export class RequestResetPasswordResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_73: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_73;
+                        const value_72: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_72;
                     }
                     else {
                         input.skip(fieldType);
@@ -2626,8 +2604,8 @@ export class RequestResetPasswordResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_74: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_74;
+                        const value_73: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_73;
                     }
                     else {
                         input.skip(fieldType);
@@ -2697,8 +2675,8 @@ export class FinishResetPasswordResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_75: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
-                        _args.success = value_75;
+                        const value_74: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
+                        _args.success = value_74;
                     }
                     else {
                         input.skip(fieldType);
@@ -2706,8 +2684,8 @@ export class FinishResetPasswordResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_76: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_76;
+                        const value_75: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_75;
                     }
                     else {
                         input.skip(fieldType);
@@ -2715,8 +2693,8 @@ export class FinishResetPasswordResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_77: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_77;
+                        const value_76: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_76;
                     }
                     else {
                         input.skip(fieldType);
@@ -2786,8 +2764,8 @@ export class LogoutResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_78: boolean = input.readBool();
-                        _args.success = value_78;
+                        const value_77: boolean = input.readBool();
+                        _args.success = value_77;
                     }
                     else {
                         input.skip(fieldType);
@@ -2795,8 +2773,8 @@ export class LogoutResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_79: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_79;
+                        const value_78: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_78;
                     }
                     else {
                         input.skip(fieldType);
@@ -2804,8 +2782,8 @@ export class LogoutResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_80: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_80;
+                        const value_79: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_79;
                     }
                     else {
                         input.skip(fieldType);
@@ -2875,8 +2853,8 @@ export class AuthenticateAsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_81: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
-                        _args.success = value_81;
+                        const value_80: AuthSession.AuthSession = AuthSession.AuthSession.read(input);
+                        _args.success = value_80;
                     }
                     else {
                         input.skip(fieldType);
@@ -2884,8 +2862,8 @@ export class AuthenticateAsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_82: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_82;
+                        const value_81: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_81;
                     }
                     else {
                         input.skip(fieldType);
@@ -2893,8 +2871,8 @@ export class AuthenticateAsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_83: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_83;
+                        const value_82: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_82;
                     }
                     else {
                         input.skip(fieldType);
@@ -2925,9 +2903,9 @@ export class GetInfoResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.MAP, 0);
             output.writeMapBegin(thrift.Thrift.Type.STRING, thrift.Thrift.Type.STRING, this.success.size);
-            this.success.forEach((value_84: string, key_1: string): void => {
+            this.success.forEach((value_83: string, key_1: string): void => {
                 output.writeString(key_1);
-                output.writeString(value_84);
+                output.writeString(value_83);
             });
             output.writeMapEnd();
             output.writeFieldEnd();
@@ -2949,16 +2927,16 @@ export class GetInfoResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.MAP) {
-                        const value_85: Map<string, string> = new Map<string, string>();
+                        const value_84: Map<string, string> = new Map<string, string>();
                         const metadata_1: thrift.TMap = input.readMapBegin();
                         const size_1: number = metadata_1.size;
                         for (let i_1: number = 0; i_1 < size_1; i_1++) {
                             const key_2: string = input.readString();
-                            const value_86: string = input.readString();
-                            value_85.set(key_2, value_86);
+                            const value_85: string = input.readString();
+                            value_84.set(key_2, value_85);
                         }
                         input.readMapEnd();
-                        _args.success = value_85;
+                        _args.success = value_84;
                     }
                     else {
                         input.skip(fieldType);
@@ -3008,8 +2986,8 @@ export class GetSettingsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_87: ServerSettings.ServerSettings = ServerSettings.ServerSettings.read(input);
-                        _args.success = value_87;
+                        const value_86: ServerSettings.ServerSettings = ServerSettings.ServerSettings.read(input);
+                        _args.success = value_86;
                     }
                     else {
                         input.skip(fieldType);
@@ -3079,8 +3057,8 @@ export class ExtendSessionResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_88: boolean = input.readBool();
-                        _args.success = value_88;
+                        const value_87: boolean = input.readBool();
+                        _args.success = value_87;
                     }
                     else {
                         input.skip(fieldType);
@@ -3088,8 +3066,8 @@ export class ExtendSessionResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_89: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_89;
+                        const value_88: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_88;
                     }
                     else {
                         input.skip(fieldType);
@@ -3097,8 +3075,8 @@ export class ExtendSessionResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_90: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_90;
+                        const value_89: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_89;
                     }
                     else {
                         input.skip(fieldType);
@@ -3139,9 +3117,9 @@ export class GetAllLanguagesResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.MAP, 0);
             output.writeMapBegin(thrift.Thrift.Type.STRING, thrift.Thrift.Type.STRING, this.success.size);
-            this.success.forEach((value_91: string, key_3: string): void => {
+            this.success.forEach((value_90: string, key_3: string): void => {
                 output.writeString(key_3);
-                output.writeString(value_91);
+                output.writeString(value_90);
             });
             output.writeMapEnd();
             output.writeFieldEnd();
@@ -3173,16 +3151,16 @@ export class GetAllLanguagesResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.MAP) {
-                        const value_92: Map<string, string> = new Map<string, string>();
+                        const value_91: Map<string, string> = new Map<string, string>();
                         const metadata_2: thrift.TMap = input.readMapBegin();
                         const size_2: number = metadata_2.size;
                         for (let i_2: number = 0; i_2 < size_2; i_2++) {
                             const key_4: string = input.readString();
-                            const value_93: string = input.readString();
-                            value_92.set(key_4, value_93);
+                            const value_92: string = input.readString();
+                            value_91.set(key_4, value_92);
                         }
                         input.readMapEnd();
-                        _args.success = value_92;
+                        _args.success = value_91;
                     }
                     else {
                         input.skip(fieldType);
@@ -3190,8 +3168,8 @@ export class GetAllLanguagesResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_94: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_94;
+                        const value_93: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_93;
                     }
                     else {
                         input.skip(fieldType);
@@ -3199,8 +3177,8 @@ export class GetAllLanguagesResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_95: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_95;
+                        const value_94: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_94;
                     }
                     else {
                         input.skip(fieldType);
@@ -3270,8 +3248,8 @@ export class GenerateNewTokenForLangResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_96: string = input.readString();
-                        _args.success = value_96;
+                        const value_95: string = input.readString();
+                        _args.success = value_95;
                     }
                     else {
                         input.skip(fieldType);
@@ -3279,8 +3257,8 @@ export class GenerateNewTokenForLangResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_97: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_97;
+                        const value_96: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_96;
                     }
                     else {
                         input.skip(fieldType);
@@ -3288,8 +3266,8 @@ export class GenerateNewTokenForLangResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_98: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_98;
+                        const value_97: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_97;
                     }
                     else {
                         input.skip(fieldType);
@@ -3320,9 +3298,9 @@ export class GetAllCustomTranslateResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.MAP, 0);
             output.writeMapBegin(thrift.Thrift.Type.STRING, thrift.Thrift.Type.STRING, this.success.size);
-            this.success.forEach((value_99: string, key_5: string): void => {
+            this.success.forEach((value_98: string, key_5: string): void => {
                 output.writeString(key_5);
-                output.writeString(value_99);
+                output.writeString(value_98);
             });
             output.writeMapEnd();
             output.writeFieldEnd();
@@ -3344,16 +3322,16 @@ export class GetAllCustomTranslateResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.MAP) {
-                        const value_100: Map<string, string> = new Map<string, string>();
+                        const value_99: Map<string, string> = new Map<string, string>();
                         const metadata_3: thrift.TMap = input.readMapBegin();
                         const size_3: number = metadata_3.size;
                         for (let i_3: number = 0; i_3 < size_3; i_3++) {
                             const key_6: string = input.readString();
-                            const value_101: string = input.readString();
-                            value_100.set(key_6, value_101);
+                            const value_100: string = input.readString();
+                            value_99.set(key_6, value_100);
                         }
                         input.readMapEnd();
-                        _args.success = value_100;
+                        _args.success = value_99;
                     }
                     else {
                         input.skip(fieldType);
@@ -3423,8 +3401,8 @@ export class GetExtendedInfoResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_102: ExtInfo.ExtInfo = ExtInfo.ExtInfo.read(input);
-                        _args.success = value_102;
+                        const value_101: ExtInfo.ExtInfo = ExtInfo.ExtInfo.read(input);
+                        _args.success = value_101;
                     }
                     else {
                         input.skip(fieldType);
@@ -3432,8 +3410,8 @@ export class GetExtendedInfoResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_103: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_103;
+                        const value_102: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_102;
                     }
                     else {
                         input.skip(fieldType);
@@ -3441,8 +3419,8 @@ export class GetExtendedInfoResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_104: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_104;
+                        const value_103: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_103;
                     }
                     else {
                         input.skip(fieldType);
@@ -3492,8 +3470,8 @@ export class IsModuleAllowedResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_105: string = input.readString();
-                        _args.success = value_105;
+                        const value_104: string = input.readString();
+                        _args.success = value_104;
                     }
                     else {
                         input.skip(fieldType);
@@ -3543,8 +3521,8 @@ export class GetOTPForSocketRegistrationResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_106: string = input.readString();
-                        _args.success = value_106;
+                        const value_105: string = input.readString();
+                        _args.success = value_105;
                     }
                     else {
                         input.skip(fieldType);
@@ -3575,8 +3553,8 @@ export class GetOtpSendChannelsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.SET, 0);
             output.writeSetBegin(thrift.Thrift.Type.I32, this.success.size);
-            this.success.forEach((value_107: OtpSendChannelType.OtpSendChannelType): void => {
-                output.writeI32(value_107);
+            this.success.forEach((value_106: OtpSendChannelType.OtpSendChannelType): void => {
+                output.writeI32(value_106);
             });
             output.writeSetEnd();
             output.writeFieldEnd();
@@ -3598,15 +3576,15 @@ export class GetOtpSendChannelsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.SET) {
-                        const value_108: Set<OtpSendChannelType.OtpSendChannelType> = new Set<OtpSendChannelType.OtpSendChannelType>();
+                        const value_107: Set<OtpSendChannelType.OtpSendChannelType> = new Set<OtpSendChannelType.OtpSendChannelType>();
                         const metadata_4: thrift.TSet = input.readSetBegin();
                         const size_4: number = metadata_4.size;
                         for (let i_4: number = 0; i_4 < size_4; i_4++) {
-                            const value_109: OtpSendChannelType.OtpSendChannelType = input.readI32();
-                            value_108.add(value_109);
+                            const value_108: OtpSendChannelType.OtpSendChannelType = input.readI32();
+                            value_107.add(value_108);
                         }
                         input.readSetEnd();
-                        _args.success = value_108;
+                        _args.success = value_107;
                     }
                     else {
                         input.skip(fieldType);
@@ -3638,7 +3616,7 @@ export class Client {
     public incrementSeqId(): number {
         return this._seqid += 1;
     }
-    public authenticate(login: string, password: string, device: Device.Device, ip: string, findOpened: boolean, langCode: string, cacheVersion: number, frontThriftVersion: string): Promise<AuthSession.AuthSession> {
+    public authenticate(login: string, password: string, device: Device.Device, ip: string, findOpened: boolean, langCode: string, cacheVersion: number): Promise<AuthSession.AuthSession> {
         const requestId: number = this.incrementSeqId();
         return new Promise<AuthSession.AuthSession>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
@@ -3650,7 +3628,7 @@ export class Client {
                     resolve(result);
                 }
             };
-            this.send_authenticate(login, password, device, ip, findOpened, langCode, cacheVersion, frontThriftVersion, requestId);
+            this.send_authenticate(login, password, device, ip, findOpened, langCode, cacheVersion, requestId);
         });
     }
     public authenticateGuest(guestId: string, password: string, ip: string, langCode: string): Promise<AuthSession.AuthSession> {
@@ -3968,10 +3946,10 @@ export class Client {
             this.send_getOtpSendChannels(token, requestId);
         });
     }
-    public send_authenticate(login: string, password: string, device: Device.Device, ip: string, findOpened: boolean, langCode: string, cacheVersion: number, frontThriftVersion: string, requestId: number): void {
+    public send_authenticate(login: string, password: string, device: Device.Device, ip: string, findOpened: boolean, langCode: string, cacheVersion: number, requestId: number): void {
         const output: thrift.TProtocol = new this.protocol(this.output);
         output.writeMessageBegin("authenticate", thrift.Thrift.MessageType.CALL, requestId);
-        const args: AuthenticateArgs = new AuthenticateArgs({ login, password, device, ip, findOpened, langCode, cacheVersion, frontThriftVersion });
+        const args: AuthenticateArgs = new AuthenticateArgs({ login, password, device, ip, findOpened, langCode, cacheVersion });
         args.write(output);
         output.writeMessageEnd();
         this.output.flush();
@@ -4736,7 +4714,7 @@ export class Client {
     }
 }
 export interface IHandler {
-    authenticate(login: string, password: string, device: Device.Device, ip: string, findOpened: boolean, langCode: string, cacheVersion: number, frontThriftVersion: string): AuthSession.AuthSession | Promise<AuthSession.AuthSession>;
+    authenticate(login: string, password: string, device: Device.Device, ip: string, findOpened: boolean, langCode: string, cacheVersion: number): AuthSession.AuthSession | Promise<AuthSession.AuthSession>;
     authenticateGuest(guestId: string, password: string, ip: string, langCode: string): AuthSession.AuthSession | Promise<AuthSession.AuthSession>;
     authenticateExtended(authCreds: AuthCreds.AuthCreds, device: Device.Device, ip: string, findOpened: boolean, langCode: string, cacheVersion: number): AuthSession.AuthSession | Promise<AuthSession.AuthSession>;
     checkOTP(token: string, otp: string): AuthSession.AuthSession | Promise<AuthSession.AuthSession>;
@@ -4876,7 +4854,7 @@ export class Processor {
             try {
                 const args: AuthenticateArgs = AuthenticateArgs.read(input);
                 input.readMessageEnd();
-                resolve(this._handler.authenticate(args.login, args.password, args.device, args.ip, args.findOpened, args.langCode, args.cacheVersion, args.frontThriftVersion));
+                resolve(this._handler.authenticate(args.login, args.password, args.device, args.ip, args.findOpened, args.langCode, args.cacheVersion));
             }
             catch (err) {
                 reject(err);

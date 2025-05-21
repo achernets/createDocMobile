@@ -20,8 +20,6 @@ export interface IExternalModuleArgs {
     descriptionExternalModuleLoc?: Map<string, string>;
     transportType?: __ROOT_NAMESPACE__.ThriftTransportType;
     protocolType?: __ROOT_NAMESPACE__.ThriftProtocolType;
-    availableStageList?: Array<__ROOT_NAMESPACE__.AvailablePatternStage>;
-    availableActionList?: Array<__ROOT_NAMESPACE__.AvailableAction>;
 }
 export class ExternalModule {
     public id?: string;
@@ -36,8 +34,6 @@ export class ExternalModule {
     public descriptionExternalModuleLoc?: Map<string, string>;
     public transportType?: __ROOT_NAMESPACE__.ThriftTransportType;
     public protocolType?: __ROOT_NAMESPACE__.ThriftProtocolType;
-    public availableStageList?: Array<__ROOT_NAMESPACE__.AvailablePatternStage>;
-    public availableActionList?: Array<__ROOT_NAMESPACE__.AvailableAction>;
     constructor(args?: IExternalModuleArgs) {
         if (args != null && args.id != null) {
             this.id = args.id;
@@ -79,12 +75,6 @@ export class ExternalModule {
         }
         if (args != null && args.protocolType != null) {
             this.protocolType = args.protocolType;
-        }
-        if (args != null && args.availableStageList != null) {
-            this.availableStageList = args.availableStageList;
-        }
-        if (args != null && args.availableActionList != null) {
-            this.availableActionList = args.availableActionList;
         }
     }
     public write(output: thrift.TProtocol): void {
@@ -163,24 +153,6 @@ export class ExternalModule {
             output.writeI32(this.protocolType);
             output.writeFieldEnd();
         }
-        if (this.availableStageList != null) {
-            output.writeFieldBegin("availableStageList", thrift.Thrift.Type.LIST, 14);
-            output.writeListBegin(thrift.Thrift.Type.STRUCT, this.availableStageList.length);
-            this.availableStageList.forEach((value_4: __ROOT_NAMESPACE__.AvailablePatternStage): void => {
-                value_4.write(output);
-            });
-            output.writeListEnd();
-            output.writeFieldEnd();
-        }
-        if (this.availableActionList != null) {
-            output.writeFieldBegin("availableActionList", thrift.Thrift.Type.LIST, 15);
-            output.writeListBegin(thrift.Thrift.Type.STRUCT, this.availableActionList.length);
-            this.availableActionList.forEach((value_5: __ROOT_NAMESPACE__.AvailableAction): void => {
-                value_5.write(output);
-            });
-            output.writeListEnd();
-            output.writeFieldEnd();
-        }
         output.writeFieldStop();
         output.writeStructEnd();
         return;
@@ -198,8 +170,8 @@ export class ExternalModule {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_6: string = input.readString();
-                        _args.id = value_6;
+                        const value_4: string = input.readString();
+                        _args.id = value_4;
                     }
                     else {
                         input.skip(fieldType);
@@ -207,8 +179,8 @@ export class ExternalModule {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.I64) {
-                        const value_7: Int64 = input.readI64();
-                        _args.createDate = value_7;
+                        const value_5: Int64 = input.readI64();
+                        _args.createDate = value_5;
                     }
                     else {
                         input.skip(fieldType);
@@ -216,8 +188,8 @@ export class ExternalModule {
                     break;
                 case 3:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_8: string = input.readString();
-                        _args.url = value_8;
+                        const value_6: string = input.readString();
+                        _args.url = value_6;
                     }
                     else {
                         input.skip(fieldType);
@@ -225,8 +197,8 @@ export class ExternalModule {
                     break;
                 case 4:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_9: string = input.readString();
-                        _args.nameExternalModule = value_9;
+                        const value_7: string = input.readString();
+                        _args.nameExternalModule = value_7;
                     }
                     else {
                         input.skip(fieldType);
@@ -234,8 +206,8 @@ export class ExternalModule {
                     break;
                 case 5:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_10: string = input.readString();
-                        _args.descriptionExternalModule = value_10;
+                        const value_8: string = input.readString();
+                        _args.descriptionExternalModule = value_8;
                     }
                     else {
                         input.skip(fieldType);
@@ -243,8 +215,8 @@ export class ExternalModule {
                     break;
                 case 6:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_11: __ROOT_NAMESPACE__.UserOrGroup = __ROOT_NAMESPACE__.UserOrGroup.read(input);
-                        _args.user = value_11;
+                        const value_9: __ROOT_NAMESPACE__.UserOrGroup = __ROOT_NAMESPACE__.UserOrGroup.read(input);
+                        _args.user = value_9;
                     }
                     else {
                         input.skip(fieldType);
@@ -252,8 +224,8 @@ export class ExternalModule {
                     break;
                 case 7:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_12: string = input.readString();
-                        _args.error = value_12;
+                        const value_10: string = input.readString();
+                        _args.error = value_10;
                     }
                     else {
                         input.skip(fieldType);
@@ -261,15 +233,15 @@ export class ExternalModule {
                     break;
                 case 9:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_13: Array<__ROOT_NAMESPACE__.Account> = new Array<__ROOT_NAMESPACE__.Account>();
+                        const value_11: Array<__ROOT_NAMESPACE__.Account> = new Array<__ROOT_NAMESPACE__.Account>();
                         const metadata_1: thrift.TList = input.readListBegin();
                         const size_1: number = metadata_1.size;
                         for (let i_1: number = 0; i_1 < size_1; i_1++) {
-                            const value_14: __ROOT_NAMESPACE__.Account = __ROOT_NAMESPACE__.Account.read(input);
-                            value_13.push(value_14);
+                            const value_12: __ROOT_NAMESPACE__.Account = __ROOT_NAMESPACE__.Account.read(input);
+                            value_11.push(value_12);
                         }
                         input.readListEnd();
-                        _args.accounts = value_13;
+                        _args.accounts = value_11;
                     }
                     else {
                         input.skip(fieldType);
@@ -277,16 +249,16 @@ export class ExternalModule {
                     break;
                 case 10:
                     if (fieldType === thrift.Thrift.Type.MAP) {
-                        const value_15: Map<string, string> = new Map<string, string>();
+                        const value_13: Map<string, string> = new Map<string, string>();
                         const metadata_2: thrift.TMap = input.readMapBegin();
                         const size_2: number = metadata_2.size;
                         for (let i_2: number = 0; i_2 < size_2; i_2++) {
                             const key_3: string = input.readString();
-                            const value_16: string = input.readString();
-                            value_15.set(key_3, value_16);
+                            const value_14: string = input.readString();
+                            value_13.set(key_3, value_14);
                         }
                         input.readMapEnd();
-                        _args.nameExternalModuleLoc = value_15;
+                        _args.nameExternalModuleLoc = value_13;
                     }
                     else {
                         input.skip(fieldType);
@@ -294,16 +266,16 @@ export class ExternalModule {
                     break;
                 case 11:
                     if (fieldType === thrift.Thrift.Type.MAP) {
-                        const value_17: Map<string, string> = new Map<string, string>();
+                        const value_15: Map<string, string> = new Map<string, string>();
                         const metadata_3: thrift.TMap = input.readMapBegin();
                         const size_3: number = metadata_3.size;
                         for (let i_3: number = 0; i_3 < size_3; i_3++) {
                             const key_4: string = input.readString();
-                            const value_18: string = input.readString();
-                            value_17.set(key_4, value_18);
+                            const value_16: string = input.readString();
+                            value_15.set(key_4, value_16);
                         }
                         input.readMapEnd();
-                        _args.descriptionExternalModuleLoc = value_17;
+                        _args.descriptionExternalModuleLoc = value_15;
                     }
                     else {
                         input.skip(fieldType);
@@ -311,8 +283,8 @@ export class ExternalModule {
                     break;
                 case 12:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_19: __ROOT_NAMESPACE__.ThriftTransportType = input.readI32();
-                        _args.transportType = value_19;
+                        const value_17: __ROOT_NAMESPACE__.ThriftTransportType = input.readI32();
+                        _args.transportType = value_17;
                     }
                     else {
                         input.skip(fieldType);
@@ -320,40 +292,8 @@ export class ExternalModule {
                     break;
                 case 13:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_20: __ROOT_NAMESPACE__.ThriftProtocolType = input.readI32();
-                        _args.protocolType = value_20;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 14:
-                    if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_21: Array<__ROOT_NAMESPACE__.AvailablePatternStage> = new Array<__ROOT_NAMESPACE__.AvailablePatternStage>();
-                        const metadata_4: thrift.TList = input.readListBegin();
-                        const size_4: number = metadata_4.size;
-                        for (let i_4: number = 0; i_4 < size_4; i_4++) {
-                            const value_22: __ROOT_NAMESPACE__.AvailablePatternStage = __ROOT_NAMESPACE__.AvailablePatternStage.read(input);
-                            value_21.push(value_22);
-                        }
-                        input.readListEnd();
-                        _args.availableStageList = value_21;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 15:
-                    if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_23: Array<__ROOT_NAMESPACE__.AvailableAction> = new Array<__ROOT_NAMESPACE__.AvailableAction>();
-                        const metadata_5: thrift.TList = input.readListBegin();
-                        const size_5: number = metadata_5.size;
-                        for (let i_5: number = 0; i_5 < size_5; i_5++) {
-                            const value_24: __ROOT_NAMESPACE__.AvailableAction = __ROOT_NAMESPACE__.AvailableAction.read(input);
-                            value_23.push(value_24);
-                        }
-                        input.readListEnd();
-                        _args.availableActionList = value_23;
+                        const value_18: __ROOT_NAMESPACE__.ThriftProtocolType = input.readI32();
+                        _args.protocolType = value_18;
                     }
                     else {
                         input.skip(fieldType);

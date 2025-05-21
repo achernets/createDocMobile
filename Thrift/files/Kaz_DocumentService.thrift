@@ -60,17 +60,6 @@ enum CloseWindowType {
   NOT_CLOSE_UPDATE
 }
 
-struct AvailableAction {
-  /** Идентификатор */
-  1: optional common.ID id;
-  /** Уникальный uuid */
-  2: optional string uuid;
-  /** Назва */
-  3: optional string name;
-  /** URL */
-  4: optional string url;
-}
-
 /** Связи этапов шаблонов документов */
 struct DocumentPatternStagesLink {
   /** Идентификатор */
@@ -146,8 +135,6 @@ struct DocumentPatternStagesLink {
   34: optional bool requiredDocAttachment;
   /** Настройка обязательности подписания вложений */
   35: optional common.DocPatternStageRequirement requiredSignAttachment;
-  /** Динамическое действие */
-  36: optional AvailableAction availableAction;
 }
 
 /** Доступное действие по документу*/
@@ -845,8 +832,7 @@ enum StageParamType {
   SCRIPT,
   DATETIME,
   JIRATIME,
-  PATTERN_TO_USER,
-  PATTERN_STAGE
+  PATTERN_TO_USER
 }
 
 /** Пара паттерн - пользователь*/
@@ -1033,8 +1019,6 @@ struct DocumentPatternStage {
   73: optional set<DocPatternStageSubStatus> additionalSubStatus;
   /** Идентификатор post скрипта*/
   75: optional common.CompositeId setDecisionFunctionId;
-  /** Доступность онлайн редактирования preview */
-  76: optional AccessRule canEditPreview;
 }
 struct DesicionInfo {
   1:DocumentPatternStage freezeStage;
@@ -1437,8 +1421,6 @@ struct AttachmentPermissions {
   9: bool addedToBulkSign;
   /** Разрешение на сравнение файла */
   10: bool canCompare;
-  /** Разрешено редактировать preview */
-  11: bool canEditPreview;
 }
 
 /** Тип вложения */
@@ -1450,9 +1432,7 @@ enum AttachmentType {
   /** Сконвертированный в png */
   PNG,
   /** Сконвертированный в pdf без водяного знака */
-  PDF_UNSECURED,
-  /** Обработан OCR */
-  OCR
+  PDF_UNSECURED
 }
 
 /** Тип доступа к файлу */
@@ -2139,20 +2119,6 @@ enum SubStatusKey {
     CAN_REMOVE
 }
 
-enum DocKeyType {
-    ITEM,
-    ROLE,
-    VARIABLE
-}
-
-/** Информация о вложении при генерации URL для загрузки */
-struct AttachmentDownloadInfo {
-  /** Идентификатор вложения */
-  1: optional common.ID id;
-  /* Типы вложений */
-  2: list<AttachmentType> types;
-}
-
 /** Сервис управления документами */
 service DocumentService {
   DocPermissions calculatePermissions(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3:DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
@@ -2275,7 +2241,7 @@ service DocumentService {
   /** Добавление вложения в документ порциями */
   Attachment uploadDocumentAttachmentPortions(1: common.AuthTokenBase64 token, 2: common.ID attachmentId, 3: i32 numberPortion, 4: binary fileContentBytes) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Добавление файла предпросмотра к вложению */
-  Attachment addPreviewToAttachment(1: common.AuthTokenBase64 token, 2: common.ID attachmentId, 3: binary previewContent, 4:AttachmentType attachmentType, 5: DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  Attachment addPreviewToAttachment(1: common.AuthTokenBase64 token, 2: common.ID attachmentId, 3: binary previewContent, 4: DocumentAccessPolicy policy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Добавить запись в таблицу истории об открытии вложения*/
   bool writeHistoryOpenAttachment(1: common.AuthTokenBase64 token, 2: common.ID attachmentId, 3: AttachmentType attachmentType, 4:DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Загрузка вложения с сервера */
@@ -2439,8 +2405,8 @@ service DocumentService {
   bool addAnswerers(1: common.AuthTokenBase64 token, 2: common.ID cardId, 3: list<common.ID> users, 4: common.kazDate deadlineDate, 5: string comment, 6: bool requireMyParticipation, 7: DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Задать вопрос */
   bool addAnswerersToLinkedDocument(1: common.AuthTokenBase64 token, 2: common.ID docId, 3: list<common.UserOrGroup> users, 4: common.kazDate deadlineDate, 5: string comment, 6: bool requireMyParticipation, 7: DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-  /* Создание документа с вопросом в момент проведения голосования */
-  ADocument createMeetingQuestion(1: common.AuthTokenBase64 token, 2: ADocument document, 3: list<common.UserOrGroup> users, 4: list<ContentHolderLink> holderLinks, 5: set<common.ID> securityClassificationsId, 6: list<AttCreateInfo> attachments, 7: list<DocumentRelation> docRelations, 8: common.ID meetingDocumentId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
+  /** Прикрепить вопрос к голосованию в момент проведения голосования */
+  bool linkQuestionToMeeting(1: common.AuthTokenBase64 token, 2:common.ID qDocumentId, 3:common.ID meetingDocumentId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Указать внешний номер */
   bool changeExternalNumber(1: common.AuthTokenBase64 token, 2:common.ID documentId, 3:common.ID externalId, 4:string externalNumber, 5:common.kazDate externalRegDate, 6: DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Получить множество доступных подстатусов этапа шаблона для указаного документа */
@@ -2459,13 +2425,6 @@ service DocumentService {
   list<DocumentTag> getUserTags(1: common.AuthTokenBase64 token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Изменить порядок для тегов  */
   bool updateTagOrders(1: common.AuthTokenBase64 token, 2: map<common.ID, i32> oredrMap) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-
-  string documentFieldByKey(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3: string key, 4: DocKeyType keyType) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** Выполнить декорации для вложения  */
   bool addDecoration(1: common.AuthTokenBase64 token, 2: common.ID attachmentId, 3: list<string> decoratorKeys) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-  /** Сгенерировать URL загрузки вложений с сервера  */
-  string generateDownloadAttachmentsURL(1: common.AuthTokenBase64 token, 2: common.ID documentId, 3: list<AttachmentDownloadInfo> attachmentsInfo, 4: DocumentAccessPolicy accessPolicy) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-  /** Смена статуса вложения */
-  bool setAttachmentProcessingStatus(1: common.AuthTokenBase64 token, 2: list<common.ID> attachmentIds, 3: common.AttachmentProcessingStatus processingStatus) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-
 }

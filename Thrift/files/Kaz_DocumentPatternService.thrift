@@ -64,21 +64,24 @@ struct DigitalView {
 }
 
 /** Варианты форм объекта */
-enum AvailablePatternStageForm {
-  /** круг -> start,end*/
+enum AvailablePattarnStageForm {
   CIRCLE,
-  /** прямокутник -> in_work*/
   RECTANGLE,
-  /** ромб -> compare*/
-  RHOMBUS,
-  /** шестикутник -> external*/
+  DIAMOND,
+  TRIANGLERIGHT,
+  TRIANGLEDOWN,
+  TRIANGLELEFT,
+  TRIANGLEUP,
+  PENTAGON,
   HEXAGON,
-  /** -> mux*/
-  ROUNDEDRECTANGLE,
-  /** конверт -> email*/
-  ENVELOPE,
-  /** -> report*/
-  PARALLELOGRAM
+  RING,
+  NOTALLOWED,
+  ACTOR,
+  BPMMTASKMESSAGE,
+  BPMMEVENTTIMER,
+  BPMMEVENTCONDITIONAL,
+  BPMMTASKSCRIPT,
+  ROUNDEDRECTANGLE
 }
 
 /** Тип проверки на редактирование/удаление документа */
@@ -121,7 +124,9 @@ struct AvailablePatternStage {
   /** Идентификатор */
   1: optional common.ID id;
   /** Форма объекта */
-  2: optional AvailablePatternStageForm formAvail;
+  2: optional AvailablePattarnStageForm formAvail;
+  /** Картинка в углу */
+  3: optional string img;
   /** Название */
   4: optional string nameAvail;
   /** Описание */
@@ -134,6 +139,10 @@ struct AvailablePatternStage {
   8: optional set<string> availableAnswers;
   /** Разрешены ли динамические переходы */
   9: optional ModifyEnable fixedDecisions;
+  /** Тип разрешенного объекта */
+  10: optional AvailablePatternStageType availType;
+  /** Цвет объекта */
+  11: optional string color;
   /** Масштаб объекта */
   12: i32 scale;
   /** Порядковый номер */
@@ -145,16 +154,6 @@ struct AvailablePatternStage {
   16: optional string stageType;
   /** Уникальный uuid */
   17: optional string uuid;
-  /** заместо AvailablePatternStageType, тип этапа */
-  18: string objectClass;
-  /**Цвет границ */
-  19: optional string colorShape;
-  /**Цвет заливки */
-  20: optional string colorBackground;
-  /**Цвет текста */
-  21: optional string colorFont;
-  /** URL иконки */
-  22: optional string iconUrl;
 }
 
 /** Способ автодобавления вложения */
@@ -411,10 +410,6 @@ service DocumentPatternService {
 
   PatternData createOrUpdateStagesAndLinksEx(1: common.AuthTokenBase64 token, 2: common.ID patternId, 3: list<Kaz_DocumentService.DocumentPatternStage> stages, 4: list<Kaz_DocumentService.DocumentPatternStagesLink> links, 5: list<common.ID> stageToRemove, 6: list<common.ID> linkToRemove) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
-  /** Получение списка доступных динамический действий */
-  list<Kaz_DocumentService.AvailableAction> getAvailableActionList(1: common.AuthTokenBase64 token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-  /** Добавить в очередь ночных задач задачу на перерасчет доп. полей документа (С1-С20) */
-  bool addPatternNightlyDocFieldsTask(1: common.AuthTokenBase64 token, 2: common.ID patternId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** получение списка колонок привязанных к шаблону */
   list<Kaz_types.DocColumn>getAllColumnsForPattern(1: common.AuthTokenBase64 token, 2:common.ID patternId, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
   /** изменение колонок привязанных к шаблону */

@@ -5,6 +5,8 @@ include "filter.thrift"
 
 namespace java core
 
+
+
 /** Сервис справочников */
 service HandBookService {
    /** id, name - по названию справочника
@@ -64,6 +66,4 @@ service HandBookService {
    bool removeHandBook(1: common.AuthTokenBase64 token, 2: common.ID hbId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
    /** удалить строку из справочника */
    bool removeHandBookRow(1: common.AuthTokenBase64 token, 2: common.ID hbId, 3: common.ID rowId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-   /** Импорт справочника */
-   i32 excelImport(1: common.AuthTokenBase64 token, 2:common.ID hbId, 3:list<HB.HBRow> rows, 4:bool cleanBefore) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 }

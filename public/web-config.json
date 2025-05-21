@@ -13,7 +13,7 @@
   ],
   "START_YEAR": 2018,
   "THRIFT": {
-    "URL": "https://total.almexecm.com:10443",
+    "URL": "https://total.almexecm.com:50443",
     "CORE": "kaz-server-dev1",
     "CHAT": "chat-server-dev1",
     "AVATAR": "avatar-server-dev1",

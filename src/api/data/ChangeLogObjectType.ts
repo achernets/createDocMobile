@@ -21,6 +21,5 @@ export enum ChangeLogObjectType {
     NOMENCLATURE_NUMBER = 13,
     CLIENT = 14,
     CLIENT_CONTENT_VALUE = 15,
-    USER_GROUP = 16,
-    NEWS = 17
+    USER_GROUP = 16
 }

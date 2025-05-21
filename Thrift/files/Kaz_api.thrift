@@ -27,14 +27,13 @@ include "Kaz_KnowledgeService.thrift"
 include "Kaz_VoteService.thrift"
 include "Kaz_ExportImportService.thrift"
 include "Kaz_ExecutionMonitoringService.thrift"
-include "Kaz_AnalyticsService.thrift"
 
-/** Открытое api системы AlmexECM version 3.0.176 */
+/** Открытое api системы AlmexECM version 3.0.154 */
 namespace java core
 
 
 /** Версия продукта AlmexECM */
-const string CURRENT_VERSION     = '3.0.176';
+const string CURRENT_VERSION     = '3.0.154';
 
 /*
 путь к сервисам по протоколу json
@@ -64,7 +63,8 @@ const string KNOWLEDGE_SERVICE_PATH_JSON = "knowledge-json";
 const string VOTE_SERVICE_PATH_JSON = "vote-json";
 const string EXPORT_IMPORT_SERVICE_PATH_JSON = "exportImport-json";
 const string EXECUTION_MONITORING_PATH_JSON = "executionMonitoring-json";
-const string ANALITICS_PATH_JSON = "analitics-json";
+
+
 
 /*
 путь к сервисам по протоколу bin
@@ -93,7 +93,7 @@ const string SCRIPT_DICTIONARY_SERVICE_PATH_BIN = "scriptDictionary-bin";
 const string KNOWLEDGE_SERVICE_PATH_BIN = "knowledge-bin";
 const string EXPORT_IMPORT_SERVICE_PATH_BIN = "exportImport-bin";
 const string EXECUTION_MONITORING_PATH_BIN = "executionMonitoring-bin";
-const string ANALITICS_PATH_BIN = "analitics-bin";
+
 
 /*
 путь к сервисам по протоколу pure-json
@@ -122,4 +122,3 @@ const string SCRIPT_DICTIONARY_SERVICE_PATH_PURE_JSON = "scriptDictionary-pure-j
 const string KNOWLEDGE_SERVICE_PATH_PURE_JSON = "knowledge-pure-json";
 const string EXPORT_IMPORT_SERVICE_PATH_PURE_JSON = "exportImport-pure-json";
 const string EXECUTION_MONITORING_PATH_PURE_JSON = "executionMonitoring-pure-json";
-const string ANALITICS_PATH_PURE_JSON = "analitics-pure-json";

@@ -9,29 +9,22 @@ import * as __ROOT_NAMESPACE__ from "./";
 export interface ISignDataArgs {
     attachmentIdIn?: string;
     stringIn?: string;
-    stringBase64In?: string;
     digitHashOut?: string;
     signatureOut?: string;
     errorOut?: __ROOT_NAMESPACE__.PreconditionException;
-    actionName?: string;
 }
 export class SignData {
     public attachmentIdIn?: string;
     public stringIn?: string;
-    public stringBase64In?: string;
     public digitHashOut?: string;
     public signatureOut?: string;
     public errorOut?: __ROOT_NAMESPACE__.PreconditionException;
-    public actionName?: string;
     constructor(args?: ISignDataArgs) {
         if (args != null && args.attachmentIdIn != null) {
             this.attachmentIdIn = args.attachmentIdIn;
         }
         if (args != null && args.stringIn != null) {
             this.stringIn = args.stringIn;
-        }
-        if (args != null && args.stringBase64In != null) {
-            this.stringBase64In = args.stringBase64In;
         }
         if (args != null && args.digitHashOut != null) {
             this.digitHashOut = args.digitHashOut;
@@ -41,9 +34,6 @@ export class SignData {
         }
         if (args != null && args.errorOut != null) {
             this.errorOut = args.errorOut;
-        }
-        if (args != null && args.actionName != null) {
-            this.actionName = args.actionName;
         }
     }
     public write(output: thrift.TProtocol): void {
@@ -56,11 +46,6 @@ export class SignData {
         if (this.stringIn != null) {
             output.writeFieldBegin("stringIn", thrift.Thrift.Type.STRING, 2);
             output.writeString(this.stringIn);
-            output.writeFieldEnd();
-        }
-        if (this.stringBase64In != null) {
-            output.writeFieldBegin("stringBase64In", thrift.Thrift.Type.STRING, 3);
-            output.writeString(this.stringBase64In);
             output.writeFieldEnd();
         }
         if (this.digitHashOut != null) {
@@ -76,11 +61,6 @@ export class SignData {
         if (this.errorOut != null) {
             output.writeFieldBegin("errorOut", thrift.Thrift.Type.STRUCT, 10);
             this.errorOut.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.actionName != null) {
-            output.writeFieldBegin("actionName", thrift.Thrift.Type.STRING, 11);
-            output.writeString(this.actionName);
             output.writeFieldEnd();
         }
         output.writeFieldStop();
@@ -116,19 +96,10 @@ export class SignData {
                         input.skip(fieldType);
                     }
                     break;
-                case 3:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_3: string = input.readString();
-                        _args.stringBase64In = value_3;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
                 case 6:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_4: string = input.readString();
-                        _args.digitHashOut = value_4;
+                        const value_3: string = input.readString();
+                        _args.digitHashOut = value_3;
                     }
                     else {
                         input.skip(fieldType);
@@ -136,8 +107,8 @@ export class SignData {
                     break;
                 case 9:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_5: string = input.readString();
-                        _args.signatureOut = value_5;
+                        const value_4: string = input.readString();
+                        _args.signatureOut = value_4;
                     }
                     else {
                         input.skip(fieldType);
@@ -145,17 +116,8 @@ export class SignData {
                     break;
                 case 10:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_6: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.errorOut = value_6;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 11:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_7: string = input.readString();
-                        _args.actionName = value_7;
+                        const value_5: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.errorOut = value_5;
                     }
                     else {
                         input.skip(fieldType);

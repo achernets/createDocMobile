@@ -240,7 +240,6 @@ enum NotificationType {
   /** Added additional decision executors */
   DOCUMENT_ADD_ADDITIONAL_CONFIRMER,
   DOCUMENT_ADD_ANSWERERS,
-  DOCUMENT_ANSWER_TO_QUESTION,
   DOCUMENT_EXECUTION_CARD_CLOSED,
   DOCUMENT_ON_CONTROL_RETURNED,
   DOCUMENT_EXECUTION_DELETED,
@@ -370,16 +369,12 @@ struct SignData {
   1: optional common.ID attachmentIdIn;
   /* Строка для подписания */
   2: optional string stringIn;
-  /* Строка для подписания в Base64 стандарте */
-  3: optional string stringBase64In;
   /* Hash строка от данных */
   6: optional string digitHashOut;
   /* Сигнатура(при подписании вложения, возвращается конверт без данных, при подписании строки, возвращается конверт с данными */
   9: optional string signatureOut;
   /* Ошибка, возникшая при подписании или проверке доступа */
   10: optional ex.PreconditionException errorOut;
-  /* Название действия (для отображения на сторонних сервисах подписи, напр. eGov Mobile) */
-  11: optional string actionName;
 }
 
 /** Тип сортировки */

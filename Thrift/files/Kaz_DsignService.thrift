@@ -111,8 +111,6 @@ struct ExtSignOperation {
   3: optional ExtSignOperationStatus operationStatus;
   4: list<Kaz_types.SignData> dataToSignList;
   5: ExtSignServer extServerInfo;
-  6: optional string androidAppLink;
-  7: optional string iosAppLink;
 }
 
 /* Статус внешней операции наложения ЕЦП */

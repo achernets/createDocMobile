@@ -5,56 +5,56 @@
  * DO NOT EDIT UNLESS YOU ARE SURE THAT YOU KNOW WHAT YOU ARE DOING
 */
 import * as thrift from "thrift";
-import * as AvailablePatternStageForm from "./AvailablePatternStageForm";
+import * as AvailablePattarnStageForm from "./AvailablePattarnStageForm";
 import * as __ROOT_NAMESPACE__ from "./";
 import * as ModifyEnable from "./ModifyEnable";
+import * as AvailablePatternStageType from "./AvailablePatternStageType";
 export interface IAvailablePatternStageArgs {
     id?: string;
-    formAvail?: AvailablePatternStageForm.AvailablePatternStageForm;
+    formAvail?: AvailablePattarnStageForm.AvailablePattarnStageForm;
+    img?: string;
     nameAvail?: string;
     descriptionAvail?: string;
     status?: __ROOT_NAMESPACE__.DocPatternStageStatus;
     adParams?: Array<__ROOT_NAMESPACE__.StageParam>;
     availableAnswers?: Set<string>;
     fixedDecisions?: ModifyEnable.ModifyEnable;
+    availType?: AvailablePatternStageType.AvailablePatternStageType;
+    color?: string;
     scale?: number;
     orderNum?: number;
     patternType?: __ROOT_NAMESPACE__.PatternType;
     availableGroup?: string;
     stageType?: string;
     uuid?: string;
-    objectClass?: string;
-    colorShape?: string;
-    colorBackground?: string;
-    colorFont?: string;
-    iconUrl?: string;
 }
 export class AvailablePatternStage {
     public id?: string;
-    public formAvail?: AvailablePatternStageForm.AvailablePatternStageForm;
+    public formAvail?: AvailablePattarnStageForm.AvailablePattarnStageForm;
+    public img?: string;
     public nameAvail?: string;
     public descriptionAvail?: string;
     public status?: __ROOT_NAMESPACE__.DocPatternStageStatus;
     public adParams?: Array<__ROOT_NAMESPACE__.StageParam>;
     public availableAnswers?: Set<string>;
     public fixedDecisions?: ModifyEnable.ModifyEnable;
+    public availType?: AvailablePatternStageType.AvailablePatternStageType;
+    public color?: string;
     public scale?: number;
     public orderNum?: number;
     public patternType?: __ROOT_NAMESPACE__.PatternType;
     public availableGroup?: string;
     public stageType?: string;
     public uuid?: string;
-    public objectClass?: string;
-    public colorShape?: string;
-    public colorBackground?: string;
-    public colorFont?: string;
-    public iconUrl?: string;
     constructor(args?: IAvailablePatternStageArgs) {
         if (args != null && args.id != null) {
             this.id = args.id;
         }
         if (args != null && args.formAvail != null) {
             this.formAvail = args.formAvail;
+        }
+        if (args != null && args.img != null) {
+            this.img = args.img;
         }
         if (args != null && args.nameAvail != null) {
             this.nameAvail = args.nameAvail;
@@ -74,6 +74,12 @@ export class AvailablePatternStage {
         if (args != null && args.fixedDecisions != null) {
             this.fixedDecisions = args.fixedDecisions;
         }
+        if (args != null && args.availType != null) {
+            this.availType = args.availType;
+        }
+        if (args != null && args.color != null) {
+            this.color = args.color;
+        }
         if (args != null && args.scale != null) {
             this.scale = args.scale;
         }
@@ -92,21 +98,6 @@ export class AvailablePatternStage {
         if (args != null && args.uuid != null) {
             this.uuid = args.uuid;
         }
-        if (args != null && args.objectClass != null) {
-            this.objectClass = args.objectClass;
-        }
-        if (args != null && args.colorShape != null) {
-            this.colorShape = args.colorShape;
-        }
-        if (args != null && args.colorBackground != null) {
-            this.colorBackground = args.colorBackground;
-        }
-        if (args != null && args.colorFont != null) {
-            this.colorFont = args.colorFont;
-        }
-        if (args != null && args.iconUrl != null) {
-            this.iconUrl = args.iconUrl;
-        }
     }
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("AvailablePatternStage");
@@ -118,6 +109,11 @@ export class AvailablePatternStage {
         if (this.formAvail != null) {
             output.writeFieldBegin("formAvail", thrift.Thrift.Type.I32, 2);
             output.writeI32(this.formAvail);
+            output.writeFieldEnd();
+        }
+        if (this.img != null) {
+            output.writeFieldBegin("img", thrift.Thrift.Type.STRING, 3);
+            output.writeString(this.img);
             output.writeFieldEnd();
         }
         if (this.nameAvail != null) {
@@ -158,6 +154,16 @@ export class AvailablePatternStage {
             output.writeI32(this.fixedDecisions);
             output.writeFieldEnd();
         }
+        if (this.availType != null) {
+            output.writeFieldBegin("availType", thrift.Thrift.Type.I32, 10);
+            output.writeI32(this.availType);
+            output.writeFieldEnd();
+        }
+        if (this.color != null) {
+            output.writeFieldBegin("color", thrift.Thrift.Type.STRING, 11);
+            output.writeString(this.color);
+            output.writeFieldEnd();
+        }
         if (this.scale != null) {
             output.writeFieldBegin("scale", thrift.Thrift.Type.I32, 12);
             output.writeI32(this.scale);
@@ -188,31 +194,6 @@ export class AvailablePatternStage {
             output.writeString(this.uuid);
             output.writeFieldEnd();
         }
-        if (this.objectClass != null) {
-            output.writeFieldBegin("objectClass", thrift.Thrift.Type.STRING, 18);
-            output.writeString(this.objectClass);
-            output.writeFieldEnd();
-        }
-        if (this.colorShape != null) {
-            output.writeFieldBegin("colorShape", thrift.Thrift.Type.STRING, 19);
-            output.writeString(this.colorShape);
-            output.writeFieldEnd();
-        }
-        if (this.colorBackground != null) {
-            output.writeFieldBegin("colorBackground", thrift.Thrift.Type.STRING, 20);
-            output.writeString(this.colorBackground);
-            output.writeFieldEnd();
-        }
-        if (this.colorFont != null) {
-            output.writeFieldBegin("colorFont", thrift.Thrift.Type.STRING, 21);
-            output.writeString(this.colorFont);
-            output.writeFieldEnd();
-        }
-        if (this.iconUrl != null) {
-            output.writeFieldBegin("iconUrl", thrift.Thrift.Type.STRING, 22);
-            output.writeString(this.iconUrl);
-            output.writeFieldEnd();
-        }
         output.writeFieldStop();
         output.writeStructEnd();
         return;
@@ -239,8 +220,17 @@ export class AvailablePatternStage {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_4: AvailablePatternStageForm.AvailablePatternStageForm = input.readI32();
+                        const value_4: AvailablePattarnStageForm.AvailablePattarnStageForm = input.readI32();
                         _args.formAvail = value_4;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                case 3:
+                    if (fieldType === thrift.Thrift.Type.STRING) {
+                        const value_5: string = input.readString();
+                        _args.img = value_5;
                     }
                     else {
                         input.skip(fieldType);
@@ -248,8 +238,8 @@ export class AvailablePatternStage {
                     break;
                 case 4:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_5: string = input.readString();
-                        _args.nameAvail = value_5;
+                        const value_6: string = input.readString();
+                        _args.nameAvail = value_6;
                     }
                     else {
                         input.skip(fieldType);
@@ -257,8 +247,8 @@ export class AvailablePatternStage {
                     break;
                 case 5:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_6: string = input.readString();
-                        _args.descriptionAvail = value_6;
+                        const value_7: string = input.readString();
+                        _args.descriptionAvail = value_7;
                     }
                     else {
                         input.skip(fieldType);
@@ -266,8 +256,8 @@ export class AvailablePatternStage {
                     break;
                 case 6:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_7: __ROOT_NAMESPACE__.DocPatternStageStatus = input.readI32();
-                        _args.status = value_7;
+                        const value_8: __ROOT_NAMESPACE__.DocPatternStageStatus = input.readI32();
+                        _args.status = value_8;
                     }
                     else {
                         input.skip(fieldType);
@@ -275,15 +265,15 @@ export class AvailablePatternStage {
                     break;
                 case 7:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_8: Array<__ROOT_NAMESPACE__.StageParam> = new Array<__ROOT_NAMESPACE__.StageParam>();
+                        const value_9: Array<__ROOT_NAMESPACE__.StageParam> = new Array<__ROOT_NAMESPACE__.StageParam>();
                         const metadata_1: thrift.TList = input.readListBegin();
                         const size_1: number = metadata_1.size;
                         for (let i_1: number = 0; i_1 < size_1; i_1++) {
-                            const value_9: __ROOT_NAMESPACE__.StageParam = __ROOT_NAMESPACE__.StageParam.read(input);
-                            value_8.push(value_9);
+                            const value_10: __ROOT_NAMESPACE__.StageParam = __ROOT_NAMESPACE__.StageParam.read(input);
+                            value_9.push(value_10);
                         }
                         input.readListEnd();
-                        _args.adParams = value_8;
+                        _args.adParams = value_9;
                     }
                     else {
                         input.skip(fieldType);
@@ -291,15 +281,15 @@ export class AvailablePatternStage {
                     break;
                 case 8:
                     if (fieldType === thrift.Thrift.Type.SET) {
-                        const value_10: Set<string> = new Set<string>();
+                        const value_11: Set<string> = new Set<string>();
                         const metadata_2: thrift.TSet = input.readSetBegin();
                         const size_2: number = metadata_2.size;
                         for (let i_2: number = 0; i_2 < size_2; i_2++) {
-                            const value_11: string = input.readString();
-                            value_10.add(value_11);
+                            const value_12: string = input.readString();
+                            value_11.add(value_12);
                         }
                         input.readSetEnd();
-                        _args.availableAnswers = value_10;
+                        _args.availableAnswers = value_11;
                     }
                     else {
                         input.skip(fieldType);
@@ -307,8 +297,26 @@ export class AvailablePatternStage {
                     break;
                 case 9:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_12: ModifyEnable.ModifyEnable = input.readI32();
-                        _args.fixedDecisions = value_12;
+                        const value_13: ModifyEnable.ModifyEnable = input.readI32();
+                        _args.fixedDecisions = value_13;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                case 10:
+                    if (fieldType === thrift.Thrift.Type.I32) {
+                        const value_14: AvailablePatternStageType.AvailablePatternStageType = input.readI32();
+                        _args.availType = value_14;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                case 11:
+                    if (fieldType === thrift.Thrift.Type.STRING) {
+                        const value_15: string = input.readString();
+                        _args.color = value_15;
                     }
                     else {
                         input.skip(fieldType);
@@ -316,8 +324,8 @@ export class AvailablePatternStage {
                     break;
                 case 12:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_13: number = input.readI32();
-                        _args.scale = value_13;
+                        const value_16: number = input.readI32();
+                        _args.scale = value_16;
                     }
                     else {
                         input.skip(fieldType);
@@ -325,8 +333,8 @@ export class AvailablePatternStage {
                     break;
                 case 13:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_14: number = input.readI32();
-                        _args.orderNum = value_14;
+                        const value_17: number = input.readI32();
+                        _args.orderNum = value_17;
                     }
                     else {
                         input.skip(fieldType);
@@ -334,8 +342,8 @@ export class AvailablePatternStage {
                     break;
                 case 14:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_15: __ROOT_NAMESPACE__.PatternType = input.readI32();
-                        _args.patternType = value_15;
+                        const value_18: __ROOT_NAMESPACE__.PatternType = input.readI32();
+                        _args.patternType = value_18;
                     }
                     else {
                         input.skip(fieldType);
@@ -343,8 +351,8 @@ export class AvailablePatternStage {
                     break;
                 case 15:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_16: string = input.readString();
-                        _args.availableGroup = value_16;
+                        const value_19: string = input.readString();
+                        _args.availableGroup = value_19;
                     }
                     else {
                         input.skip(fieldType);
@@ -352,8 +360,8 @@ export class AvailablePatternStage {
                     break;
                 case 16:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_17: string = input.readString();
-                        _args.stageType = value_17;
+                        const value_20: string = input.readString();
+                        _args.stageType = value_20;
                     }
                     else {
                         input.skip(fieldType);
@@ -361,53 +369,8 @@ export class AvailablePatternStage {
                     break;
                 case 17:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_18: string = input.readString();
-                        _args.uuid = value_18;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 18:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_19: string = input.readString();
-                        _args.objectClass = value_19;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 19:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_20: string = input.readString();
-                        _args.colorShape = value_20;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 20:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
                         const value_21: string = input.readString();
-                        _args.colorBackground = value_21;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 21:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_22: string = input.readString();
-                        _args.colorFont = value_22;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 22:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_23: string = input.readString();
-                        _args.iconUrl = value_23;
+                        _args.uuid = value_21;
                     }
                     else {
                         input.skip(fieldType);

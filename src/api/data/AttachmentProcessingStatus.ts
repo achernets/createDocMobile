@@ -9,6 +9,5 @@ export enum AttachmentProcessingStatus {
     PREPARED = 1,
     PROCESSING = 2,
     PROCESSED = 3,
-    FAIL = 4,
-    MANUAL = 5
+    FAIL = 4
 }

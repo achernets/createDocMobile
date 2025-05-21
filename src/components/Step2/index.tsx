@@ -9,7 +9,7 @@ import UploadAttAndPatternTemplate from "../Form/UploadAttAndPatternTemplate";
 import Holder from "../Form/Holder";
 import TabInfo from "./components/TabInfo";
 import Stages from "./components/Stages";
-import { map, reduce, size, debounce, uniqBy, findIndex, filter, get, concat, find } from "lodash";
+import { map, reduce, size, debounce, uniqBy, findIndex, filter, get, concat, find, compact } from "lodash";
 import { ContentItemExecScript, contentItemSchema } from "../../utils/document";
 import { DocumentServiceClient, FilledDocumentPatternServiceClient } from "../../api";
 import { getLetterJiraTime, getNumberJiraTime, parseDate, sendMessageMobile } from "../../utils";
@@ -283,6 +283,22 @@ const Step2 = (): JSX.Element => {
       debouncedExec(changes[0]);
     }
   }, [debouncedExec, changes, changesIsWork]);
+
+  useEffect(() => {
+    const scripts = reduce(docInfo.holders, (hash, itm, index) => {
+      if (itm.onShow && itm.onShow !== null && itm.onShow !== '') {
+        hash.push({
+          holderPath: `holders.${index}`,
+          pathItem: `holders.${index}`,
+          item: {
+            onChangeScript: itm.onShow
+          }
+        });
+      }
+      return hash;
+    }, []);
+    if(size(scripts) > 0) setChanges(prev=>uniqBy([...prev, ...scripts].reverse(), 'pathItem').reverse());
+  }, [docInfo.holders]);
 
   useEffect(() => {
     const { unsubscribe } = watch((_, { name }) => {

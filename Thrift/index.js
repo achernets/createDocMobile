@@ -6,7 +6,7 @@ import { readdirSync } from 'fs'
 import { replaceInFile as replace } from 'replace-in-file';
 
 const initFile = 'Kaz_api.thrift';
-const host = 'https://total.almexecm.com:10443';
+const host = 'https://total.almexecm.com:50443';
 const coreUrl = '/kaz-server-dev1/';
 const dir = 'Thrift/';
 const saveUrl = `${dir}files/`;

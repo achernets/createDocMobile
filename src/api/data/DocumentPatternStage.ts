@@ -91,7 +91,6 @@ export interface IDocumentPatternStageArgs {
     postUrl?: string;
     additionalSubStatus?: Set<DocPatternStageSubStatus.DocPatternStageSubStatus>;
     setDecisionFunctionId?: __ROOT_NAMESPACE__.CompositeId;
-    canEditPreview?: AccessRule.AccessRule;
 }
 export class DocumentPatternStage {
     public id?: string;
@@ -168,7 +167,6 @@ export class DocumentPatternStage {
     public postUrl?: string;
     public additionalSubStatus?: Set<DocPatternStageSubStatus.DocPatternStageSubStatus>;
     public setDecisionFunctionId?: __ROOT_NAMESPACE__.CompositeId;
-    public canEditPreview?: AccessRule.AccessRule;
     constructor(args?: IDocumentPatternStageArgs) {
         if (args != null && args.id != null) {
             this.id = args.id;
@@ -401,9 +399,6 @@ export class DocumentPatternStage {
         }
         if (args != null && args.setDecisionFunctionId != null) {
             this.setDecisionFunctionId = args.setDecisionFunctionId;
-        }
-        if (args != null && args.canEditPreview != null) {
-            this.canEditPreview = args.canEditPreview;
         }
     }
     public write(output: thrift.TProtocol): void {
@@ -806,11 +801,6 @@ export class DocumentPatternStage {
         if (this.setDecisionFunctionId != null) {
             output.writeFieldBegin("setDecisionFunctionId", thrift.Thrift.Type.STRUCT, 75);
             this.setDecisionFunctionId.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.canEditPreview != null) {
-            output.writeFieldBegin("canEditPreview", thrift.Thrift.Type.STRUCT, 76);
-            this.canEditPreview.write(output);
             output.writeFieldEnd();
         }
         output.writeFieldStop();
@@ -1540,15 +1530,6 @@ export class DocumentPatternStage {
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
                         const value_88: __ROOT_NAMESPACE__.CompositeId = __ROOT_NAMESPACE__.CompositeId.read(input);
                         _args.setDecisionFunctionId = value_88;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 76:
-                    if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_89: AccessRule.AccessRule = AccessRule.AccessRule.read(input);
-                        _args.canEditPreview = value_89;
                     }
                     else {
                         input.skip(fieldType);

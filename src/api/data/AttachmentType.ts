@@ -8,6 +8,5 @@ export enum AttachmentType {
     ORIGINAL = 0,
     PDF = 1,
     PNG = 2,
-    PDF_UNSECURED = 3,
-    OCR = 4
+    PDF_UNSECURED = 3
 }

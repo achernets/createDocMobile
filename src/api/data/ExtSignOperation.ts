@@ -14,8 +14,6 @@ export interface IExtSignOperationArgs {
     operationStatus?: ExtSignOperationStatus.ExtSignOperationStatus;
     dataToSignList?: Array<__ROOT_NAMESPACE__.SignData>;
     extServerInfo?: ExtSignServer.ExtSignServer;
-    androidAppLink?: string;
-    iosAppLink?: string;
 }
 export class ExtSignOperation {
     public operationId?: string;
@@ -23,8 +21,6 @@ export class ExtSignOperation {
     public operationStatus?: ExtSignOperationStatus.ExtSignOperationStatus;
     public dataToSignList?: Array<__ROOT_NAMESPACE__.SignData>;
     public extServerInfo?: ExtSignServer.ExtSignServer;
-    public androidAppLink?: string;
-    public iosAppLink?: string;
     constructor(args?: IExtSignOperationArgs) {
         if (args != null && args.operationId != null) {
             this.operationId = args.operationId;
@@ -40,12 +36,6 @@ export class ExtSignOperation {
         }
         if (args != null && args.extServerInfo != null) {
             this.extServerInfo = args.extServerInfo;
-        }
-        if (args != null && args.androidAppLink != null) {
-            this.androidAppLink = args.androidAppLink;
-        }
-        if (args != null && args.iosAppLink != null) {
-            this.iosAppLink = args.iosAppLink;
         }
     }
     public write(output: thrift.TProtocol): void {
@@ -77,16 +67,6 @@ export class ExtSignOperation {
         if (this.extServerInfo != null) {
             output.writeFieldBegin("extServerInfo", thrift.Thrift.Type.STRUCT, 5);
             this.extServerInfo.write(output);
-            output.writeFieldEnd();
-        }
-        if (this.androidAppLink != null) {
-            output.writeFieldBegin("androidAppLink", thrift.Thrift.Type.STRING, 6);
-            output.writeString(this.androidAppLink);
-            output.writeFieldEnd();
-        }
-        if (this.iosAppLink != null) {
-            output.writeFieldBegin("iosAppLink", thrift.Thrift.Type.STRING, 7);
-            output.writeString(this.iosAppLink);
             output.writeFieldEnd();
         }
         output.writeFieldStop();
@@ -151,24 +131,6 @@ export class ExtSignOperation {
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
                         const value_7: ExtSignServer.ExtSignServer = ExtSignServer.ExtSignServer.read(input);
                         _args.extServerInfo = value_7;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 6:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_8: string = input.readString();
-                        _args.androidAppLink = value_8;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 7:
-                    if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_9: string = input.readString();
-                        _args.iosAppLink = value_9;
                     }
                     else {
                         input.skip(fieldType);

@@ -10,11 +10,13 @@ export interface ICreateOrUpdateAccountArgsArgs {
     token: string;
     account: __ROOT_NAMESPACE__.Account;
     securityKey: string;
+    password: string;
 }
 export class CreateOrUpdateAccountArgs {
     public token: string;
     public account: __ROOT_NAMESPACE__.Account;
     public securityKey: string;
+    public password: string;
     constructor(args: ICreateOrUpdateAccountArgsArgs) {
         if (args != null && args.token != null) {
             this.token = args.token;
@@ -34,6 +36,12 @@ export class CreateOrUpdateAccountArgs {
         else {
             throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[securityKey] is unset!");
         }
+        if (args != null && args.password != null) {
+            this.password = args.password;
+        }
+        else {
+            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[password] is unset!");
+        }
     }
     public write(output: thrift.TProtocol): void {
         output.writeStructBegin("CreateOrUpdateAccountArgs");
@@ -50,6 +58,11 @@ export class CreateOrUpdateAccountArgs {
         if (this.securityKey != null) {
             output.writeFieldBegin("securityKey", thrift.Thrift.Type.STRING, 3);
             output.writeString(this.securityKey);
+            output.writeFieldEnd();
+        }
+        if (this.password != null) {
+            output.writeFieldBegin("password", thrift.Thrift.Type.STRING, 4);
+            output.writeString(this.password);
             output.writeFieldEnd();
         }
         output.writeFieldStop();
@@ -94,6 +107,15 @@ export class CreateOrUpdateAccountArgs {
                         input.skip(fieldType);
                     }
                     break;
+                case 4:
+                    if (fieldType === thrift.Thrift.Type.STRING) {
+                        const value_4: string = input.readString();
+                        _args.password = value_4;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
                 default: {
                     input.skip(fieldType);
                 }
@@ -101,7 +123,7 @@ export class CreateOrUpdateAccountArgs {
             input.readFieldEnd();
         }
         input.readStructEnd();
-        if (_args.token !== undefined && _args.account !== undefined && _args.securityKey !== undefined) {
+        if (_args.token !== undefined && _args.account !== undefined && _args.securityKey !== undefined && _args.password !== undefined) {
             return new CreateOrUpdateAccountArgs(_args);
         }
         else {
@@ -159,8 +181,8 @@ export class GetAccountArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_4: string = input.readString();
-                        _args.token = value_4;
+                        const value_5: string = input.readString();
+                        _args.token = value_5;
                     }
                     else {
                         input.skip(fieldType);
@@ -168,8 +190,8 @@ export class GetAccountArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_5: string = input.readString();
-                        _args.accountId = value_5;
+                        const value_6: string = input.readString();
+                        _args.accountId = value_6;
                     }
                     else {
                         input.skip(fieldType);
@@ -240,8 +262,8 @@ export class GetAllAccountsArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_6: string = input.readString();
-                        _args.token = value_6;
+                        const value_7: string = input.readString();
+                        _args.token = value_7;
                     }
                     else {
                         input.skip(fieldType);
@@ -249,8 +271,8 @@ export class GetAllAccountsArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_7: __ROOT_NAMESPACE__.KazFilter = __ROOT_NAMESPACE__.KazFilter.read(input);
-                        _args.filter = value_7;
+                        const value_8: __ROOT_NAMESPACE__.KazFilter = __ROOT_NAMESPACE__.KazFilter.read(input);
+                        _args.filter = value_8;
                     }
                     else {
                         input.skip(fieldType);
@@ -321,8 +343,8 @@ export class GetCountAllAccountsArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_8: string = input.readString();
-                        _args.token = value_8;
+                        const value_9: string = input.readString();
+                        _args.token = value_9;
                     }
                     else {
                         input.skip(fieldType);
@@ -330,8 +352,8 @@ export class GetCountAllAccountsArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_9: __ROOT_NAMESPACE__.KazFilter = __ROOT_NAMESPACE__.KazFilter.read(input);
-                        _args.filter = value_9;
+                        const value_10: __ROOT_NAMESPACE__.KazFilter = __ROOT_NAMESPACE__.KazFilter.read(input);
+                        _args.filter = value_10;
                     }
                     else {
                         input.skip(fieldType);
@@ -356,6 +378,7 @@ export interface ICreateOrUpdateAccountExtendedArgsArgs {
     token: string;
     account: __ROOT_NAMESPACE__.Account;
     securityKey: string;
+    password: string;
     usersToAdd: Array<__ROOT_NAMESPACE__.UserOrGroup>;
     delegates: __ROOT_NAMESPACE__.AccountUserDelegates;
 }
@@ -363,6 +386,7 @@ export class CreateOrUpdateAccountExtendedArgs {
     public token: string;
     public account: __ROOT_NAMESPACE__.Account;
     public securityKey: string;
+    public password: string;
     public usersToAdd: Array<__ROOT_NAMESPACE__.UserOrGroup>;
     public delegates: __ROOT_NAMESPACE__.AccountUserDelegates;
     constructor(args: ICreateOrUpdateAccountExtendedArgsArgs) {
@@ -383,6 +407,12 @@ export class CreateOrUpdateAccountExtendedArgs {
         }
         else {
             throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[securityKey] is unset!");
+        }
+        if (args != null && args.password != null) {
+            this.password = args.password;
+        }
+        else {
+            throw new thrift.Thrift.TProtocolException(thrift.Thrift.TProtocolExceptionType.UNKNOWN, "Required field[password] is unset!");
         }
         if (args != null && args.usersToAdd != null) {
             this.usersToAdd = args.usersToAdd;
@@ -414,17 +444,22 @@ export class CreateOrUpdateAccountExtendedArgs {
             output.writeString(this.securityKey);
             output.writeFieldEnd();
         }
+        if (this.password != null) {
+            output.writeFieldBegin("password", thrift.Thrift.Type.STRING, 4);
+            output.writeString(this.password);
+            output.writeFieldEnd();
+        }
         if (this.usersToAdd != null) {
-            output.writeFieldBegin("usersToAdd", thrift.Thrift.Type.LIST, 4);
+            output.writeFieldBegin("usersToAdd", thrift.Thrift.Type.LIST, 5);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.usersToAdd.length);
-            this.usersToAdd.forEach((value_10: __ROOT_NAMESPACE__.UserOrGroup): void => {
-                value_10.write(output);
+            this.usersToAdd.forEach((value_11: __ROOT_NAMESPACE__.UserOrGroup): void => {
+                value_11.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
         }
         if (this.delegates != null) {
-            output.writeFieldBegin("delegates", thrift.Thrift.Type.STRUCT, 5);
+            output.writeFieldBegin("delegates", thrift.Thrift.Type.STRUCT, 6);
             this.delegates.write(output);
             output.writeFieldEnd();
         }
@@ -445,8 +480,8 @@ export class CreateOrUpdateAccountExtendedArgs {
             switch (fieldId) {
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_11: string = input.readString();
-                        _args.token = value_11;
+                        const value_12: string = input.readString();
+                        _args.token = value_12;
                     }
                     else {
                         input.skip(fieldType);
@@ -454,8 +489,8 @@ export class CreateOrUpdateAccountExtendedArgs {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_12: __ROOT_NAMESPACE__.Account = __ROOT_NAMESPACE__.Account.read(input);
-                        _args.account = value_12;
+                        const value_13: __ROOT_NAMESPACE__.Account = __ROOT_NAMESPACE__.Account.read(input);
+                        _args.account = value_13;
                     }
                     else {
                         input.skip(fieldType);
@@ -463,33 +498,42 @@ export class CreateOrUpdateAccountExtendedArgs {
                     break;
                 case 3:
                     if (fieldType === thrift.Thrift.Type.STRING) {
-                        const value_13: string = input.readString();
-                        _args.securityKey = value_13;
+                        const value_14: string = input.readString();
+                        _args.securityKey = value_14;
                     }
                     else {
                         input.skip(fieldType);
                     }
                     break;
                 case 4:
-                    if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_14: Array<__ROOT_NAMESPACE__.UserOrGroup> = new Array<__ROOT_NAMESPACE__.UserOrGroup>();
-                        const metadata_1: thrift.TList = input.readListBegin();
-                        const size_1: number = metadata_1.size;
-                        for (let i_1: number = 0; i_1 < size_1; i_1++) {
-                            const value_15: __ROOT_NAMESPACE__.UserOrGroup = __ROOT_NAMESPACE__.UserOrGroup.read(input);
-                            value_14.push(value_15);
-                        }
-                        input.readListEnd();
-                        _args.usersToAdd = value_14;
+                    if (fieldType === thrift.Thrift.Type.STRING) {
+                        const value_15: string = input.readString();
+                        _args.password = value_15;
                     }
                     else {
                         input.skip(fieldType);
                     }
                     break;
                 case 5:
+                    if (fieldType === thrift.Thrift.Type.LIST) {
+                        const value_16: Array<__ROOT_NAMESPACE__.UserOrGroup> = new Array<__ROOT_NAMESPACE__.UserOrGroup>();
+                        const metadata_1: thrift.TList = input.readListBegin();
+                        const size_1: number = metadata_1.size;
+                        for (let i_1: number = 0; i_1 < size_1; i_1++) {
+                            const value_17: __ROOT_NAMESPACE__.UserOrGroup = __ROOT_NAMESPACE__.UserOrGroup.read(input);
+                            value_16.push(value_17);
+                        }
+                        input.readListEnd();
+                        _args.usersToAdd = value_16;
+                    }
+                    else {
+                        input.skip(fieldType);
+                    }
+                    break;
+                case 6:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_16: __ROOT_NAMESPACE__.AccountUserDelegates = __ROOT_NAMESPACE__.AccountUserDelegates.read(input);
-                        _args.delegates = value_16;
+                        const value_18: __ROOT_NAMESPACE__.AccountUserDelegates = __ROOT_NAMESPACE__.AccountUserDelegates.read(input);
+                        _args.delegates = value_18;
                     }
                     else {
                         input.skip(fieldType);
@@ -502,7 +546,7 @@ export class CreateOrUpdateAccountExtendedArgs {
             input.readFieldEnd();
         }
         input.readStructEnd();
-        if (_args.token !== undefined && _args.account !== undefined && _args.securityKey !== undefined && _args.usersToAdd !== undefined && _args.delegates !== undefined) {
+        if (_args.token !== undefined && _args.account !== undefined && _args.securityKey !== undefined && _args.password !== undefined && _args.usersToAdd !== undefined && _args.delegates !== undefined) {
             return new CreateOrUpdateAccountExtendedArgs(_args);
         }
         else {
@@ -564,8 +608,8 @@ export class CreateOrUpdateAccountResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_17: __ROOT_NAMESPACE__.Account = __ROOT_NAMESPACE__.Account.read(input);
-                        _args.success = value_17;
+                        const value_19: __ROOT_NAMESPACE__.Account = __ROOT_NAMESPACE__.Account.read(input);
+                        _args.success = value_19;
                     }
                     else {
                         input.skip(fieldType);
@@ -573,8 +617,8 @@ export class CreateOrUpdateAccountResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_18: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_18;
+                        const value_20: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_20;
                     }
                     else {
                         input.skip(fieldType);
@@ -582,8 +626,8 @@ export class CreateOrUpdateAccountResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_19: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_19;
+                        const value_21: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_21;
                     }
                     else {
                         input.skip(fieldType);
@@ -653,8 +697,8 @@ export class GetAccountResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_20: __ROOT_NAMESPACE__.Account = __ROOT_NAMESPACE__.Account.read(input);
-                        _args.success = value_20;
+                        const value_22: __ROOT_NAMESPACE__.Account = __ROOT_NAMESPACE__.Account.read(input);
+                        _args.success = value_22;
                     }
                     else {
                         input.skip(fieldType);
@@ -662,8 +706,8 @@ export class GetAccountResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_21: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_21;
+                        const value_23: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_23;
                     }
                     else {
                         input.skip(fieldType);
@@ -671,8 +715,8 @@ export class GetAccountResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_22: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_22;
+                        const value_24: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_24;
                     }
                     else {
                         input.skip(fieldType);
@@ -713,8 +757,8 @@ export class GetAllAccountsResult {
         if (this.success != null) {
             output.writeFieldBegin("success", thrift.Thrift.Type.LIST, 0);
             output.writeListBegin(thrift.Thrift.Type.STRUCT, this.success.length);
-            this.success.forEach((value_23: __ROOT_NAMESPACE__.Account): void => {
-                value_23.write(output);
+            this.success.forEach((value_25: __ROOT_NAMESPACE__.Account): void => {
+                value_25.write(output);
             });
             output.writeListEnd();
             output.writeFieldEnd();
@@ -746,15 +790,15 @@ export class GetAllAccountsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.LIST) {
-                        const value_24: Array<__ROOT_NAMESPACE__.Account> = new Array<__ROOT_NAMESPACE__.Account>();
+                        const value_26: Array<__ROOT_NAMESPACE__.Account> = new Array<__ROOT_NAMESPACE__.Account>();
                         const metadata_2: thrift.TList = input.readListBegin();
                         const size_2: number = metadata_2.size;
                         for (let i_2: number = 0; i_2 < size_2; i_2++) {
-                            const value_25: __ROOT_NAMESPACE__.Account = __ROOT_NAMESPACE__.Account.read(input);
-                            value_24.push(value_25);
+                            const value_27: __ROOT_NAMESPACE__.Account = __ROOT_NAMESPACE__.Account.read(input);
+                            value_26.push(value_27);
                         }
                         input.readListEnd();
-                        _args.success = value_24;
+                        _args.success = value_26;
                     }
                     else {
                         input.skip(fieldType);
@@ -762,8 +806,8 @@ export class GetAllAccountsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_26: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_26;
+                        const value_28: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_28;
                     }
                     else {
                         input.skip(fieldType);
@@ -771,8 +815,8 @@ export class GetAllAccountsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_27: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_27;
+                        const value_29: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_29;
                     }
                     else {
                         input.skip(fieldType);
@@ -842,8 +886,8 @@ export class GetCountAllAccountsResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.I32) {
-                        const value_28: number = input.readI32();
-                        _args.success = value_28;
+                        const value_30: number = input.readI32();
+                        _args.success = value_30;
                     }
                     else {
                         input.skip(fieldType);
@@ -851,8 +895,8 @@ export class GetCountAllAccountsResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_29: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_29;
+                        const value_31: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_31;
                     }
                     else {
                         input.skip(fieldType);
@@ -860,8 +904,8 @@ export class GetCountAllAccountsResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_30: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_30;
+                        const value_32: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_32;
                     }
                     else {
                         input.skip(fieldType);
@@ -931,8 +975,8 @@ export class CreateOrUpdateAccountExtendedResult {
             switch (fieldId) {
                 case 0:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_31: __ROOT_NAMESPACE__.Account = __ROOT_NAMESPACE__.Account.read(input);
-                        _args.success = value_31;
+                        const value_33: __ROOT_NAMESPACE__.Account = __ROOT_NAMESPACE__.Account.read(input);
+                        _args.success = value_33;
                     }
                     else {
                         input.skip(fieldType);
@@ -940,8 +984,8 @@ export class CreateOrUpdateAccountExtendedResult {
                     break;
                 case 1:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_32: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
-                        _args.validError = value_32;
+                        const value_34: __ROOT_NAMESPACE__.PreconditionException = __ROOT_NAMESPACE__.PreconditionException.read(input);
+                        _args.validError = value_34;
                     }
                     else {
                         input.skip(fieldType);
@@ -949,8 +993,8 @@ export class CreateOrUpdateAccountExtendedResult {
                     break;
                 case 2:
                     if (fieldType === thrift.Thrift.Type.STRUCT) {
-                        const value_33: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
-                        _args.error = value_33;
+                        const value_35: __ROOT_NAMESPACE__.ServerException = __ROOT_NAMESPACE__.ServerException.read(input);
+                        _args.error = value_35;
                     }
                     else {
                         input.skip(fieldType);
@@ -982,7 +1026,7 @@ export class Client {
     public incrementSeqId(): number {
         return this._seqid += 1;
     }
-    public createOrUpdateAccount(token: string, account: __ROOT_NAMESPACE__.Account, securityKey: string): Promise<__ROOT_NAMESPACE__.Account> {
+    public createOrUpdateAccount(token: string, account: __ROOT_NAMESPACE__.Account, securityKey: string, password: string): Promise<__ROOT_NAMESPACE__.Account> {
         const requestId: number = this.incrementSeqId();
         return new Promise<__ROOT_NAMESPACE__.Account>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
@@ -994,7 +1038,7 @@ export class Client {
                     resolve(result);
                 }
             };
-            this.send_createOrUpdateAccount(token, account, securityKey, requestId);
+            this.send_createOrUpdateAccount(token, account, securityKey, password, requestId);
         });
     }
     public getAccount(token: string, accountId: string): Promise<__ROOT_NAMESPACE__.Account> {
@@ -1042,7 +1086,7 @@ export class Client {
             this.send_getCountAllAccounts(token, filter, requestId);
         });
     }
-    public createOrUpdateAccountExtended(token: string, account: __ROOT_NAMESPACE__.Account, securityKey: string, usersToAdd: Array<__ROOT_NAMESPACE__.UserOrGroup>, delegates: __ROOT_NAMESPACE__.AccountUserDelegates): Promise<__ROOT_NAMESPACE__.Account> {
+    public createOrUpdateAccountExtended(token: string, account: __ROOT_NAMESPACE__.Account, securityKey: string, password: string, usersToAdd: Array<__ROOT_NAMESPACE__.UserOrGroup>, delegates: __ROOT_NAMESPACE__.AccountUserDelegates): Promise<__ROOT_NAMESPACE__.Account> {
         const requestId: number = this.incrementSeqId();
         return new Promise<__ROOT_NAMESPACE__.Account>((resolve, reject): void => {
             this._reqs[requestId] = (error, result) => {
@@ -1054,13 +1098,13 @@ export class Client {
                     resolve(result);
                 }
             };
-            this.send_createOrUpdateAccountExtended(token, account, securityKey, usersToAdd, delegates, requestId);
+            this.send_createOrUpdateAccountExtended(token, account, securityKey, password, usersToAdd, delegates, requestId);
         });
     }
-    public send_createOrUpdateAccount(token: string, account: __ROOT_NAMESPACE__.Account, securityKey: string, requestId: number): void {
+    public send_createOrUpdateAccount(token: string, account: __ROOT_NAMESPACE__.Account, securityKey: string, password: string, requestId: number): void {
         const output: thrift.TProtocol = new this.protocol(this.output);
         output.writeMessageBegin("createOrUpdateAccount", thrift.Thrift.MessageType.CALL, requestId);
-        const args: CreateOrUpdateAccountArgs = new CreateOrUpdateAccountArgs({ token, account, securityKey });
+        const args: CreateOrUpdateAccountArgs = new CreateOrUpdateAccountArgs({ token, account, securityKey, password });
         args.write(output);
         output.writeMessageEnd();
         this.output.flush();
@@ -1093,10 +1137,10 @@ export class Client {
         this.output.flush();
         return;
     }
-    public send_createOrUpdateAccountExtended(token: string, account: __ROOT_NAMESPACE__.Account, securityKey: string, usersToAdd: Array<__ROOT_NAMESPACE__.UserOrGroup>, delegates: __ROOT_NAMESPACE__.AccountUserDelegates, requestId: number): void {
+    public send_createOrUpdateAccountExtended(token: string, account: __ROOT_NAMESPACE__.Account, securityKey: string, password: string, usersToAdd: Array<__ROOT_NAMESPACE__.UserOrGroup>, delegates: __ROOT_NAMESPACE__.AccountUserDelegates, requestId: number): void {
         const output: thrift.TProtocol = new this.protocol(this.output);
         output.writeMessageBegin("createOrUpdateAccountExtended", thrift.Thrift.MessageType.CALL, requestId);
-        const args: CreateOrUpdateAccountExtendedArgs = new CreateOrUpdateAccountExtendedArgs({ token, account, securityKey, usersToAdd, delegates });
+        const args: CreateOrUpdateAccountExtendedArgs = new CreateOrUpdateAccountExtendedArgs({ token, account, securityKey, password, usersToAdd, delegates });
         args.write(output);
         output.writeMessageEnd();
         this.output.flush();
@@ -1244,11 +1288,11 @@ export class Client {
     }
 }
 export interface IHandler {
-    createOrUpdateAccount(token: string, account: __ROOT_NAMESPACE__.Account, securityKey: string): __ROOT_NAMESPACE__.Account | Promise<__ROOT_NAMESPACE__.Account>;
+    createOrUpdateAccount(token: string, account: __ROOT_NAMESPACE__.Account, securityKey: string, password: string): __ROOT_NAMESPACE__.Account | Promise<__ROOT_NAMESPACE__.Account>;
     getAccount(token: string, accountId: string): __ROOT_NAMESPACE__.Account | Promise<__ROOT_NAMESPACE__.Account>;
     getAllAccounts(token: string, filter: __ROOT_NAMESPACE__.KazFilter): Array<__ROOT_NAMESPACE__.Account> | Promise<Array<__ROOT_NAMESPACE__.Account>>;
     getCountAllAccounts(token: string, filter: __ROOT_NAMESPACE__.KazFilter): number | Promise<number>;
-    createOrUpdateAccountExtended(token: string, account: __ROOT_NAMESPACE__.Account, securityKey: string, usersToAdd: Array<__ROOT_NAMESPACE__.UserOrGroup>, delegates: __ROOT_NAMESPACE__.AccountUserDelegates): __ROOT_NAMESPACE__.Account | Promise<__ROOT_NAMESPACE__.Account>;
+    createOrUpdateAccountExtended(token: string, account: __ROOT_NAMESPACE__.Account, securityKey: string, password: string, usersToAdd: Array<__ROOT_NAMESPACE__.UserOrGroup>, delegates: __ROOT_NAMESPACE__.AccountUserDelegates): __ROOT_NAMESPACE__.Account | Promise<__ROOT_NAMESPACE__.Account>;
 }
 export class Processor {
     public _handler: IHandler;
@@ -1299,7 +1343,7 @@ export class Processor {
             try {
                 const args: CreateOrUpdateAccountArgs = CreateOrUpdateAccountArgs.read(input);
                 input.readMessageEnd();
-                resolve(this._handler.createOrUpdateAccount(args.token, args.account, args.securityKey));
+                resolve(this._handler.createOrUpdateAccount(args.token, args.account, args.securityKey, args.password));
             }
             catch (err) {
                 reject(err);
@@ -1475,7 +1519,7 @@ export class Processor {
             try {
                 const args: CreateOrUpdateAccountExtendedArgs = CreateOrUpdateAccountExtendedArgs.read(input);
                 input.readMessageEnd();
-                resolve(this._handler.createOrUpdateAccountExtended(args.token, args.account, args.securityKey, args.usersToAdd, args.delegates));
+                resolve(this._handler.createOrUpdateAccountExtended(args.token, args.account, args.securityKey, args.password, args.usersToAdd, args.delegates));
             }
             catch (err) {
                 reject(err);

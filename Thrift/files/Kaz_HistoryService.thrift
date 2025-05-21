@@ -281,8 +281,7 @@ enum ChangeLogObjectType {
   CLIENT,
   CLIENT_CONTENT_VALUE,
 
-  USER_GROUP,
-  NEWS
+  USER_GROUP
 }
 
 /** Действие, выполненное пользователем */

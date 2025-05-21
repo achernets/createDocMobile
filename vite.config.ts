@@ -11,6 +11,9 @@ export default defineConfig({
     vitePluginRequire.default(),
     nodePolyfills()
   ],
+  build: {
+    assetsDir: 'createDocMobile'
+  },
   server: {
     open: true,
     host: '0.0.0.0',

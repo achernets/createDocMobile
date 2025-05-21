@@ -18,7 +18,7 @@ let FilledDocumentPatternServiceClient: FilledDocumentPatternService.Client;
 const queryClient = new QueryClient();
 
 const initClient = (url: string, port: number, https: boolean, path: string) => {
-
+  
   const createConnection = (clientJson: string): XHRConnection => createXHRConnection(url, port, {
     transport: TBufferedTransport,
     protocol: TJSONProtocol,

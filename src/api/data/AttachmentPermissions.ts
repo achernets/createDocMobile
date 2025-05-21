@@ -16,7 +16,6 @@ export interface IAttachmentPermissionsArgs {
     canDownloadPdfSignedAttachment?: boolean;
     addedToBulkSign?: boolean;
     canCompare?: boolean;
-    canEditPreview?: boolean;
 }
 export class AttachmentPermissions {
     public onlineEdit?: boolean;
@@ -29,7 +28,6 @@ export class AttachmentPermissions {
     public canDownloadPdfSignedAttachment?: boolean;
     public addedToBulkSign?: boolean;
     public canCompare?: boolean;
-    public canEditPreview?: boolean;
     constructor(args?: IAttachmentPermissionsArgs) {
         if (args != null && args.onlineEdit != null) {
             this.onlineEdit = args.onlineEdit;
@@ -60,9 +58,6 @@ export class AttachmentPermissions {
         }
         if (args != null && args.canCompare != null) {
             this.canCompare = args.canCompare;
-        }
-        if (args != null && args.canEditPreview != null) {
-            this.canEditPreview = args.canEditPreview;
         }
     }
     public write(output: thrift.TProtocol): void {
@@ -115,11 +110,6 @@ export class AttachmentPermissions {
         if (this.canCompare != null) {
             output.writeFieldBegin("canCompare", thrift.Thrift.Type.BOOL, 10);
             output.writeBool(this.canCompare);
-            output.writeFieldEnd();
-        }
-        if (this.canEditPreview != null) {
-            output.writeFieldBegin("canEditPreview", thrift.Thrift.Type.BOOL, 11);
-            output.writeBool(this.canEditPreview);
             output.writeFieldEnd();
         }
         output.writeFieldStop();
@@ -222,15 +212,6 @@ export class AttachmentPermissions {
                     if (fieldType === thrift.Thrift.Type.BOOL) {
                         const value_10: boolean = input.readBool();
                         _args.canCompare = value_10;
-                    }
-                    else {
-                        input.skip(fieldType);
-                    }
-                    break;
-                case 11:
-                    if (fieldType === thrift.Thrift.Type.BOOL) {
-                        const value_11: boolean = input.readBool();
-                        _args.canEditPreview = value_11;
                     }
                     else {
                         input.skip(fieldType);

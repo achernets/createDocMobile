@@ -88,12 +88,6 @@ struct DeadLineExtention {
    7: bool lastChange;
 }
 
-struct CoExecutor {
-   1: common.ID id;
-   2: string fio;
-   3: common.kazDate execDate;
-}
-
 struct ObserverCard {
    1: common.ID id;
    2: Kaz_DocumentService.DocumentExecutionOwnerType cardType;
@@ -108,39 +102,6 @@ struct ObserverCard {
   11: optional list<DeadLineExtention> deadLines;
   12: CardsByStatus dashboardStatus;
   13: DeadlineStatus deadlineStatus;
-  14: optional list<CoExecutor> coExecutors;
-}
-
-struct MailingPeriods {
-   1: bool onOneDay,
-   2: bool weekly,
-   3: bool monthly
-}
-
-struct MailingUser {
-    1: common.ID id;
-    2: common.UserOrGroup user;
-    3: optional list<common.UserOrGroup> controllers;
-    4: bool mailing;
-}
-
-struct MailDocPatGroup {
-    /* account id */
-    1: common.ID id;
-    2: optional common.ID groupId;
-    3: optional common.ID patternId;
-    4: string accountName;
-    5: optional string groupName;
-    6: optional string patternName;
-}
-
-struct MailSettings {
-    /* user_id */
-    1: common.ID id;
-    2: bool forMe;
-    3: bool forDelegate;
-    4: bool forOtherUser;
-    5: optional list<common.UserOrGroup> otherUsers;
 }
 
 service ExecutionMonitoringService {
@@ -158,9 +119,6 @@ service ExecutionMonitoringService {
    list<ObserverDocument> getAllObservedDocuments(1: common.AuthTokenBase64 token, 2: common.ID userId, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
    i32 getCountObservedDocuments(1: common.AuthTokenBase64 token, 2: common.ID userId, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
-   /**
-   * filter field: status, ENUMERATION, IN(ObserverCardStatus.*)
-   **/
    list<ObserverCard> getAllObservedCards(1: common.AuthTokenBase64 token, 2: common.ID userId, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
    i32 getCountObservedCards(1: common.AuthTokenBase64 token, 2: common.ID userId, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 
@@ -175,16 +133,4 @@ service ExecutionMonitoringService {
    binary exportDocumentsListToExcel(1: common.AuthTokenBase64 token, 2: common.ID userId, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
    binary exportCardsListToExcel(1: common.AuthTokenBase64 token, 2: common.ID userId, 3: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
    bool extendCardDeadline(1: common.AuthTokenBase64 token, 2: common.ID userId, 3: common.ID cardId, 4: common.kazDate newDeadlineDate) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-
-   list<MailingUser> getMailingUsers(1: common.AuthTokenBase64 token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-   list<MailingUser> changeMailingUser(1: common.AuthTokenBase64 token, 2: list<MailingUser> toAdd, 3: list<common.ID> toRemove) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-
-   list<MailDocPatGroup> getMailDocGroups(1: common.AuthTokenBase64 token, 2: filter.KazFilter filter) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-   list<MailDocPatGroup> changeMailDocGroup(1: common.AuthTokenBase64 token, 2: list<MailDocPatGroup> docPatGroups, 3: list<MailDocPatGroup> toRemove) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-
-   MailingPeriods getMailingPeriod(1: common.AuthTokenBase64 token) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-   bool setMailingPeriod(1: common.AuthTokenBase64 token, 2: MailingPeriods mailingPeriods) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-
-   MailSettings getMailSettings(1: common.AuthTokenBase64 token, 2: common.ID userId) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
-   bool setMailSettings(1: common.AuthTokenBase64 token, 2: MailSettings mailSettings) throws (1: ex.PreconditionException validError, 2: ex.ServerException error);
 }

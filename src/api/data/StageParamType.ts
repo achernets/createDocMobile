@@ -13,6 +13,5 @@ export enum StageParamType {
     SCRIPT = 5,
     DATETIME = 6,
     JIRATIME = 7,
-    PATTERN_TO_USER = 8,
-    PATTERN_STAGE = 9
+    PATTERN_TO_USER = 8
 }
