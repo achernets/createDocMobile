@@ -297,7 +297,7 @@ const Step2 = (): JSX.Element => {
       }
       return hash;
     }, []);
-    if(size(scripts) > 0) setChanges(prev=>uniqBy([...prev, ...scripts].reverse(), 'pathItem').reverse());
+    if (size(scripts) > 0) setChanges(prev => uniqBy([...prev, ...scripts].reverse(), 'pathItem').reverse());
   }, [docInfo.holders]);
 
   useEffect(() => {
@@ -396,19 +396,19 @@ const Step2 = (): JSX.Element => {
           data.docRelations
         );
         if (!isDraft) {
-          try {
-            const permissions = await DocumentServiceClient.calculatePermissions(
-              token,
-              document.id,
-              new DocumentAccessPolicy({
-                type: DocumentAccessPolicyType.ACCESS
-              })
-            );
-            const actions = filter(permissions.actions, action => {
-              if (action?.canSetDecision === false || action?.additionConfirmation || action?.cancelDecision || action?.answerQuestion || action?.link?.allowRepeatDecision) return false;
-              return action?.userOrGroupId === clientInfo?.id || action?.type === UserOrGroupType.GROUP;
-            });
-            if (actions?.length === 1) {
+          const permissions = await DocumentServiceClient.calculatePermissions(
+            token,
+            document.id,
+            new DocumentAccessPolicy({
+              type: DocumentAccessPolicyType.ACCESS
+            })
+          );
+          const actions = filter(permissions.actions, action => {
+            if (action?.canSetDecision === false || action?.additionConfirmation || action?.cancelDecision || action?.answerQuestion || action?.link?.allowRepeatDecision) return false;
+            return action?.userOrGroupId === clientInfo?.id || action?.type === UserOrGroupType.GROUP;
+          });
+          if (actions?.length === 1) {
+            try {
               await DocumentServiceClient.setDocumentDecision(
                 token,
                 document.id,
@@ -424,9 +424,11 @@ const Step2 = (): JSX.Element => {
                 }),
                 new Map()
               )
+              sendMessageMobile('createDocument', document?.id);
+            } catch (error) {
+              sendMessageMobile('setDocumentDecision', document?.id);
             }
-            sendMessageMobile('createDocument', document?.id);
-          } catch (error) {
+          } else {
             sendMessageMobile('setDocumentDecision', document?.id);
           }
         } else {
