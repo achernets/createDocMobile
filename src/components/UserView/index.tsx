@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 
 type UserViewProps = {
   user: UserOrGroup,
-  enableGroupSettings: boolean
+  enableGroupSettings?: boolean
 } & ListItemProps
 
 const UserView = ({ user, enableGroupSettings = false, ...props }: UserViewProps): JSX.Element => {
