@@ -4,7 +4,7 @@ import useAppStore from "../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
 import { FormStyled, TabsStyled } from "./styled";
 import { useForm } from "react-hook-form";
-import { ADocument, AttachmentEditMode, AttachmentExtStatus, AttCreateInfo, ContentHolder, ContentHolderLink, ContentItem, ContentItemHBValue, ContentItemType, ContentItemValue, ContentTableDefinition, DocumentAccessPolicy, DocumentAccessPolicyType, FreezeDocumentPattern, PreconditionException, UserOrGroupType } from "../../api/data";
+import { ADocument, AttachmentEditMode, AttachmentExtStatus, AttCreateInfo, ContentHolder, ContentHolderLink, ContentItem, ContentItemHBValue, ContentItemType, ContentItemValue, ContentTableDefinition, DocumentAccessPolicy, DocumentAccessPolicyType, DocumentPatternStage, DocumentRelation, FreezeDocumentPattern, PreconditionException, UserOrGroupType } from "../../api/data";
 import UploadAttAndPatternTemplate from "../Form/UploadAttAndPatternTemplate";
 import Holder from "../Form/Holder";
 import TabInfo from "./components/TabInfo";
@@ -346,7 +346,7 @@ const Step2 = (): JSX.Element => {
           new FreezeDocumentPattern({
             originalPatternId: pattern.id
           }),
-          filter(data.stages, { changeOnDraft: true }),
+          filter(data.stages, { changeOnDraft: true }).map(stage=> new DocumentPatternStage(stage)),
           []
         );
         if (size(freezePattern?.exList) > 0 || freezePattern.fillPattern === null) {
@@ -393,7 +393,7 @@ const Step2 = (): JSX.Element => {
             editMode: AttachmentEditMode.MULTIPLE,
             attachmentExtStatus: attachment.attachmentExtStatus
           })),
-          data.docRelations
+          map(data.docRelations, doc=> new DocumentRelation(doc))
         );
         if (!isDraft) {
           const permissions = await DocumentServiceClient.calculatePermissions(
