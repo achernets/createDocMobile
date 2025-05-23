@@ -132,7 +132,7 @@ const Step1 = (): JSX.Element => {
         queryKey={['getAllDocumentPatternGroups', account?.id || '']}
         filter={new KazFilter({
           position: 0,
-          countFilter: 25,
+          countFilter: 100,
           orders: ['order'],
           items: compact([
             new FilterItem({
@@ -142,14 +142,8 @@ const Step1 = (): JSX.Element => {
               condition: FilterCondition.EQUAL
             }),
             new FilterItem({
-              field: 'isValidState',
-              value: 'true',
-              fType: FilterFieldType.BOOLEAN,
-              condition: FilterCondition.EQUAL
-            }),
-            new FilterItem({
-              field: 'checkSC',
-              value: clientInfo?.scMask,
+              field: 'checkScMaskAndValidState',
+              value: null,
               fType: FilterFieldType.STRING,
               condition: FilterCondition.NULL
             }),
@@ -175,7 +169,7 @@ const Step1 = (): JSX.Element => {
         queryKey={['getAllDocumentPatterns', account?.id || '', groupPattern?.id || '']}
         filter={new KazFilter({
           position: 0,
-          countFilter: 25,
+          countFilter: 100,
           orders: ['order'],
           items: compact([
             new FilterItem({
@@ -185,7 +179,14 @@ const Step1 = (): JSX.Element => {
               condition: FilterCondition.EQUAL
             }),
             new FilterItem({
-              field: 'checkScMaskAndValidState',
+              field: 'isValidState',
+              value: 'true',
+              fType: FilterFieldType.BOOLEAN,
+              condition: FilterCondition.EQUAL
+            }),
+            new FilterItem({
+              field: 'checkSC',
+              value: clientInfo.scMask,
               fType: FilterFieldType.STRING,
               condition: FilterCondition.NULL
             }),
