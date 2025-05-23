@@ -1,16 +1,20 @@
-import { Ellipsis, Image, List, ListItemProps } from "antd-mobile";
+import { Ellipsis, Image, List, ListItemProps, Space } from "antd-mobile";
 import { JSX, useMemo } from "react";
-import { UserOrGroup, UserOrGroupType } from "../../api/data/";
+import { GroupSelector, UserOrGroup, UserOrGroupType } from "../../api/data/";
 import useAppStore from "../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
+import { useTranslation } from "react-i18next";
 
 type UserViewProps = {
-  user: UserOrGroup
+  user: UserOrGroup,
+  enableGroupSettings: boolean
 } & ListItemProps
 
-const UserView = ({ user, ...props }: UserViewProps): JSX.Element => {
+const UserView = ({ user, enableGroupSettings = false, ...props }: UserViewProps): JSX.Element => {
 
   const avatarUrl = useAppStore(useShallow((state) => state.avatarUrl));
+
+  const { t } = useTranslation();
 
   const { title, subTitle } = useMemo(() => {
     let title = '';
@@ -50,7 +54,10 @@ const UserView = ({ user, ...props }: UserViewProps): JSX.Element => {
         height={32}
       />
     }
-    description={subTitle === '' ? <span>&nbsp;</span> : subTitle}
+    description={<Space direction={'vertical'}>
+      {subTitle === '' ? <span>&nbsp;</span> : subTitle}
+      {user?.type === UserOrGroupType.GROUP && enableGroupSettings ? <Ellipsis style={{ color: 'blue' }} content={t(`GroupSelector.${GroupSelector[user.groupSelector]}`)} /> : ''}
+    </Space>}
     {...props}
   >
     <Ellipsis content={title} />
