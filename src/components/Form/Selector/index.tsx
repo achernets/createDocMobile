@@ -1,5 +1,5 @@
 import { ErrorBlock, FormItemProps, Input, List, Popup } from "antd-mobile";
-import { JSX, useCallback, useEffect, useMemo, useState } from "react";
+import { JSX, useCallback, useMemo, useState } from "react";
 import { ItemFullStyled, ListStyled, Wrapper } from "./styled";
 import { Control, useController } from "react-hook-form";
 import { find, map, size } from "lodash";
