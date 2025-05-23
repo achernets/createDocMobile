@@ -139,6 +139,7 @@ const DepartmentItem = ({ label, name, control, defaultValue = null, formItemPro
             } else {
               onChange(item);
             }
+            setVisible(false);
           }}
           description={item?.path?.slice(3)}
           arrowIcon={isSelectedItem(item) ? <CheckOutline color={'#1890FF'} /> : false}

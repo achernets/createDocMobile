@@ -132,7 +132,7 @@ const Step1 = (): JSX.Element => {
         queryKey={['getAllDocumentPatternGroups', account?.id || '']}
         filter={new KazFilter({
           position: 0,
-          countFilter: 100,
+          countFilter: 999,
           orders: ['order'],
           items: compact([
             new FilterItem({
@@ -169,7 +169,7 @@ const Step1 = (): JSX.Element => {
         queryKey={['getAllDocumentPatterns', account?.id || '', groupPattern?.id || '']}
         filter={new KazFilter({
           position: 0,
-          countFilter: 100,
+          countFilter: 999,
           orders: ['order'],
           items: compact([
             new FilterItem({
@@ -186,7 +186,7 @@ const Step1 = (): JSX.Element => {
             }),
             new FilterItem({
               field: 'checkSC',
-              value: clientInfo.scMask,
+              value: clientInfo?.scMask,
               fType: FilterFieldType.STRING,
               condition: FilterCondition.NULL
             }),

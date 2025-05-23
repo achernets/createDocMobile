@@ -233,6 +233,7 @@ const DocRelations = ({ label, name, control, formItemProps = {}, disabled = fal
                 relationType: DocRelationType.CHILD,
               }));
             }
+            setVisible(false);
           }}
           disabled={includes(notRemoveIds, item?.id)}
           description={item?.nameDocument}

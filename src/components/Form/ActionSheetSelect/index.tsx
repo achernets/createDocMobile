@@ -22,7 +22,6 @@ const ActionSheetAsyncSelect = ({ label, value, disabled = false,
 
   const [visible, setVisible] = useState<boolean>(false);
   const [strSearch, setStrSearch] = useState<string>('');
-  const [localValue, setLocalValue] = useState<any>(value);
 
   const { t } = useTranslation();
 
@@ -31,8 +30,8 @@ const ActionSheetAsyncSelect = ({ label, value, disabled = false,
   }, [value]);
 
   const isSelectedItem = useCallback((item: any) => {
-    return localValue === item.value;
-  }, [localValue]);
+    return value === item.value;
+  }, [value]);
 
   const filterdData = useMemo(() => {
     return searchFilter(options, ['label'], strSearch);
@@ -57,7 +56,6 @@ const ActionSheetAsyncSelect = ({ label, value, disabled = false,
       destroyOnClose
       afterClose={() => {
         setStrSearch('');
-        onChange(localValue);
       }}
     >
       <ListStyled
@@ -74,10 +72,11 @@ const ActionSheetAsyncSelect = ({ label, value, disabled = false,
           key={item.value}
           onClick={() => {
             if (isSelectedItem(item)) {
-              setLocalValue(null);
+              onChange(null);
             } else {
-              setLocalValue(options.find((itm: any) => itm.value === item.value)?.value);
+              onChange(options.find((itm: any) => itm.value === item.value)?.value);
             }
+            setVisible(false);
           }}
           arrowIcon={isSelectedItem(item) ? <CheckOutline color={'#1890FF'} /> : false}
         >

@@ -27,7 +27,6 @@ const ActionSheetAsyncSelect = ({ label, optionLabel = 'id', disabled = false,
 
   const [visible, setVisible] = useState<boolean>(false);
   const [strSearch, setStrSearch] = useState<string>('');
-  const [localValue, setLocalValue] = useState<any>(value);
   const debouncedSearch = useDebounce(strSearch, 500);
 
   const { t } = useTranslation();
@@ -81,13 +80,13 @@ const ActionSheetAsyncSelect = ({ label, optionLabel = 'id', disabled = false,
   }, [value]);
 
   const isSelectedItem = useCallback((item: any) => {
-    if (Array.isArray(localValue) && localValue.length !== 0) {
-      return localValue.find((itm: any) => item[optionValue] === itm[optionValue]) !== undefined;
-    } else if (typeof localValue === "object" && localValue !== null) {
-      return localValue[optionValue] === item[optionValue];
+    if (Array.isArray(value) && value.length !== 0) {
+      return value.find((itm: any) => item[optionValue] === itm[optionValue]) !== undefined;
+    } else if (typeof value === "object" && value !== null) {
+      return value[optionValue] === item[optionValue];
     }
     return false;
-  }, [localValue]);
+  }, [value]);
 
   const filterdData = useMemo(() => {
     if (fieldSearch !== undefined) return uniqBy(data?.flatData, 'id') || [];
@@ -113,7 +112,6 @@ const ActionSheetAsyncSelect = ({ label, optionLabel = 'id', disabled = false,
       destroyOnClose
       afterClose={() => {
         setStrSearch('');
-        onChange(localValue);
       }}
     >
       <ListStyled
@@ -133,10 +131,11 @@ const ActionSheetAsyncSelect = ({ label, optionLabel = 'id', disabled = false,
           key={item[optionValue]}
           onClick={() => {
             if (isSelectedItem(item)) {
-              setLocalValue(null);
+              onChange(null);
             } else {
-              setLocalValue(data?.flatData.find((itm: any) => itm[optionValue] === item[optionValue]));
+              onChange(data?.flatData.find((itm: any) => itm[optionValue] === item[optionValue]));
             }
+            setVisible(false);
           }}
           arrowIcon={isSelectedItem(item) ? <CheckOutline color={'#1890FF'} /> : false}
         >

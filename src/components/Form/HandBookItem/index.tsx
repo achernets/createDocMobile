@@ -177,6 +177,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
                 row: item
               });
             }
+            setVisible(false);
           }}
           arrowIcon={isSelectedItem(item) ? <CheckOutline color={'#1890FF'} /> : false}
         >

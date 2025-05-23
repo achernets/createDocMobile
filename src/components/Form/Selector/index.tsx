@@ -27,7 +27,6 @@ const Selector = ({ label, name, control, defaultValue = null, formItemProps = {
     defaultValue
   });
   const [visible, setVisible] = useState<boolean>(false);
-  const [localValue, setLocalValue] = useState<any>(value);
 
   const { t } = useTranslation();
 
@@ -36,14 +35,8 @@ const Selector = ({ label, name, control, defaultValue = null, formItemProps = {
   }, [value]);
 
   const isSelectedItem = useCallback((item: any) => {
-    return localValue === item.value;
-  }, [localValue]);
-
-  useEffect(() => {
-    if (visible === false) {
-      setLocalValue(value);
-    };
-  }, [visible, value]);
+    return value === item.value;
+  }, [value]);
 
   return <>
     <Wrapper
@@ -65,13 +58,12 @@ const Selector = ({ label, name, control, defaultValue = null, formItemProps = {
     <Popup
       visible={visible}
       onMaskClick={() => {
-        field.onChange(localValue);
         setVisible(false);
       }}
       bodyStyle={{ maxHeight: '60vh' }}
       destroyOnClose
       afterClose={() => {
-        if (value !== localValue) { field.onChange(localValue); }
+        field.onChange(value);
       }}
     >
       <ListStyled>
@@ -79,10 +71,11 @@ const Selector = ({ label, name, control, defaultValue = null, formItemProps = {
           key={item.value}
           onClick={() => {
             if (isSelectedItem(item)) {
-              setLocalValue(null);
+              field.onChange(null);
             } else {
-              setLocalValue(options.find((itm: any) => itm.value === item.value)?.value);
+              field.onChange(options.find((itm: any) => itm.value === item.value)?.value);
             }
+            setVisible(false);
           }}
           arrowIcon={isSelectedItem(item) ? <CheckOutline color={'#1890FF'} /> : false}
         >

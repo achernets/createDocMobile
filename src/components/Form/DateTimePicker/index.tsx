@@ -118,7 +118,8 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, dis
         {...field}
         selectionMode={'single'}
         onChange={(v) => {
-          onChange(v === null ? null : dayjs(v).valueOf())
+          onChange(v === null ? null : dayjs(v).valueOf());
+          setVisible(false);
         }}
         value={val}
         weekStartsOn={'Monday'}
@@ -131,7 +132,8 @@ const DatePicker = ({ label, name, control, defaultValue = -1, time = false, dis
       onClose={() => setVisibleTimePicker(false)}
       value={timeValue}
       onConfirm={(values) => {
-        onChange(dayjs(val).set('hours', Number(values[0])).set('minutes', Number(values[1])).set('seconds', 0).valueOf())
+        onChange(dayjs(val).set('hours', Number(values[0])).set('minutes', Number(values[1])).set('seconds', 0).valueOf());
+        setVisibleTimePicker(false);
       }}
       title={t('MobileCreateDoc.selectTime')}
       confirmText={t('MobileCreateDoc.confirmText')}
