@@ -6,7 +6,7 @@ import { TabsStyled } from "./styled";
 import ActionSheetSelect from "../Form/ActionSheetSelect";
 import useAppStore from "../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
-import { Account, FilterCondition, FilterFieldType, FilterItem, KazFilter, SecurityClassification, UserOrGroup, UserOrGroupType } from "../../api/data/";
+import { Account, FilterCondition, FilterFieldType, FilterItem, GroupSelector, KazFilter, SecurityClassification, UserOrGroup, UserOrGroupType } from "../../api/data/";
 import { compact, filter, find, includes, size } from "lodash";
 import { useDebounce } from "../../hooks";
 import { DocumentPatternServiceClient, UserManagementServiceClient } from "../../api";
@@ -22,7 +22,8 @@ export type ChangeUsersProperties = {
   scGrifs: SecurityClassification[],
   selected: UserOrGroup[],
   types: typeof TYPES_FILTERS[number][],
-  maxSelected?: number
+  maxSelected?: number,
+  fixedExec?: boolean
 }
 
 type ChangeUsersProps = {
@@ -40,7 +41,7 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
   })));
 
 
-  const { useFavorite = false, patternId = null, selected = [], scGrifs = [], filters = [], types = ['users'], maxSelected = -1 } = changeProps;
+  const { useFavorite = false, patternId = null, selected = [], scGrifs = [], filters = [], types = ['users'], maxSelected = -1, fixedExec = false } = changeProps;
 
   const [filterType, setFilterType] = useState<'users' | 'groups' | 'scs' | 'roles'>(types[0]);
   const [account, setAccount] = useState<Account | null>(null);
@@ -255,18 +256,23 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
         <List>
           {data?.flatData?.map(item => {
             const isSelected = includes(selectedUsers?.map(itm => itm?.id), item?.id);
+            const selected = isSelected ? find(selectedUsers, { id: item?.id }) : undefined;
             return <UserView
               key={item?.id}
               user={item}
-              arrowIcon={isSelected ? <MinusOutline /> : <AddOutline />}
+              arrowIcon={fixedExec && selected && selected?.fixedExec ? <span /> : isSelected ? <MinusOutline /> : <AddOutline />}
               onClick={() => {
+                if (fixedExec && selected && selected?.fixedExec) return;
                 if (!isSelected && selectedUsers.length + 1 > maxSelected && maxSelected > 0) {
                   Toast.show({
                     icon: 'fail',
                     content: t('MobileCreateDoc.errorMaxSelectedUsers', { count: maxSelected })
                   });
                 } else {
-                  setSelectedUsers(prev => isSelected ? prev.filter(itm => itm?.id !== item?.id) : [...prev, item])
+                  setSelectedUsers(prev => isSelected ? prev.filter(itm => itm?.id !== item?.id) : [...prev, {
+                    ...item,
+                    groupSelector: item?.type === UserOrGroupType.GROUP ? GroupSelector.ALL : item?.groupSelector
+                  }]);
                 }
               }}
             />;
@@ -282,16 +288,22 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
         destroyOnClose={true}
       >
         <List>
-          {selectedUsers.map(item =>
-            <UserView
+          {selectedUsers.map(item => {
+            return <UserView
               key={item?.id}
               user={item}
-              arrowIcon={<MinusOutline />}
+              arrowIcon={fixedExec && item?.fixedExec ? <span /> : <MinusOutline />}
               onClick={() => {
+                if (fixedExec && item?.fixedExec) return;
                 setSelectedUsers(prev => prev.filter(itm => itm?.id !== item?.id))
               }}
+              enableGroupSettings={true}
+              onUpdateElement={(userOrGroup: UserOrGroup) => setSelectedUsers(prev => prev.map(itm => {
+                if (itm?.id === userOrGroup?.id) return userOrGroup;
+                return itm;
+              }))}
             />
-          )}
+          })}
         </List>
       </Tabs.Tab>
     </TabsStyled>

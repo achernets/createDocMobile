@@ -4,13 +4,15 @@ import { GroupSelector, UserOrGroup, UserOrGroupType } from "../../api/data/";
 import useAppStore from "../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
 import { useTranslation } from "react-i18next";
+import Selector from "../Selector";
 
 type UserViewProps = {
   user: UserOrGroup,
-  enableGroupSettings?: boolean
+  enableGroupSettings?: boolean,
+  onUpdateElement?: (userOrGroup: UserOrGroup) => void,
 } & ListItemProps
 
-const UserView = ({ user, enableGroupSettings = false, ...props }: UserViewProps): JSX.Element => {
+const UserView = ({ user, enableGroupSettings = false, onUpdateElement, ...props }: UserViewProps): JSX.Element => {
 
   const avatarUrl = useAppStore(useShallow((state) => state.avatarUrl));
 
@@ -56,7 +58,20 @@ const UserView = ({ user, enableGroupSettings = false, ...props }: UserViewProps
     }
     description={<Space direction={'vertical'}>
       {subTitle === '' ? <span>&nbsp;</span> : subTitle}
-      {user?.type === UserOrGroupType.GROUP && enableGroupSettings ? <Ellipsis style={{ color: 'blue' }} content={t(`GroupSelector.${GroupSelector[user.groupSelector]}`)} /> : ''}
+      {user?.type === UserOrGroupType.GROUP && enableGroupSettings ? <Selector
+        value={user.groupSelector}
+        options={['ALL', 'MAX_FREE', 'LAST_EXEC', 'ANY'].map(item => ({
+          label: t(`GroupSelector.${item}`),
+          value: GroupSelector[item]
+        }))}
+        //@ts-ignore
+        onChange={(value) => onUpdateElement && onUpdateElement({
+          ...user,
+          groupSelector: value
+        })}
+      >
+        <Ellipsis style={{ color: 'blue' }} content={t(`GroupSelector.${GroupSelector[user.groupSelector]}`)} />
+      </Selector> : ''}
     </Space>}
     {...props}
   >

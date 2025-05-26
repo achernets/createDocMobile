@@ -67,7 +67,8 @@ const Stage = ({ name, pattern, control, scGrifs = [] }: StageProps): JSX.Elemen
         selected: userOrGroups,
         scGrifs: scGrifs,
         maxSelected: maxSigner,
-        types: compact(['users', actionType !== DocPatternStageActionType.SIGN ? 'groups' : null, 'scs', USE_BPM_ROLES ? 'roles' : null])
+        types: compact(['users', actionType !== DocPatternStageActionType.SIGN ? 'groups' : null, 'scs', USE_BPM_ROLES ? 'roles' : null]),
+        fixedExec: true
       }}
     />
     <StageDeadline
