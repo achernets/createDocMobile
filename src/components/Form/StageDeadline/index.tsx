@@ -1,5 +1,5 @@
 import { FormItemProps, Input, Popup } from "antd-mobile";
-import { JSX, useState } from "react";
+import { JSX, useMemo, useState } from "react";
 import { Wrapper } from "./styled";
 import { Control, useController, useWatch } from "react-hook-form";
 import Switch from "../Switch";
@@ -9,6 +9,7 @@ import useAppStore from "../../../store/useAppStore";
 import { useShallow } from "zustand/shallow";
 import { get } from "lodash";
 import { useTranslation } from "react-i18next";
+import { declension, getLetterJiraTime, getNumberJiraTime } from "../../../utils";
 
 type StageDeadlineFProps = {
   defaultValue?: boolean,
@@ -19,14 +20,16 @@ type StageDeadlineFProps = {
 };
 
 const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabled = false }: StageDeadlineFProps): JSX.Element => {
-    const { STAGE_PERIOD_OF_EXECUTION } = useAppStore(useShallow((state) => ({
-    STAGE_PERIOD_OF_EXECUTION: get(state, 'SETTINGS.STAGE_PERIOD_OF_EXECUTION', true)
+  const { STAGE_PERIOD_OF_EXECUTION, MIN_PERIOD_DATE } = useAppStore(useShallow((state) => ({
+    STAGE_PERIOD_OF_EXECUTION: get(state, 'SETTINGS.STAGE_PERIOD_OF_EXECUTION', true),
+    MIN_PERIOD_DATE: get(state, 'SETTINGS.MIN_PERIOD_DATE', '1d')
   })));
   const { field: { value } } = useController({
     name: `${name}.deadLine`,
     control,
     defaultValue
   });
+
   const [visible, setVisible] = useState<boolean>(false);
 
   const { t } = useTranslation();
@@ -41,16 +44,24 @@ const StageDeadline = ({ name, control, defaultValue, formItemProps = {}, disabl
     name: `${name}.cardActivityPeriod`
   });
 
+  const stringValue = useMemo(() => {
+    const parseValue = {
+      count: getNumberJiraTime(runPerriodicall ? cardActivityPeriod : value) || 0,
+      type: getLetterJiraTime(runPerriodicall ? cardActivityPeriod : value) || getLetterJiraTime(MIN_PERIOD_DATE)
+    };
+    return declension(parseValue.count, t(`JIRA_TIME_DOC.${parseValue.type}_1`, { number: parseValue.count }), t(`JIRA_TIME_DOC.${parseValue.type}_2`, { number: parseValue.count }), t(`JIRA_TIME_DOC.${parseValue.type}_3`, { number: parseValue.count }))
+  }, [runPerriodicall, cardActivityPeriod, value, t, MIN_PERIOD_DATE]);
+
   return <Wrapper
     label={<>
-      {runPerriodicall ?  t('MobileCreateDoc.period') : t('MobileCreateDoc.deadLine')}
+      {runPerriodicall ? t('MobileCreateDoc.period') : t('MobileCreateDoc.deadLine')}
     </>}
     trigger='onConfirm'
     onClick={() => disabled ? undefined : setVisible(true)}
     {...formItemProps}
   >
     <Input
-      value={runPerriodicall ? cardActivityPeriod : value}
+      value={stringValue}
       readOnly={true}
     />
     <Popup

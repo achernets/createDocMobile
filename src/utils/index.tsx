@@ -242,4 +242,19 @@ export const sendMessageMobile = (action, documentId: string | null) => {
   } else {
     console.log("No native interface found");
   }
-}
+};
+
+export const declension = (num: number, input:string, input2:string, input3:string) => {
+  let count = num % 100;
+  if (count >= 5 && count <= 20) {
+    return input3;
+  } else {
+    count = count % 10;
+    if (count === 1) {
+      return input;
+    } else if (count >= 2 && count <= 4) {
+      return input2;
+    }
+  }
+  return input3;
+};

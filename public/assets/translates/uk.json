@@ -1801,7 +1801,8 @@
     "shareDocRule": "Ознайомити з документом",
     "decorators": "Декоратори",
     "allDecorators": "Усі декоратори",
-    "selectedDecorators": "Вибрані декоратори"
+    "selectedDecorators": "Вибрані декоратори",
+    "docFieldsTask": "Перерахувати значення колонок C1"
   },
   "AccessRule": {
     "forAuthor": "Доступність автору",
@@ -3249,7 +3250,8 @@
     "addComments": "Додати коментар",
     "moveToCard": "Повернути статус \"%{name}\"",
     "deadLine": "Продовжено %{date}",
-    "increaseDeadLine": "Продовжити"
+    "increaseDeadLine": "Продовжити",
+    "coExecutors": "Виконавці"
   },
   "CreateUpdateCommentMonitoring": {
     "title": "Додати/зміни коментар",
@@ -3441,6 +3443,41 @@
     "dialogRemoveAtt": "Видалити вкладення {{fileName}}",
     "addFile": "Додати файл",
     "addAttachmentFromPattern": "Додати вкладення з шаблону",
-    "changeUsersOrGroup": "Додати користувача"
+    "changeUsersOrGroup": "Додати користувача",
+    "add": "Додати"
+  },
+  "JIRA_TIME_DOC": {
+    "s": "Секунд",
+    "m": "Хвилин",
+    "h": "Годин",
+    "d": "Днів",
+    "w": "Тижнів",
+    "M": "Місяців",
+    "q": "Квартал",
+    "y": "Років",
+    "s_1": "{{number}} секунда",
+    "s_2": "{{number}} секунди",
+    "s_3": "{{number}} секунд",
+    "m_1": "{{number}} хвилина",
+    "m_2": "{{number}} хвилини",
+    "m_3": "{{number}} хвилин",
+    "h_1": "{{number}} година",
+    "h_2": "{{number}} години",
+    "h_3": "{{number}} годин",
+    "d_1": "{{number}} день",
+    "d_2": "{{number}} дня",
+    "d_3": "{{number}} днів",
+    "w_1": "{{number}} тиждень",
+    "w_2": "{{number}} тижні",
+    "w_3": "{{number}} тижнів",
+    "M_1": "{{number}} місяць",
+    "M_2": "{{number}} місяця",
+    "M_3": "{{number}} місяців",
+    "q_1": "{{number}} квартал",
+    "q_2": "{{number}} квартала",
+    "q_3": "{{number}} кварталів",
+    "y_1": "{{number}} рік",
+    "y_2": "{{number}} роки",
+    "y_3": "{{number}} років"
   }
 }

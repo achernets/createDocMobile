@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { AuthServiceClient, initClient, UserManagementServiceClient } from '../api';
 import { Account, UserOrGroup, DocumentPattern, DocumentPatternGroup, KazFilter, FilterItem, FilterFieldType, FilterCondition } from '../api/data';
-import { find } from 'lodash';
+import { find, get } from 'lodash';
 import i18n from '../i18n';
 import { getCurrentLocale } from '../utils';
 import dayjs from 'dayjs';
@@ -51,8 +51,7 @@ const useAppStore = create<AppStore>((set) => ({
       const locale = getCurrentLocale();
       i18n.changeLanguage(locale);
       dayjs.locale(locale);
-      // const settingsBack = await AuthServiceClient.getSettings();
-      // console.log(settingsBack.infoMap)
+      const settingsBack = await AuthServiceClient.getSettings();
       const user = token === null ? null : await AuthServiceClient.refreshAuthSession(
         token
       );
@@ -77,7 +76,8 @@ const useAppStore = create<AppStore>((set) => ({
         account: find(accounts, { main: true }) || null,
         accounts: accounts,
         SETTINGS: {
-          ...settings
+          ...settings,
+          MIN_PERIOD_DATE: get(settingsBack, 'infoMap.MIN_PERIOD_DATE', '1d')
         }
       });
     } catch (error) {
