@@ -224,17 +224,21 @@ export const getContentItemOriginalKey = (contentItem: ContentItem) => {
   return contentItem.key;
 };
 
-export const sendMessageMobile = (message, id: string | null) => {
+export const sendMessageMobile = (action, documentId: string | null) => {
   //@ts-ignore
   if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.callbackHandler) {
     // iOS (WKWebView) 
     //@ts-ignore
-    window.webkit.messageHandlers.callbackHandler.postMessage([message, id]);
+    window.webkit.messageHandlers.callbackHandler.postMessage([action, documentId]);
     //@ts-ignore
   } else if (window.Android && window.Android.showMessage) {
     // Android (WebView)
+    const jsonString = JSON.stringify({
+      action: action,
+      documentId: documentId
+    });
     //@ts-ignore
-    window.Android.showMessage([message, id]);
+    window.Android.showMessage(jsonString);
   } else {
     console.log("No native interface found");
   }
