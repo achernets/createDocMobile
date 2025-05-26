@@ -3,12 +3,13 @@ import { ModalTableEdit, useModalStore } from '../../../store/useModals';
 import { useCallback, useMemo, useState } from 'react';
 import { ModalStyled } from '../styled';;
 import { cloneDeep, compact, filter, findIndex, get, groupBy, map, maxBy, orderBy, reject, values } from 'lodash';
-import { getCurrentLocale, parseNumber } from '../../../utils';
+import { getCurrentLocale, parseDate, parseNumber } from '../../../utils';
 import { AddCircleOutline, DeleteOutline, EditSOutline } from 'antd-mobile-icons';
-import { ContentItem, ContentTableDefinition } from '../../../api/data';
+import { ContentItem, ContentItemType, ContentTableDefinition } from '../../../api/data';
 import { useShallow } from 'zustand/shallow';
 import { getItemValue } from '../../../utils/document';
 import { useTranslation } from 'react-i18next';
+import dayjs from 'dayjs';
 
 const cellStyle: React.CSSProperties = {
   minWidth: 50,
@@ -94,6 +95,24 @@ const TableEditModal = ({ id, params: { cb, contentItem = new ContentItem({
 
   const columnCount = columns.length;
 
+  const getValueCell = useCallback((cell: ContentItem) => {
+    const v = getItemValue(cell, getCurrentLocale(), true);
+    switch (cell.type) {
+      case ContentItemType.CALENDAR_RANGE:
+        const dateStart = parseDate(v.dateStart) !== null ? dayjs(parseDate(v.dateStart)).format('DD.MM.YYYY') : null;
+        const dateEnd = parseDate(v.dateEnd) !== null ? dayjs(parseDate(v.dateEnd)).format('DD.MM.YYYY') : null;
+        return dateStart !== null && dateEnd !== null ? `${dateStart} - ${dateEnd}` : null;
+      case ContentItemType.CALENDAR:
+        return parseDate(v) !== null ? dayjs(parseDate(v)).format('DD.MM.YYYY') : null;
+      case ContentItemType.DATE_TIME:
+        return parseDate(v) !== null ? dayjs(parseDate(v)).format('DD.MM.YYYY hh:mm') : null;
+      case ContentItemType.CHECKBOX:
+        return v === 'true' || v === true ? t('MobileCreateDoc.true') : t('MobileCreateDoc.false');
+      default:
+        return v;
+    }
+  }, []);
+
   return (
     <ModalStyled
       visible
@@ -147,7 +166,7 @@ const TableEditModal = ({ id, params: { cb, contentItem = new ContentItem({
                   </div>
                   {row.map((cell: ContentItem, cellIndex: number) => (
                     <div key={cellIndex} style={cellStyle} title={cell.key}>
-                      {getItemValue(cell, getCurrentLocale(), true)}
+                      {getValueCell(cell)}
                     </div>
                   ))}
                   {!disabled && <div key={`a${rowIndex}`} style={cellStyle} title={String(rowIndex + 1)}>

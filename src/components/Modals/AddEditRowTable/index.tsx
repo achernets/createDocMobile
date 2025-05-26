@@ -113,7 +113,8 @@ const AddEditRowTableModal = ({ id, params: { cb, items = [] } }: Omit<ModalAddE
         <Form
           name="add_edit_row"
           style={{
-            width: '100%'
+            width: '100%',
+            overflow: 'scroll'
           }}
         >
           <div style={{
