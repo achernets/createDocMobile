@@ -99,6 +99,12 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
               fType: FilterFieldType.STRING,
               condition: FilterCondition.EQUAL
             }) : null,
+            account?.id && account?.id !== null ? new FilterItem({
+              field: 'mainAccount',
+              value: account?.id,
+              fType: FilterFieldType.STRING,
+              condition: FilterCondition.EQUAL
+            }) : false,
             ...filters
           ])
         });

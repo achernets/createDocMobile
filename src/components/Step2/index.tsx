@@ -346,7 +346,7 @@ const Step2 = (): JSX.Element => {
           new FreezeDocumentPattern({
             originalPatternId: pattern.id
           }),
-          filter(data.stages, { changeOnDraft: true }).map(stage=> new DocumentPatternStage(stage)),
+          filter(data.stages, { changeOnDraft: true }).map(stage => new DocumentPatternStage(stage)),
           []
         );
         if (size(freezePattern?.exList) > 0 || freezePattern.fillPattern === null) {
@@ -393,7 +393,7 @@ const Step2 = (): JSX.Element => {
             editMode: AttachmentEditMode.MULTIPLE,
             attachmentExtStatus: attachment.attachmentExtStatus
           })),
-          map(data.docRelations, doc=> new DocumentRelation(doc))
+          map(data.docRelations, doc => new DocumentRelation(doc))
         );
         if (!isDraft) {
           const permissions = await DocumentServiceClient.calculatePermissions(
@@ -508,22 +508,22 @@ const Step2 = (): JSX.Element => {
               </Tabs.Tab>}
             </Fragment>
           })}
-          <Tabs.Tab title={t('MobileCreateDoc.attachments')} key={"atts"}>
+          {docInfo?.permissions?.attachmentAdd && <Tabs.Tab title={t('MobileCreateDoc.attachments')} key={"atts"}>
             <UploadAttAndPatternTemplate
               name={"attachments"}
               control={control}
               pattern={pattern}
               allowSubStatuses={[AttachmentExtStatus.PRIMARY, AttachmentExtStatus.SECONDARY]}
             />
-          </Tabs.Tab>
+          </Tabs.Tab>}
 
-          <Tabs.Tab title={t('MobileCreateDoc.stages')} key={"stages"}>
+          {size(docInfo?.stages) > 0 && <Tabs.Tab title={t('MobileCreateDoc.stages')} key={"stages"}>
             <Stages
               name={"stages"}
               control={control}
               pattern={pattern}
             />
-          </Tabs.Tab>
+          </Tabs.Tab>}
         </TabsStyled>
       </FormStyled>
     </>
