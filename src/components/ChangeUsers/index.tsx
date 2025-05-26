@@ -157,7 +157,7 @@ const ChangeUsers = ({ visible, onHide, onSave, changeProps, }: ChangeUsersProps
         value: 'users'
       } : null,
       includes(types, 'groups') ? {
-        label: t('MobileCreateDoc.findByUsers'),
+        label: t('MobileCreateDoc.findByGroups'),
         value: 'groups'
       } : null,
       includes(types, 'roles') ? {
