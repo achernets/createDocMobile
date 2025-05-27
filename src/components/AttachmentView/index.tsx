@@ -1,6 +1,6 @@
 import { JSX } from "react";
 import { Attachment, AttachmentExtStatus } from "../../api/data";
-import { Button, Ellipsis, Image, Space } from "antd-mobile";
+import { Button, Ellipsis, Image } from "antd-mobile";
 import { getFileIcon } from "../../utils";
 import { invert } from "lodash";
 import { DeleteOutline } from "antd-mobile-icons";
