@@ -17,21 +17,13 @@ const AttachmentView = ({ attachment, remove, extStatusShow = false }: Attachmen
 
   const { t } = useTranslation();
 
-  return <div style={{ position: 'relative' }}>
-    <Space
-      align={'center'}
-      justify={'center'}
-    >
+  return <div style={{ position: 'relative', display: 'flex', gap: 4, alignItems: 'center' }}>
       <Image
         src={getFileIcon(attachment.fileName)}
         width={28}
         height={28}
       />
-      <Space direction={'vertical'}
-        style={{
-          '--gap': '4px'
-        }}
-      >
+      <div  style={{ position: 'relative', display: 'flex', gap: 4, flexDirection: 'column' }}>
         <Ellipsis content={attachment.fileName} />
         {extStatusShow && <Ellipsis
           content={t(`AttachmentExtStatus.${invert(AttachmentExtStatus)[attachment.attachmentExtStatus]}`)}
@@ -40,8 +32,7 @@ const AttachmentView = ({ attachment, remove, extStatusShow = false }: Attachmen
             fontSize: 14
           }}
         />}
-      </Space>
-    </Space>
+      </div>
     {remove && <Button
       fill={'none'}
       onClick={(e) => {

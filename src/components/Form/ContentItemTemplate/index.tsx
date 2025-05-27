@@ -64,7 +64,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.TEXT_FIELD:
         return <Input
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.value.strValue`}
+          name={`${pathAllItems}.${contentItemKey}.value.strValue`}
           control={control}
           readOnly={readOnlyItem}
           formItemProps={{
@@ -74,7 +74,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.MULTILINE_TEXT_FIELD:
         return <TextArea
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.value.strValue`}
+          name={`${pathAllItems}.${contentItemKey}.value.strValue`}
           control={control}
           showCount
           maxLength={2000}
@@ -86,7 +86,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.CHECKBOX:
         return <Checkbox
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.value.strValue`}
+          name={`${pathAllItems}.${contentItemKey}.value.strValue`}
           control={control}
           isString={true}
           disabled={readOnlyItem}
@@ -97,7 +97,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.COMBO_BOX:
         return <Selector
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.value.strValue`}
+          name={`${pathAllItems}.${contentItemKey}.value.strValue`}
           control={control}
           disabled={readOnlyItem}
           formItemProps={{
@@ -112,7 +112,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.DATE_TIME:
         return <DatePicker
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.value.strValue`}
+          name={`${pathAllItems}.${contentItemKey}.value.strValue`}
           control={control}
           disabled={readOnlyItem}
           time={item.type === ContentItemType.DATE_TIME}
@@ -123,7 +123,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.USER_CHOICE:
         return <Users
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.users`}
+          name={`${pathAllItems}.${contentItemKey}.users`}
           control={control}
           disabled={readOnlyItem}
           changeProps={{
@@ -150,7 +150,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.SWITCH_ITEM:
         return <RadioGroup
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.value.strValue`}
+          name={`${pathAllItems}.${contentItemKey}.value.strValue`}
           control={control}
           disabled={readOnlyItem}
           formItemProps={{
@@ -165,7 +165,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.HTTP_LINK:
         return <InputUrl
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.value.strValue`}
+          name={`${pathAllItems}.${contentItemKey}.value.strValue`}
           control={control}
           readOnly={readOnlyItem}
           formItemProps={{
@@ -191,7 +191,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.CALENDAR_RANGE:
         return <RangeDatePicker
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.value`}
+          name={`${pathAllItems}.${contentItemKey}.value`}
           control={control}
           disabled={readOnlyItem}
           formItemProps={{
@@ -201,7 +201,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.CURRENCY:
         return <Currency
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.value.strValue`}
+          name={`${pathAllItems}.${contentItemKey}.value.strValue`}
           control={control}
           disabled={readOnlyItem}
           formItemProps={{
@@ -211,7 +211,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.ATTACHMENT:
         return <AttachmentItem
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.attachment`}
+          name={`${pathAllItems}.${contentItemKey}.attachment`}
           control={control}
           disabled={readOnlyItem}
           formItemProps={{
@@ -221,10 +221,10 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.ORG_STRUCTURE:
         return <DepartmentItem
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.department`}
+          name={`${pathAllItems}.${contentItemKey}.department`}
           control={control}
           disabled={readOnlyItem}
-          itemKey={item.key}
+          itemKey={contentItemKey}
           formItemProps={{
             required: requiredItem
           }}
@@ -232,11 +232,11 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.HAND_BOOK:
         return <HandBookItem
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.value.hbValue`}
+          name={`${pathAllItems}.${contentItemKey}.value.hbValue`}
           control={control}
           disabled={readOnlyItem}
           handBook={item.handBook}
-          itemKey={item.key}
+          itemKey={contentItemKey}
           formItemProps={{
             required: requiredItem
           }}
@@ -245,7 +245,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.TABLE:
         return <TableItem
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.childItems`}
+          name={`${pathAllItems}.${contentItemKey}.childItems`}
           control={control}
           disabled={readOnlyItem}
           contentItem={item}
@@ -256,7 +256,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.CONTAINER:
         return <ContainerItem
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.childItems`}
+          name={`${pathAllItems}.${contentItemKey}.childItems`}
           control={control}
           disabled={readOnlyItem}
           formItemProps={{
@@ -266,7 +266,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
       case ContentItemType.JIRA_TIME:
         return <JiraTime
           label={item.oName}
-          name={`${pathAllItems}.${item.key}.value.strValue`}
+          name={`${pathAllItems}.${contentItemKey}.value.strValue`}
           control={control}
           disabled={readOnlyItem}
           formItemProps={{

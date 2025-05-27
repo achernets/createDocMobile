@@ -11,7 +11,7 @@ import { getItemValue } from '../../../utils/document';
 import { useTranslation } from 'react-i18next';
 import dayjs from 'dayjs';
 
-const cellStyle: React.CSSProperties = {
+const headerCellStyle: React.CSSProperties = {
   minWidth: 50,
   maxWidth: '100%',
   overflow: 'hidden',
@@ -21,7 +21,19 @@ const cellStyle: React.CSSProperties = {
   border: '1px solid #e0e0e0',
   textAlign: 'center',
   boxSizing: 'border-box',
-}
+};
+
+const cellStyle: React.CSSProperties = {
+  minWidth: 50,
+  maxWidth: '100%',
+  padding: '8px',
+  border: '1px solid #e0e0e0',
+  textAlign: 'center',
+  boxSizing: 'border-box',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+};
 
 const TableEditModal = ({ id, params: { cb, contentItem = new ContentItem({
   tableDefenition: new ContentTableDefinition({
@@ -147,7 +159,7 @@ const TableEditModal = ({ id, params: { cb, contentItem = new ContentItem({
                 <div
                   key={index}
                   style={{
-                    ...cellStyle,
+                    ...headerCellStyle,
                     fontWeight: 'bold',
                     background: '#f5f5f5',
                     position: 'sticky',

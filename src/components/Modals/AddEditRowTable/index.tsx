@@ -18,7 +18,7 @@ const AddEditRowTableModal = ({ id, params: { cb, items = [] } }: Omit<ModalAddE
   const { control, handleSubmit, getValues, setValue, watch } = useForm({
     defaultValues: {
       contentItems: reduce(items, (hash, itm) => {
-        hash[itm.key] = itm;
+        hash[itm.originalKey] = itm;
         return hash;
       }, {})
     },
@@ -126,16 +126,16 @@ const AddEditRowTableModal = ({ id, params: { cb, items = [] } }: Omit<ModalAddE
             {map(items, (contentItem: ContentItem) => {
               return <Fragment key={contentItem.key}>
                 <ContentItemTemplate
-                  contentItemKey={contentItem.key}
+                  contentItemKey={contentItem.originalKey}
                   control={control}
                   pathAllItems='contentItems'
-                  pathLink={`contentItems.${contentItem.key}`}
+                  pathLink={`contentItems.${contentItem.originalKey}`}
                   //@ts-ignore
                   addChanges={() => setChanges(prev => [
                     ...prev,
                     {
                       holderPath: null,
-                      pathItem: `contentItems.${contentItem.key}`,
+                      pathItem: `contentItems.${contentItem.originalKey}`,
                       item: contentItem
                     }
                   ])}
