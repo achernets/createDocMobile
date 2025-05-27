@@ -22,10 +22,11 @@ type HandBookItemProps = {
   formItemProps?: FormItemProps,
   disabled?: boolean,
   handBook: HandBook,
-  itemKey: string
+  itemKey: string,
+  filters?: FilterItem[]
 }
 
-const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps = {}, disabled = false, handBook, itemKey }: HandBookItemProps): JSX.Element => {
+const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps = {}, disabled = false, handBook, itemKey, filters = [] }: HandBookItemProps): JSX.Element => {
   const { field: { value, onChange }, fieldState: { error } } = useController({
     name,
     control,
@@ -54,7 +55,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
 
 
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage } = useInfiniteQuery({
-    queryKey: ['getAllHandBookRows', 'contentItem', itemKey, columnId, debouncedSearch, debouncedDateSearch, token],
+    queryKey: ['getAllHandBookRows', 'contentItem', itemKey, columnId, debouncedSearch, debouncedDateSearch, token, filters],
     queryFn: async ({ pageParam }) => {
       try {
         const r = await HandBookServiceClient.getAllHandBookRows(token, handBook.id, new KazFilter({
@@ -89,6 +90,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
               fType: findColumn?.columnType === HBColumnType.DATE ? FilterFieldType.DATE : FilterFieldType.STRING,
               additionValue: columnId
             }),
+            ...filters
           ]),
           orders: []
         }));

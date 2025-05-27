@@ -139,6 +139,7 @@ const AddEditRowTableModal = ({ id, params: { cb, items = [] } }: Omit<ModalAddE
                       item: contentItem
                     }
                   ])}
+                  getValues={getValues}
                 />
               </Fragment>
             })}

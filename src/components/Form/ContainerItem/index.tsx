@@ -133,6 +133,7 @@ const ContainerItem = ({ label, name, control, defaultValue, formItemProps = {} 
               item: contentItem
             }
           ])}
+          getValues={getValues}
         />
       </Fragment>
     })}

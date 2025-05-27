@@ -1,11 +1,11 @@
 import { useCallback } from "react";
 import { ContentItem, ContentItemType, FilterCondition, FilterFieldType, FilterItem } from "../../../api/data";
 import Input from "../Input";
-import { Control, useWatch } from "react-hook-form";
+import { Control, UseFormGetValues, useWatch } from "react-hook-form";
 import TextArea from "../TextArea";
 import Checkbox from "../Checkbox";
 import Selector from "../Selector";
-import { invert, map } from "lodash";
+import { get, invert, map, size } from "lodash";
 import DatePicker from "../DateTimePicker";
 import Users from "../Users";
 import InputUrl from "../InputUrl";
@@ -28,15 +28,35 @@ type ContentItemTemplateProps = {
   control: Control<any>,
   contentItemKey: string,
   patternId?: string,
-  addChanges: () => void
+  addChanges: () => void,
+  getValues: UseFormGetValues<any>
 };
 
-const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', control, pathLink, patternId, addChanges }: ContentItemTemplateProps) => {
+const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', control, pathLink, patternId, addChanges, getValues }: ContentItemTemplateProps) => {
 
   const [conItem, readOnlyItem, requiredItem] = useWatch({
     control: control,
     name: [`${pathAllItems}.${contentItemKey}`, `${pathLink}.readOnly`, `${pathLink}.requared`]
   });
+
+  const getMoreFiltersByConentItem = useCallback(() => {
+    if (size(conItem?.itemHBFilterList) > 0) {
+      return map(conItem.itemHBFilterList, item => {
+        const cItem = getValues(`${pathAllItems}.${item.contentFilterKey}`);
+        const valueItem = get(cItem, 'value.hbValue.row.id', null);
+        return new FilterItem({
+          field: item.searchKey,
+          fType: FilterFieldType.STRING,
+          condition: item.condition,
+          value: valueItem === null ? item.defValue : valueItem,
+          additionValue: get(item, 'contentFilterColumn.id', null),
+          additionValue1: get(item, 'reverseLeftColumn.id', null),
+          additionValue2: get(item, 'reverseRightColumn.id', null)
+        });
+      });
+    }
+    return [];
+  }, [conItem]);
 
 
   const renderItem = useCallback((item: ContentItem) => {
@@ -220,6 +240,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
           formItemProps={{
             required: requiredItem
           }}
+          filters={getMoreFiltersByConentItem()}
         />;
       case ContentItemType.TABLE:
         return <TableItem

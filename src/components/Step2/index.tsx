@@ -376,7 +376,8 @@ const Step2 = (): JSX.Element => {
                     strValue: contentItem?.value?.strValue && contentItem?.value?.strValue !== null ? String(contentItem?.value?.strValue) : null,
                     strValue2: contentItem?.value?.strValue2 && contentItem?.value?.strValue2 !== null ? String(contentItem?.value?.strValue2) : null,
                     hbValue: new ContentItemHBValue(contentItem?.value?.hbValue)
-                  })
+                  }),
+                  tableChildContentsToRemove: map(contentItem?.tableChildContentsToRemove)
                 }) : null
               });
             }));
@@ -493,6 +494,7 @@ const Step2 = (): JSX.Element => {
               formEdit={docInfo?.formEdit}
               setChanges={setChanges}
               notRemoveScIds={map(docInfo?.scGrifs, itm => itm.id)}
+              getValues={getValues}
             />
           </Tabs.Tab>
           {map(holders, (holder: ContentHolder, index: number) => {
@@ -504,6 +506,7 @@ const Step2 = (): JSX.Element => {
                   control={control}
                   setChanges={setChanges}
                   patternId={pattern.id}
+                  getValues={getValues}
                 />
               </Tabs.Tab>}
             </Fragment>

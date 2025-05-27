@@ -3,7 +3,7 @@ import Users from "../../Form/Users";
 import TextArea from "../../Form/TextArea";
 import Checkbox from "../../Form/Checkbox";
 import DateTimePicker from "../../Form/DateTimePicker";
-import { Control, useFieldArray, useWatch } from "react-hook-form";
+import { Control, useFieldArray, UseFormGetValues, useWatch } from "react-hook-form";
 import { ContentHolder, DocumentAccessPolicy, DocumentAccessPolicyType, DocumentPattern, FilterCondition, FilterFieldType, FilterItem } from "../../../api/data";
 import { includes, map } from "lodash";
 import Holder from "../../Form/Holder";
@@ -20,12 +20,13 @@ type TabInfoProps = {
   watch: any,
   formEdit: string | null,
   setChanges: (newValue: []) => void,
-  notRemoveScIds?: string[]
+  notRemoveScIds?: string[],
+  getValues: UseFormGetValues<any>
 };
 
 const FORM_EDIT_TYPE = ['inbox_simple', 'inbox_simple_not_required', 'inbox'];
 
-const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }: TabInfoProps): JSX.Element => {
+const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [], getValues }: TabInfoProps): JSX.Element => {
   const [document, scGrifs, controlUsers] = useWatch({
     control,
     name: ['document', 'scGrifs', 'controlUsers'],
@@ -130,6 +131,7 @@ const TabInfo = ({ control, pattern, setChanges, formEdit, notRemoveScIds = [] }
           control={control}
           setChanges={setChanges}
           patternId={pattern.id}
+          getValues={getValues}
         />}
       </Fragment>
     })}

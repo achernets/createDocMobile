@@ -1,5 +1,5 @@
 import { Fragment, JSX } from "react";
-import { Control, useWatch } from "react-hook-form";
+import { Control, UseFormGetValues, useWatch } from "react-hook-form";
 import { ContentHolder, ContentHolderLink } from "../../../api/data";
 import { Ellipsis } from "antd-mobile";
 import { map, reduce } from "lodash";
@@ -12,10 +12,11 @@ type HolderProps = {
   control: Control<any>,
   withName?: boolean,
   setChanges: (newValue: []) => void,
-  patternId: string
+  patternId: string,
+  getValues: UseFormGetValues<any>
 };
 
-const Holder = ({ name, control, holder, withName = true, setChanges, patternId }: HolderProps): JSX.Element => {
+const Holder = ({ name, control, holder, withName = true, setChanges, patternId, getValues }: HolderProps): JSX.Element => {
 
   const visibles = useWatch({
     control: control,
@@ -56,6 +57,7 @@ const Holder = ({ name, control, holder, withName = true, setChanges, patternId 
               }
             ])}
             patternId={patternId}
+            getValues={getValues}
           />}
         </Fragment>
       })}
