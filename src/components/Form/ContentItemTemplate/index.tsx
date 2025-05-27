@@ -240,7 +240,7 @@ const ContentItemTemplate = ({ contentItemKey, pathAllItems = 'contentItems', co
           formItemProps={{
             required: requiredItem
           }}
-          filters={getMoreFiltersByConentItem()}
+          getMoreFiltersByConentItem={getMoreFiltersByConentItem}
         />;
       case ContentItemType.TABLE:
         return <TableItem

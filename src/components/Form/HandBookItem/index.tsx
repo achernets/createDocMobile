@@ -23,10 +23,10 @@ type HandBookItemProps = {
   disabled?: boolean,
   handBook: HandBook,
   itemKey: string,
-  filters?: FilterItem[]
+  getMoreFiltersByConentItem?: () => FilterItem[]
 }
 
-const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps = {}, disabled = false, handBook, itemKey, filters = [] }: HandBookItemProps): JSX.Element => {
+const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps = {}, disabled = false, handBook, itemKey, getMoreFiltersByConentItem = () => [] }: HandBookItemProps): JSX.Element => {
   const { field: { value, onChange }, fieldState: { error } } = useController({
     name,
     control,
@@ -55,7 +55,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
 
 
   const { data, isLoading, isFetching, hasNextPage, fetchNextPage } = useInfiniteQuery({
-    queryKey: ['getAllHandBookRows', 'contentItem', itemKey, columnId, debouncedSearch, debouncedDateSearch, token, filters],
+    queryKey: ['getAllHandBookRows', 'contentItem', itemKey, columnId, debouncedSearch, debouncedDateSearch, token, getMoreFiltersByConentItem()],
     queryFn: async ({ pageParam }) => {
       try {
         const r = await HandBookServiceClient.getAllHandBookRows(token, handBook.id, new KazFilter({
@@ -90,7 +90,7 @@ const HandBookItem = ({ label, name, control, defaultValue = null, formItemProps
               fType: findColumn?.columnType === HBColumnType.DATE ? FilterFieldType.DATE : FilterFieldType.STRING,
               additionValue: columnId
             }),
-            ...filters
+            ...getMoreFiltersByConentItem()
           ]),
           orders: []
         }));

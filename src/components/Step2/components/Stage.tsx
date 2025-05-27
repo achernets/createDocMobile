@@ -25,9 +25,9 @@ const Stage = ({ name, pattern, control, scGrifs = [] }: StageProps): JSX.Elemen
   const { t } = useTranslation();
 
 
-  const [userOrGroups, maxSigner, actionType, changeOnDraft] = useWatch({
+  const [userOrGroups, maxSigner, actionType, changeOnDraft, stageReq] = useWatch({
     control: control,
-    name: [`${name}.userOrGroups`, `${name}.maxSigner`, `${name}.actionType`, `${name}.changeOnDraft`]
+    name: [`${name}.userOrGroups`, `${name}.maxSigner`, `${name}.actionType`, `${name}.changeOnDraft`, `${name}.stageReq`]
   })
 
   const filterActionType = useMemo(() => {
@@ -47,6 +47,9 @@ const Stage = ({ name, pattern, control, scGrifs = [] }: StageProps): JSX.Elemen
       name={`${name}.userOrGroups`}
       label={t('MobileCreateDoc.executors')}
       disabled={!changeOnDraft}
+      formItemProps={{
+        required: stageReq
+      }}
       changeProps={{
         useFavorite: true,
         patternId: pattern?.id || null,

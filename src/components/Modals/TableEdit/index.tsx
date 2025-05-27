@@ -55,6 +55,7 @@ const TableEditModal = ({ id, params: { cb, contentItem = new ContentItem({
         ...item,
         originalKey: item.key,
         id: null,
+        key: `${item.key}_${rowNumber}_${item.order}`,
         rowNumber: rowNumber
       }))),
       cb: (itms) => setItems(prev => [...prev, ...itms])
